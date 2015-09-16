@@ -28,20 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Board = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.SuspendLayout();
+            // 
+            // Board
+            // 
+            this.Board.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Board.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Board.Location = new System.Drawing.Point(12, 84);
+            this.Board.Name = "Board";
+            this.Board.Size = new System.Drawing.Size(1082, 437);
+            this.Board.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 445);
+            this.ClientSize = new System.Drawing.Size(1106, 533);
+            this.Controls.Add(this.Board);
             this.Name = "Form1";
             this.Text = "SupaKull";
+            ((System.ComponentModel.ISupportInitialize)(this.Board)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView Board;
     }
 }
 
