@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAllIssues">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllIssuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllIssuesResult" type="tns:ArrayOfIssue" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfIssue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Issue" nillable="true" type="tns:Issue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Issue">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="issueID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueUFID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="summary" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="severity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="priority" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllIssuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllIssues" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIssuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllIssuesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GetTrackerServicesSoap">
+    <wsdl:operation name="GetAllIssues">
+      <wsdl:input message="tns:GetAllIssuesSoapIn" />
+      <wsdl:output message="tns:GetAllIssuesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllIssues">
+      <soap:operation soapAction="http://tempuri.org/GetAllIssues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllIssues">
+      <soap12:operation soapAction="http://tempuri.org/GetAllIssues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetTrackerServices">
+    <wsdl:port name="GetTrackerServicesSoap" binding="tns:GetTrackerServicesSoap">
+      <soap:address location="http://localhost:50422/GetTrackerServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GetTrackerServicesSoap12" binding="tns:GetTrackerServicesSoap12">
+      <soap12:address location="http://localhost:50422/GetTrackerServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

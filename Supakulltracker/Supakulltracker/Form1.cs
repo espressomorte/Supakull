@@ -16,5 +16,16 @@ namespace Supakulltracker
         {
             InitializeComponent();
         }
+
+        private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            IssueService.GetTrackerServicesSoapClient client = new IssueService.GetTrackerServicesSoapClient();
+            Board.DataSource = client.GetAllIssues();
+        }
     }
 }

@@ -41,6 +41,7 @@
             this.Board.Name = "Board";
             this.Board.Size = new System.Drawing.Size(1082, 437);
             this.Board.TabIndex = 0;
+            this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // Form1
             // 
@@ -50,6 +51,7 @@
             this.Controls.Add(this.Board);
             this.Name = "Form1";
             this.Text = "SupaKull";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Board)).EndInit();
             this.ResumeLayout(false);
 
