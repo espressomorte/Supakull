@@ -27,5 +27,7 @@ namespace Supakulltracker
             IssueService.GetTrackerServicesSoapClient client = new IssueService.GetTrackerServicesSoapClient();
             Board.DataSource = client.GetAllIssues();
         }
+
+
     }
 }

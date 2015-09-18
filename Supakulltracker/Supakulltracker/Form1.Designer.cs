@@ -34,12 +34,15 @@
             // 
             // Board
             // 
-            this.Board.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.Board.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Board.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Board.Location = new System.Drawing.Point(12, 84);
+            this.Board.Location = new System.Drawing.Point(12, 27);
             this.Board.Name = "Board";
-            this.Board.Size = new System.Drawing.Size(1082, 437);
+            this.Board.RowHeadersVisible = false;
+            this.Board.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.Board.Size = new System.Drawing.Size(784, 494);
             this.Board.TabIndex = 0;
             this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
@@ -47,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1106, 533);
+            this.ClientSize = new System.Drawing.Size(808, 533);
             this.Controls.Add(this.Board);
             this.Name = "Form1";
             this.Text = "SupaKull";
