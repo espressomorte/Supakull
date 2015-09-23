@@ -62,6 +62,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\UserProvider\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +96,13 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.Issue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserProvider\UserProvider.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -100,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\IssueService\" />
+    <WCFMetadataStorage Include="Service References\UserProvider\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\IssueService\GetTrackerServices.disco" />
@@ -112,6 +125,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\IssueService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserProvider\UserProvider.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserProvider\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserProvider\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserProvider\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
