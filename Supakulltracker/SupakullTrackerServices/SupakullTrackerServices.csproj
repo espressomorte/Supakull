@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Issue.cs" />
+    <Compile Include="Class\ITask.cs" />
     <Compile Include="Class\NhibernateSessionFactory.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">
