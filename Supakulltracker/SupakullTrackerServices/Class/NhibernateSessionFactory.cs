@@ -1,18 +1,42 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using log4net;
+using System;
+using System.IO;
 
 namespace SupakullTrackerServices.Class
 {
     public class NhibernateSessionFactory
     {
-        private Configuration config = new Configuration();
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private ISessionFactory mySesionFactory;
+        private readonly string nHibernateConfigFile = "";
 
-        public ISessionFactory CreateSessionFactory()
+        public NhibernateSessionFactory(string nHConfigFile)
         {
-            config = config.Configure();
-            mySesionFactory = config.BuildSessionFactory();
-            return mySesionFactory;
+            this.nHibernateConfigFile = nHConfigFile;
+        }
+
+        public ISessionFactory SessionFactory
+        {
+            get { return mySesionFactory ?? (mySesionFactory = CreateSessionFactory()); }
+        }
+
+        private ISessionFactory CreateSessionFactory()
+        {
+
+            Configuration cfg;
+            try
+            {
+                cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.nHibernateConfigFile));
+                return (cfg.BuildSessionFactory());
+            }
+            catch (Exception ex)
+            {
+                log.Fatal("Problems with Session Factory", ex);
+                throw;
+            }
+            
         }
     }
 }

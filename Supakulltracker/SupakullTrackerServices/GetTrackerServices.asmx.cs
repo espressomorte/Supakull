@@ -5,8 +5,9 @@ using System.Web;
 using System.Web.Services;
 using SupakullTrackerServices.Class;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Linq;
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 
 
 namespace SupakullTrackerServices
@@ -21,16 +22,19 @@ namespace SupakullTrackerServices
     // [System.Web.Script.Services.ScriptService]
     public class GetTrackerServices : System.Web.Services.WebService
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [WebMethod]
-        public List<Issue> GetAllIssues()
+        public List<ProxyTaskMain> GetAllIssues()
         {
-            var sessionFactory = new NhibernateSessionFactory().CreateSessionFactory();
+            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
+            
 
-            using (var session = sessionFactory.OpenSession())
+            using (var session = clientFactory.OpenSession())
             {
-                var issues = session.Query<Issue>().ToList<Issue>();
-                return issues;
+                IList<TaskMain> issues = session.Query<TaskMain>().ToList();
+                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues);
+                return proxyIs;
             }
         }
     }

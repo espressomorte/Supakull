@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,12 +76,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="hibernate.cfg.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
+    <EmbeddedResource Include="Mapping\UsersList.hbm.xml" />
     <EmbeddedResource Include="Mapping\User.hbm.xml" />
     <Content Include="packages.config" />
+    <Content Include="Client.hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App.hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Mapping\TaskMain.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -91,11 +98,18 @@
   <ItemGroup>
     <Content Include="GetTrackerServices.asmx" />
     <Content Include="UserProvider.asmx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\ConverterToFromProxy.cs" />
     <Compile Include="Class\Issue.cs" />
+    <Compile Include="Class\ProxyTaskMain.cs" />
+    <Compile Include="Class\ProxyUsersList.cs" />
+    <Compile Include="Class\TaskMain.cs" />
     <Compile Include="Class\ITask.cs" />
+    <Compile Include="Class\UsersList.cs" />
     <Compile Include="Class\NhibernateSessionFactory.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">

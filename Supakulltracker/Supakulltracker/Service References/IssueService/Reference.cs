@@ -15,32 +15,57 @@ namespace Supakulltracker.IssueService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Issue", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProxyTaskMain", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class Issue : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class ProxyTaskMain : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private long issueIDField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TaskIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string issueUFIDField;
+        private string SubtaskTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string summaryField;
+        private string SummaryField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string typeField;
+        private string DescriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string statusField;
+        private string StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string severityField;
+        private string PriorityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string priorityField;
+        private string ProductField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CreatedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CreatedByField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LinkToTrackerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstimationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TargetVersionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CommentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.ProxyUsersList[] AssignedField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -52,93 +77,274 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public long issueID {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string TaskID {
             get {
-                return this.issueIDField;
+                return this.TaskIDField;
             }
             set {
-                if ((this.issueIDField.Equals(value) != true)) {
-                    this.issueIDField = value;
-                    this.RaisePropertyChanged("issueID");
+                if ((object.ReferenceEquals(this.TaskIDField, value) != true)) {
+                    this.TaskIDField = value;
+                    this.RaisePropertyChanged("TaskID");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string issueUFID {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string SubtaskType {
             get {
-                return this.issueUFIDField;
+                return this.SubtaskTypeField;
             }
             set {
-                if ((object.ReferenceEquals(this.issueUFIDField, value) != true)) {
-                    this.issueUFIDField = value;
-                    this.RaisePropertyChanged("issueUFID");
+                if ((object.ReferenceEquals(this.SubtaskTypeField, value) != true)) {
+                    this.SubtaskTypeField = value;
+                    this.RaisePropertyChanged("SubtaskType");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string summary {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string Summary {
             get {
-                return this.summaryField;
+                return this.SummaryField;
             }
             set {
-                if ((object.ReferenceEquals(this.summaryField, value) != true)) {
-                    this.summaryField = value;
-                    this.RaisePropertyChanged("summary");
+                if ((object.ReferenceEquals(this.SummaryField, value) != true)) {
+                    this.SummaryField = value;
+                    this.RaisePropertyChanged("Summary");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string type {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string Description {
             get {
-                return this.typeField;
+                return this.DescriptionField;
             }
             set {
-                if ((object.ReferenceEquals(this.typeField, value) != true)) {
-                    this.typeField = value;
-                    this.RaisePropertyChanged("type");
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public string status {
+        public string Status {
             get {
-                return this.statusField;
+                return this.StatusField;
             }
             set {
-                if ((object.ReferenceEquals(this.statusField, value) != true)) {
-                    this.statusField = value;
-                    this.RaisePropertyChanged("status");
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
-        public string severity {
+        public string Priority {
             get {
-                return this.severityField;
+                return this.PriorityField;
             }
             set {
-                if ((object.ReferenceEquals(this.severityField, value) != true)) {
-                    this.severityField = value;
-                    this.RaisePropertyChanged("severity");
+                if ((object.ReferenceEquals(this.PriorityField, value) != true)) {
+                    this.PriorityField = value;
+                    this.RaisePropertyChanged("Priority");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
-        public string priority {
+        public string Product {
             get {
-                return this.priorityField;
+                return this.ProductField;
             }
             set {
-                if ((object.ReferenceEquals(this.priorityField, value) != true)) {
-                    this.priorityField = value;
-                    this.RaisePropertyChanged("priority");
+                if ((object.ReferenceEquals(this.ProductField, value) != true)) {
+                    this.ProductField = value;
+                    this.RaisePropertyChanged("Product");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string Project {
+            get {
+                return this.ProjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectField, value) != true)) {
+                    this.ProjectField = value;
+                    this.RaisePropertyChanged("Project");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        public string CreatedDate {
+            get {
+                return this.CreatedDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CreatedDateField, value) != true)) {
+                    this.CreatedDateField = value;
+                    this.RaisePropertyChanged("CreatedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=9)]
+        public string CreatedBy {
+            get {
+                return this.CreatedByField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CreatedByField, value) != true)) {
+                    this.CreatedByField = value;
+                    this.RaisePropertyChanged("CreatedBy");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=10)]
+        public string LinkToTracker {
+            get {
+                return this.LinkToTrackerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LinkToTrackerField, value) != true)) {
+                    this.LinkToTrackerField = value;
+                    this.RaisePropertyChanged("LinkToTracker");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        public string Estimation {
+            get {
+                return this.EstimationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstimationField, value) != true)) {
+                    this.EstimationField = value;
+                    this.RaisePropertyChanged("Estimation");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        public string TargetVersion {
+            get {
+                return this.TargetVersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TargetVersionField, value) != true)) {
+                    this.TargetVersionField = value;
+                    this.RaisePropertyChanged("TargetVersion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        public string Comments {
+            get {
+                return this.CommentsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CommentsField, value) != true)) {
+                    this.CommentsField = value;
+                    this.RaisePropertyChanged("Comments");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
+        public Supakulltracker.IssueService.ProxyUsersList[] Assigned {
+            get {
+                return this.AssignedField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AssignedField, value) != true)) {
+                    this.AssignedField = value;
+                    this.RaisePropertyChanged("Assigned");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProxyUsersList", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class ProxyUsersList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.ProxyTaskMain[] TaskListField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public Supakulltracker.IssueService.ProxyTaskMain[] TaskList {
+            get {
+                return this.TaskListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TaskListField, value) != true)) {
+                    this.TaskListField = value;
+                    this.RaisePropertyChanged("TaskList");
                 }
             }
         }
@@ -216,12 +422,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllIssuesResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.Issue[] GetAllIssuesResult;
+        public Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssuesResult;
         
         public GetAllIssuesResponseBody() {
         }
         
-        public GetAllIssuesResponseBody(Supakulltracker.IssueService.Issue[] GetAllIssuesResult) {
+        public GetAllIssuesResponseBody(Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssuesResult) {
             this.GetAllIssuesResult = GetAllIssuesResult;
         }
     }
@@ -258,7 +464,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetAllIssues(request);
         }
         
-        public Supakulltracker.IssueService.Issue[] GetAllIssues() {
+        public Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssues() {
             Supakulltracker.IssueService.GetAllIssuesRequest inValue = new Supakulltracker.IssueService.GetAllIssuesRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllIssuesRequestBody();
             Supakulltracker.IssueService.GetAllIssuesResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllIssues(inValue);
