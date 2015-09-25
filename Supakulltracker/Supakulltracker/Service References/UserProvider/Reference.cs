@@ -127,15 +127,11 @@ namespace Supakulltracker.UserProvider {
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
         public string userLogin;
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
-        public string userPinCode;
-        
         public FindRequestBody() {
         }
         
-        public FindRequestBody(string userLogin, string userPinCode) {
+        public FindRequestBody(string userLogin) {
             this.userLogin = userLogin;
-            this.userPinCode = userPinCode;
         }
     }
     
@@ -205,11 +201,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.Find(request);
         }
         
-        public Supakulltracker.UserProvider.User Find(string userLogin, string userPinCode) {
+        public Supakulltracker.UserProvider.User Find(string userLogin) {
             Supakulltracker.UserProvider.FindRequest inValue = new Supakulltracker.UserProvider.FindRequest();
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
             inValue.Body.userLogin = userLogin;
-            inValue.Body.userPinCode = userPinCode;
             Supakulltracker.UserProvider.FindResponse retVal = ((Supakulltracker.UserProvider.UserProviderSoap)(this)).Find(inValue);
             return retVal.Body.FindResult;
         }
@@ -219,11 +214,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.FindAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(string userLogin, string userPinCode) {
+        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(string userLogin) {
             Supakulltracker.UserProvider.FindRequest inValue = new Supakulltracker.UserProvider.FindRequest();
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
             inValue.Body.userLogin = userLogin;
-            inValue.Body.userPinCode = userPinCode;
             return ((Supakulltracker.UserProvider.UserProviderSoap)(this)).FindAsync(inValue);
         }
     }

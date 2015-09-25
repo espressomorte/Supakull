@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg;
-using UnitTestProject.Class;
 using NHibernate.Tool.hbm2ddl;
+using UnitTests.Class;
 
-namespace UnitTestProject
+namespace UnitTests
 {
     [TestClass]
     public class DBAccess

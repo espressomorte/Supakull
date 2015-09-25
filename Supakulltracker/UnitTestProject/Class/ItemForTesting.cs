@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnitTestProject.Class
+namespace UnitTests.Class
 {
     public class ItemForTesting
     {
