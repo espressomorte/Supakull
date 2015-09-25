@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices.Class">
+  <class name="TaskMain" table="ISSUE">
+    <id name="TaskID" column="IS_ID" type="string" generator="assigned" />
+    <property name="SubtaskType" column="IS_SUB_TYPE" />
+    <property name="Summary" column="IS_SUMMARY"  />
+    <property name="Description" column="IS_DESCRIPTION" />
+    <property name="Status" column="IS_STATUS" />
+    <property name="Product" column="PRODUCT" />
+    <property name="Project" column="PROJECT" />
+    <property name="CreatedDate" column="IS_CR_DATE" />
+    <property name="CreatedBy" column="IS_CR_BY" />
+    <property name="LinkToTracker" column="IS_LINK_TO_TRACKER" />
+    <property name="Estimation" column="IS_ESTIMATION" />
+    <property name="TargetVersion" column="IS_TARG_VERSION" />
+    <property name="Comments" column="IS_COMENTS" />
+    <bag cascade="none" inverse="false" name="Assigned" table="ISSUE_TO_USERS">
+      <key column="IS_ID" />
+      <many-to-many class="UsersList" column="US_ID"/>
+    </bag>
+
+    <one-to-one name="TaskParent" class="TaskMain" cascade="none"   />
+  </class>
+</hibernate-mapping>
