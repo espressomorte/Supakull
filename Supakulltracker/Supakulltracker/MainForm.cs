@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace Supakulltracker
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Form1()
+       
+        public MainForm()
         {
             InitializeComponent();
         }

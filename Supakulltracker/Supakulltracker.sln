@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supakulltracker", "Supakull
 		{CB6D5078-8530-4484-B65A-36B749986D04} = {CB6D5078-8530-4484-B65A-36B749986D04}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{222B72F8-1523-40C4-9C61-E32F94924B05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTestProject\UnitTests.csproj", "{222B72F8-1523-40C4-9C61-E32F94924B05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupakullTrackerServices", "SupakullTrackerServices\SupakullTrackerServices.csproj", "{CB6D5078-8530-4484-B65A-36B749986D04}"
 EndProject

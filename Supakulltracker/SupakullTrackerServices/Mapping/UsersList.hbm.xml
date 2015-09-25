@@ -3,7 +3,7 @@
   <class name="UsersList" table="USERS_LIST">
     <id name="UserId" column="USERS_ID" type="string"  generator="assigned" />
     <property name="UserName" column="USER_NAME"/>
-    <bag cascade="none" inverse="true" name="TaskList" table="ISSUE_TO_USERS">
+    <bag cascade="none" inverse="false" name="TaskList" table="ISSUE_TO_USERS">
       <key column="US_ID"/>
       <many-to-many class="TaskMain" column="IS_ID"/>
     </bag>

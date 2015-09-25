@@ -76,8 +76,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <EmbeddedResource Include="Mapping\UsersList.hbm.xml" />
+    <EmbeddedResource Include="Mapping\User.hbm.xml" />
     <Content Include="packages.config" />
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
@@ -85,7 +85,9 @@
     <Content Include="App.hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
-    <EmbeddedResource Include="Mapping\TaskMain.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TaskMain.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -95,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GetTrackerServices.asmx" />
+    <Content Include="UserProvider.asmx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -106,13 +109,18 @@
     <Compile Include="Class\ProxyUsersList.cs" />
     <Compile Include="Class\TaskMain.cs" />
     <Compile Include="Class\ITask.cs" />
-    <Compile Include="Class\NhibernateSessionFactory.cs" />
     <Compile Include="Class\UsersList.cs" />
+    <Compile Include="Class\NhibernateSessionFactory.cs" />
+    <Compile Include="Class\User.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">
       <DependentUpon>GetTrackerServices.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserProvider.asmx.cs">
+      <DependentUpon>UserProvider.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
