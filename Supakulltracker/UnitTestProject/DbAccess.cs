@@ -8,7 +8,6 @@ namespace UnitTests
     [TestClass]
     public class DBAccess
     {
-        [TestMethod]
         public void CanGenerateSchema()
         {
             var nHibernateConfiguration = new Configuration();
