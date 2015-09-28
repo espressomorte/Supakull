@@ -26,8 +26,9 @@ namespace Supakulltracker
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             IssueService.GetTrackerServicesSoapClient client = new IssueService.GetTrackerServicesSoapClient();
+            client.StoreSources();
             Board.DataSource = client.GetAllIssues();
         }
 

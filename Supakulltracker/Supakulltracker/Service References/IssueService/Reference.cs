@@ -369,6 +369,12 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllIssues", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllIssuesResponse> GetAllIssuesAsync(Supakulltracker.IssueService.GetAllIssuesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/StoreSources", ReplyAction="*")]
+        void StoreSources();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/StoreSources", ReplyAction="*")]
+        System.Threading.Tasks.Task StoreSourcesAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -480,6 +486,14 @@ namespace Supakulltracker.IssueService {
             Supakulltracker.IssueService.GetAllIssuesRequest inValue = new Supakulltracker.IssueService.GetAllIssuesRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllIssuesRequestBody();
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllIssuesAsync(inValue);
+        }
+        
+        public void StoreSources() {
+            base.Channel.StoreSources();
+        }
+        
+        public System.Threading.Tasks.Task StoreSourcesAsync() {
+            return base.Channel.StoreSourcesAsync();
         }
     }
 }

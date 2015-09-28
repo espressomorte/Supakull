@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices.Class
 {
-    interface ITask
+    public interface ITask
     {
         string TaskID { get; set; }
         string SubtaskType { get; set; }

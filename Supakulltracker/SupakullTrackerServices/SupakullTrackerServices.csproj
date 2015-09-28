@@ -78,6 +78,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapping\UsersList.hbm.xml" />
     <EmbeddedResource Include="Mapping\User.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <Content Include="packages.config" />
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
@@ -104,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\ConverterToFromProxy.cs" />
+    <Compile Include="DataAccessClass\DataAccess.cs" />
+    <Compile Include="DataAccessClass\DBAdapter.cs" />
+    <Compile Include="DataAccessClass\IAdapter.cs" />
     <Compile Include="Class\Issue.cs" />
     <Compile Include="Class\ProxyTaskMain.cs" />
     <Compile Include="Class\ProxyUsersList.cs" />

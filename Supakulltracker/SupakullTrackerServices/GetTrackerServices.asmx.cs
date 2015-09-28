@@ -27,8 +27,7 @@ namespace SupakullTrackerServices
         [WebMethod]
         public List<ProxyTaskMain> GetAllIssues()
         {
-            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
-            
+            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;            
 
             using (var session = clientFactory.OpenSession())
             {
@@ -36,6 +35,17 @@ namespace SupakullTrackerServices
                 List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues);
                 return proxyIs;
             }
+        }
+
+        [WebMethod]
+        public void StoreSources()
+        {
+            DataAccess dao = new DataAccess();
+            List<IAdapter> adapters = new List<IAdapter>();
+            adapters.Add(new DBAdapter());
+            //adapters.Add(new TrelloAdapter());
+            //adapters.Add(new ExcelAdapter());
+            dao.StoreSources(adapters);
         }
     }
 }
