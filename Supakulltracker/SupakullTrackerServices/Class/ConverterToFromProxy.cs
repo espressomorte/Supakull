@@ -2,25 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using log4net;
 
 namespace SupakullTrackerServices.Class
 {
     public static class ConverterToFromProxy
     {
-        public static List<ProxyTaskMain>  ConvertToProxyList(IList<TaskMain> param)
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public static List<ProxyTaskMain> ConvertToProxyList(IList<TaskMain> param, bool GetUserList = false, bool GetParentTask = false)
         {
             List<ProxyTaskMain> target = new List<ProxyTaskMain>();
-            foreach (var item in param)
+            foreach (TaskMain item in param)
             {
-                target.Add(ToProxySinglTask(item)); 
+                target.Add(ToProxySinglTask(item, GetUserList, GetParentTask));
             }
             return target;
         }
 
-        public static ProxyTaskMain ToProxySinglTask(TaskMain param)
+        public static List<ProxyUsersList> ToProxyUsesrList(IList<UsersList> param, bool GetTaskList = false)
+        {
+            List<ProxyUsersList> target = new List<ProxyUsersList>();
+
+            foreach (UsersList item in param)
+            {
+                target.Add(ToProxySingleUserList(item, GetTaskList));
+            }
+            return target;
+        }
+
+
+        public static ProxyTaskMain ToProxySinglTask(TaskMain param, bool GetUserList = false, bool GetParentTask = false)
         {
             ProxyTaskMain target = new ProxyTaskMain();
-           // target.TaskParent = ToProxySinglTask(param.TaskParent);
+
             target.TaskID = param.TaskID;
             target.TargetVersion = param.TargetVersion;
             target.Summary = param.Summary;
@@ -36,32 +51,46 @@ namespace SupakullTrackerServices.Class
             target.CreatedBy = param.CreatedBy;
             target.Comments = param.Comments;
 
-            if (param.Assigned != null)
+            if (GetParentTask)
+            {
+                try
+                {
+                    target.TaskParent = ConvertToProxyList(param.TaskParent);
+                }
+                catch (Exception)
+                {
+                    target.TaskParent = null;
+                }
+
+            }
+            if (GetUserList)
             {
                 target.Assigned = ToProxyUsesrList(param.Assigned);
             }
-
-            return target;
-        }
-
-        public static List<ProxyUsersList> ToProxyUsesrList (IList<UsersList> param)
-        {
-            List<ProxyUsersList> target = new List<ProxyUsersList>();
-
-            foreach (var item in param)
+            else
             {
-                target.Add(ToProxySingleUserList(item));
+                target.Assigned = null;
             }
+
             return target;
         }
 
-        public static ProxyUsersList ToProxySingleUserList (UsersList param)
+
+
+        public static ProxyUsersList ToProxySingleUserList(UsersList param, bool GetTaskList = false)
         {
             ProxyUsersList target = new ProxyUsersList();
 
             target.UserName = param.UserName;
             target.UserId = param.UserId;
-            target.TaskList = null;
+            if (GetTaskList)
+            {
+                target.TaskList = ConvertToProxyList(param.TaskList);
+            }
+            else
+            {
+                target.TaskList = null;
+            }
             return target;
         }
     }

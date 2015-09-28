@@ -12,7 +12,7 @@ namespace SupakullTrackerServices.Class
         string SubtaskType { get; set; }
         string Summary { get; set; }
         string Description { get; set; }
-        TaskMain TaskParent { get; set; }
+        IList<TaskMain> TaskParent { get; set; }
         string Status { get; set; }
         string Priority { get; set; }
         string Product { get; set; }

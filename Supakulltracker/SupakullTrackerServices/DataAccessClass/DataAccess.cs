@@ -22,7 +22,7 @@ namespace SupakullTrackerServices.Class
         public void StoreSource(IAdapter adapter)
         {
             List<ITask> allTasks = adapter.GetAllItems();
-            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
+            var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
             foreach (ITask task in allTasks)
             {                
                 using (var session = clientFactory.OpenSession())

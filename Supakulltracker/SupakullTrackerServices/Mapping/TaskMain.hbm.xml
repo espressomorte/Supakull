@@ -19,6 +19,9 @@
       <key column="IS_ID" />
       <many-to-many class="UsersList" column="US_ID"/>
     </bag>
-  <one-to-one name="TaskParent" class="TaskMain" cascade="none"   />
+    <bag cascade="none" inverse="false" name="TaskParent" table="ISSUE">
+      <key column="IS_ID" foreign-key="IS_PARENT" />
+      <many-to-many class="TaskMain" column="IS_PARENT" />
+    </bag>
   </class>
 </hibernate-mapping>

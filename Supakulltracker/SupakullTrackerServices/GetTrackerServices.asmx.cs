@@ -27,12 +27,12 @@ namespace SupakullTrackerServices
         [WebMethod]
         public List<ProxyTaskMain> GetAllIssues()
         {
-            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;            
+            var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;            
 
             using (var session = clientFactory.OpenSession())
             {
                 IList<TaskMain> issues = session.Query<TaskMain>().ToList();
-                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues);
+                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues, true, true);
                 return proxyIs;
             }
         }
