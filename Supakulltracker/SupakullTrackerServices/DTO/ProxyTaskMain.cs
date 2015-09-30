@@ -11,7 +11,6 @@ namespace SupakullTrackerServices.Class
         public ProxyTaskMain()
         {
             Assigned = new List<ProxyUsersList>();
-            TaskParent = new List<ProxyTaskMain>();
         }
         public  string TaskID { get; set; }
         public  string SubtaskType { get; set; }

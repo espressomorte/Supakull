@@ -10,29 +10,17 @@ namespace SupakullTrackerServices.Class
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static List<ProxyTaskMain> ConvertToProxyList(IList<TaskMain> param, bool GetUserList = false, bool GetParentTask = false)
+        public static List<ProxyTaskMain> ConvertToProxyList(IList<IssueDAO> param, bool GetUserList = false, bool GetParentTask = false)
         {
             List<ProxyTaskMain> target = new List<ProxyTaskMain>();
-            foreach (TaskMain item in param)
+            foreach (IssueDAO item in param)
             {
                 target.Add(ToProxySinglTask(item, GetUserList, GetParentTask));
             }
             return target;
         }
 
-        public static List<ProxyUsersList> ToProxyUsesrList(IList<UsersList> param, bool GetTaskList = false)
-        {
-            List<ProxyUsersList> target = new List<ProxyUsersList>();
-
-            foreach (UsersList item in param)
-            {
-                target.Add(ToProxySingleUserList(item, GetTaskList));
-            }
-            return target;
-        }
-
-
-        public static ProxyTaskMain ToProxySinglTask(TaskMain param, bool GetUserList = false, bool GetParentTask = false)
+        public static ProxyTaskMain ToProxySinglTask(IssueDAO param, bool GetUserList = false, bool GetParentTask = false)
         {
             ProxyTaskMain target = new ProxyTaskMain();
 
@@ -76,6 +64,17 @@ namespace SupakullTrackerServices.Class
         }
 
 
+
+        public static List<ProxyUsersList> ToProxyUsesrList(IList<UsersList> param, bool GetTaskList = false)
+        {
+            List<ProxyUsersList> target = new List<ProxyUsersList>();
+
+            foreach (UsersList item in param)
+            {
+                target.Add(ToProxySingleUserList(item, GetTaskList));
+            }
+            return target;
+        }
 
         public static ProxyUsersList ToProxySingleUserList(UsersList param, bool GetTaskList = false)
         {

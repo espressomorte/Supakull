@@ -9,13 +9,11 @@ namespace SupakullTrackerServices.Class
     {
         public UsersList()
         {
-            this.TaskList = new List<TaskMain>();
+            this.TaskList = new List<IssueDAO>();
         }
         
         public virtual string UserId { get; set; }
         public virtual string UserName { get; set; }
-        public virtual IList<TaskMain> TaskList { get; set; }
-
-
+        public virtual IList<IssueDAO> TaskList { get; set; }
     }
 }

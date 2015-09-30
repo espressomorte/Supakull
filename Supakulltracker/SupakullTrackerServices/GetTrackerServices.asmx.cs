@@ -31,8 +31,8 @@ namespace SupakullTrackerServices
 
             using (var session = clientFactory.OpenSession())
             {
-                IList<TaskMain> issues = session.Query<TaskMain>().ToList();
-                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues, true, true);
+                IList<IssueDAO> issues = session.Query<IssueDAO>().ToList();
+                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues, true);
                 return proxyIs;
             }
         }

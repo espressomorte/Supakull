@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices.Class
 {
-     public class TaskMainDomain //: ITask     // it should be just TaskMain with ITask
+     public class TaskMain: ITask
     {        
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }

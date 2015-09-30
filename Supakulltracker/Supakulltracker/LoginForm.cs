@@ -11,6 +11,7 @@ namespace Supakulltracker
         public LoginForm()
         {
             InitializeComponent();
+            textBoxUseName.Text = "supakull";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

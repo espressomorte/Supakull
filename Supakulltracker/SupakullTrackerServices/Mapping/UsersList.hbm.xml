@@ -5,7 +5,7 @@
     <property name="UserName" column="USER_NAME"/>
     <bag cascade="none" inverse="false" name="TaskList" table="ISSUE_TO_USERS">
       <key column="US_ID"/>
-      <many-to-many class="TaskMain" column="IS_ID"/>
+      <many-to-many class="IssueDAO" column="IS_ID"/>
     </bag>
   </class>
 </hibernate-mapping>

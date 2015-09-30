@@ -86,7 +86,7 @@
     <Content Include="App.hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
-    <EmbeddedResource Include="Mapping\TaskMain.hbm.xml">
+    <EmbeddedResource Include="Mapping\IssueDAO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Web.Debug.config">
@@ -111,12 +111,12 @@
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\ProxyTaskMain.cs" />
     <Compile Include="DTO\ProxyUsersList.cs" />
-    <Compile Include="Domain\TaskMainDomain.cs" />
+    <Compile Include="Domain\TaskMain.cs" />
     <Compile Include="Domain\ITask.cs" />
     <Compile Include="DAO\UsersList.cs" />
     <Compile Include="SessionFactory\NhibernateSessionFactory.cs" />
     <Compile Include="DAO\User.cs" />
-    <Compile Include="DAO\TaskMain.cs" />
+    <Compile Include="DAO\IssueDAO.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">
       <DependentUpon>GetTrackerServices.asmx</DependentUpon>
       <SubType>Component</SubType>
