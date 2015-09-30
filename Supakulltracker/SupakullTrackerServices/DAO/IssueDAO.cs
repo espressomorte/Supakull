@@ -27,7 +27,7 @@ namespace SupakullTrackerServices.Class
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
         public virtual IList<UsersList> Assigned { get; set; }
-        public virtual IList<IssueDAO> TaskParent { get; set; }        
+        public virtual IssueDAO TaskParent { get; set; }        
     }
     
 }

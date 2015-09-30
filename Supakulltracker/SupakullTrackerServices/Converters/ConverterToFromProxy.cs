@@ -10,17 +10,17 @@ namespace SupakullTrackerServices.Class
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static List<ProxyTaskMain> ConvertToProxyList(IList<IssueDAO> param, bool GetUserList = false, bool GetParentTask = false)
+        public static List<ProxyTaskMain> ConvertToProxyList(IList<IssueDAO> param, bool GetUserList = false)
         {
             List<ProxyTaskMain> target = new List<ProxyTaskMain>();
             foreach (IssueDAO item in param)
             {
-                target.Add(ToProxySinglTask(item, GetUserList, GetParentTask));
+                target.Add(ToProxySinglTask(item, GetUserList));
             }
             return target;
         }
 
-        public static ProxyTaskMain ToProxySinglTask(IssueDAO param, bool GetUserList = false, bool GetParentTask = false)
+        public static ProxyTaskMain ToProxySinglTask(IssueDAO param, bool GetUserList = false)
         {
             ProxyTaskMain target = new ProxyTaskMain();
 
@@ -39,18 +39,16 @@ namespace SupakullTrackerServices.Class
             target.CreatedBy = param.CreatedBy;
             target.Comments = param.Comments;
 
-            if (GetParentTask)
+            if (param.TaskParent != null)
             {
-                try
-                {
-                    target.TaskParent = ConvertToProxyList(param.TaskParent);
-                }
-                catch (Exception)
-                {
-                    target.TaskParent = null;
-                }
-
+                target.TaskParent = ToProxySinglTask(param.TaskParent);
             }
+            else
+            {
+                target.TaskParent = null;
+            }
+
+             
             if (GetUserList)
             {
                 target.Assigned = ToProxyUsesrList(param.Assigned);
