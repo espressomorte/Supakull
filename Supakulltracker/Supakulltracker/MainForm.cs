@@ -20,10 +20,6 @@ namespace Supakulltracker
             InitializeComponent();
         }
 
-        private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {            
@@ -32,6 +28,16 @@ namespace Supakulltracker
             Board.DataSource = client.GetAllIssues();
         }
 
+        private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            NewTab();
+        }
 
+        private void NewTab()
+        {
+            string title = "TabPage " + (taskDetailTabControl.TabCount + 1).ToString();
+            TabPage newTabPage = new TabPage(title);
+            taskDetailTabControl.TabPages.Add(newTabPage);
+        }
     }
 }
