@@ -18,7 +18,7 @@ namespace SupakullTrackerServices.Class
                 List<Issue> issues = session.Query<Issue>().ToList<Issue>();
                 foreach (Issue issue in issues)
                 {
-                    ITask task = new TaskMain();
+                    TaskMain task = new TaskMain();
                     task.TaskID = issue.issueUFID;
                     task.Summary = issue.summary;
                     task.SubtaskType = issue.type;

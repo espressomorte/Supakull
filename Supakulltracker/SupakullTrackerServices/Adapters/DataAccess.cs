@@ -10,13 +10,10 @@ namespace SupakullTrackerServices.Class
     {
         public void StoreSources(List<IAdapter> adapters)
         {
-            if(IsTaskTableEmpty)
+            foreach (IAdapter adapter in adapters)
             {
-                foreach (IAdapter adapter in adapters)
-                {
-                    StoreSource(adapter);
-                }
-            }            
+                StoreSource(adapter);
+            }
         }
         
         public void StoreSource(IAdapter adapter)
@@ -35,16 +32,5 @@ namespace SupakullTrackerServices.Class
                 }
             }
         }
-
-        private bool IsTaskTableEmpty
-        {
-            get
-            {
-                GetTrackerServices getTrackerServices = new GetTrackerServices();
-                int issuesAmount = getTrackerServices.GetAllIssues().Count;
-                return (issuesAmount == 0);
-            }            
-        }
-
     }
 }

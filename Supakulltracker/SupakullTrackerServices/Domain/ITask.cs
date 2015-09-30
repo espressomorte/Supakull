@@ -11,18 +11,20 @@ namespace SupakullTrackerServices.Class
         string TaskID { get; set; }
         string SubtaskType { get; set; }
         string Summary { get; set; }
-        string Description { get; set; }
-        IList<TaskMain> TaskParent { get; set; }
+        string Description { get; set; }        
         string Status { get; set; }
         string Priority { get; set; }
         string Product { get; set; }
-        string Project { get; set; }
-        IList<UsersList> Assigned { get; set; }
+        string Project { get; set; }        
         string CreatedDate { get; set; }
         string CreatedBy { get; set; }
         string LinkToTracker { get; set; }
         string Estimation { get; set; }
         string TargetVersion { get; set; }
         string Comments { get; set; }
+        //string[] Assigned { get; set; }
+        //string TaskParent { get; set; }
+        IList<UsersList> Assigned { get; set; }
+        IList<TaskMain> TaskParent { get; set; }
     }
 }

@@ -104,18 +104,19 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\ConverterToFromProxy.cs" />
-    <Compile Include="DataAccessClass\DataAccess.cs" />
-    <Compile Include="DataAccessClass\DBAdapter.cs" />
-    <Compile Include="DataAccessClass\IAdapter.cs" />
-    <Compile Include="Class\Issue.cs" />
-    <Compile Include="Class\ProxyTaskMain.cs" />
-    <Compile Include="Class\ProxyUsersList.cs" />
-    <Compile Include="Class\TaskMain.cs" />
-    <Compile Include="Class\ITask.cs" />
-    <Compile Include="Class\UsersList.cs" />
-    <Compile Include="Class\NhibernateSessionFactory.cs" />
-    <Compile Include="Class\User.cs" />
+    <Compile Include="Converters\ConverterToFromProxy.cs" />
+    <Compile Include="Adapters\DataAccess.cs" />
+    <Compile Include="Adapters\DBAdapter.cs" />
+    <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="Temp\Issue.cs" />
+    <Compile Include="DTO\ProxyTaskMain.cs" />
+    <Compile Include="DTO\ProxyUsersList.cs" />
+    <Compile Include="Domain\TaskMainDomain.cs" />
+    <Compile Include="Domain\ITask.cs" />
+    <Compile Include="DAO\UsersList.cs" />
+    <Compile Include="SessionFactory\NhibernateSessionFactory.cs" />
+    <Compile Include="DAO\User.cs" />
+    <Compile Include="DAO\TaskMain.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">
       <DependentUpon>GetTrackerServices.asmx</DependentUpon>
       <SubType>Component</SubType>

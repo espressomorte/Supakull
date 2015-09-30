@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices.Class
 {
-     public class TaskMain: ITask
-    {
+     public class TaskMain : ITask    // it should be IssueDAO and no ITask
+    {        
         public TaskMain()
         {
             this.Assigned = new List<UsersList>();
@@ -28,8 +28,7 @@ namespace SupakullTrackerServices.Class
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
         public virtual IList<UsersList> Assigned { get; set; }
-        public virtual IList<TaskMain> TaskParent { get; set; }
-        
+        public virtual IList<TaskMain> TaskParent { get; set; }        
     }
     
 }
