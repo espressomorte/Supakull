@@ -8,15 +8,15 @@ namespace SupakullTrackerServices.Class
 {
     public class DataAccess
     {
-        public void StoreSources(List<IAdapter> adapters)
+        public void GetAllItemsFromAdaptersAndStoreToDbDirectly(ICollection<IAdapter> adapters)
         {
             foreach (IAdapter adapter in adapters)
             {
-                StoreSource(adapter);
+                GetAllItemsFromAdapterAndStoreToDbDirectly(adapter);
             }
         }
         
-        public void StoreSource(IAdapter adapter)
+        public void GetAllItemsFromAdapterAndStoreToDbDirectly(IAdapter adapter)
         {
             List<ITask> allTasks = adapter.GetAllItems();
             var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;

@@ -77,7 +77,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\UsersList.hbm.xml" />
+    <EmbeddedResource Include="Mapping\UsersListDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\User.hbm.xml" />
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <Content Include="packages.config" />
@@ -109,12 +109,13 @@
     <Compile Include="Adapters\DataAccess.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="Domain\UsersList.cs" />
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\ProxyTaskMain.cs" />
     <Compile Include="DTO\ProxyUsersList.cs" />
     <Compile Include="Domain\TaskMain.cs" />
     <Compile Include="Domain\ITask.cs" />
-    <Compile Include="DAO\UsersList.cs" />
+    <Compile Include="DAO\UsersListDAO.cs" />
     <Compile Include="SessionFactory\NhibernateSessionFactory.cs" />
     <Compile Include="DAO\User.cs" />
     <Compile Include="DAO\IssueDAO.cs" />

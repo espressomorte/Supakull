@@ -10,7 +10,7 @@ namespace SupakullTrackerServices.Class
     {        
         public IssueDAO()
         {
-            this.Assigned = new List<UsersList>();
+            this.Assigned = new List<UsersListDAO>();
         }
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }
@@ -26,7 +26,7 @@ namespace SupakullTrackerServices.Class
         public virtual string Estimation { get; set; }
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
-        public virtual IList<UsersList> Assigned { get; set; }
+        public virtual IList<UsersListDAO> Assigned { get; set; }
         public virtual IssueDAO TaskParent { get; set; }        
     }
     

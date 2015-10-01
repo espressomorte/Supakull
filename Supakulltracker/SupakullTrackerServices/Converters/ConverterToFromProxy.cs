@@ -63,18 +63,18 @@ namespace SupakullTrackerServices.Class
 
 
 
-        public static List<ProxyUsersList> ToProxyUsesrList(IList<UsersList> param, bool GetTaskList = false)
+        public static List<ProxyUsersList> ToProxyUsesrList(IList<UsersListDAO> param, bool GetTaskList = false)
         {
             List<ProxyUsersList> target = new List<ProxyUsersList>();
 
-            foreach (UsersList item in param)
+            foreach (UsersListDAO item in param)
             {
                 target.Add(ToProxySingleUserList(item, GetTaskList));
             }
             return target;
         }
 
-        public static ProxyUsersList ToProxySingleUserList(UsersList param, bool GetTaskList = false)
+        public static ProxyUsersList ToProxySingleUserList(UsersListDAO param, bool GetTaskList = false)
         {
             ProxyUsersList target = new ProxyUsersList();
 

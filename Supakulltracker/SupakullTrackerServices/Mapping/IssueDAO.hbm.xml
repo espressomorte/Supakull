@@ -17,7 +17,7 @@
     <property name="Comments" column="IS_COMENTS" />
     <bag cascade="none" inverse="true" name="Assigned" table="ISSUE_TO_USERS">
       <key column="IS_ID" />
-      <many-to-many class="UsersList" column="US_ID"/>
+      <many-to-many class="UsersListDAO" column="US_ID"/>
     </bag>
       <many-to-one name ="TaskParent" class="IssueDAO" column="IS_PARENT" />
   </class>

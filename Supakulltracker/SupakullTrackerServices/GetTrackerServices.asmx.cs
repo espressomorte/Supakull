@@ -41,11 +41,17 @@ namespace SupakullTrackerServices
         public void StoreSources()
         {
             DataAccess dao = new DataAccess();
-            List<IAdapter> adapters = new List<IAdapter>();
+            ICollection<IAdapter> adapters = GetAllAdapters();
+            dao.GetAllItemsFromAdaptersAndStoreToDbDirectly(adapters);
+        }
+
+        private ICollection<IAdapter> GetAllAdapters()
+        {
+            ICollection<IAdapter> adapters = new List<IAdapter>();
             adapters.Add(new DBAdapter());
             //adapters.Add(new TrelloAdapter());
             //adapters.Add(new ExcelAdapter());
-            dao.StoreSources(adapters);
+            return adapters;
         }
     }
 }

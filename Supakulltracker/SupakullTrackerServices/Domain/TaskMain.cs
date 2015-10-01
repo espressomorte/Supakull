@@ -22,7 +22,7 @@ namespace SupakullTrackerServices.Class
         public virtual string Estimation { get; set; }
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
-        public virtual string[] Assigned { get; set; }
-        public virtual string TaskParent { get; set; }        
+        public virtual IList<UsersList> Assigned { get; set; }
+        public virtual ITask TaskParent { get; set; }        
     }    
 }

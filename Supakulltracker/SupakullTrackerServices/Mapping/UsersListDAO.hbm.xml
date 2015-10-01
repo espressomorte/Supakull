@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices.Class">
-  <class name="UsersList" table="USERS_LIST">
+  <class name="UsersListDAO" table="USERS_LIST">
     <id name="UserId" column="USERS_ID" type="string"  generator="assigned" />
     <property name="UserName" column="USER_NAME"/>
     <bag cascade="none" inverse="false" name="TaskList" table="ISSUE_TO_USERS">
