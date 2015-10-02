@@ -12,7 +12,7 @@ namespace TrelloTestApp
         string SubtaskType { get; set; }
         string Summary { get; set; }
         string Description { get; set; }
-       // ITask TaskParent { get; set; }
+        ITask TaskParent { get; set; }
         string Status { get; set; }
         string Priority { get; set; }
         string Product { get; set; }

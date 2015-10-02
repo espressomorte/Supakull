@@ -3,8 +3,8 @@
   <class name="IssueDAO" table="ISSUE">
     <id name="TaskID" column="IS_ID" type="string" generator="assigned" />
     <property name="SubtaskType" column="IS_SUB_TYPE" />
-    <property name="Summary" column="IS_SUMMARY"  />
-    <property name="Description" column="IS_DESCRIPTION" />
+    <property name="Summary" column="IS_SUMMARY" length="500"/>
+    <property name="Description" column="IS_DESCRIPTION" length="1000" />
     <property name="Status" column="IS_STATUS" />
     <property name="Product" column="PRODUCT" />
     <property name="Project" column="PROJECT" />

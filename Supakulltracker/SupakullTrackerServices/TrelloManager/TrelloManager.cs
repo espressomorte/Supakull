@@ -12,7 +12,7 @@ namespace TrelloTestApp
 
     public class TrelloManager
     {
-        private static Trello _trello = new Trello("6cdb008c803b149196437bf4a8df94a8");
+        private static Trello _trello = new Trello("f82892a94916ced8f28b2f6496d4ba53");
 
         public TrelloManager(string userToken)
         {
@@ -43,8 +43,17 @@ namespace TrelloTestApp
         private ITask GetTasksFromCard(Card card)
         {
             var task = new TrelloTask();
-            //task.TaskID = card.Name.Substring(card.Name.IndexOf("<")+1,card.Name.IndexOf(">") - card.Name.IndexOf("<")-1);
-            //task.Summary = card.Name.Remove(card.Name.IndexOf("<"), card.Name.IndexOf(">") - card.Name.IndexOf("<"));
+            try
+            {
+                task.TaskID = card.Name.Substring(card.Name.IndexOf("<") + 1, card.Name.IndexOf(">") - card.Name.IndexOf("<") - 1);
+                task.Summary = card.Name.Remove(card.Name.IndexOf("<"), card.Name.IndexOf(">") - card.Name.IndexOf("<") + 1);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                task.TaskID = "Please enter TaskId in brackets(<>)";
+                task.Summary = card.Name;
+            }
+
             foreach (var member in _trello.Members.ForCard(card))
             {
                 task.Assigned.Add(member.FullName);
@@ -53,14 +62,15 @@ namespace TrelloTestApp
             task.Status = _trello.Lists.ForCard(card).Name;
             task.Project = _trello.Boards.ForCard(card).Name;
             task.Priority = card.Badges.Votes.ToString();
-
             task.TargetVersion = card.Due.ToString();
-          /*  var comments = _trello.Actions
-                 .AutoPaged(Paging.MaxLimit) 
+            var comments = _trello.Actions
+                 .AutoPaged(Paging.MaxLimit)
                  .ForCard(card, new[] { ActionType.CommentCard })
-                 .OfType<CommentCardAction>()
-                 .Select(a => a.Data.Text);
-            var strMgs = "Activities:<br/>" + string.Join("<br/>", comments);*/
+                 .OfType<CommentCardAction>();
+            foreach (var comment in comments)
+            {
+                task.Comments = task.Comments + comment.Data.Text + " :By "+ comment.MemberCreator.FullName+" At: "+comment.Date.ToString()+"; ";
+            }
             task.LinkToTracker = "Trello";
             return task;
         }

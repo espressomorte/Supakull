@@ -6,6 +6,8 @@ using System.Web.Services;
 using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
+using TrelloManagerApp;
+
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 
@@ -50,7 +52,7 @@ namespace SupakullTrackerServices
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
             adapters.Add(new DBAdapter());
-            //adapters.Add(new TrelloAdapter());
+            adapters.Add(new TrelloManager("4c298896003406f6fce126eec5b6830589ef1bbc63996b2853fee5925ee4701f"));
             //adapters.Add(new ExcelAdapter());
             return adapters;
         }
