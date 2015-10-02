@@ -22,7 +22,7 @@ namespace SupakullTrackerServices
         string Estimation { get; set; }
         string TargetVersion { get; set; }
         string Comments { get; set; }
-        IList<UsersList> Assigned { get; set; }
+        IList<User> Assigned { get; set; }
         ITask TaskParent { get; set; }
     }
 }

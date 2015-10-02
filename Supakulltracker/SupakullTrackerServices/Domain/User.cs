@@ -5,9 +5,9 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class UsersList
+    public class User
     {
-        public UsersList()
+        public User()
         {
             this.TaskList = new List<ITask>();
         }

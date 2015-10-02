@@ -46,26 +46,26 @@ namespace SupakullTrackerServices
 
             if (GetUserList)
             {
-                target.Assigned = UserListDaoToUserListCollection(param.Assigned);
+                target.Assigned = UserDaoToUserCollection(param.Assigned);
             }
 
             return target;
         }
 
-        public static IList<UsersList> UserListDaoToUserListCollection(IList<UsersListDAO> param, bool GetTaskList = false)
+        public static IList<User> UserDaoToUserCollection(IList<UserDAO> param, bool GetTaskList = false)
         {
-            IList<UsersList> target = new List<UsersList>();
+            IList<User> target = new List<User>();
 
-            foreach (UsersListDAO item in param)
+            foreach (UserDAO item in param)
             {
                 target.Add(UserListDaoToUserListSingle(item, GetTaskList));
             }
             return target;
         }
 
-        private static UsersList UserListDaoToUserListSingle(UsersListDAO param, bool GetTaskList = false)
+        private static User UserListDaoToUserListSingle(UserDAO param, bool GetTaskList = false)
         {
-            UsersList target = new UsersList();
+            User target = new User();
 
             target.UserName = param.UserName;
             target.UserId = param.UserId;

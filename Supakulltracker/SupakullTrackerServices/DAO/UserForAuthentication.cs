@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class User
+    public class UserForAuthentication
     {
         public virtual Int64 UserID { get; set; }
         public virtual String UserLogin { get; set; }

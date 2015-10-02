@@ -6,9 +6,9 @@ using System.Web;
 namespace SupakullTrackerServices
 {
     [Serializable]
-    public class UsersListDTO
+    public class UserDTO
     {
-        public UsersListDTO()
+        public UserDTO()
         {
             TaskList = new List<TaskMainDTO>();
         }

@@ -10,7 +10,7 @@ namespace SupakullTrackerServices
     {
         public TaskMainDTO()
         {
-            Assigned = new List<UsersListDTO>();
+            Assigned = new List<UserDTO>();
         }
 
         public  string TaskID { get; set; }
@@ -27,7 +27,7 @@ namespace SupakullTrackerServices
         public  string Estimation { get; set; }
         public  string TargetVersion { get; set; }
         public  string Comments { get; set; }
-        public  List<UsersListDTO> Assigned { get; set; }
+        public  List<UserDTO> Assigned { get; set; }
         public  TaskMainDTO TaskParent { get; set; }
     }
 }

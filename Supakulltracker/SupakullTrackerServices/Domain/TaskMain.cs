@@ -10,7 +10,7 @@ namespace SupakullTrackerServices
     {
         public TaskMain()
         {
-            this.Assigned = new List<UsersList>();
+            this.Assigned = new List<User>();
         }
 
         public virtual string TaskID { get; set; }
@@ -27,7 +27,7 @@ namespace SupakullTrackerServices
         public virtual string Estimation { get; set; }
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
-        public virtual IList<UsersList> Assigned { get; set; }
+        public virtual IList<User> Assigned { get; set; }
         public virtual ITask TaskParent { get; set; }        
     }    
 }

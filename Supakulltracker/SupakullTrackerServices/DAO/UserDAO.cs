@@ -5,9 +5,9 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class UsersListDAO
+    public class UserDAO
     {
-        public UsersListDAO()
+        public UserDAO()
         {
             this.TaskList = new List<IssueDAO>();
         }
