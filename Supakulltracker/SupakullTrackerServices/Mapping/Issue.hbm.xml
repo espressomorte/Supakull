@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices.Class">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
   <class name="Issue" table="ISSUE_V">
     <id name="issueID" column="AA_ID" generator="assigned" />
     <property name="issueUFID" column="AA_UF_ID" />

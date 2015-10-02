@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public class DBAdapter : IAdapter
     {
-        public List<ITask> GetAllItems()
+        public IList<ITask> GetAllItems()
         {
-            List<ITask> tasks = new List<ITask>();
+            IList<ITask> tasks = new List<ITask>();
 
             var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
             using (var session = clientFactory.OpenSession())

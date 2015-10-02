@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     [Serializable]
-    public class ProxyTaskMain
+    public class TaskMainDTO
     {
-        public ProxyTaskMain()
+        public TaskMainDTO()
         {
-            Assigned = new List<ProxyUsersList>();
+            Assigned = new List<UsersListDTO>();
         }
+
         public  string TaskID { get; set; }
         public  string SubtaskType { get; set; }
         public  string Summary { get; set; }
@@ -26,7 +27,7 @@ namespace SupakullTrackerServices.Class
         public  string Estimation { get; set; }
         public  string TargetVersion { get; set; }
         public  string Comments { get; set; }
-        public  List<ProxyUsersList> Assigned { get; set; }
-        public  ProxyTaskMain TaskParent { get; set; }
+        public  List<UsersListDTO> Assigned { get; set; }
+        public  TaskMainDTO TaskParent { get; set; }
     }
 }

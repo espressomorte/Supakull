@@ -107,7 +107,7 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllIssuesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\IssueService\Supakulltracker.IssueService.ProxyTaskMain.datasource">
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.TaskMainDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">

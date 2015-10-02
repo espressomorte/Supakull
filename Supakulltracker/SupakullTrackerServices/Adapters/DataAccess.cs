@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public class DataAccess
     {
@@ -18,15 +18,16 @@ namespace SupakullTrackerServices.Class
         
         public void GetAllItemsFromAdapterAndStoreToDbDirectly(IAdapter adapter)
         {
-            List<ITask> allTasks = adapter.GetAllItems();
+            IList<ITask> taskMainCollection = adapter.GetAllItems();
+            IList<IssueDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, true);
             var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
-            foreach (ITask task in allTasks)
+            foreach (IssueDAO task in issueDaoCollection)
             {                
                 using (var session = clientFactory.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {                        
-                        session.Save(task);
+                        session.SaveOrUpdate(task);
                         transaction.Commit();
                     }
                 }

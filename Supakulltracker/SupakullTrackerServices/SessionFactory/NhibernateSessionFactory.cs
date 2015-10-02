@@ -4,7 +4,7 @@ using log4net;
 using System;
 using System.IO;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public class NhibernateSessionFactory
     {

@@ -15,9 +15,9 @@ namespace Supakulltracker.IssueService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProxyTaskMain", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TaskMainDTO", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class ProxyTaskMain : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class TaskMainDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -65,7 +65,10 @@ namespace Supakulltracker.IssueService {
         private string CommentsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.ProxyUsersList[] AssignedField;
+        private Supakulltracker.IssueService.UsersListDTO[] AssignedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.TaskMainDTO TaskParentField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -260,7 +263,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
-        public Supakulltracker.IssueService.ProxyUsersList[] Assigned {
+        public Supakulltracker.IssueService.UsersListDTO[] Assigned {
             get {
                 return this.AssignedField;
             }
@@ -268,6 +271,19 @@ namespace Supakulltracker.IssueService {
                 if ((object.ReferenceEquals(this.AssignedField, value) != true)) {
                     this.AssignedField = value;
                     this.RaisePropertyChanged("Assigned");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        public Supakulltracker.IssueService.TaskMainDTO TaskParent {
+            get {
+                return this.TaskParentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TaskParentField, value) != true)) {
+                    this.TaskParentField = value;
+                    this.RaisePropertyChanged("TaskParent");
                 }
             }
         }
@@ -284,9 +300,9 @@ namespace Supakulltracker.IssueService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProxyUsersList", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UsersListDTO", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class ProxyUsersList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UsersListDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -298,7 +314,7 @@ namespace Supakulltracker.IssueService {
         private string UserNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.ProxyTaskMain[] TaskListField;
+        private Supakulltracker.IssueService.TaskMainDTO[] TaskListField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -337,7 +353,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
-        public Supakulltracker.IssueService.ProxyTaskMain[] TaskList {
+        public Supakulltracker.IssueService.TaskMainDTO[] TaskList {
             get {
                 return this.TaskListField;
             }
@@ -428,12 +444,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllIssuesResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssuesResult;
+        public Supakulltracker.IssueService.TaskMainDTO[] GetAllIssuesResult;
         
         public GetAllIssuesResponseBody() {
         }
         
-        public GetAllIssuesResponseBody(Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssuesResult) {
+        public GetAllIssuesResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetAllIssuesResult) {
             this.GetAllIssuesResult = GetAllIssuesResult;
         }
     }
@@ -470,7 +486,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetAllIssues(request);
         }
         
-        public Supakulltracker.IssueService.ProxyTaskMain[] GetAllIssues() {
+        public Supakulltracker.IssueService.TaskMainDTO[] GetAllIssues() {
             Supakulltracker.IssueService.GetAllIssuesRequest inValue = new Supakulltracker.IssueService.GetAllIssuesRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllIssuesRequestBody();
             Supakulltracker.IssueService.GetAllIssuesResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllIssues(inValue);

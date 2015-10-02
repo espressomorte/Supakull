@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public interface ITask
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public class Issue
     {

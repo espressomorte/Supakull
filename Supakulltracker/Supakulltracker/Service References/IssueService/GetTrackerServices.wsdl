@@ -8,16 +8,16 @@
       <s:element name="GetAllIssuesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAllIssuesResult" type="tns:ArrayOfProxyTaskMain" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllIssuesResult" type="tns:ArrayOfTaskMainDTO" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfProxyTaskMain">
+      <s:complexType name="ArrayOfTaskMainDTO">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ProxyTaskMain" nillable="true" type="tns:ProxyTaskMain" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TaskMainDTO" nillable="true" type="tns:TaskMainDTO" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ProxyTaskMain">
+      <s:complexType name="TaskMainDTO">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="TaskID" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="SubtaskType" type="s:string" />
@@ -33,19 +33,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="Estimation" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TargetVersion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Assigned" type="tns:ArrayOfProxyUsersList" />
+          <s:element minOccurs="0" maxOccurs="1" name="Assigned" type="tns:ArrayOfUsersListDTO" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaskParent" type="tns:TaskMainDTO" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfProxyUsersList">
+      <s:complexType name="ArrayOfUsersListDTO">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ProxyUsersList" nillable="true" type="tns:ProxyUsersList" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UsersListDTO" nillable="true" type="tns:UsersListDTO" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ProxyUsersList">
+      <s:complexType name="UsersListDTO">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TaskList" type="tns:ArrayOfProxyTaskMain" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaskList" type="tns:ArrayOfTaskMainDTO" />
         </s:sequence>
       </s:complexType>
       <s:element name="StoreSources">

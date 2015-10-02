@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     [Serializable]
-    public class ProxyUsersList
+    public class UsersListDTO
     {
-        public ProxyUsersList()
+        public UsersListDTO()
         {
-            TaskList = new List<ProxyTaskMain>();
+            TaskList = new List<TaskMainDTO>();
         }
 
         public  string UserId { get; set; }
         public  string UserName { get; set; }
-        public  List<ProxyTaskMain> TaskList { get; set; }
+        public  List<TaskMainDTO> TaskList { get; set; }
     }
 }

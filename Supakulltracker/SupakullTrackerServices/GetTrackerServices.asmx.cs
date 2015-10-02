@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using SupakullTrackerServices.Class;
+using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -25,16 +25,17 @@ namespace SupakullTrackerServices
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [WebMethod]
-        public List<ProxyTaskMain> GetAllIssues()
+        public List<TaskMainDTO> GetAllIssues()
         {
-            var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;            
-
+            var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
+            IList<IssueDAO> issuesDaoCollection;
             using (var session = clientFactory.OpenSession())
             {
-                IList<IssueDAO> issues = session.Query<IssueDAO>().ToList();
-                List<ProxyTaskMain> proxyIs = ConverterToFromProxy.ConvertToProxyList(issues, true);
-                return proxyIs;
-            }
+                issuesDaoCollection = session.Query<IssueDAO>().ToList();
+                IList<ITask> taskMainCollection = ConverterDAOtoDomain.IssueDaoToTaskMainCollection(issuesDaoCollection, true);
+                List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection, true);
+                return taskMainDtoCollection;
+            }            
         }
 
         [WebMethod]

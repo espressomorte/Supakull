@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
     public interface IAdapter
     {
-        List<ITask> GetAllItems();
+        IList<ITask> GetAllItems();
         ITask GetItem(int index);
     }
 }

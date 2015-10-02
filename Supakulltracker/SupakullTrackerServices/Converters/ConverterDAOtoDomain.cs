@@ -1,28 +1,28 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using log4net;
 
 namespace SupakullTrackerServices
 {
-    public static class ConverterToFromProxy
+    public static class ConverterDAOtoDomain
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        public static List<TaskMainDTO> ConvertToProxyList(IList<IssueDAO> param, bool GetUserList = false)
+        
+        public static IList<ITask> IssueDaoToTaskMainCollection(IList<IssueDAO> param, bool GetUserList = false)
         {
-            List<TaskMainDTO> target = new List<TaskMainDTO>();
+            IList<ITask> target = new List<ITask>();
             foreach (IssueDAO item in param)
             {
-                target.Add(ToProxySinglTask(item, GetUserList));
+                target.Add(IssueDaoToTaskMainSingle(item, GetUserList));
             }
             return target;
         }
 
-        public static TaskMainDTO ToProxySinglTask(IssueDAO param, bool GetUserList = false)
+        private static ITask IssueDaoToTaskMainSingle(IssueDAO param, bool GetUserList = false)
         {
-            TaskMainDTO target = new TaskMainDTO();
+            ITask target = new TaskMain();
 
             target.TaskID = param.TaskID;
             target.TargetVersion = param.TargetVersion;
@@ -41,51 +41,40 @@ namespace SupakullTrackerServices
 
             if (param.TaskParent != null)
             {
-                target.TaskParent = ToProxySinglTask(param.TaskParent);
+                target.TaskParent = IssueDaoToTaskMainSingle(param.TaskParent);
             }
-            else
-            {
-                target.TaskParent = null;
-            }
-
 
             if (GetUserList)
             {
-                target.Assigned = ToProxyUsesrList(param.Assigned);
-            }
-            else
-            {
-                target.Assigned = null;
+                target.Assigned = UserListDaoToUserListCollection(param.Assigned);
             }
 
             return target;
         }
 
-        public static List<UsersListDTO> ToProxyUsesrList(IList<UsersListDAO> param, bool GetTaskList = false)
+        public static IList<UsersList> UserListDaoToUserListCollection(IList<UsersListDAO> param, bool GetTaskList = false)
         {
-            List<UsersListDTO> target = new List<UsersListDTO>();
+            IList<UsersList> target = new List<UsersList>();
 
             foreach (UsersListDAO item in param)
             {
-                target.Add(ToProxySingleUserList(item, GetTaskList));
+                target.Add(UserListDaoToUserListSingle(item, GetTaskList));
             }
             return target;
         }
 
-        public static UsersListDTO ToProxySingleUserList(UsersListDAO param, bool GetTaskList = false)
+        private static UsersList UserListDaoToUserListSingle(UsersListDAO param, bool GetTaskList = false)
         {
-            UsersListDTO target = new UsersListDTO();
+            UsersList target = new UsersList();
 
             target.UserName = param.UserName;
             target.UserId = param.UserId;
+
             if (GetTaskList)
             {
-                target.TaskList = ConvertToProxyList(param.TaskList);
+                target.TaskList = IssueDaoToTaskMainCollection(param.TaskList);
             }
-            else
-            {
-                target.TaskList = null;
-            }
+
             return target;
         }
     }

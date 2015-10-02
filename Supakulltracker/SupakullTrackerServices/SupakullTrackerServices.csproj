@@ -105,14 +105,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ConverterDomainToDAO.cs" />
+    <Compile Include="Converters\ConverterDAOtoDomain.cs" />
+    <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Converters\ConverterToFromProxy.cs" />
     <Compile Include="Adapters\DataAccess.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
     <Compile Include="Domain\UsersList.cs" />
     <Compile Include="Temp\Issue.cs" />
-    <Compile Include="DTO\ProxyTaskMain.cs" />
-    <Compile Include="DTO\ProxyUsersList.cs" />
+    <Compile Include="DTO\TaskMainDTO.cs" />
+    <Compile Include="DTO\UsersListDTO.cs" />
     <Compile Include="Domain\TaskMain.cs" />
     <Compile Include="Domain\ITask.cs" />
     <Compile Include="DAO\UsersListDAO.cs" />

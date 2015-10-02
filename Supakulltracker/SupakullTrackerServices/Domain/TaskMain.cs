@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupakullTrackerServices.Class
+namespace SupakullTrackerServices
 {
      public class TaskMain: ITask
-    {        
+    {
+        public TaskMain()
+        {
+            this.Assigned = new List<UsersList>();
+        }
+
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }
         public virtual string Summary { get; set; }
