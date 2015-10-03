@@ -239,7 +239,7 @@ namespace TrelloTestApp
             }
         }
 
-        public IList<UsersList> Assigned { get; set; }
+        public IList<User> Assigned { get; set; }
         
 
         //public IList<UsersList> Assigned
