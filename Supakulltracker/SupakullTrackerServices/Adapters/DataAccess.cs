@@ -19,7 +19,11 @@ namespace SupakullTrackerServices
         public void GetAllItemsFromAdapterAndStoreToDbDirectly(IAdapter adapter)
         {
             IList<ITask> taskMainCollection = adapter.GetAllItems();
+<<<<<<< HEAD
             IList<TaskMainDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, true);
+=======
+            IList<IssueDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, false);
+>>>>>>> master
             var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
             foreach (TaskMainDAO task in issueDaoCollection)
             {                

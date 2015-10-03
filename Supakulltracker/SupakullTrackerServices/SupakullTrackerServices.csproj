@@ -105,6 +105,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\TrelloManager.cs" />
+    <Compile Include="Adapters\TrelloTask.cs" />
     <Compile Include="Converters\ConverterDomainToDAO.cs" />
     <Compile Include="Converters\ConverterDAOtoDomain.cs" />
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
@@ -132,7 +134,12 @@
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TrelloNet\TrelloNet.csproj">
+      <Project>{1c634cd3-1666-4133-b1d7-1bfa4a840a56}</Project>
+      <Name>TrelloNet</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

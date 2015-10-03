@@ -12,8 +12,9 @@ namespace TrelloTestApp
     {
         static void Main(string[] args)
         {
-            var trelloManager = new TrelloManager("a6be1bf3e440e8bb2095c8c1519d8a43cd8cc5171e5d3997a27714bb3b68a1b6");
+            var trelloManager = new TrelloManager("4c298896003406f6fce126eec5b6830589ef1bbc63996b2853fee5925ee4701f");
             var tasks = trelloManager.GetTasks();
+            Console.ReadLine();
         }
     }
 }
