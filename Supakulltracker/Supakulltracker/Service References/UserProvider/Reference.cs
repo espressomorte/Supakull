@@ -15,9 +15,9 @@ namespace Supakulltracker.UserProvider {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserForAuthentication", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UserForAuthentication : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -159,12 +159,12 @@ namespace Supakulltracker.UserProvider {
     public partial class FindResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.UserProvider.User FindResult;
+        public Supakulltracker.UserProvider.UserForAuthentication FindResult;
         
         public FindResponseBody() {
         }
         
-        public FindResponseBody(Supakulltracker.UserProvider.User FindResult) {
+        public FindResponseBody(Supakulltracker.UserProvider.UserForAuthentication FindResult) {
             this.FindResult = FindResult;
         }
     }
@@ -201,7 +201,7 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.Find(request);
         }
         
-        public Supakulltracker.UserProvider.User Find(string userLogin) {
+        public Supakulltracker.UserProvider.UserForAuthentication Find(string userLogin) {
             Supakulltracker.UserProvider.FindRequest inValue = new Supakulltracker.UserProvider.FindRequest();
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
             inValue.Body.userLogin = userLogin;

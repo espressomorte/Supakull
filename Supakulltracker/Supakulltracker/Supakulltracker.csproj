@@ -113,7 +113,7 @@
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.User.datasource">
+    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.UserForAuthentication.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\UserProvider.wsdl" />

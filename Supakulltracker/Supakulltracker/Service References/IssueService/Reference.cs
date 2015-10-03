@@ -65,7 +65,7 @@ namespace Supakulltracker.IssueService {
         private string CommentsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.UsersListDTO[] AssignedField;
+        private Supakulltracker.IssueService.UserDTO[] AssignedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TaskMainDTO TaskParentField;
@@ -263,7 +263,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
-        public Supakulltracker.IssueService.UsersListDTO[] Assigned {
+        public Supakulltracker.IssueService.UserDTO[] Assigned {
             get {
                 return this.AssignedField;
             }
@@ -300,9 +300,9 @@ namespace Supakulltracker.IssueService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UsersListDTO", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDTO", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class UsersListDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UserDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;

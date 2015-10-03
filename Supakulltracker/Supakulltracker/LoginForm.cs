@@ -6,7 +6,7 @@ namespace Supakulltracker
 {
     public partial class LoginForm : Form
     {
-        public User LoggedUser { get; private set; }
+        public UserForAuthentication LoggedUser { get; private set; }
 
         public LoginForm()
         {
@@ -34,10 +34,10 @@ namespace Supakulltracker
             this.textBoxUseName.Focus();
         }
 
-        private User FindUser(string userName)
+        private UserForAuthentication FindUser(string userName)
         {
             UserProviderSoapClient userProvider = new UserProviderSoapClient();
-            User user = userProvider.Find(userName);
+            UserForAuthentication user = userProvider.Find(userName);
             if (user == null)
             {
                 this.labelWorning.Text = "User name is incorrect. Try again.";

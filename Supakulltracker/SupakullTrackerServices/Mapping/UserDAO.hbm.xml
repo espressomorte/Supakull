@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
-  <class name="UsersListDAO" table="USERS_LIST">
-    <id name="UserId" column="USERS_ID" type="string"  generator="assigned" />
+  <class name="UserDAO" table="USER">
+    <id name="UserId" column="USER_ID" type="string"  generator="assigned" />
     <property name="UserName" column="USER_NAME"/>
-    <bag cascade="none" inverse="false" name="TaskList" table="ISSUE_TO_USERS">
+    <bag cascade="none" inverse="false" name="TaskList" table="TASKMAIN_TO_USER">
       <key column="US_ID"/>
-      <many-to-many class="IssueDAO" column="IS_ID"/>
+      <many-to-many class="TaskMainDAO" column="TK_ID"/>
     </bag>
   </class>
 </hibernate-mapping>

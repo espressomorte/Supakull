@@ -10,17 +10,17 @@ namespace SupakullTrackerServices
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static List<TaskMainDTO> ConvertToProxyList(IList<IssueDAO> param, bool GetUserList = false)
+        public static List<TaskMainDTO> ConvertToProxyList(IList<TaskMainDAO> param, bool GetUserList = false)
         {
             List<TaskMainDTO> target = new List<TaskMainDTO>();
-            foreach (IssueDAO item in param)
+            foreach (TaskMainDAO item in param)
             {
                 target.Add(ToProxySinglTask(item, GetUserList));
             }
             return target;
         }
 
-        public static TaskMainDTO ToProxySinglTask(IssueDAO param, bool GetUserList = false)
+        public static TaskMainDTO ToProxySinglTask(TaskMainDAO param, bool GetUserList = false)
         {
             TaskMainDTO target = new TaskMainDTO();
 

@@ -77,7 +77,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\UsersListDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\UserDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\UserForAuthentication.hbm.xml" />
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <Content Include="packages.config" />
@@ -87,7 +87,7 @@
     <Content Include="App.hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
-    <EmbeddedResource Include="Mapping\IssueDAO.hbm.xml">
+    <EmbeddedResource Include="Mapping\TaskMainDAO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Web.Debug.config">
@@ -121,7 +121,7 @@
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="SessionFactory\NhibernateSessionFactory.cs" />
     <Compile Include="DAO\UserForAuthentication.cs" />
-    <Compile Include="DAO\IssueDAO.cs" />
+    <Compile Include="DAO\TaskMainDAO.cs" />
     <Compile Include="GetTrackerServices.asmx.cs">
       <DependentUpon>GetTrackerServices.asmx</DependentUpon>
       <SubType>Component</SubType>

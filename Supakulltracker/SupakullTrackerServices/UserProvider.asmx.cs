@@ -20,16 +20,16 @@ namespace SupakullTrackerServices
     public class UserProvider : System.Web.Services.WebService
     {
         [WebMethod]
-        public User Find(string userLogin)
+        public UserForAuthentication Find(string userLogin)
         {
             var sessionFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
 
             using (var session = sessionFactory.OpenSession())
             {
-                User user = session
-                    .CreateCriteria(typeof(User))
+                UserForAuthentication user = session
+                    .CreateCriteria(typeof(UserForAuthentication))
                     .Add(Restrictions.Eq("UserLogin", userLogin))                    
-                    .UniqueResult<User>();
+                    .UniqueResult<UserForAuthentication>();
                 return user;
             }
         }

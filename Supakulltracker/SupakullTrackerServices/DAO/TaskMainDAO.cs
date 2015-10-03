@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-     public class IssueDAO
+     public class TaskMainDAO
     {        
-        public IssueDAO()
+        public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
         }
@@ -27,7 +27,7 @@ namespace SupakullTrackerServices
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
         public virtual IList<UserDAO> Assigned { get; set; }
-        public virtual IssueDAO TaskParent { get; set; }        
+        public virtual TaskMainDAO TaskParent { get; set; }        
     }
     
 }

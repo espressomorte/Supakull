@@ -28,10 +28,10 @@ namespace SupakullTrackerServices
         public List<TaskMainDTO> GetAllIssues()
         {
             var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
-            IList<IssueDAO> issuesDaoCollection;
+            IList<TaskMainDAO> issuesDaoCollection;
             using (var session = clientFactory.OpenSession())
             {
-                issuesDaoCollection = session.Query<IssueDAO>().ToList();
+                issuesDaoCollection = session.Query<TaskMainDAO>().ToList();
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.IssueDaoToTaskMainCollection(issuesDaoCollection, true);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection, true);
                 return taskMainDtoCollection;
