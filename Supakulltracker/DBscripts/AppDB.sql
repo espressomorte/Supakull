@@ -1,6 +1,8 @@
---------------------------------------------------------
---  File created - п€тница-сент€бр€-25-2015   
---------------------------------------------------------
+
+DROP TABLE "DOFER"."ISSUE" cascade constraints;
+DROP TABLE "DOFER"."USERS_LIST" cascade constraints;
+DROP TABLE "DOFER"."ISSUE_TO_USERS" cascade constraints;
+
 DROP TABLE "DOFER"."TASKMAIN" cascade constraints;
 DROP TABLE "DOFER"."TASKMAIN_TO_USER" cascade constraints;
 DROP TABLE "DOFER"."USER" cascade constraints;

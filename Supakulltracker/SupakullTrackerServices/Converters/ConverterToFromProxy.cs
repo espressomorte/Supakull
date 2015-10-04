@@ -61,31 +61,24 @@ namespace SupakullTrackerServices
             return target;
         }
 
-        public static List<UserDTO> ToProxyUsesrList(IList<UserDAO> param, bool GetTaskList = false)
+        public static List<UserDTO> ToProxyUsesrList(IList<UserDAO> param)
         {
             List<UserDTO> target = new List<UserDTO>();
 
             foreach (UserDAO item in param)
             {
-                target.Add(ToProxySingleUserList(item, GetTaskList));
+                target.Add(ToProxySingleUserList(item));
             }
             return target;
         }
 
-        public static UserDTO ToProxySingleUserList(UserDAO param, bool GetTaskList = false)
+        public static UserDTO ToProxySingleUserList(UserDAO param)
         {
             UserDTO target = new UserDTO();
 
             target.UserName = param.UserName;
             target.UserId = param.UserId;
-            if (GetTaskList)
-            {
-                target.TaskList = ConvertToProxyList(param.TaskList);
-            }
-            else
-            {
-                target.TaskList = null;
-            }
+
             return target;
         }
     }

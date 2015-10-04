@@ -3,9 +3,5 @@
   <class name="UserDAO" table="USER">
     <id name="UserId" column="USER_ID" type="string"  generator="assigned" />
     <property name="UserName" column="USER_NAME"/>
-    <bag cascade="none" inverse="false" name="TaskList" table="TASKMAIN_TO_USER">
-      <key column="US_ID"/>
-      <many-to-many class="TaskMainDAO" column="TK_ID"/>
-    </bag>
   </class>
 </hibernate-mapping>
