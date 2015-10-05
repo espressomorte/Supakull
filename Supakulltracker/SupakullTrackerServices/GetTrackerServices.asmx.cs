@@ -27,14 +27,15 @@ namespace SupakullTrackerServices
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [WebMethod]
-        public List<TaskMainDTO> GetAllIssues()
+        public List<TaskMainDTO> GetAllTasks()
         {
-            var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
-            IList<TaskMainDAO> issuesDaoCollection;
-            using (var session = clientFactory.OpenSession())
+            NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
+
+            using (var session = applicationFactory.OpenSession())
             {
-                issuesDaoCollection = session.Query<TaskMainDAO>().ToList();
-                IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(issuesDaoCollection, true);
+                IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
+                IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection, true);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection, true);
                 return taskMainDtoCollection;
             }            

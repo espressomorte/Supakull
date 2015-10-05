@@ -11,8 +11,8 @@ namespace SupakullTrackerServices
         public IList<ITask> GetAllTasks()
         {
             IList<ITask> tasks = new List<ITask>();
-
-            var clientFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
+            NhibernateSessionFactory.Add("Client", "Client.hibernate.cfg.xml");
+            var clientFactory = NhibernateSessionFactory.GetSessionFactory("Client");
             using (var session = clientFactory.OpenSession())
             {
                 List<Issue> issues = session.Query<Issue>().ToList<Issue>();

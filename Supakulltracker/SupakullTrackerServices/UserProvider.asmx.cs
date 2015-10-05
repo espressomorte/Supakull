@@ -6,6 +6,7 @@ using System.Web.Services;
 using SupakullTrackerServices;
 using NHibernate.Linq;
 using NHibernate.Criterion;
+using NHibernate;
 
 namespace SupakullTrackerServices
 {
@@ -22,9 +23,10 @@ namespace SupakullTrackerServices
         [WebMethod]
         public UserForAuthentication Find(string userLogin)
         {
-            var sessionFactory = new NhibernateSessionFactory("Client.hibernate.cfg.xml").SessionFactory;
+            NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
 
-            using (var session = sessionFactory.OpenSession())
+            using (var session = applicationFactory.OpenSession())
             {
                 UserForAuthentication user = session
                     .CreateCriteria(typeof(UserForAuthentication))

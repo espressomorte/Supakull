@@ -313,9 +313,6 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TaskMainDTO[] TaskListField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -352,19 +349,6 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
-        public Supakulltracker.IssueService.TaskMainDTO[] TaskList {
-            get {
-                return this.TaskListField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TaskListField, value) != true)) {
-                    this.TaskListField = value;
-                    this.RaisePropertyChanged("TaskList");
-                }
-            }
-        }
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -379,12 +363,12 @@ namespace Supakulltracker.IssueService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="IssueService.GetTrackerServicesSoap")]
     public interface GetTrackerServicesSoap {
         
-        // CODEGEN: Generating message contract since element name GetAllIssuesResult from namespace http://tempuri.org/ is not marked nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllIssues", ReplyAction="*")]
-        Supakulltracker.IssueService.GetAllIssuesResponse GetAllIssues(Supakulltracker.IssueService.GetAllIssuesRequest request);
+        // CODEGEN: Generating message contract since element name GetAllTasksResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
+        Supakulltracker.IssueService.GetAllTasksResponse GetAllTasks(Supakulltracker.IssueService.GetAllTasksRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllIssues", ReplyAction="*")]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllIssuesResponse> GetAllIssuesAsync(Supakulltracker.IssueService.GetAllIssuesRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/StoreSources", ReplyAction="*")]
         void StoreSources();
@@ -397,15 +381,15 @@ namespace Supakulltracker.IssueService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetAllIssuesRequest {
+    public partial class GetAllTasksRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllIssues", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllIssuesRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllTasks", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllTasksRequestBody Body;
         
-        public GetAllIssuesRequest() {
+        public GetAllTasksRequest() {
         }
         
-        public GetAllIssuesRequest(Supakulltracker.IssueService.GetAllIssuesRequestBody Body) {
+        public GetAllTasksRequest(Supakulltracker.IssueService.GetAllTasksRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -414,9 +398,9 @@ namespace Supakulltracker.IssueService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class GetAllIssuesRequestBody {
+    public partial class GetAllTasksRequestBody {
         
-        public GetAllIssuesRequestBody() {
+        public GetAllTasksRequestBody() {
         }
     }
     
@@ -424,15 +408,15 @@ namespace Supakulltracker.IssueService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetAllIssuesResponse {
+    public partial class GetAllTasksResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllIssuesResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllIssuesResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllTasksResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllTasksResponseBody Body;
         
-        public GetAllIssuesResponse() {
+        public GetAllTasksResponse() {
         }
         
-        public GetAllIssuesResponse(Supakulltracker.IssueService.GetAllIssuesResponseBody Body) {
+        public GetAllTasksResponse(Supakulltracker.IssueService.GetAllTasksResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -441,16 +425,16 @@ namespace Supakulltracker.IssueService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetAllIssuesResponseBody {
+    public partial class GetAllTasksResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.TaskMainDTO[] GetAllIssuesResult;
+        public Supakulltracker.IssueService.TaskMainDTO[] GetAllTasksResult;
         
-        public GetAllIssuesResponseBody() {
+        public GetAllTasksResponseBody() {
         }
         
-        public GetAllIssuesResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetAllIssuesResult) {
-            this.GetAllIssuesResult = GetAllIssuesResult;
+        public GetAllTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetAllTasksResult) {
+            this.GetAllTasksResult = GetAllTasksResult;
         }
     }
     
@@ -482,26 +466,26 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Supakulltracker.IssueService.GetAllIssuesResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllIssues(Supakulltracker.IssueService.GetAllIssuesRequest request) {
-            return base.Channel.GetAllIssues(request);
+        Supakulltracker.IssueService.GetAllTasksResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllTasks(Supakulltracker.IssueService.GetAllTasksRequest request) {
+            return base.Channel.GetAllTasks(request);
         }
         
-        public Supakulltracker.IssueService.TaskMainDTO[] GetAllIssues() {
-            Supakulltracker.IssueService.GetAllIssuesRequest inValue = new Supakulltracker.IssueService.GetAllIssuesRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllIssuesRequestBody();
-            Supakulltracker.IssueService.GetAllIssuesResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllIssues(inValue);
-            return retVal.Body.GetAllIssuesResult;
+        public Supakulltracker.IssueService.TaskMainDTO[] GetAllTasks() {
+            Supakulltracker.IssueService.GetAllTasksRequest inValue = new Supakulltracker.IssueService.GetAllTasksRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllTasksRequestBody();
+            Supakulltracker.IssueService.GetAllTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasks(inValue);
+            return retVal.Body.GetAllTasksResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllIssuesResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllIssuesAsync(Supakulltracker.IssueService.GetAllIssuesRequest request) {
-            return base.Channel.GetAllIssuesAsync(request);
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request) {
+            return base.Channel.GetAllTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllIssuesResponse> GetAllIssuesAsync() {
-            Supakulltracker.IssueService.GetAllIssuesRequest inValue = new Supakulltracker.IssueService.GetAllIssuesRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllIssuesRequestBody();
-            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllIssuesAsync(inValue);
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync() {
+            Supakulltracker.IssueService.GetAllTasksRequest inValue = new Supakulltracker.IssueService.GetAllTasksRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllTasksRequestBody();
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
         }
         
         public void StoreSources() {

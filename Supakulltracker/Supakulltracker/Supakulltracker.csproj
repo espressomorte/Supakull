@@ -104,7 +104,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Service References\IssueService\GetTrackerServices.wsdl" />
-    <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllIssuesResponse.datasource">
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllTasksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TaskMainDTO.datasource">

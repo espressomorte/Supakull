@@ -3,40 +3,49 @@ using NHibernate.Cfg;
 using log4net;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace SupakullTrackerServices
 {
     public class NhibernateSessionFactory
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private ISessionFactory mySesionFactory;
-        private readonly string nHibernateConfigFile = "";
+        private static IDictionary<string, ISessionFactory> sesionFactoryDictionary;
 
-        public NhibernateSessionFactory(string nHConfigFile)
+        public static void Add(string name, string configFile)
         {
-            this.nHibernateConfigFile = nHConfigFile;
+            if (sesionFactoryDictionary == null)
+            {
+                sesionFactoryDictionary = new Dictionary<string, ISessionFactory>();
+            }
+
+            if(sesionFactoryDictionary.ContainsKey(name) == false)
+            {
+                try
+                {
+                    Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, configFile));
+                    sesionFactoryDictionary.Add(name, configuration.BuildSessionFactory());
+                }
+                catch (Exception ex)
+                {
+                    log.Fatal("Problems with Session Factory", ex);
+                    throw;
+                }
+            }            
         }
 
-        public ISessionFactory SessionFactory
+        public static ISessionFactory GetSessionFactory(string name)
         {
-            get { return mySesionFactory ?? (mySesionFactory = CreateSessionFactory()); }
-        }
-
-        private ISessionFactory CreateSessionFactory()
-        {
-
-            Configuration cfg;
-            try
+            ISessionFactory sessionFactory;
+            bool isSessionFactoryGot = sesionFactoryDictionary.TryGetValue(name, out sessionFactory);
+            if(isSessionFactoryGot)
             {
-                cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.nHibernateConfigFile));
-                return (cfg.BuildSessionFactory());
+                return sessionFactory;
             }
-            catch (Exception ex)
+            else
             {
-                log.Fatal("Problems with Session Factory", ex);
-                throw;
+                throw new ArgumentException("Session Factory {0} doesn't exist", name);
             }
-            
         }
     }
 }

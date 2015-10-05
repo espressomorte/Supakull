@@ -25,7 +25,7 @@ namespace Supakulltracker
         {            
             IssueService.GetTrackerServicesSoapClient client = new IssueService.GetTrackerServicesSoapClient();
             client.StoreSources();
-            Board.DataSource = client.GetAllIssues();
+            Board.DataSource = client.GetAllTasks();
         }
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
