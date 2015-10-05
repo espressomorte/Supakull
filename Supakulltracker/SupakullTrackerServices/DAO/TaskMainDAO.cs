@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,22 @@ namespace SupakullTrackerServices
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
         public virtual IList<UserDAO> Assigned { get; set; }
-        public virtual TaskMainDAO TaskParent { get; set; }        
-    }
-    
+        public virtual TaskMainDAO TaskParent { get; set; }
+
+        public static void StoreToDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
+        {
+            ISessionFactory factory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
+            foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
+            {
+                using (var session = factory.OpenSession())
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(taskMainDAO);
+                        transaction.Commit();
+                    }
+                }
+            }
+        }
+    }  
 }

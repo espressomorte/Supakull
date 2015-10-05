@@ -19,7 +19,7 @@ namespace TrelloManagerApp
             _trello.Authorize(userToken);
         }
 
-        public IList<ITask> GetAllItems()
+        public IList<ITask> GetAllTasks()
         {
             var boards = _trello.Boards.ForMe();
             var tasks = new List<ITask>();
@@ -45,7 +45,7 @@ namespace TrelloManagerApp
         //    throw new NotImplementedException();
         //}
 
-        ITask IAdapter.GetItem(int index)
+        ITask IAdapter.GetTask(int index)
         {
             throw new NotImplementedException();
         }

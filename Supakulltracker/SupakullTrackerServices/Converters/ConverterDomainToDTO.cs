@@ -46,28 +46,24 @@ namespace SupakullTrackerServices
 
             if (GetUserList)
             {
-                target.Assigned = UserListToUserListDtoCollection(param.Assigned);
-            }
-            else
-            {
-                target.Assigned = null;
+                target.Assigned = UserToUserDtoCollection(param.Assigned);
             }
 
             return target;
         }
 
-        public static List<UserDTO> UserListToUserListDtoCollection(IList<User> param)
+        public static List<UserDTO> UserToUserDtoCollection(IList<User> param)
         {
             List<UserDTO> target = new List<UserDTO>();
 
             foreach (User item in param)
             {
-                target.Add(UserListToUserListDtoSingle(item));
+                target.Add(UserToUserDtoSingle(item));
             }
             return target;
         }
 
-        private static UserDTO UserListToUserListDtoSingle(User param)
+        private static UserDTO UserToUserDtoSingle(User param)
         {
             UserDTO target = new UserDTO();
 

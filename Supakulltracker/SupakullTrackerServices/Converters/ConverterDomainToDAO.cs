@@ -10,17 +10,17 @@ namespace SupakullTrackerServices
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
-        public static IList<TaskMainDAO> TaskMainToIssueDaoCollection(IList<ITask> param, bool GetUserList = false)
+        public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> param, bool GetUserList = false)
         {
             IList<TaskMainDAO> target = new List<TaskMainDAO>();
             foreach (ITask item in param)
             {
-                target.Add(TaskMainToIssueDaoSingle(item, GetUserList));
+                target.Add(TaskMainToTaskMainDaoSingle(item, GetUserList));
             }
             return target;
         }
 
-        private static TaskMainDAO TaskMainToIssueDaoSingle(ITask param, bool GetUserList = false)
+        private static TaskMainDAO TaskMainToTaskMainDaoSingle(ITask param, bool GetUserList = false)
         {
             TaskMainDAO target = new TaskMainDAO();
 
@@ -41,29 +41,29 @@ namespace SupakullTrackerServices
 
             if (param.TaskParent != null)
             {
-                target.TaskParent = TaskMainToIssueDaoSingle(param.TaskParent);
+                target.TaskParent = TaskMainToTaskMainDaoSingle(param.TaskParent);
             }
 
             if (GetUserList)
             {
-                target.Assigned = UserListToUserListDaoCollection(param.Assigned);
+                target.Assigned = UserToUserDaoCollection(param.Assigned);
             }
 
             return target;
         }
 
-        public static IList<UserDAO> UserListToUserListDaoCollection(IList<User> param)
+        public static IList<UserDAO> UserToUserDaoCollection(IList<User> param)
         {
             IList<UserDAO> target = new List<UserDAO>();
 
             foreach (User item in param)
             {
-                target.Add(UserListToUserListDaoSingle(item));
+                target.Add(UserToUserDaoSingle(item));
             }
             return target;
         }
 
-        private static UserDAO UserListToUserListDaoSingle(User param)
+        private static UserDAO UserToUserDaoSingle(User param)
         {
             UserDAO target = new UserDAO();
 

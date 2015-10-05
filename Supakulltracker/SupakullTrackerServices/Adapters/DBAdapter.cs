@@ -8,7 +8,7 @@ namespace SupakullTrackerServices
 {
     public class DBAdapter : IAdapter
     {
-        public IList<ITask> GetAllItems()
+        public IList<ITask> GetAllTasks()
         {
             IList<ITask> tasks = new List<ITask>();
 
@@ -30,7 +30,7 @@ namespace SupakullTrackerServices
             return tasks;
         }
 
-        public ITask GetItem(int index)
+        public ITask GetTask(int index)
         {
             throw new NotImplementedException();
         }

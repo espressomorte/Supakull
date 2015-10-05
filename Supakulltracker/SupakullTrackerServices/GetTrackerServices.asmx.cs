@@ -34,18 +34,20 @@ namespace SupakullTrackerServices
             using (var session = clientFactory.OpenSession())
             {
                 issuesDaoCollection = session.Query<TaskMainDAO>().ToList();
-                IList<ITask> taskMainCollection = ConverterDAOtoDomain.IssueDaoToTaskMainCollection(issuesDaoCollection, true);
+                IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(issuesDaoCollection, true);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection, true);
                 return taskMainDtoCollection;
             }            
         }
 
+        #region StoreSources
         [WebMethod]
         public void StoreSources()
         {
-            DataAccess dao = new DataAccess();
             ICollection<IAdapter> adapters = GetAllAdapters();
-            dao.GetAllItemsFromAdaptersAndStoreToDbDirectly(adapters);
+            IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
+            TaskMainDAO.StoreToDB(taskMainDaoCollection);
         }
 
         private ICollection<IAdapter> GetAllAdapters()
@@ -56,5 +58,36 @@ namespace SupakullTrackerServices
             //adapters.Add(new ExcelAdapter());
             return adapters;
         }
+
+        private IList<ITask> GetAllTasksFromAdapterCollection(ICollection<IAdapter> adapters)
+        {
+            List<ITask> allTasksFromAdapterCollection = new List<ITask>();
+            foreach (IAdapter adapter in adapters)
+            {
+                allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
+            }
+            return allTasksFromAdapterCollection;
+        }
+
+        //private IList<ITask> GetAllTasksFromAdapterSingle(IAdapter adapter)
+        //{
+        //    return taskMainCollection = adapter.GetAllItems();
+
+
+        //    IList<TaskMainDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, false);
+        //    var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
+        //    foreach (TaskMainDAO task in issueDaoCollection)
+        //    {
+        //        using (var session = clientFactory.OpenSession())
+        //        {
+        //            using (ITransaction transaction = session.BeginTransaction())
+        //            {
+        //                session.SaveOrUpdate(task);
+        //                transaction.Commit();
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
     }
 }
