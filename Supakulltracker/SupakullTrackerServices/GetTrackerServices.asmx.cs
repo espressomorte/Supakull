@@ -69,26 +69,6 @@ namespace SupakullTrackerServices
             }
             return allTasksFromAdapterCollection;
         }
-
-        //private IList<ITask> GetAllTasksFromAdapterSingle(IAdapter adapter)
-        //{
-        //    return taskMainCollection = adapter.GetAllItems();
-
-
-        //    IList<TaskMainDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, false);
-        //    var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
-        //    foreach (TaskMainDAO task in issueDaoCollection)
-        //    {
-        //        using (var session = clientFactory.OpenSession())
-        //        {
-        //            using (ITransaction transaction = session.BeginTransaction())
-        //            {
-        //                session.SaveOrUpdate(task);
-        //                transaction.Commit();
-        //            }
-        //        }
-        //    }
-        //}
         #endregion
     }
 }

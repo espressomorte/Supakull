@@ -8,12 +8,6 @@ namespace UnitTests
     [TestClass]
     public class DBAccess
     {
-        public void CanGenerateSchema()
-        {
-            var nHibernateConfiguration = new Configuration();
-            nHibernateConfiguration.Configure();
-            nHibernateConfiguration.AddAssembly(typeof(ItemForTesting).Assembly);
-            new SchemaExport(nHibernateConfiguration).Execute(false, true, false);
-        }
+        
     }
 }

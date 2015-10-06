@@ -99,10 +99,11 @@
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxUseName);
             this.Controls.Add(this.labelUserName);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximumSize = new System.Drawing.Size(280, 160);
             this.MinimumSize = new System.Drawing.Size(280, 160);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Supakull";
             this.ResumeLayout(false);
             this.PerformLayout();

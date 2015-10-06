@@ -20,13 +20,33 @@ namespace Supakulltracker
             InitializeComponent();
         }
 
-
-        private void Form1_Load(object sender, EventArgs e)
-        {            
-            IssueService.GetTrackerServicesSoapClient client = new IssueService.GetTrackerServicesSoapClient();
-            client.StoreSources();
-            Board.DataSource = client.GetAllTasks();
+        #region StartApplication
+        private void StartApplication_Load(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = OpenLoginDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                PrepareApplication();
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
+
+        private void PrepareApplication()
+        {
+            IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
+            trackerServices.StoreSources();
+            Board.DataSource = trackerServices.GetAllTasks();
+        }
+
+        private DialogResult OpenLoginDialog()
+        {
+            LoginForm loginForm = new LoginForm();
+            return loginForm.ShowDialog();
+        }
+        #endregion
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
