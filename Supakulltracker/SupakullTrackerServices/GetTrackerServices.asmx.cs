@@ -35,8 +35,8 @@ namespace SupakullTrackerServices
             using (var session = applicationFactory.OpenSession())
             {
                 IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
-                IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection, true);
-                List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection, true);
+                IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection);
+                List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection);
                 return taskMainDtoCollection;
             }            
         }

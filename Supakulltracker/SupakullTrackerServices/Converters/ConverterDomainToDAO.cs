@@ -10,17 +10,17 @@ namespace SupakullTrackerServices
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
-        public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> param, bool GetUserList = false)
+        public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> param)
         {
             IList<TaskMainDAO> target = new List<TaskMainDAO>();
             foreach (ITask item in param)
             {
-                target.Add(TaskMainToTaskMainDaoSingle(item, GetUserList));
+                target.Add(TaskMainToTaskMainDaoSingle(item));
             }
             return target;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDaoSingle(ITask param, bool GetUserList = false)
+        private static TaskMainDAO TaskMainToTaskMainDaoSingle(ITask param)
         {
             TaskMainDAO target = new TaskMainDAO();
 
@@ -44,7 +44,7 @@ namespace SupakullTrackerServices
                 target.TaskParent = TaskMainToTaskMainDaoSingle(param.TaskParent);
             }
 
-            if (GetUserList)
+            if (param.Assigned != null)
             {
                 target.Assigned = UserToUserDaoCollection(param.Assigned);
             }
