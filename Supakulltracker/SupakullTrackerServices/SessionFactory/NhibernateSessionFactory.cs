@@ -9,43 +9,29 @@ namespace SupakullTrackerServices
 {
     public class NhibernateSessionFactory
     {
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IDictionary<string, ISessionFactory> sesionFactoryDictionary;
-
-        public static void Add(string name, string configFile)
+        public enum SessionFactoryConfiguration
         {
-            if (sesionFactoryDictionary == null)
-            {
-                sesionFactoryDictionary = new Dictionary<string, ISessionFactory>();
-            }
-
-            if(sesionFactoryDictionary.ContainsKey(name) == false)
-            {
-                try
-                {
-                    Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, configFile));
-                    sesionFactoryDictionary.Add(name, configuration.BuildSessionFactory());
-                }
-                catch (Exception ex)
-                {
-                    log.Fatal("Problems with Session Factory", ex);
-                    throw;
-                }
-            }            
+            Application,
+            Client
         }
 
-        public static ISessionFactory GetSessionFactory(string name)
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static IDictionary<SessionFactoryConfiguration, ISessionFactory> sesionFactoryDictionary;
+
+        static NhibernateSessionFactory()
+        {
+            sesionFactoryDictionary = new Dictionary<SessionFactoryConfiguration, ISessionFactory>();
+            Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App1.hibernate.cfg.xml"));
+            sesionFactoryDictionary.Add(SessionFactoryConfiguration.Application, configuration.BuildSessionFactory());
+            configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Client.hibernate.cfg.xml"));
+            sesionFactoryDictionary.Add(SessionFactoryConfiguration.Client, configuration.BuildSessionFactory());
+        }
+
+        public static ISessionFactory GetSessionFactory(SessionFactoryConfiguration configurationName)
         {
             ISessionFactory sessionFactory;
-            bool isSessionFactoryGot = sesionFactoryDictionary.TryGetValue(name, out sessionFactory);
-            if(isSessionFactoryGot)
-            {
-                return sessionFactory;
-            }
-            else
-            {
-                throw new ArgumentException("Session Factory {0} doesn't exist", name);
-            }
+            sesionFactoryDictionary.TryGetValue(configurationName, out sessionFactory);
+            return sessionFactory;
         }
     }
 }

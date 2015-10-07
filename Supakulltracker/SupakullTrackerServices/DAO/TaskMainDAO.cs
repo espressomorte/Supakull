@@ -32,8 +32,7 @@ namespace SupakullTrackerServices
 
         public static void StoreToDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
-            NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
             {
                 using (var session = applicationFactory.OpenSession())

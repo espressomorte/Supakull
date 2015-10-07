@@ -23,8 +23,7 @@ namespace SupakullTrackerServices
         [WebMethod]
         public UserForAuthentication Find(string userLogin)
         {
-            NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
             using (var session = applicationFactory.OpenSession())
             {

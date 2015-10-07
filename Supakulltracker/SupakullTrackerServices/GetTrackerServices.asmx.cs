@@ -29,8 +29,7 @@ namespace SupakullTrackerServices
         [WebMethod]
         public List<TaskMainDTO> GetAllTasks()
         {
-            NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
             using (var session = applicationFactory.OpenSession())
             {
