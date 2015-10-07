@@ -105,6 +105,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\ExcelAdapter.cs" />
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
     <Compile Include="Converters\ConverterDomainToDAO.cs" />

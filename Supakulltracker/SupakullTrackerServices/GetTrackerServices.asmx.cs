@@ -56,7 +56,7 @@ namespace SupakullTrackerServices
             ICollection<IAdapter> adapters = new List<IAdapter>();
             adapters.Add(new DBAdapter());
             adapters.Add(new TrelloManager("4c298896003406f6fce126eec5b6830589ef1bbc63996b2853fee5925ee4701f"));
-            //adapters.Add(new ExcelAdapter());
+            adapters.Add(new ExcelAdapter(Environment.CurrentDirectory + "TestExcels\\EPPLus.xlsx"));
             return adapters;
         }
 
