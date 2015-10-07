@@ -12,7 +12,7 @@ namespace SupakullTrackerServices
     public class GoogleSheetsAdapter : IAdapter
     {
         private OAuth2Parameters parameters = new OAuth2Parameters();
-
+        ListFeed listFeed;
         public GoogleSheetsAdapter()
         {           
             string CLIENT_ID = "693545380187-8u2n7drovokad59fffiqbt8duqq3qhuq.apps.googleusercontent.com";
@@ -28,10 +28,6 @@ namespace SupakullTrackerServices
             parameters.AccessCode = "4/dEvtIvPoNciqrNs4FfBMcc8wxl70jgedJ8NBKGj1ksg";
             parameters.AccessToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
             parameters.RefreshToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
-        }
-
-        public IList<ITask> GetAllTasks()
-        {
             //OAuthUtil.GetAccessToken(parameters);
             OAuthUtil.RefreshAccessToken(parameters);
 
@@ -50,25 +46,32 @@ namespace SupakullTrackerServices
             AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
 
             ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
-            ListFeed listFeed = service.Query(listQuery);
-
+            listFeed = service.Query(listQuery);
+        }
+         
+        public IList<ITask> GetAllTasks()
+        {
             IList<ITask> task = new List<ITask>();
-
             foreach (ListEntry row in listFeed.Entries)
             {
-                TaskMain tm = new TaskMain();
-
-                tm.TaskID = row.Elements[0].Value;
-                if (tm.TaskID == "")
-                    tm.TaskID = row.Elements[1].Value;
-                tm.Description = row.Elements[3].Value;
-                tm.Status = row.Elements[5].Value;
-                tm.Comments = row.Elements[6].Value;
-                tm.LinkToTracker = "GoogleSheet";
-
-                task.Add(tm);
+                task.Add(GetRowElements(row));
             }
             return task;
+        }
+
+        private TaskMain GetRowElements(ListEntry row)
+        {
+            TaskMain tm = new TaskMain();
+
+            tm.TaskID = row.Elements[0].Value;
+            if (tm.TaskID == "")
+                tm.TaskID = row.Elements[1].Value;
+            tm.Description = row.Elements[3].Value;
+            tm.Status = row.Elements[5].Value;
+            tm.Comments = row.Elements[6].Value;
+            tm.LinkToTracker = "GoogleSheet";
+
+            return tm;
         }
 
         public ITask GetTask(int index)
