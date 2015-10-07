@@ -29,6 +29,10 @@ namespace SupakullTrackerServices
         [WebMethod]
         public List<TaskMainDTO> GetAllTasks()
         {
+            List<TaskMainDTO> aTaskList = new List<TaskMainDTO>();
+            aTaskList.Add(new TaskMainDTO() { Summary = "My Task", Status = "Like new" });
+            return aTaskList;
+
             NhibernateSessionFactory.Add("Application", "App.hibernate.cfg.xml");
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory("Application");
 
@@ -45,6 +49,8 @@ namespace SupakullTrackerServices
         [WebMethod]
         public void StoreSources()
         {
+            System.Threading.Thread.Sleep(30000);
+            return;
             ICollection<IAdapter> adapters = GetAllAdapters();
             IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
