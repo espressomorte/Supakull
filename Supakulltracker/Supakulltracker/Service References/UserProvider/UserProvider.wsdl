@@ -23,6 +23,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserPinCode" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="Exist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExistResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="FindSoapIn">
@@ -31,10 +45,20 @@
   <wsdl:message name="FindSoapOut">
     <wsdl:part name="parameters" element="tns:FindResponse" />
   </wsdl:message>
+  <wsdl:message name="ExistSoapIn">
+    <wsdl:part name="parameters" element="tns:Exist" />
+  </wsdl:message>
+  <wsdl:message name="ExistSoapOut">
+    <wsdl:part name="parameters" element="tns:ExistResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserProviderSoap">
     <wsdl:operation name="Find">
       <wsdl:input message="tns:FindSoapIn" />
       <wsdl:output message="tns:FindSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Exist">
+      <wsdl:input message="tns:ExistSoapIn" />
+      <wsdl:output message="tns:ExistSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UserProviderSoap" type="tns:UserProviderSoap">
@@ -48,11 +72,29 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Exist">
+      <soap:operation soapAction="http://tempuri.org/Exist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UserProviderSoap12" type="tns:UserProviderSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Find">
       <soap12:operation soapAction="http://tempuri.org/Find" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Exist">
+      <soap12:operation soapAction="http://tempuri.org/Exist" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

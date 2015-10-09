@@ -20,13 +20,13 @@ namespace Supakulltracker
             InitializeComponent();
         }
 
-        #region StartApplication
         private void StartApplication_Load(object sender, EventArgs e)
         {
-            DialogResult dialogResult = OpenLoginDialog();
-            if (dialogResult == DialogResult.OK)
+            LoginProvider loginProvider = new LoginProvider();
+            bool loginResult = loginProvider.LoginUser();
+            if (loginResult)
             {
-                PrepareApplication();
+                PrepareApplicationAsync();
             }
             else
             {
@@ -34,19 +34,12 @@ namespace Supakulltracker
             }
         }
 
-        private void PrepareApplication()
+        private async void PrepareApplicationAsync()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            trackerServices.StoreSources();
+            await trackerServices.StoreSourcesAsync();
             Board.DataSource = trackerServices.GetAllTasks();
         }
-
-        private DialogResult OpenLoginDialog()
-        {
-            LoginForm loginForm = new LoginForm();
-            return loginForm.ShowDialog();
-        }
-        #endregion
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
