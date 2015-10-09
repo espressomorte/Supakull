@@ -124,6 +124,7 @@
     <Compile Include="Adapters\GoogleSheetsAdapter.cs" />
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Converters\ConverterDomainToDAO.cs" />
     <Compile Include="Converters\ConverterDAOtoDomain.cs" />
     <Compile Include="Converters\ConverterDomainToDTO.cs" />

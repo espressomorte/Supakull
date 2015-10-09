@@ -15,24 +15,21 @@ namespace SupakullTrackerServices
         ListFeed listFeed;
         public GoogleSheetsAdapter()
         {           
-            string CLIENT_ID = "693545380187-8u2n7drovokad59fffiqbt8duqq3qhuq.apps.googleusercontent.com";
-            string CLIENT_SECRET = "SdZybpbTGeRMJjOKo2Ggw5oU";
-            string SCOPE = "https://spreadsheets.google.com/feeds https://docs.google.com/feeds";
-            string REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
 
 
-            parameters.ClientId = CLIENT_ID;
-            parameters.ClientSecret = CLIENT_SECRET;
-            parameters.RedirectUri = REDIRECT_URI;
-            parameters.Scope = SCOPE;
+
+            parameters.ClientId = Constants.googleSheetsCLIENT_ID;
+            parameters.ClientSecret = Constants.googleSheetsCLIENT_SECRET;
+            parameters.RedirectUri = Constants.googleSheetsREDIRECT_URI;
+            parameters.Scope = Constants.googleSheetsSCOPE;
             parameters.AccessCode = "4/dEvtIvPoNciqrNs4FfBMcc8wxl70jgedJ8NBKGj1ksg";
             parameters.AccessToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
             parameters.RefreshToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
             //OAuthUtil.GetAccessToken(parameters);
             OAuthUtil.RefreshAccessToken(parameters);
 
-            SpreadsheetsService service = new SpreadsheetsService("MySpreadsheetIntegration-v1");
-            GOAuth2RequestFactory requestFactory = new GOAuth2RequestFactory(null, "MySpreadsheetIntegration-v1", parameters);
+            SpreadsheetsService service = new SpreadsheetsService(Constants.googleSheetsAppName);
+            GOAuth2RequestFactory requestFactory = new GOAuth2RequestFactory(null, Constants.googleSheetsAppName, parameters);
 
             service.RequestFactory = requestFactory;
 
