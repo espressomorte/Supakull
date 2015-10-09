@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Supakulltracker
 {
-    public class CredentiolInfo
+    public class CredentialInfo
     {
         public string UserLogin { get; set; }
 
-        public CredentiolInfo(string userLogin)
+        public CredentialInfo(string userLogin)
         {
             this.UserLogin = userLogin;
         }

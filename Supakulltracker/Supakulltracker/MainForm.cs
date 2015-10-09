@@ -23,7 +23,10 @@ namespace Supakulltracker
         private void StartApplication_Load(object sender, EventArgs e)
         {
             LoginProvider loginProvider = new LoginProvider();
-            bool loginResult = loginProvider.LoginUser();
+            ICredentialsProvider credentialsProvider = new LoginFormCredentialProvider();
+            IAuthorizer authorizer = new Authorizer();            
+
+            bool loginResult = loginProvider.LoginUser(credentialsProvider, authorizer);
             if (loginResult)
             {
                 PrepareApplicationAsync();

@@ -8,20 +8,19 @@ namespace Supakulltracker
 {
     public class LoginProvider
     {
-        public bool LoginUser()
+        public bool LoginUser(ICredentialsProvider credentialsProvider, IAuthorizer authorizer)
         {
-            ICredentialsProvider credentialsProvider = new LoginFormCredentialProvider();
             bool authorizationResult;
             string messageForCredentialProvider = string.Empty;
 
             do
             {
-                CredentiolInfo credentialsInfo = credentialsProvider.GetCredentialsInfo(messageForCredentialProvider);
+                CredentialInfo credentialsInfo = credentialsProvider.GetCredentialsInfo(messageForCredentialProvider);
                 if (credentialsInfo == null)
                 {
                     return false;
                 }
-                Authorizer authorizer = new Authorizer();
+                
                 authorizationResult = authorizer.Authorize(credentialsInfo);
                 if(!authorizationResult)
                 {

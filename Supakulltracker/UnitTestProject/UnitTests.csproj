@@ -64,8 +64,9 @@
   <ItemGroup>
     <Compile Include="Class\ItemForTesting.cs" />
     <Compile Include="DBAccess.cs" />
-    <Compile Include="Login\Authorizer.cs" />
-    <Compile Include="Login\LoninProvider.cs" />
+    <Compile Include="Login\AuthorizerMockReturnTrue.cs" />
+    <Compile Include="Login\CredentialProviderMock.cs" />
+    <Compile Include="Login\LoginProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +76,10 @@
     <ProjectReference Include="..\SupakullTrackerServices\SupakullTrackerServices.csproj">
       <Project>{cb6d5078-8530-4484-b65a-36b749986d04}</Project>
       <Name>SupakullTrackerServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Supakulltracker\Supakulltracker.csproj">
+      <Project>{9bd73d95-0869-4860-8e38-b3d94c84650c}</Project>
+      <Name>Supakulltracker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Supakulltracker
 {
-    public class Authorizer
+    public class Authorizer : IAuthorizer
     {
-        public bool Authorize(CredentiolInfo credentiolInfo)
+        public bool Authorize(CredentialInfo credentiolInfo)
         {
             string userLogin = credentiolInfo.UserLogin;
             UserProviderSoapClient userProvider = new UserProviderSoapClient();

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Login\Authorizer.cs" />
     <Compile Include="Login\CredentiolInfo.cs" />
+    <Compile Include="Login\IAuthorizer.cs" />
     <Compile Include="Login\ICredentialsProvider.cs" />
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>

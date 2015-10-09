@@ -16,14 +16,14 @@ namespace Supakulltracker
             loginForm = new LoginForm();
         }
 
-        public CredentiolInfo GetCredentialsInfo(string message)
+        public CredentialInfo GetCredentialsInfo(string message)
         {
             loginForm.MessageForUser = message;
             DialogResult dialogResult = loginForm.ShowDialog();
-            CredentiolInfo credentiolInfo;
+            CredentialInfo credentiolInfo;
             if (dialogResult == DialogResult.OK)
             {
-                credentiolInfo = new CredentiolInfo(loginForm.UserLogin);
+                credentiolInfo = new CredentialInfo(loginForm.UserLogin);
             }
             else
             {
