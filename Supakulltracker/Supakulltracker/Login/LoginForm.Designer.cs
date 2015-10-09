@@ -31,7 +31,7 @@
             this.textBoxUseName = new System.Windows.Forms.TextBox();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelWorning = new System.Windows.Forms.Label();
+            this.labelMessageForUser = new System.Windows.Forms.Label();
             this.labelUserName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -69,14 +69,14 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // labelWorning
+            // labelMessageForUser
             // 
-            this.labelWorning.AutoSize = true;
-            this.labelWorning.ForeColor = System.Drawing.Color.Red;
-            this.labelWorning.Location = new System.Drawing.Point(18, 118);
-            this.labelWorning.Name = "labelWorning";
-            this.labelWorning.Size = new System.Drawing.Size(0, 13);
-            this.labelWorning.TabIndex = 4;
+            this.labelMessageForUser.AutoSize = true;
+            this.labelMessageForUser.ForeColor = System.Drawing.Color.Red;
+            this.labelMessageForUser.Location = new System.Drawing.Point(18, 118);
+            this.labelMessageForUser.Name = "labelMessageForUser";
+            this.labelMessageForUser.Size = new System.Drawing.Size(0, 13);
+            this.labelMessageForUser.TabIndex = 4;
             // 
             // labelUserName
             // 
@@ -94,7 +94,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(264, 141);
-            this.Controls.Add(this.labelWorning);
+            this.Controls.Add(this.labelMessageForUser);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxUseName);
@@ -114,7 +114,7 @@
         private System.Windows.Forms.TextBox textBoxUseName;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelWorning;
+        private System.Windows.Forms.Label labelMessageForUser;
         private System.Windows.Forms.Label labelUserName;
     }
 }

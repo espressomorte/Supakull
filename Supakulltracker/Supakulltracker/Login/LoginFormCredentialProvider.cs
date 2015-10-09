@@ -9,14 +9,21 @@ namespace Supakulltracker
 {
     public class LoginFormCredentialProvider : ICredentialsProvider
     {
+        private LoginForm loginForm;
+
+        public LoginFormCredentialProvider()
+        {
+            loginForm = new LoginForm();
+        }
+
         public CredentiolInfo GetCredentialsInfo(string message)
         {
-            LoginForm loginForm = new LoginForm(message);
+            loginForm.MessageForUser = message;
             DialogResult dialogResult = loginForm.ShowDialog();
             CredentiolInfo credentiolInfo;
             if (dialogResult == DialogResult.OK)
             {
-                credentiolInfo = new CredentiolInfo(loginForm.UserName);
+                credentiolInfo = new CredentiolInfo(loginForm.UserLogin);
             }
             else
             {

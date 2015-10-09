@@ -12,11 +12,11 @@ namespace Supakulltracker
         {
             ICredentialsProvider credentialsProvider = new LoginFormCredentialProvider();
             bool authorizationResult;
-            string messageForGredentialProvider = string.Empty;
+            string messageForCredentialProvider = string.Empty;
 
             do
             {
-                CredentiolInfo credentialsInfo = credentialsProvider.GetCredentialsInfo(messageForGredentialProvider);
+                CredentiolInfo credentialsInfo = credentialsProvider.GetCredentialsInfo(messageForCredentialProvider);
                 if (credentialsInfo == null)
                 {
                     return false;
@@ -25,7 +25,7 @@ namespace Supakulltracker
                 authorizationResult = authorizer.Authorize(credentialsInfo);
                 if(!authorizationResult)
                 {
-                    messageForGredentialProvider = "User name is incorrect. Try again.";
+                    messageForCredentialProvider = "User name is incorrect. Try again.";
                 }
             } while (!authorizationResult);
             

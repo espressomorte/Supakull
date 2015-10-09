@@ -7,14 +7,20 @@ namespace Supakulltracker
     public partial class LoginForm : Form
     {
         public UserForAuthentication LoggedUser { get; private set; }
-        public string UserName { get; private set; }
+        public string UserLogin { get; private set; }
+        public string MessageForUser
+        {
+            set
+            {
+                labelMessageForUser.Text = value;
+            }
+        }
 
-        public LoginForm(string messageForUser)
+        public LoginForm()
         {
             InitializeComponent();
             textBoxUseName.Text = "supakull";
-            UserName = null;
-            this.labelWorning.Text = messageForUser;
+            UserLogin = null;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -25,7 +31,8 @@ namespace Supakulltracker
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            UserName = this.textBoxUseName.Text;
+            UserLogin = this.textBoxUseName.Text;
+            textBoxUseName.Focus();
         }
 
         private void textBoxUseName_KeyPress(object sender, KeyPressEventArgs e)
@@ -33,7 +40,8 @@ namespace Supakulltracker
             if (e.KeyChar == 13)     // ASCII Carriage return = 13
             {
                 this.DialogResult = DialogResult.OK;
-                UserName = this.textBoxUseName.Text;
+                UserLogin = this.textBoxUseName.Text;
+
             }
         }
     }
