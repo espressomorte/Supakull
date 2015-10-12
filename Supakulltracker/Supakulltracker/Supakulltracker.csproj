@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetailPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetailPanel.Designer.cs">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\Authorizer.cs" />
     <Compile Include="Login\CredentiolInfo.cs" />
     <Compile Include="Login\IAuthorizer.cs" />
@@ -83,6 +89,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DetailPanel.resx">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,7 +125,7 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TaskMainDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
+	<None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">
