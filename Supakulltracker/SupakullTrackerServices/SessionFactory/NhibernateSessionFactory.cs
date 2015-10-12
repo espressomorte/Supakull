@@ -21,7 +21,7 @@ namespace SupakullTrackerServices
         static NhibernateSessionFactory()
         {
             sesionFactoryDictionary = new Dictionary<SessionFactoryConfiguration, ISessionFactory>();
-            Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App1.hibernate.cfg.xml"));
+            Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.hibernate.cfg.xml"));
             sesionFactoryDictionary.Add(SessionFactoryConfiguration.Application, configuration.BuildSessionFactory());
             configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Client.hibernate.cfg.xml"));
             sesionFactoryDictionary.Add(SessionFactoryConfiguration.Client, configuration.BuildSessionFactory());
