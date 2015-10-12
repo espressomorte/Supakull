@@ -7,11 +7,20 @@ namespace Supakulltracker
     public partial class LoginForm : Form
     {
         public UserForAuthentication LoggedUser { get; private set; }
+        public string UserLogin { get; private set; }
+        public string MessageForUser
+        {
+            set
+            {
+                labelMessageForUser.Text = value;
+            }
+        }
 
         public LoginForm()
         {
             InitializeComponent();
             textBoxUseName.Text = "supakull";
+            UserLogin = null;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -21,33 +30,19 @@ namespace Supakulltracker
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            LoggedUser = FindUser(this.textBoxUseName.Text);
-            this.textBoxUseName.Focus();
+            this.DialogResult = DialogResult.OK;
+            UserLogin = this.textBoxUseName.Text;
+            textBoxUseName.Focus();
         }
 
         private void textBoxUseName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)     // ASCII Carriage return = 13
             {
-                LoggedUser = FindUser(this.textBoxUseName.Text);
-            }
-            this.textBoxUseName.Focus();
-        }
-
-        private UserForAuthentication FindUser(string userName)
-        {
-            UserProviderSoapClient userProvider = new UserProviderSoapClient();
-            UserForAuthentication user = userProvider.Find(userName);
-            if (user == null)
-            {
-                this.labelWorning.Text = "User name is incorrect. Try again.";
-            }
-            else
-            {
                 this.DialogResult = DialogResult.OK;
-            }
-            return user;
-        }
+                UserLogin = this.textBoxUseName.Text;
 
+            }
+        }
     }
 }

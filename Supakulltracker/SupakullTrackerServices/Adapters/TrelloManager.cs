@@ -12,7 +12,7 @@ namespace TrelloManagerApp
 {
     public class TrelloManager : IAdapter
     {
-        private static Trello _trello = new Trello("f82892a94916ced8f28b2f6496d4ba53");
+        private static Trello _trello = new Trello(Constants.trelloAppToken);
 
         public TrelloManager(string userToken)
         {

@@ -34,5 +34,19 @@ namespace SupakullTrackerServices
                 return user;
             }
         }
+
+        [WebMethod]
+        public bool Exist(string userLogin)
+        {
+            UserForAuthentication user = Find(userLogin);
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

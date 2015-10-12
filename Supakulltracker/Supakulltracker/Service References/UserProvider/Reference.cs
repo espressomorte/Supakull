@@ -99,6 +99,13 @@ namespace Supakulltracker.UserProvider {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Find", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(Supakulltracker.UserProvider.FindRequest request);
+        
+        // CODEGEN: Generating message contract since element name userLogin from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Exist", ReplyAction="*")]
+        Supakulltracker.UserProvider.ExistResponse Exist(Supakulltracker.UserProvider.ExistRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Exist", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.UserProvider.ExistResponse> ExistAsync(Supakulltracker.UserProvider.ExistRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -169,6 +176,74 @@ namespace Supakulltracker.UserProvider {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ExistRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="Exist", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.UserProvider.ExistRequestBody Body;
+        
+        public ExistRequest() {
+        }
+        
+        public ExistRequest(Supakulltracker.UserProvider.ExistRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ExistRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string userLogin;
+        
+        public ExistRequestBody() {
+        }
+        
+        public ExistRequestBody(string userLogin) {
+            this.userLogin = userLogin;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ExistResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ExistResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.UserProvider.ExistResponseBody Body;
+        
+        public ExistResponse() {
+        }
+        
+        public ExistResponse(Supakulltracker.UserProvider.ExistResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ExistResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool ExistResult;
+        
+        public ExistResponseBody() {
+        }
+        
+        public ExistResponseBody(bool ExistResult) {
+            this.ExistResult = ExistResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface UserProviderSoapChannel : Supakulltracker.UserProvider.UserProviderSoap, System.ServiceModel.IClientChannel {
     }
@@ -219,6 +294,31 @@ namespace Supakulltracker.UserProvider {
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
             inValue.Body.userLogin = userLogin;
             return ((Supakulltracker.UserProvider.UserProviderSoap)(this)).FindAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.UserProvider.ExistResponse Supakulltracker.UserProvider.UserProviderSoap.Exist(Supakulltracker.UserProvider.ExistRequest request) {
+            return base.Channel.Exist(request);
+        }
+        
+        public bool Exist(string userLogin) {
+            Supakulltracker.UserProvider.ExistRequest inValue = new Supakulltracker.UserProvider.ExistRequest();
+            inValue.Body = new Supakulltracker.UserProvider.ExistRequestBody();
+            inValue.Body.userLogin = userLogin;
+            Supakulltracker.UserProvider.ExistResponse retVal = ((Supakulltracker.UserProvider.UserProviderSoap)(this)).Exist(inValue);
+            return retVal.Body.ExistResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.UserProvider.ExistResponse> Supakulltracker.UserProvider.UserProviderSoap.ExistAsync(Supakulltracker.UserProvider.ExistRequest request) {
+            return base.Channel.ExistAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.ExistResponse> ExistAsync(string userLogin) {
+            Supakulltracker.UserProvider.ExistRequest inValue = new Supakulltracker.UserProvider.ExistRequest();
+            inValue.Body = new Supakulltracker.UserProvider.ExistRequestBody();
+            inValue.Body.userLogin = userLogin;
+            return ((Supakulltracker.UserProvider.UserProviderSoap)(this)).ExistAsync(inValue);
         }
     }
 }

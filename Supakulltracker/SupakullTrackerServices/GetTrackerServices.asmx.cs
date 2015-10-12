@@ -54,7 +54,8 @@ namespace SupakullTrackerServices
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
             adapters.Add(new DBAdapter());
-            adapters.Add(new TrelloManager("4c298896003406f6fce126eec5b6830589ef1bbc63996b2853fee5925ee4701f"));
+            adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
+            adapters.Add(new GoogleSheetsAdapter());
             //adapters.Add(new ExcelAdapter());
             return adapters;
         }
@@ -68,26 +69,6 @@ namespace SupakullTrackerServices
             }
             return allTasksFromAdapterCollection;
         }
-
-        //private IList<ITask> GetAllTasksFromAdapterSingle(IAdapter adapter)
-        //{
-        //    return taskMainCollection = adapter.GetAllItems();
-
-
-        //    IList<TaskMainDAO> issueDaoCollection = ConverterDomainToDAO.TaskMainToIssueDaoCollection(taskMainCollection, false);
-        //    var clientFactory = new NhibernateSessionFactory("App.hibernate.cfg.xml").SessionFactory;
-        //    foreach (TaskMainDAO task in issueDaoCollection)
-        //    {
-        //        using (var session = clientFactory.OpenSession())
-        //        {
-        //            using (ITransaction transaction = session.BeginTransaction())
-        //            {
-        //                session.SaveOrUpdate(task);
-        //                transaction.Commit();
-        //            }
-        //        }
-        //    }
-        //}
         #endregion
     }
 }
