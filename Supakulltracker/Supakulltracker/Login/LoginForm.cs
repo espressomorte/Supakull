@@ -7,20 +7,13 @@ namespace Supakulltracker
     public partial class LoginForm : Form
     {
         public UserForAuthentication LoggedUser { get; private set; }
-        public string UserLogin { get; private set; }
-        public string MessageForUser
-        {
-            set
-            {
-                labelMessageForUser.Text = value;
-            }
-        }
+        private IAuthorizer authorizer;
 
-        public LoginForm()
+        public LoginForm(IAuthorizer authorizer)
         {
             InitializeComponent();
-            textBoxUseName.Text = "supakull";
-            UserLogin = null;
+            this.authorizer = authorizer;
+            this.textBoxUseName.Text = "supakull";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -30,18 +23,29 @@ namespace Supakulltracker
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            UserLogin = this.textBoxUseName.Text;
-            textBoxUseName.Focus();
+            Authorize();
         }
 
         private void textBoxUseName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)     // ASCII Carriage return = 13
             {
-                this.DialogResult = DialogResult.OK;
-                UserLogin = this.textBoxUseName.Text;
+                Authorize();
+            }
+        }
 
+        private void Authorize()
+        {
+            CredentialInfo credentialInfo = new CredentialInfo(textBoxUseName.Text);
+            bool authorizeResult = authorizer.Authorize(credentialInfo);
+            if (authorizeResult)
+            {
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                labelMessageForUser.Text = "User name is incorrect. Try again.";
+                textBoxUseName.Focus();
             }
         }
     }

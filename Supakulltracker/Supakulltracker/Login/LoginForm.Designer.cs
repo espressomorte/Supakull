@@ -38,7 +38,7 @@
             // textBoxUseName
             // 
             this.textBoxUseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUseName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textBoxUseName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBoxUseName.Location = new System.Drawing.Point(43, 44);
             this.textBoxUseName.Name = "textBoxUseName";
             this.textBoxUseName.Size = new System.Drawing.Size(179, 22);

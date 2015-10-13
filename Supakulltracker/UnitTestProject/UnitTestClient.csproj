@@ -58,9 +58,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Login\Authorizer.cs" />
     <Compile Include="Login\AuthorizerMockReturnTrue.cs" />
-    <Compile Include="Login\CredentialProviderMock.cs" />
-    <Compile Include="Login\LoginProviderTest.cs" />
+    <Compile Include="Login\LoginProviderWinForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

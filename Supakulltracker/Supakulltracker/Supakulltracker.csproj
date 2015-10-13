@@ -62,15 +62,14 @@
     <Compile Include="Login\Authorizer.cs" />
     <Compile Include="Login\CredentiolInfo.cs" />
     <Compile Include="Login\IAuthorizer.cs" />
-    <Compile Include="Login\ICredentialsProvider.cs" />
+    <Compile Include="Login\ILoginProvider.cs" />
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\LoginFormCredentialProvider.cs" />
-    <Compile Include="Login\LoginProvider.cs" />
+    <Compile Include="Login\LoginProviderWinForm.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,7 +124,7 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TaskMainDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-	<None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
+    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">
