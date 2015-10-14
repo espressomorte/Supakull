@@ -130,6 +130,9 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="Domain\IMatchTasks.cs" />
+    <Compile Include="Domain\ITask2.cs" />
+    <Compile Include="Domain\MatchTasksById.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\TaskMainDTO.cs" />
