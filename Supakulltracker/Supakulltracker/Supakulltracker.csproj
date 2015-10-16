@@ -53,13 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBSettingDialog.cs">
+    <Compile Include="Setting\DBSettingDialog.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DBSettingDialog.Designer.cs">
+    <Compile Include="Setting\DBSettingDialog.Designer.cs">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBSettingsCreater.cs" />
     <Compile Include="DetailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,13 +95,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SettingsDialog.cs">
+    <Compile Include="Setting\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsDialog.Designer.cs">
+    <Compile Include="Setting\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DBSettingDialog.resx">
+    <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailPanel.resx">
@@ -124,7 +123,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsDialog.resx">
+    <EmbeddedResource Include="Setting\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

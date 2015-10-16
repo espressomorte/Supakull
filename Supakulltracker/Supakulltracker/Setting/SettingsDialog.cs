@@ -16,5 +16,13 @@ namespace Supakulltracker
         {
             InitializeComponent();
         }
+
+        private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DBSettingDialog dbSetingDialog = new DBSettingDialog();
+            splitContainer1.Panel2.Controls.Add(dbSetingDialog);
+            dbSetingDialog.Dock = DockStyle.Fill;
+            dbSetingDialog.Show();
+        }
     }
 }

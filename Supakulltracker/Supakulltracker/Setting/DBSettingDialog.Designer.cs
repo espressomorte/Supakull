@@ -170,7 +170,6 @@
             this.panelChoseDBProvider.Name = "panelChoseDBProvider";
             this.panelChoseDBProvider.Size = new System.Drawing.Size(175, 122);
             this.panelChoseDBProvider.TabIndex = 11;
-            this.panelChoseDBProvider.Visible = false;
             // 
             // panel1
             // 
@@ -180,7 +179,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(140, 66);
             this.panel1.TabIndex = 19;
-            this.panel1.Visible = false;
             // 
             // cmbDBDialect
             // 
@@ -193,7 +191,6 @@
             this.cmbDBDialect.Name = "cmbDBDialect";
             this.cmbDBDialect.Size = new System.Drawing.Size(121, 21);
             this.cmbDBDialect.TabIndex = 0;
-            this.cmbDBDialect.Visible = false;
             // 
             // label2
             // 
@@ -276,7 +273,7 @@
             this.MappingSettings.Location = new System.Drawing.Point(4, 22);
             this.MappingSettings.Name = "MappingSettings";
             this.MappingSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.MappingSettings.Size = new System.Drawing.Size(589, 584);
+            this.MappingSettings.Size = new System.Drawing.Size(589, 638);
             this.MappingSettings.TabIndex = 1;
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
@@ -337,7 +334,7 @@
             this.DBTab.MinimumSize = new System.Drawing.Size(597, 610);
             this.DBTab.Name = "DBTab";
             this.DBTab.SelectedIndex = 0;
-            this.DBTab.Size = new System.Drawing.Size(661, 664);
+            this.DBTab.Size = new System.Drawing.Size(597, 664);
             this.DBTab.TabIndex = 3;
             // 
             // Settings
@@ -350,7 +347,7 @@
             this.Settings.Location = new System.Drawing.Point(4, 22);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(653, 638);
+            this.Settings.Size = new System.Drawing.Size(589, 638);
             this.Settings.TabIndex = 0;
             this.Settings.Text = "General";
             this.Settings.UseVisualStyleBackColor = true;
@@ -363,7 +360,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(647, 205);
+            this.groupBox1.Size = new System.Drawing.Size(583, 205);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connections settings";
@@ -378,7 +375,7 @@
             this.groupBoxAvailableConnections.Controls.Add(this.availableConectionsList);
             this.groupBoxAvailableConnections.Location = new System.Drawing.Point(21, 19);
             this.groupBoxAvailableConnections.Name = "groupBoxAvailableConnections";
-            this.groupBoxAvailableConnections.Size = new System.Drawing.Size(264, 172);
+            this.groupBoxAvailableConnections.Size = new System.Drawing.Size(200, 172);
             this.groupBoxAvailableConnections.TabIndex = 12;
             this.groupBoxAvailableConnections.TabStop = false;
             this.groupBoxAvailableConnections.Text = "Available connections settings";
@@ -420,7 +417,7 @@
             this.groupBoxActiveConnections.Controls.Add(this.button3);
             this.groupBoxActiveConnections.Location = new System.Drawing.Point(357, 19);
             this.groupBoxActiveConnections.Name = "groupBoxActiveConnections";
-            this.groupBoxActiveConnections.Size = new System.Drawing.Size(275, 172);
+            this.groupBoxActiveConnections.Size = new System.Drawing.Size(211, 172);
             this.groupBoxActiveConnections.TabIndex = 11;
             this.groupBoxActiveConnections.TabStop = false;
             this.groupBoxActiveConnections.Text = "Active connections";
@@ -454,7 +451,6 @@
             this.panelPreviewString.Name = "panelPreviewString";
             this.panelPreviewString.Size = new System.Drawing.Size(586, 136);
             this.panelPreviewString.TabIndex = 17;
-            this.panelPreviewString.Visible = false;
             // 
             // label11
             // 
@@ -524,9 +520,8 @@
             this.flowLayoutPanelConSettings.Controls.Add(this.button5);
             this.flowLayoutPanelConSettings.Location = new System.Drawing.Point(232, 214);
             this.flowLayoutPanelConSettings.Name = "flowLayoutPanelConSettings";
-            this.flowLayoutPanelConSettings.Size = new System.Drawing.Size(418, 272);
+            this.flowLayoutPanelConSettings.Size = new System.Drawing.Size(354, 220);
             this.flowLayoutPanelConSettings.TabIndex = 12;
-            this.flowLayoutPanelConSettings.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -585,7 +580,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.DBTab);
             this.Name = "DBSettingDialog";
-            this.Size = new System.Drawing.Size(661, 664);
+            this.Size = new System.Drawing.Size(593, 664);
             this.panelChoseDBProvider.ResumeLayout(false);
             this.panelChoseDBProvider.PerformLayout();
             this.panel1.ResumeLayout(false);

@@ -64,5 +64,10 @@ namespace Supakulltracker
             taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
         }
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsDialog setingDialog = new SettingsDialog();
+            setingDialog.Show();
+        }
     }
 }

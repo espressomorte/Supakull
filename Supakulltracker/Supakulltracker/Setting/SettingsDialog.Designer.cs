@@ -71,6 +71,7 @@
             this.dataBaseToolStripMenuItem.Name = "dataBaseToolStripMenuItem";
             this.dataBaseToolStripMenuItem.Size = new System.Drawing.Size(171, 19);
             this.dataBaseToolStripMenuItem.Text = "Data Base";
+            this.dataBaseToolStripMenuItem.Click += new System.EventHandler(this.dataBaseToolStripMenuItem_Click);
             // 
             // trelloToolStripMenuItem
             // 
