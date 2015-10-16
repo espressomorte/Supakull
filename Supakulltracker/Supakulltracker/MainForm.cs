@@ -63,5 +63,6 @@ namespace Supakulltracker
             taskDetailTabControl.TabPages.Add(newTabPage);
             taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
         }
+
     }
 }
