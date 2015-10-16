@@ -40,14 +40,20 @@ namespace SupakullTrackerServices
             }            
         }
 
-        #region StoreSources
+        #region ForceUpdate
         [WebMethod]
-        public void StoreSources()
+        public void ForceUpdate()
         {
             ICollection<IAdapter> adapters = GetAllAdapters();
             IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
+
+            IMatchTasks taskMatcher = new MatchTasksById();
+            TaskMain.ForceLinkTasks(allTaskMainFromAdapters, taskMatcher);
+            IList<ITaskAggregated> taskAggregatedCollection = TaskAggregated.ForceAggregateTasks(allTaskMainFromAdapters);
+            // maybe we should save taskAggregatedCollection to application DB
+
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
-            TaskMainDAO.StoreToDB(taskMainDaoCollection);
+            TaskMainDAO.UpdateInDB(taskMainDaoCollection);
         }
 
         private ICollection<IAdapter> GetAllAdapters()

@@ -30,7 +30,7 @@ namespace SupakullTrackerServices
         public virtual IList<UserDAO> Assigned { get; set; }
         public virtual TaskMainDAO TaskParent { get; set; }
 
-        public static void StoreToDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
+        public static void UpdateInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)

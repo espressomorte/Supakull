@@ -8,7 +8,7 @@ using SupakullTrackerServices;
 namespace TrelloTestApp
 {
 
-    public class TrelloTask : ITask
+    public class TrelloTask //: ITask
     {
         #region Fields
         private string _taskID;

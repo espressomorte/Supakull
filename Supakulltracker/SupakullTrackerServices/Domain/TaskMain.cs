@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-     public class TaskMain: ITask, ITask2
+     public class TaskMain: ITask //, ITask2
     {
         public TaskMain()
         {
             this.Assigned = new List<User>();
+            this.LinkedTasks = new List<ITask>();
         }
 
         public string TaskID { get; set; }
@@ -29,21 +30,21 @@ namespace SupakullTrackerServices
         public string Comments { get; set; }
         public IList<User> Assigned { get; set; }
         public ITask TaskParent { get; set; }
-        public IList<ITask2> LinkedTasks { get; set; }
+        public IList<ITask> LinkedTasks { get; set; }
 
-        public void LinkTask(ITask2 taskMain)
+        public void LinkTask(ITask taskMain)
         {
             this.LinkedTasks.Add(taskMain);
         }
 
-        public static void LinkTasks(IList<ITask2> taskMainCollection, IMatchTasks taskMatcher)
+        public static void ForceLinkTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
         {
             for(int a = 0; a < taskMainCollection.Count - 1; a++)
             {
                 for (int b = a + 1; b < taskMainCollection.Count; b++)
                 {
-                    ITask2 taskA = taskMainCollection[a];
-                    ITask2 taskB = taskMainCollection[b];
+                    ITask taskA = taskMainCollection[a];
+                    ITask taskB = taskMainCollection[b];
                     bool taskMatchingResult = taskMatcher.MatchTasks(taskA, taskB);
                     if(taskMatchingResult)
                     {
@@ -53,7 +54,5 @@ namespace SupakullTrackerServices
                 }
             }
         }
-
-
     }    
 }

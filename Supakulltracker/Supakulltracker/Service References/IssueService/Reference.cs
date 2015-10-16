@@ -370,11 +370,11 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/StoreSources", ReplyAction="*")]
-        void StoreSources();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ForceUpdate", ReplyAction="*")]
+        void ForceUpdate();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/StoreSources", ReplyAction="*")]
-        System.Threading.Tasks.Task StoreSourcesAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ForceUpdate", ReplyAction="*")]
+        System.Threading.Tasks.Task ForceUpdateAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -488,12 +488,12 @@ namespace Supakulltracker.IssueService {
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
         }
         
-        public void StoreSources() {
-            base.Channel.StoreSources();
+        public void ForceUpdate() {
+            base.Channel.ForceUpdate();
         }
         
-        public System.Threading.Tasks.Task StoreSourcesAsync() {
-            return base.Channel.StoreSourcesAsync();
+        public System.Threading.Tasks.Task ForceUpdateAsync() {
+            return base.Channel.ForceUpdateAsync();
         }
     }
 }

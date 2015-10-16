@@ -48,10 +48,10 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="StoreSources">
+      <s:element name="ForceUpdate">
         <s:complexType />
       </s:element>
-      <s:element name="StoreSourcesResponse">
+      <s:element name="ForceUpdateResponse">
         <s:complexType />
       </s:element>
     </s:schema>
@@ -62,20 +62,20 @@
   <wsdl:message name="GetAllTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
   </wsdl:message>
-  <wsdl:message name="StoreSourcesSoapIn">
-    <wsdl:part name="parameters" element="tns:StoreSources" />
+  <wsdl:message name="ForceUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:ForceUpdate" />
   </wsdl:message>
-  <wsdl:message name="StoreSourcesSoapOut">
-    <wsdl:part name="parameters" element="tns:StoreSourcesResponse" />
+  <wsdl:message name="ForceUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:ForceUpdateResponse" />
   </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
       <wsdl:output message="tns:GetAllTasksSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="StoreSources">
-      <wsdl:input message="tns:StoreSourcesSoapIn" />
-      <wsdl:output message="tns:StoreSourcesSoapOut" />
+    <wsdl:operation name="ForceUpdate">
+      <wsdl:input message="tns:ForceUpdateSoapIn" />
+      <wsdl:output message="tns:ForceUpdateSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -89,8 +89,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="StoreSources">
-      <soap:operation soapAction="http://tempuri.org/StoreSources" style="document" />
+    <wsdl:operation name="ForceUpdate">
+      <soap:operation soapAction="http://tempuri.org/ForceUpdate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -110,8 +110,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="StoreSources">
-      <soap12:operation soapAction="http://tempuri.org/StoreSources" style="document" />
+    <wsdl:operation name="ForceUpdate">
+      <soap12:operation soapAction="http://tempuri.org/ForceUpdate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
