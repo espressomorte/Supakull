@@ -21,7 +21,7 @@ namespace SupakullTrackerServices
         IList<User> Assigned { get; set; }
         ITask TaskParent { get; set; }
 
-        IList<ITask> LinkedTasks { get; set; }
-        void LinkTask(ITask taskToLink);
+        IList<ITask> MatchedTasks { get; set; }
+        void AddMatchedTask(ITask taskToLink);
     }
 }

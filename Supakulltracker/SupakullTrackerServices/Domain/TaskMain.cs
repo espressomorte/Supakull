@@ -11,7 +11,7 @@ namespace SupakullTrackerServices
         public TaskMain()
         {
             this.Assigned = new List<User>();
-            this.LinkedTasks = new List<ITask>();
+            this.MatchedTasks = new List<ITask>();
         }
 
         public string TaskID { get; set; }
@@ -30,14 +30,14 @@ namespace SupakullTrackerServices
         public string Comments { get; set; }
         public IList<User> Assigned { get; set; }
         public ITask TaskParent { get; set; }
-        public IList<ITask> LinkedTasks { get; set; }
 
-        public void LinkTask(ITask taskMain)
+        public IList<ITask> MatchedTasks { get; set; }
+        public void AddMatchedTask(ITask taskMain)
         {
-            this.LinkedTasks.Add(taskMain);
+            this.MatchedTasks.Add(taskMain);
         }
 
-        public static void ForceLinkTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
+        public static void ForceMatchTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
         {
             for(int a = 0; a < taskMainCollection.Count - 1; a++)
             {
@@ -48,8 +48,8 @@ namespace SupakullTrackerServices
                     bool taskMatchingResult = taskMatcher.MatchTasks(taskA, taskB);
                     if(taskMatchingResult)
                     {
-                        taskA.LinkTask(taskB);
-                        taskB.LinkTask(taskA);
+                        taskA.AddMatchedTask(taskB);
+                        taskB.AddMatchedTask(taskA);
                     }
                 }
             }
