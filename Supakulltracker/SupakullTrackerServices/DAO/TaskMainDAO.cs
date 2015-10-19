@@ -12,7 +12,9 @@ namespace SupakullTrackerServices
         public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
+            this.MatchedTasks = new List<TaskMainDAO>();
         }
+        public virtual int TableID { get; set; }
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }
         public virtual string Summary { get; set; }
@@ -29,6 +31,8 @@ namespace SupakullTrackerServices
         public virtual string Comments { get; set; }
         public virtual IList<UserDAO> Assigned { get; set; }
         public virtual TaskMainDAO TaskParent { get; set; }
+
+        public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
         public static void UpdateInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {

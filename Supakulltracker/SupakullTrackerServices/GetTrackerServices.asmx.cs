@@ -48,11 +48,16 @@ namespace SupakullTrackerServices
             IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
 
             IMatchTasks taskMatcher = new MatchTasksById();
-            TaskMain.ForceLinkTasks(allTaskMainFromAdapters, taskMatcher);
-            IList<ITaskAggregated> taskAggregatedCollection = TaskAggregated.ForceAggregateTasks(allTaskMainFromAdapters);
-            // maybe we should save taskAggregatedCollection to application DB
+            TaskMain.ForceMatchTasks(allTaskMainFromAdapters, taskMatcher);
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
+            //IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
+            //TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = "1" };
+            //TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "2" };
+            //taskMainDAO1.MatchedTasks.Add(taskMainDAO2);
+            //taskMainDAO2.MatchedTasks.Add(taskMainDAO1);
+            //taskMainDaoCollection.Add(taskMainDAO1);
+            //taskMainDaoCollection.Add(taskMainDAO2);
             TaskMainDAO.UpdateInDB(taskMainDaoCollection);
         }
 
