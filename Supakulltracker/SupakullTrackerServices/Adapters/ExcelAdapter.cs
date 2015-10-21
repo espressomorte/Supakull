@@ -14,18 +14,24 @@ namespace SupakullTrackerServices
     {
         public ExcelAdapter(string path)
         {
-            using (ExcelPackage pck = new ExcelPackage())
+            try
             {
-                using (var stream = File.OpenRead(path))
-                {
-                    pck.Load(stream);
-                }
 
-                ExcelWorksheet ws = pck.Workbook.Worksheets.First();
-                WorksheetToDataTable(ws);
+                using (ExcelPackage pck = new ExcelPackage())
+                {
+                    using (var stream = File.OpenRead(path))
+                    {
+                        pck.Load(stream);
+                    }
+
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.First();
+                    WorksheetToDataTable(ws);
+                }
+            }
+            catch (Exception)
+            {
             }
         }
-
         List<ITask> list_task = new List<ITask>();
 
         private DataTable WorksheetToDataTable(ExcelWorksheet ws)
