@@ -46,7 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\..\..\Course\EPPlusDemo_CSharp\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
+      <HintPath>E:\Рабочий стол 2\Course\EPPlusDemo_CSharp\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="GitHubSharp, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GitHubClient.1.0.5.0\lib\portable-net45+win+wpa81\GitHubSharp.dll</HintPath>
