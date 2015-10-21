@@ -51,14 +51,7 @@ namespace SupakullTrackerServices
             TaskMain.ForceMatchTasks(allTaskMainFromAdapters, taskMatcher);
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
-            //IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
-            //TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = "1" };
-            //TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "2" };
-            //taskMainDAO1.MatchedTasks.Add(taskMainDAO2);
-            //taskMainDAO2.MatchedTasks.Add(taskMainDAO1);
-            //taskMainDaoCollection.Add(taskMainDAO1);
-            //taskMainDaoCollection.Add(taskMainDAO2);
-            TaskMainDAO.UpdateInDB(taskMainDaoCollection);
+            TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
 
         private ICollection<IAdapter> GetAllAdapters()

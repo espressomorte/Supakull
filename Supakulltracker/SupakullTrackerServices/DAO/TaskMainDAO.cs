@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace SupakullTrackerServices
             this.Assigned = new List<UserDAO>();
             this.MatchedTasks = new List<TaskMainDAO>();
         }
-        public virtual int TableID { get; set; }
+        public virtual int ID { get; set; }
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }
         public virtual string Summary { get; set; }
@@ -34,19 +35,69 @@ namespace SupakullTrackerServices
 
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
-        public static void UpdateInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
+        public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
             {
-                using (var session = applicationFactory.OpenSession())
+                taskMainDAO.SaveOrUpdateTaskInDB();                
+            }
+        }
+
+        private void SaveOrUpdateTaskInDB()
+        {
+            if (this.TaskID != null)
+            {
+                TaskMainDAO taskFromDB = TaskMainDAO.GetTaskMainDaoFromDB(this.TaskID, this.LinkToTracker);
+                if (taskFromDB == null)
                 {
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.SaveOrUpdate(taskMainDAO);
-                        transaction.Commit();
-                    }
+                    this.SaveTaskInDB();                        
                 }
+                else
+                {
+                    this.ID = taskFromDB.ID;
+                    this.UpdateTaskInDB();                    
+                }
+            }
+        }
+
+        private void SaveTaskInDB()
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (var session = applicationFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Save(this);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        private void UpdateTaskInDB()
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (var session = applicationFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Update(this);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        private static TaskMainDAO GetTaskMainDaoFromDB(string taskID, string linkToTracker)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                TaskMainDAO taskMainDAO = session
+                    .CreateCriteria(typeof(TaskMainDAO))
+                    .Add(Restrictions.Eq("TaskID", taskID))
+                    .Add(Restrictions.Eq("LinkToTracker", linkToTracker))
+                    .UniqueResult<TaskMainDAO>();
+                return taskMainDAO;
             }
         }
     }  
