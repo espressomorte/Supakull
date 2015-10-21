@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPPlus">
-      <HintPath>..\..\..\Course\EPPlusDemo_CSharp\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
+    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="GitHubSharp, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GitHubClient.1.0.5.0\lib\portable-net45+win+wpa81\GitHubSharp.dll</HintPath>
@@ -103,6 +104,8 @@
     <EmbeddedResource Include="Mapping\UserDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\UserForAuthentication.hbm.xml" />
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
+    <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
     <Content Include="packages.config" />
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
@@ -113,6 +116,7 @@
     <EmbeddedResource Include="Mapping\TaskMainDAO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\UserLinkDAO.hbm.xml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -138,6 +142,10 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="DAO\SettingsDAO\ServiceAccountDAO.cs" />
+    <Compile Include="DAO\SettingsDAO\TemplateDAO.cs" />
+    <Compile Include="DAO\SettingsDAO\UserLinkDAO.cs" />
+    <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\TaskMainDTO.cs" />

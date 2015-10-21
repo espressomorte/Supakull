@@ -70,5 +70,20 @@ namespace SupakullTrackerServices
             return allTasksFromAdapterCollection;
         }
         #endregion
+
+        //Just for test
+
+        [WebMethod]
+        public void GetUserSettings(Int32 userLinkId)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                var taskMainDaoCollection = session.Get<UserLinkDAO>(userLinkId);
+                var stop = "asdfadf";
+
+            }
+        }
     }
 }
