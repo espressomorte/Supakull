@@ -106,6 +106,7 @@
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Token.hbm.xml" />
     <Content Include="packages.config" />
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
@@ -144,6 +145,7 @@
     <Compile Include="Adapters\IAdapter.cs" />
     <Compile Include="DAO\SettingsDAO\ServiceAccountDAO.cs" />
     <Compile Include="DAO\SettingsDAO\TemplateDAO.cs" />
+    <Compile Include="DAO\SettingsDAO\TokenDAO.cs" />
     <Compile Include="DAO\SettingsDAO\UserLinkDAO.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\User.cs" />
