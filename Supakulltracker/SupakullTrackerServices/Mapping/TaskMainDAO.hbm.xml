@@ -21,14 +21,14 @@
     <property name="TargetVersion" column="TK_TARG_VERSION" />
     <property name="Comments" column="TK_COMENTS" />
     
-    <bag cascade="none" inverse="true" name="Assigned" table="TASKMAIN_TO_USER">
+    <bag cascade="all-delete-orphan" inverse="false" name="Assigned" table="TASKMAIN_TO_USER">
       <key column="TKU_TK_ID" />
       <many-to-many class="UserDAO" column="TKU_US_ID"/>
     </bag>
     
     <many-to-one name ="TaskParent" class="TaskMainDAO" column="TK_PARENT" />
 
-    <bag cascade="none" inverse="true" name="MatchedTasks" table="MATCHEDTASKS">
+    <bag cascade="all-delete-orphan" inverse="false" name="MatchedTasks" table="MATCHEDTASKS">
       <key column="MTK_TASKMAINID" />
       <many-to-many class="TaskMainDAO" column="MTK_MATCHEDTASKID"/>
     </bag>
