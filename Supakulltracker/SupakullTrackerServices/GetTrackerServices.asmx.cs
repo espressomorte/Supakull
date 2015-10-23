@@ -49,6 +49,7 @@ namespace SupakullTrackerServices
 
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.ForceMatchTasks(allTaskMainFromAdapters, taskMatcher);
+            TaskMain.ForceDetectDisagreements(allTaskMainFromAdapters);
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
