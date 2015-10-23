@@ -23,6 +23,7 @@ namespace SupakullTrackerServices
                     task.SubtaskType = issue.type;
                     task.Status = issue.status;
                     task.Priority = issue.priority;
+                    task.LinkToTracker = Sources.DataBase;
                     tasks.Add(task);
                 }
             }

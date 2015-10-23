@@ -81,7 +81,7 @@ namespace TrelloManagerApp
             {
                 task.Comments = task.Comments + comment.Data.Text + " :By "+ comment.MemberCreator.FullName+" At: "+comment.Date.ToString()+"; ";
             }
-            task.LinkToTracker = "Trello";
+            task.LinkToTracker = Sources.Trello;
             return task;
         }
     }

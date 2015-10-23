@@ -66,7 +66,7 @@ namespace SupakullTrackerServices
             tm.Description = row.Elements[3].Value;
             tm.Status = row.Elements[5].Value;
             tm.Comments = row.Elements[6].Value;
-            tm.LinkToTracker = "GoogleSheet";
+            tm.LinkToTracker = Sources.GoogleSheets;
 
             return tm;
         }

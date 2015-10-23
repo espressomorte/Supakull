@@ -72,5 +72,74 @@ namespace SupakullTrackerServices
 
             return target;
         }
+
+        #region Converters For Settings
+        public static List<ServiceAccountDTO> ServiceAccountDomainCollectionToDTO(this IList<ServiceAccount> param)
+        {
+            List<ServiceAccountDTO> target = new List<ServiceAccountDTO>();
+            foreach (ServiceAccount item in param)
+            {
+                target.Add(ServiceAccountDomainToDTO(item));
+            }
+            return target;
+        }
+
+        public static ServiceAccountDTO ServiceAccountDomainToDTO(this ServiceAccount param)
+        {
+            ServiceAccountDTO target = new ServiceAccountDTO();
+
+            target.ServiceAccountId = param.ServiceAccountId;
+            target.ServiceAccountName = param.ServiceAccountName;
+            target.Source = param.Source;
+
+            if (param.Tokens != null)
+            {
+                target.Tokens = param.Tokens.Select<Token, TokenDTO>(x => x.TokenToTokenDTO()).ToList();
+            }
+            else
+            {
+                target.Tokens = null;
+            }
+
+            if (param.MappingTemplates != null)
+            {
+                target.MappingTemplates = param.MappingTemplates.Select<Template, TemplateDTO>(x => x.TemplateToTemplateDTO()).ToList();
+            }
+            else
+            {
+                target.MappingTemplates = null;
+            }
+
+            return target;
+        }
+
+        public static TokenDTO TokenToTokenDTO(this Token param)
+        {
+            TokenDTO target = new TokenDTO();
+
+            target.TokeneId = param.TokeneId;
+            target.TokeneName = param.TokeneName;
+            foreach (KeyValuePair<string, string> item in param.Tokens)
+            {
+                target.Tokens.Add(new TokenForSerialization { Key = item.Key, Value = item.Value });
+            }
+
+            return target;
+        }
+
+        public static TemplateDTO TemplateToTemplateDTO(this Template param)
+        {
+            TemplateDTO target = new TemplateDTO();
+
+            target.TemplateId = param.TemplateId;
+            target.TemplateName = param.TemplateName;
+            foreach (KeyValuePair<string, string> item in param.Mapping)
+            {
+                target.Mapping.Add(new MappingForSerialization{ Key = item.Key, Value = item.Value });
+            }
+
+            return target;
+        }
+        #endregion
     }
 }

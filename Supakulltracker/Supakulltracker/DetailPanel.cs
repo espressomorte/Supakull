@@ -34,7 +34,7 @@ namespace Supakulltracker
             this.textBoxProject.Text = task.Project;
             this.textBoxCreatedDate.Text = task.CreatedDate;
             this.textBoxCreatedBy.Text = task.CreatedBy;
-            this.linkLabelLinkToTracker.Text = task.LinkToTracker;
+            this.linkLabelLinkToTracker.Text = task.LinkToTracker.ToString();
             this.textBoxEstimation.Text = task.Estimation;
             this.textBoxTargetVersion.Text = task.TargetVersion;
             this.textBoxComments.Text = task.Comments;

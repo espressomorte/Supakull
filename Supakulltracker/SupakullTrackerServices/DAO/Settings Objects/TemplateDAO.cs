@@ -16,4 +16,6 @@ namespace SupakullTrackerServices
         public virtual String TemplateName { get; set; }
         public virtual IDictionary<String, String> Mapping { get; set; }
     }
+
+   
 }

@@ -18,9 +18,5 @@ namespace SupakullTrackerServices
         public virtual Sources Source { get; set; }
         public virtual IList<TemplateDAO> MappingTemplates { get; set; }
         public virtual IList<TokenDAO> Tokens { get; set; }
-
-
-
-
     }
 }

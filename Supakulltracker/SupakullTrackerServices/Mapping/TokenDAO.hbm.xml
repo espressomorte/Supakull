@@ -6,7 +6,7 @@
 
     <map name="Token" table="TOKEN">
       <key column="TOKEN_ID" />
-      <index column="KYE" type="System.String"/>
+      <index column="KEY" type="System.String"/>
       <element column="VALUE" type="System.String" length="1500" />
     </map>
   </class>
