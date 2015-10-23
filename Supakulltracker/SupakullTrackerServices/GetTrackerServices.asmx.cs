@@ -37,7 +37,7 @@ namespace SupakullTrackerServices
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection);
                 return taskMainDtoCollection;
-            }            
+            }
         }
 
         #region StoreSources
@@ -69,6 +69,49 @@ namespace SupakullTrackerServices
             }
             return allTasksFromAdapterCollection;
         }
+        #endregion
+
+
+        #region ServicesForSettings
+
+        [WebMethod]
+        public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int32 userId)
+        {
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var allUserLinks = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).List();
+                List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
+                List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
+                List<ServiceAccountDTO> allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                return allUserAccountsDTO;
+            }
+        }
+
+        [WebMethod]
+        public ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(Int32 userId, Int32 seviceAccountId)
+        {
+            ServiceAccountDTO UserAccountsDTO;
+
+
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.ServiceAccountId == seviceAccountId).SingleOrDefault();
+                if (userLink != null)
+                {
+                     UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO();
+                }
+                else
+                {
+                    UserAccountsDTO = null;
+                }
+
+                return UserAccountsDTO;
+            }
+        }
+
+
         #endregion
     }
 }

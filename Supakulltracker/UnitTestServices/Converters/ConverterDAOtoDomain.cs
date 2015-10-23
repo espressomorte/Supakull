@@ -39,7 +39,7 @@ namespace UnitTestServices.Converters
             StringAssert.Contains(taskMainDAO1.Project, taskMainActual.Project, "Project is not correct");
             StringAssert.Contains(taskMainDAO1.Product, taskMainActual.Product, "Product is not correct");
             StringAssert.Contains(taskMainDAO1.Priority, taskMainActual.Priority, "Priority is not correct");
-            StringAssert.Contains(taskMainDAO1.LinkToTracker, taskMainActual.LinkToTracker, "LinkToTracker is not correct");
+            StringAssert.Contains(taskMainDAO1.LinkToTracker.ToString(), taskMainActual.LinkToTracker.ToString(), "LinkToTracker is not correct");
             StringAssert.Contains(taskMainDAO1.Estimation, taskMainActual.Estimation, "Estimation is not correct");
             StringAssert.Contains(taskMainDAO1.Description, taskMainActual.Description, "Description is not correct");
             StringAssert.Contains(taskMainDAO1.CreatedDate, taskMainActual.CreatedDate, "CreatedDate is not correct");
@@ -59,7 +59,7 @@ namespace UnitTestServices.Converters
             StringAssert.Contains(taskMainDAO2.Project, taskParentActual.Project, "Project is not correct");
             StringAssert.Contains(taskMainDAO2.Product, taskParentActual.Product, "Product is not correct");
             StringAssert.Contains(taskMainDAO2.Priority, taskParentActual.Priority, "Priority is not correct");
-            StringAssert.Contains(taskMainDAO2.LinkToTracker, taskParentActual.LinkToTracker, "LinkToTracker is not correct");
+            StringAssert.Contains(taskMainDAO2.LinkToTracker.ToString(), taskParentActual.LinkToTracker.ToString(), "LinkToTracker is not correct");
             StringAssert.Contains(taskMainDAO2.Estimation, taskParentActual.Estimation, "Estimation is not correct");
             StringAssert.Contains(taskMainDAO2.Description, taskParentActual.Description, "Description is not correct");
             StringAssert.Contains(taskMainDAO2.CreatedDate, taskParentActual.CreatedDate, "CreatedDate is not correct");
@@ -78,7 +78,7 @@ namespace UnitTestServices.Converters
             taskMainDAO.Project = string.Format("Project{0}", postfix);
             taskMainDAO.Product = string.Format("Product{0}", postfix);
             taskMainDAO.Priority = string.Format("Priority{0}", postfix);
-            taskMainDAO.LinkToTracker = string.Format("LinkToTracker{0}", postfix);
+            taskMainDAO.LinkToTracker = Sources.DataBase;
             taskMainDAO.Estimation = string.Format("Estimation{0}", postfix);
             taskMainDAO.Description = string.Format("Description{0}", postfix);
             taskMainDAO.CreatedDate = string.Format("CreatedDate{0}", postfix);

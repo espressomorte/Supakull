@@ -76,7 +76,7 @@ namespace SupakullTrackerServices
             task.Priority = array[4].ToString();
             task.CreatedDate = array[5].ToString();
             task.CreatedBy = array[6].ToString();
-            task.LinkToTracker = "Excel";
+            task.LinkToTracker = Sources.Excel;
 
             list_task.Add(task);
 

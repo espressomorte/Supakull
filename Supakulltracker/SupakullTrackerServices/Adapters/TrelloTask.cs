@@ -23,7 +23,7 @@ namespace TrelloTestApp
         private List<string> _assigned = new List<string>();
         private string _createdDate;
         private string _createdBy;
-        private string _linkToTracker;
+        private Sources _linkToTracker;
         private string _estimation;
         private string _targetVersion;
         private string _comments;
@@ -109,7 +109,7 @@ namespace TrelloTestApp
             }
         }
 
-        public string LinkToTracker
+        public Sources LinkToTracker
         {
             get
             {

@@ -104,6 +104,9 @@
     <EmbeddedResource Include="Mapping\UserDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\UserForAuthentication.hbm.xml" />
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
+    <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TokenDAO.hbm.xml" />
     <Content Include="packages.config" />
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
@@ -114,6 +117,7 @@
     <EmbeddedResource Include="Mapping\TaskMainDAO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\UserLinkDAO.hbm.xml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,7 +143,19 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
+    <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
+    <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
+    <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
+    <Compile Include="Domain\Settings Objects\ServiceAccount.cs" />
+    <Compile Include="Domain\Settings Objects\Template.cs" />
+    <Compile Include="Domain\Settings Objects\Token.cs" />
+    <Compile Include="Domain\Settings Objects\UserLink.cs" />
+    <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\User.cs" />
+    <Compile Include="DTO\Settings Objects\ServiceAccountDTO.cs" />
+    <Compile Include="DTO\Settings Objects\TemplateDTO.cs" />
+    <Compile Include="DTO\Settings Objects\TokenDTO.cs" />
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\TaskMainDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
@@ -165,6 +181,7 @@
       <Name>TrelloNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
