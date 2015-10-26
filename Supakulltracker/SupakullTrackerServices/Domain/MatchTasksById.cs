@@ -7,7 +7,7 @@ namespace SupakullTrackerServices
 {
     public class MatchTasksById : IMatchTasks
     {
-        public bool MatchTasks(ITask taskA, ITask taskB)
+        public bool Match(ITask taskA, ITask taskB)
         {
             return string.Equals(taskA.TaskID, taskB.TaskID, StringComparison.OrdinalIgnoreCase);
         }

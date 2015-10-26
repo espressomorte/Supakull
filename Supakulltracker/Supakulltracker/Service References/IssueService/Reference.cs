@@ -370,11 +370,11 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ForceUpdate", ReplyAction="*")]
-        void ForceUpdate();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
+        void Update();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ForceUpdate", ReplyAction="*")]
-        System.Threading.Tasks.Task ForceUpdateAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
+        System.Threading.Tasks.Task UpdateAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -488,12 +488,12 @@ namespace Supakulltracker.IssueService {
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
         }
         
-        public void ForceUpdate() {
-            base.Channel.ForceUpdate();
+        public void Update() {
+            base.Channel.Update();
         }
         
-        public System.Threading.Tasks.Task ForceUpdateAsync() {
-            return base.Channel.ForceUpdateAsync();
+        public System.Threading.Tasks.Task UpdateAsync() {
+            return base.Channel.UpdateAsync();
         }
     }
 }

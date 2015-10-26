@@ -32,7 +32,6 @@ namespace SupakullTrackerServices
         public virtual string Comments { get; set; }
         public virtual IList<UserDAO> Assigned { get; set; }
         public virtual TaskMainDAO TaskParent { get; set; }
-
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)

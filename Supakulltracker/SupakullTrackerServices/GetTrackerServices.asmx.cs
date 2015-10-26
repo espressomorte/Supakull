@@ -42,14 +42,14 @@ namespace SupakullTrackerServices
 
         #region ForceUpdate
         [WebMethod]
-        public void ForceUpdate()
+        public void Update()
         {
             ICollection<IAdapter> adapters = GetAllAdapters();
             IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
 
             IMatchTasks taskMatcher = new MatchTasksById();
-            TaskMain.ForceMatchTasks(allTaskMainFromAdapters, taskMatcher);
-            TaskMain.ForceDetectDisagreements(allTaskMainFromAdapters);
+            TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
+            TaskMain.DetectDisagreements(allTaskMainFromAdapters);
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);

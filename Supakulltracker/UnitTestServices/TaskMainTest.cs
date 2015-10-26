@@ -23,8 +23,8 @@ namespace UnitTestServices
             taskMainCollection.Add(taskMain4);
 
             IMatchTasks taskMatcher = new MatchTasksById();
-            TaskMain.ForceMatchTasks(taskMainCollection, taskMatcher);
-            TaskMain.ForceDetectDisagreements(taskMainCollection);
+            TaskMain.MatchTasks(taskMainCollection, taskMatcher);
+            TaskMain.DetectDisagreements(taskMainCollection);
         }
     }
 }

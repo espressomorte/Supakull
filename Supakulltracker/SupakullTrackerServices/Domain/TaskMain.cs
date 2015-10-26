@@ -55,7 +55,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public static void ForceMatchTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
+        public static void MatchTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
         {
             for (int a = 0; a < taskMainCollection.Count - 1; a++)
             {
@@ -63,7 +63,7 @@ namespace SupakullTrackerServices
                 {
                     ITask taskA = taskMainCollection[a];
                     ITask taskB = taskMainCollection[b];
-                    bool taskMatchingResult = taskMatcher.MatchTasks(taskA, taskB);
+                    bool taskMatchingResult = taskMatcher.Match(taskA, taskB);
                     if (taskMatchingResult)
                     {
                         taskA.AddMatchedTask(taskB);
@@ -73,7 +73,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public static void ForceDetectDisagreements(IList<ITask> taskMainCollection)
+        public static void DetectDisagreements(IList<ITask> taskMainCollection)
         {
             List<ITask> taskMainCollectionCopy = new List<ITask>(taskMainCollection);
             for (int i = 0; i < taskMainCollectionCopy.Count; i++)
