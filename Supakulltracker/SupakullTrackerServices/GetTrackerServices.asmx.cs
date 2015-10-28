@@ -49,12 +49,12 @@ namespace SupakullTrackerServices
 
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
-            TaskMain.DetectDisagreements(allTaskMainFromAdapters);
+            AddDisagreementsToTasks(allTaskMainFromAdapters);
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
-
+        
         private ICollection<IAdapter> GetAllAdapters()
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
@@ -73,6 +73,23 @@ namespace SupakullTrackerServices
                 allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
             }
             return allTasksFromAdapterCollection;
+        }
+
+        private void AddDisagreementsToTasks(IList<ITask> allTaskMainFromAdapters)
+        {
+            foreach (ITask taskMain in allTaskMainFromAdapters)
+            {
+                if (taskMain.MatchedTasks.Count > 0)
+                {
+                    IList<ITask> matchedTasks = new List<ITask>(taskMain.MatchedTasks);
+                    matchedTasks.Add(taskMain);
+                    ICollection<Disagreement> disagreements = TaskMain.GetDisagreements(matchedTasks);
+                    foreach (Disagreement disagreement in disagreements)
+                    {
+                        taskMain.AddDisagreement(disagreement);
+                    }
+                }
+            }
         }
         #endregion
     }

@@ -10,7 +10,7 @@ namespace UnitTestServices
     public class TaskMainTest
     {
         [TestMethod]
-        public void ForceDetectDisagreements_Test1()
+        public void AddDisagreementsToTasks_Test1()
         {
             IList<ITask> taskMainCollection = new List<ITask>();
             ITask taskMain1 = new TaskMain() { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "c", Status = "e" };
@@ -24,7 +24,20 @@ namespace UnitTestServices
 
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(taskMainCollection, taskMatcher);
-            TaskMain.DetectDisagreements(taskMainCollection);
+
+            foreach (ITask taskMain in taskMainCollection)
+            {
+                if (taskMain.MatchedTasks.Count > 0)
+                {
+                    IList<ITask> matchedTasks = new List<ITask>(taskMain.MatchedTasks);
+                    matchedTasks.Add(taskMain);
+                    ICollection<Disagreement> disagreements = TaskMain.GetDisagreements(matchedTasks);
+                    foreach (Disagreement disagreement in disagreements)
+                    {
+                        taskMain.AddDisagreement(disagreement);
+                    }
+                }
+            }
         }
     }
 }

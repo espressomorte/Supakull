@@ -73,149 +73,135 @@ namespace SupakullTrackerServices
             }
         }
 
-        public static void DetectDisagreements(IList<ITask> taskMainCollection)
+        public static ICollection<Disagreement> GetDisagreements(IList<ITask> taskMainCollection)
         {
-            List<ITask> taskMainCollectionCopy = new List<ITask>(taskMainCollection);
-            for (int i = 0; i < taskMainCollectionCopy.Count; i++)
+            ICollection<Disagreement> disagreements = new HashSet<Disagreement>();
+            ITask taskA = taskMainCollection[0];
+            for(int b = 1; b < taskMainCollection.Count; b++)
             {
-                ITask currentTaskMain = taskMainCollectionCopy[i];
-                foreach (ITask matchedTask in currentTaskMain.MatchedTasks)
+                ITask taskB = taskMainCollection[b];
+
+                if (taskA.SubtaskType != null &&
+                        taskB.SubtaskType != null &&
+                        taskA.SubtaskType != taskB.SubtaskType)
                 {
-
-                    if ( currentTaskMain.SubtaskType != null &&
-                        matchedTask.SubtaskType != null &&
-                        currentTaskMain.SubtaskType != matchedTask.SubtaskType )
-                    {                        
-                        Disagreement disagreement = new Disagreement("SubtaskType");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                    Disagreement disagreement = new Disagreement(nameof(taskA.SubtaskType));
+                    disagreements.Add(disagreement);
+                }
 
 
-                    if ( currentTaskMain.Summary != null &&
-                         matchedTask.Summary != null &&
-                         currentTaskMain.Summary != matchedTask.Summary)
-                    {
-                        Disagreement disagreement = new Disagreement("Summary");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Summary != null &&
+                         taskB.Summary != null &&
+                         taskA.Summary != taskB.Summary)
+                {
+                    Disagreement disagreement = new Disagreement("Summary");
+                    taskA.AddDisagreement(disagreement);
+                    disagreements.Add(disagreement);
+                }
 
 
-                    if ( currentTaskMain.Description != null &&
-                         matchedTask.Description != null &&
-                         currentTaskMain.Description != matchedTask.Description)
-                    {
-                        Disagreement disagreement = new Disagreement("Description");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Description != null &&
+                     taskB.Description != null &&
+                     taskA.Description != taskB.Description)
+                {
+                    Disagreement disagreement = new Disagreement("Description");
+                    taskA.AddDisagreement(disagreement);
+                    disagreements.Add(disagreement);
+                }
 
 
-                    if ( currentTaskMain.Status != null &&
-                         matchedTask.Status != null &&
-                         currentTaskMain.Status != matchedTask.Status)
-                    {
-                        Disagreement disagreement = new Disagreement("Status");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Status != null &&
+                     taskB.Status != null &&
+                     taskA.Status != taskB.Status)
+                {
+                    Disagreement disagreement = new Disagreement("Status");
+                    taskA.AddDisagreement(disagreement);
+                    disagreements.Add(disagreement);
+                }
 
 
-                    if (currentTaskMain.Priority != null &&
-                         matchedTask.Priority != null &&
-                         currentTaskMain.Priority != matchedTask.Priority)
-                    {
-                        Disagreement disagreement = new Disagreement("Priority");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Priority != null &&
+                    taskB.Priority != null &&
+                    taskA.Priority != taskB.Priority)
+                {
+                    Disagreement disagreement = new Disagreement("Priority");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.Product != null &&
-                         matchedTask.Product != null &&
-                         currentTaskMain.Product != matchedTask.Product)
-                    {
-                        Disagreement disagreement = new Disagreement("Product");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Product != null &&
+                     taskB.Product != null &&
+                     taskA.Product != taskB.Product)
+                {
+                    Disagreement disagreement = new Disagreement("Product");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.Project != null &&
-                         matchedTask.Project != null &&
-                         currentTaskMain.Project != matchedTask.Project)
-                    {
-                        Disagreement disagreement = new Disagreement("Project");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Project != null &&
+                     taskB.Project != null &&
+                     taskA.Project != taskB.Project)
+                {
+                    Disagreement disagreement = new Disagreement("Project");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.CreatedDate != null &&
-                         matchedTask.CreatedDate != null &&
-                         currentTaskMain.CreatedDate != matchedTask.CreatedDate)
-                    {
-                        Disagreement disagreement = new Disagreement("CreatedDate");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.CreatedDate != null &&
+                     taskB.CreatedDate != null &&
+                     taskA.CreatedDate != taskB.CreatedDate)
+                {
+                    Disagreement disagreement = new Disagreement("CreatedDate");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.CreatedBy != null &&
-                         matchedTask.CreatedBy != null &&
-                         currentTaskMain.CreatedBy != matchedTask.CreatedBy)
-                    {
-                        Disagreement disagreement = new Disagreement("CreatedBy");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.CreatedBy != null &&
+                     taskB.CreatedBy != null &&
+                     taskA.CreatedBy != taskB.CreatedBy)
+                {
+                    Disagreement disagreement = new Disagreement("CreatedBy");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.LinkToTracker != null &&
-                         matchedTask.LinkToTracker != null &&
-                         currentTaskMain.LinkToTracker != matchedTask.LinkToTracker)
-                    {
-                        Disagreement disagreement = new Disagreement("LinkToTracker");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.LinkToTracker != null &&
+                     taskB.LinkToTracker != null &&
+                     taskA.LinkToTracker != taskB.LinkToTracker)
+                {
+                    Disagreement disagreement = new Disagreement("LinkToTracker");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.Estimation != null &&
-                         matchedTask.Estimation != null &&
-                         currentTaskMain.Estimation != matchedTask.Estimation)
-                    {
-                        Disagreement disagreement = new Disagreement("Estimation");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.Estimation != null &&
+                     taskB.Estimation != null &&
+                     taskA.Estimation != taskB.Estimation)
+                {
+                    Disagreement disagreement = new Disagreement("Estimation");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.TargetVersion != null &&
-                         matchedTask.TargetVersion != null &&
-                         currentTaskMain.TargetVersion != matchedTask.TargetVersion)
-                    {
-                        Disagreement disagreement = new Disagreement("TargetVersion");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
+                if (taskA.TargetVersion != null &&
+                     taskB.TargetVersion != null &&
+                     taskA.TargetVersion != taskB.TargetVersion)
+                {
+                    Disagreement disagreement = new Disagreement("TargetVersion");
+                    taskA.AddDisagreement(disagreement);
+                }
 
 
-                    if (currentTaskMain.Comments != null &&
-                         matchedTask.Comments != null &&
-                         currentTaskMain.Comments != matchedTask.Comments)
-                    {
-                        Disagreement disagreement = new Disagreement("Comments");
-                        currentTaskMain.AddDisagreement(disagreement);
-                        currentTaskMain.AddDisagreementToMatchedTasks(disagreement);
-                    }
-
-
-                    int indexOfTaskToDelete = taskMainCollectionCopy.IndexOf(matchedTask, i + 1);
-                    taskMainCollectionCopy.RemoveAt(indexOfTaskToDelete);
+                if (taskA.Comments != null &&
+                     taskB.Comments != null &&
+                     taskA.Comments != taskB.Comments)
+                {
+                    Disagreement disagreement = new Disagreement("Comments");
+                    taskA.AddDisagreement(disagreement);
                 }
             }
+            return disagreements;
+
         }
     }   
 }
