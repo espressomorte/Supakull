@@ -72,18 +72,28 @@ namespace SupakullTrackerServices
         #endregion
 
 
-        #region ServicesForSettings
+        #region ServicesForReadingSettings
 
         [WebMethod]
         public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int32 userId)
         {
+            List<ServiceAccountDTO> allUserAccountsDTO;
+
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             using (ISession session = sessionFactory.OpenSession())
             {
                 var allUserLinks = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).List();
-                List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
-                List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
-                List<ServiceAccountDTO> allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                if (allUserLinks != null)
+                {
+                    List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
+                    List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
+                    allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                }
+                else
+                {
+                     allUserAccountsDTO = null;
+                }
+
                 return allUserAccountsDTO;
             }
         }
@@ -100,7 +110,7 @@ namespace SupakullTrackerServices
                 UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.ServiceAccountId == seviceAccountId).SingleOrDefault();
                 if (userLink != null)
                 {
-                     UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO();
+                    UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO();
                 }
                 else
                 {
