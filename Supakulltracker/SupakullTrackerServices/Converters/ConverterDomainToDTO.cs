@@ -83,31 +83,39 @@ namespace SupakullTrackerServices
             }
             return target;
         }
-
-        public static ServiceAccountDTO ServiceAccountDomainToDTO(this ServiceAccount param)
+        
+        /// <summary>
+        /// Convert Domain Object for serialization 
+        /// </summary>
+        /// <param name="param">Object for converting</param>
+        /// <param name="IsDetailsNeed">If Tokens and Mapping Templates needs</param>
+        /// <returns></returns>
+        public static ServiceAccountDTO ServiceAccountDomainToDTO(this ServiceAccount param, Boolean IsDetailsNeed = false)
         {
             ServiceAccountDTO target = new ServiceAccountDTO();
 
             target.ServiceAccountId = param.ServiceAccountId;
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
+            if (IsDetailsNeed)
+            {
+                if (param.Tokens != null)
+                {
+                    target.Tokens = param.Tokens.Select<Token, TokenDTO>(x => x.TokenToTokenDTO()).ToList();
+                }
+                else
+                {
+                    target.Tokens = null;
+                }
 
-            if (param.Tokens != null)
-            {
-                target.Tokens = param.Tokens.Select<Token, TokenDTO>(x => x.TokenToTokenDTO()).ToList();
-            }
-            else
-            {
-                target.Tokens = null;
-            }
-
-            if (param.MappingTemplates != null)
-            {
-                target.MappingTemplates = param.MappingTemplates.Select<Template, TemplateDTO>(x => x.TemplateToTemplateDTO()).ToList();
-            }
-            else
-            {
-                target.MappingTemplates = null;
+                if (param.MappingTemplates != null)
+                {
+                    target.MappingTemplates = param.MappingTemplates.Select<Template, TemplateDTO>(x => x.TemplateToTemplateDTO()).ToList();
+                }
+                else
+                {
+                    target.MappingTemplates = null;
+                }
             }
 
             return target;
@@ -117,8 +125,8 @@ namespace SupakullTrackerServices
         {
             TokenDTO target = new TokenDTO();
 
-            target.TokeneId = param.TokeneId;
-            target.TokeneName = param.TokeneName;
+            target.TokenId = param.TokenId;
+            target.TokenName = param.TokenName;
             foreach (KeyValuePair<string, string> item in param.Tokens)
             {
                 target.Tokens.Add(new TokenForSerialization { Key = item.Key, Value = item.Value });

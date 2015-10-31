@@ -117,8 +117,8 @@ namespace SupakullTrackerServices
         {
             Token target = new Token();
 
-            target.TokeneId = param.TokeneId;
-            target.TokeneName = param.TokeneName;
+            target.TokenId = param.TokenId;
+            target.TokenName = param.TokenName;
             target.Tokens = param.Token;
 
             return target;

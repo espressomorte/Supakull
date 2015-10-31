@@ -12,8 +12,8 @@ namespace SupakullTrackerServices
         {
             this.Tokens = new Dictionary<String, String>();
         }
-        public virtual Int32 TokeneId { get; set; }
-        public virtual String TokeneName { get; set; }
+        public virtual Int32 TokenId { get; set; }
+        public virtual String TokenName { get; set; }
         public virtual IDictionary<String, String> Tokens { get; set; }
     }
 }

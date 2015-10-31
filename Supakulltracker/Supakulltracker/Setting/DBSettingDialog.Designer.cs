@@ -37,30 +37,31 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.panelChoseDBProvider = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.cmbDBDialect = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.cmdDBType = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.UserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.MappingSettings = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnChekMapping = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.DBTab = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBoxAvailableConnections = new System.Windows.Forms.GroupBox();
+            this.groupBoxAccounts = new System.Windows.Forms.GroupBox();
             this.btnEddNewConfigForDB = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.availableConectionsList = new System.Windows.Forms.ComboBox();
-            this.groupBoxActiveConnections = new System.Windows.Forms.GroupBox();
-            this.activConectionsList = new System.Windows.Forms.ComboBox();
+            this.cmbAcconts = new System.Windows.Forms.ComboBox();
+            this.groupBoxTokens = new System.Windows.Forms.GroupBox();
+            this.cmbTokens = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.panelPreviewString = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
@@ -75,15 +76,16 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.button5 = new System.Windows.Forms.Button();
             this.panelChoseDBProvider.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.DBTab.SuspendLayout();
             this.Settings.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBoxAvailableConnections.SuspendLayout();
-            this.groupBoxActiveConnections.SuspendLayout();
+            this.groupBoxAccounts.SuspendLayout();
+            this.groupBoxTokens.SuspendLayout();
             this.panelPreviewString.SuspendLayout();
             this.flowLayoutPanelConSettings.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -93,9 +95,9 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(444, 77);
+            this.btnSaveSettings.Location = new System.Drawing.Point(81, 3);
             this.btnSaveSettings.Name = "btnSaveSettings";
-            this.btnSaveSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveSettings.Size = new System.Drawing.Size(76, 23);
             this.btnSaveSettings.TabIndex = 1;
             this.btnSaveSettings.Text = "Save";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
@@ -162,23 +164,16 @@
             // 
             // panelChoseDBProvider
             // 
-            this.panelChoseDBProvider.Controls.Add(this.panel1);
+            this.panelChoseDBProvider.Controls.Add(this.cmbDBDialect);
             this.panelChoseDBProvider.Controls.Add(this.label1);
+            this.panelChoseDBProvider.Controls.Add(this.label2);
             this.panelChoseDBProvider.Controls.Add(this.cmdDBType);
             this.panelChoseDBProvider.Controls.Add(this.comboBox2);
             this.panelChoseDBProvider.Location = new System.Drawing.Point(24, 214);
             this.panelChoseDBProvider.Name = "panelChoseDBProvider";
             this.panelChoseDBProvider.Size = new System.Drawing.Size(175, 122);
             this.panelChoseDBProvider.TabIndex = 11;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cmbDBDialect);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(7, 56);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(140, 66);
-            this.panel1.TabIndex = 19;
+            this.panelChoseDBProvider.Visible = false;
             // 
             // cmbDBDialect
             // 
@@ -187,19 +182,10 @@
             "Oracle8iDialect",
             "Oracle9iDialect",
             "Oracle10gDialect"});
-            this.cmbDBDialect.Location = new System.Drawing.Point(19, 36);
+            this.cmbDBDialect.Location = new System.Drawing.Point(25, 89);
             this.cmbDBDialect.Name = "cmbDBDialect";
             this.cmbDBDialect.Size = new System.Drawing.Size(121, 21);
             this.cmbDBDialect.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Choose DB Dialect";
             // 
             // label1
             // 
@@ -209,6 +195,15 @@
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Choose DB Type";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Choose DB Dialect";
             // 
             // cmdDBType
             // 
@@ -265,10 +260,8 @@
             // 
             // MappingSettings
             // 
-            this.MappingSettings.Controls.Add(this.label3);
-            this.MappingSettings.Controls.Add(this.textBox5);
-            this.MappingSettings.Controls.Add(this.btnChekMapping);
-            this.MappingSettings.Controls.Add(this.btnSaveSettings);
+            this.MappingSettings.Controls.Add(this.panel2);
+            this.MappingSettings.Controls.Add(this.panel1);
             this.MappingSettings.Controls.Add(this.richTextBox1);
             this.MappingSettings.Location = new System.Drawing.Point(4, 22);
             this.MappingSettings.Name = "MappingSettings";
@@ -278,10 +271,20 @@
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.textBox5);
+            this.panel2.Location = new System.Drawing.Point(29, 58);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(194, 57);
+            this.panel2.TabIndex = 6;
+            this.panel2.Visible = false;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(65, 58);
+            this.label3.Location = new System.Drawing.Point(54, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 4;
@@ -289,14 +292,26 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(29, 77);
+            this.textBox5.Location = new System.Drawing.Point(16, 26);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(163, 20);
             this.textBox5.TabIndex = 3;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnChekMapping);
+            this.panel1.Controls.Add(this.btnSaveSettings);
+            this.panel1.Location = new System.Drawing.Point(395, 88);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(157, 27);
+            this.panel1.TabIndex = 5;
+            this.panel1.Visible = false;
+            // 
             // btnChekMapping
             // 
-            this.btnChekMapping.Location = new System.Drawing.Point(345, 77);
+            this.btnChekMapping.Location = new System.Drawing.Point(0, 3);
             this.btnChekMapping.Name = "btnChekMapping";
             this.btnChekMapping.Size = new System.Drawing.Size(75, 23);
             this.btnChekMapping.TabIndex = 2;
@@ -307,7 +322,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(29, 132);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(538, 444);
+            this.richTextBox1.Size = new System.Drawing.Size(523, 419);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -339,6 +354,7 @@
             // 
             // Settings
             // 
+            this.Settings.BackColor = System.Drawing.Color.White;
             this.Settings.Controls.Add(this.groupBox1);
             this.Settings.Controls.Add(this.panelPreviewString);
             this.Settings.Controls.Add(this.label10);
@@ -350,13 +366,12 @@
             this.Settings.Size = new System.Drawing.Size(589, 638);
             this.Settings.TabIndex = 0;
             this.Settings.Text = "General";
-            this.Settings.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
-            this.groupBox1.Controls.Add(this.groupBoxAvailableConnections);
-            this.groupBox1.Controls.Add(this.groupBoxActiveConnections);
+            this.groupBox1.Controls.Add(this.groupBoxAccounts);
+            this.groupBox1.Controls.Add(this.groupBoxTokens);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
@@ -365,24 +380,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connections settings";
             // 
-            // groupBoxAvailableConnections
+            // groupBoxAccounts
             // 
-            this.groupBoxAvailableConnections.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxAvailableConnections.Controls.Add(this.btnEddNewConfigForDB);
-            this.groupBoxAvailableConnections.Controls.Add(this.button2);
-            this.groupBoxAvailableConnections.Controls.Add(this.availableConectionsList);
-            this.groupBoxAvailableConnections.Location = new System.Drawing.Point(21, 19);
-            this.groupBoxAvailableConnections.Name = "groupBoxAvailableConnections";
-            this.groupBoxAvailableConnections.Size = new System.Drawing.Size(200, 172);
-            this.groupBoxAvailableConnections.TabIndex = 12;
-            this.groupBoxAvailableConnections.TabStop = false;
-            this.groupBoxAvailableConnections.Text = "Available connections settings";
+            this.groupBoxAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxAccounts.Controls.Add(this.btnEddNewConfigForDB);
+            this.groupBoxAccounts.Controls.Add(this.button2);
+            this.groupBoxAccounts.Controls.Add(this.cmbAcconts);
+            this.groupBoxAccounts.Location = new System.Drawing.Point(15, 19);
+            this.groupBoxAccounts.Name = "groupBoxAccounts";
+            this.groupBoxAccounts.Size = new System.Drawing.Size(215, 180);
+            this.groupBoxAccounts.TabIndex = 12;
+            this.groupBoxAccounts.TabStop = false;
+            this.groupBoxAccounts.Text = "Accounts";
             // 
             // btnEddNewConfigForDB
             // 
-            this.btnEddNewConfigForDB.Location = new System.Drawing.Point(125, 22);
+            this.btnEddNewConfigForDB.Location = new System.Drawing.Point(133, 22);
             this.btnEddNewConfigForDB.Name = "btnEddNewConfigForDB";
             this.btnEddNewConfigForDB.Size = new System.Drawing.Size(75, 23);
             this.btnEddNewConfigForDB.TabIndex = 6;
@@ -391,45 +405,46 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(125, 51);
+            this.button2.Location = new System.Drawing.Point(133, 51);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Activate";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // availableConectionsList
+            // cmbAcconts
             // 
-            this.availableConectionsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.availableConectionsList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.availableConectionsList.FormattingEnabled = true;
-            this.availableConectionsList.Location = new System.Drawing.Point(0, 24);
-            this.availableConectionsList.Name = "availableConectionsList";
-            this.availableConectionsList.Size = new System.Drawing.Size(121, 150);
-            this.availableConectionsList.TabIndex = 4;
+            this.cmbAcconts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cmbAcconts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbAcconts.FormattingEnabled = true;
+            this.cmbAcconts.Location = new System.Drawing.Point(6, 24);
+            this.cmbAcconts.Name = "cmbAcconts";
+            this.cmbAcconts.Size = new System.Drawing.Size(121, 150);
+            this.cmbAcconts.TabIndex = 4;
+            this.cmbAcconts.SelectedIndexChanged += new System.EventHandler(this.availableConectionsList_SelectedIndexChanged);
             // 
-            // groupBoxActiveConnections
+            // groupBoxTokens
             // 
-            this.groupBoxActiveConnections.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBoxTokens.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxActiveConnections.Controls.Add(this.activConectionsList);
-            this.groupBoxActiveConnections.Controls.Add(this.button3);
-            this.groupBoxActiveConnections.Location = new System.Drawing.Point(357, 19);
-            this.groupBoxActiveConnections.Name = "groupBoxActiveConnections";
-            this.groupBoxActiveConnections.Size = new System.Drawing.Size(211, 172);
-            this.groupBoxActiveConnections.TabIndex = 11;
-            this.groupBoxActiveConnections.TabStop = false;
-            this.groupBoxActiveConnections.Text = "Active connections";
+            this.groupBoxTokens.Controls.Add(this.cmbTokens);
+            this.groupBoxTokens.Controls.Add(this.button3);
+            this.groupBoxTokens.Location = new System.Drawing.Point(353, 19);
+            this.groupBoxTokens.Name = "groupBoxTokens";
+            this.groupBoxTokens.Size = new System.Drawing.Size(215, 180);
+            this.groupBoxTokens.TabIndex = 11;
+            this.groupBoxTokens.TabStop = false;
+            this.groupBoxTokens.Text = "Tokens";
             // 
-            // activConectionsList
+            // cmbTokens
             // 
-            this.activConectionsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.activConectionsList.FormattingEnabled = true;
-            this.activConectionsList.Location = new System.Drawing.Point(84, 22);
-            this.activConectionsList.Name = "activConectionsList";
-            this.activConectionsList.Size = new System.Drawing.Size(121, 150);
-            this.activConectionsList.TabIndex = 7;
+            this.cmbTokens.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cmbTokens.FormattingEnabled = true;
+            this.cmbTokens.Location = new System.Drawing.Point(84, 22);
+            this.cmbTokens.Name = "cmbTokens";
+            this.cmbTokens.Size = new System.Drawing.Size(121, 150);
+            this.cmbTokens.TabIndex = 7;
+            this.cmbTokens.SelectedIndexChanged += new System.EventHandler(this.cmbTokens_SelectedIndexChanged);
             // 
             // button3
             // 
@@ -437,7 +452,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 10;
-            this.button3.Text = "Disable";
+            this.button3.Text = "Delete";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // panelPreviewString
@@ -451,6 +466,7 @@
             this.panelPreviewString.Name = "panelPreviewString";
             this.panelPreviewString.Size = new System.Drawing.Size(586, 136);
             this.panelPreviewString.TabIndex = 17;
+            this.panelPreviewString.Visible = false;
             // 
             // label11
             // 
@@ -508,8 +524,7 @@
             // 
             // flowLayoutPanelConSettings
             // 
-            this.flowLayoutPanelConSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flowLayoutPanelConSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelConSettings.Controls.Add(this.label4);
             this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel1);
@@ -522,6 +537,7 @@
             this.flowLayoutPanelConSettings.Name = "flowLayoutPanelConSettings";
             this.flowLayoutPanelConSettings.Size = new System.Drawing.Size(354, 220);
             this.flowLayoutPanelConSettings.TabIndex = 12;
+            this.flowLayoutPanelConSettings.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -567,6 +583,7 @@
             // 
             // button5
             // 
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.button5.Location = new System.Drawing.Point(3, 181);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
@@ -583,20 +600,20 @@
             this.Size = new System.Drawing.Size(593, 664);
             this.panelChoseDBProvider.ResumeLayout(false);
             this.panelChoseDBProvider.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.MappingSettings.ResumeLayout(false);
-            this.MappingSettings.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.DBTab.ResumeLayout(false);
             this.Settings.ResumeLayout(false);
             this.Settings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBoxAvailableConnections.ResumeLayout(false);
-            this.groupBoxActiveConnections.ResumeLayout(false);
+            this.groupBoxAccounts.ResumeLayout(false);
+            this.groupBoxTokens.ResumeLayout(false);
             this.panelPreviewString.ResumeLayout(false);
             this.panelPreviewString.PerformLayout();
             this.flowLayoutPanelConSettings.ResumeLayout(false);
@@ -621,7 +638,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Panel panelChoseDBProvider;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox cmbDBDialect;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -639,12 +655,12 @@
         private System.Windows.Forms.TabControl DBTab;
         private System.Windows.Forms.TabPage Settings;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBoxAvailableConnections;
+        private System.Windows.Forms.GroupBox groupBoxAccounts;
         private System.Windows.Forms.Button btnEddNewConfigForDB;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ComboBox availableConectionsList;
-        private System.Windows.Forms.GroupBox groupBoxActiveConnections;
-        private System.Windows.Forms.ComboBox activConectionsList;
+        private System.Windows.Forms.ComboBox cmbAcconts;
+        private System.Windows.Forms.GroupBox groupBoxTokens;
+        private System.Windows.Forms.ComboBox cmbTokens;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panelPreviewString;
         private System.Windows.Forms.Label label11;
@@ -658,5 +674,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

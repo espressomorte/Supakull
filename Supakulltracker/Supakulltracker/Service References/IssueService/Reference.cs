@@ -567,10 +567,10 @@ namespace Supakulltracker.IssueService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private int TokeneIdField;
+        private int TokenIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TokeneNameField;
+        private string TokenNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TokenForSerialization[] TokensField;
@@ -586,27 +586,27 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int TokeneId {
+        public int TokenId {
             get {
-                return this.TokeneIdField;
+                return this.TokenIdField;
             }
             set {
-                if ((this.TokeneIdField.Equals(value) != true)) {
-                    this.TokeneIdField = value;
-                    this.RaisePropertyChanged("TokeneId");
+                if ((this.TokenIdField.Equals(value) != true)) {
+                    this.TokenIdField = value;
+                    this.RaisePropertyChanged("TokenId");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string TokeneName {
+        public string TokenName {
             get {
-                return this.TokeneNameField;
+                return this.TokenNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokeneNameField, value) != true)) {
-                    this.TokeneNameField = value;
-                    this.RaisePropertyChanged("TokeneName");
+                if ((object.ReferenceEquals(this.TokenNameField, value) != true)) {
+                    this.TokenNameField = value;
+                    this.RaisePropertyChanged("TokenName");
                 }
             }
         }
@@ -873,12 +873,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllUserAccountsByUserIDRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
-        public int userId;
+        public long userId;
         
         public GetAllUserAccountsByUserIDRequestBody() {
         }
         
-        public GetAllUserAccountsByUserIDRequestBody(int userId) {
+        public GetAllUserAccountsByUserIDRequestBody(long userId) {
             this.userId = userId;
         }
     }
@@ -941,7 +941,7 @@ namespace Supakulltracker.IssueService {
     public partial class GetUserAccountsByUserIDAndAccountIdRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
-        public int userId;
+        public long userId;
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
         public int seviceAccountId;
@@ -949,7 +949,7 @@ namespace Supakulltracker.IssueService {
         public GetUserAccountsByUserIDAndAccountIdRequestBody() {
         }
         
-        public GetUserAccountsByUserIDAndAccountIdRequestBody(int userId, int seviceAccountId) {
+        public GetUserAccountsByUserIDAndAccountIdRequestBody(long userId, int seviceAccountId) {
             this.userId = userId;
             this.seviceAccountId = seviceAccountId;
         }
@@ -1052,7 +1052,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetAllUserAccountsByUserID(request);
         }
         
-        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserID(int userId) {
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserID(long userId) {
             Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
             inValue.Body.userId = userId;
@@ -1065,7 +1065,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetAllUserAccountsByUserIDAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(int userId) {
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(long userId) {
             Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
             inValue.Body.userId = userId;
@@ -1077,7 +1077,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetUserAccountsByUserIDAndAccountId(request);
         }
         
-        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(int userId, int seviceAccountId) {
+        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(long userId, int seviceAccountId) {
             Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
             inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
             inValue.Body.userId = userId;
@@ -1091,7 +1091,7 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetUserAccountsByUserIDAndAccountIdAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(int userId, int seviceAccountId) {
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(long userId, int seviceAccountId) {
             Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
             inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
             inValue.Body.userId = userId;

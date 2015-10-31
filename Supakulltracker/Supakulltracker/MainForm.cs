@@ -13,7 +13,15 @@ namespace Supakulltracker
     public partial class MainForm : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public UserProvider.UserForAuthentication LoggedUser { get; set; }
         IssueService.TaskMainDTO[] Tasks;
+
+        //For test
+        void SetCorrentUser()
+        {
+            UserProvider.UserProviderSoapClient userProvider = new UserProvider.UserProviderSoapClient();
+            LoggedUser = userProvider.Find("supakull");
+        }
 
         public MainForm()
         {
@@ -29,6 +37,7 @@ namespace Supakulltracker
             if (loginResult)
             {
                 PrepareApplicationAsync();
+                SetCorrentUser();
             }
             else
             {
@@ -64,7 +73,7 @@ namespace Supakulltracker
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsDialog setingDialog = new SettingsDialog();
+            SettingsDialog setingDialog = new SettingsDialog(LoggedUser);
             setingDialog.Show();
         }
     }

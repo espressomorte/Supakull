@@ -75,7 +75,7 @@ namespace SupakullTrackerServices
         #region ServicesForReadingSettings
 
         [WebMethod]
-        public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int32 userId)
+        public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int64 userId)
         {
             List<ServiceAccountDTO> allUserAccountsDTO;
 
@@ -99,7 +99,7 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
-        public ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(Int32 userId, Int32 seviceAccountId)
+        public ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(Int64 userId, Int32 seviceAccountId)
         {
             ServiceAccountDTO UserAccountsDTO;
 
@@ -110,7 +110,7 @@ namespace SupakullTrackerServices
                 UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.ServiceAccountId == seviceAccountId).SingleOrDefault();
                 if (userLink != null)
                 {
-                    UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO();
+                    UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO(IsDetailsNeed: true);
                 }
                 else
                 {

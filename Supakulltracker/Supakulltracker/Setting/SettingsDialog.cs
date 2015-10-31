@@ -12,17 +12,21 @@ namespace Supakulltracker
 {
     public partial class SettingsDialog : Form
     {
-        public SettingsDialog()
+        private UserProvider.UserForAuthentication loggedUser;
+        private IssueService.ServiceAccountDTO[] userAccounts;
+
+        public SettingsDialog(UserProvider.UserForAuthentication loggedUser)
         {
             InitializeComponent();
+            this.loggedUser = loggedUser;
+            this.userAccounts = loggedUser.GetAllUserAccounts();
         }
 
         private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBSettingDialog dbSetingDialog = new DBSettingDialog();
+            DBSettingDialog dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts);
             splitContainer1.Panel2.Controls.Add(dbSetingDialog);
-            dbSetingDialog.Dock = DockStyle.Fill;
-            dbSetingDialog.Show();
+           
         }
     }
 }

@@ -117,8 +117,8 @@ namespace SupakullTrackerServices
         {
             TokenDAO target = new TokenDAO();
 
-            target.TokeneId = param.TokeneId;
-            target.TokeneName = param.TokeneName;
+            target.TokenId = param.TokenId;
+            target.TokenName = param.TokenName;
             target.Token = param.Tokens;
 
             return target;
