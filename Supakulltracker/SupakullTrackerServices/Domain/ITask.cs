@@ -14,7 +14,7 @@ namespace SupakullTrackerServices
         string Project { get; set; }        
         string CreatedDate { get; set; }
         string CreatedBy { get; set; }
-        string LinkToTracker { get; set; }
+        Sources LinkToTracker { get; set; }
         string Estimation { get; set; }
         string TargetVersion { get; set; }
         string Comments { get; set; }

@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GitHubSharp, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GitHubClient.1.0.5.0\lib\portable-net45+win+wpa81\GitHubSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll</HintPath>
       <Private>True</Private>
@@ -70,8 +78,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -96,7 +104,12 @@
     <EmbeddedResource Include="Mapping\UserDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\UserForAuthentication.hbm.xml" />
     <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
-    <Content Include="packages.config" />
+    <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\TokenDAO.hbm.xml" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -106,6 +119,7 @@
     <EmbeddedResource Include="Mapping\TaskMainDAO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\UserLinkDAO.hbm.xml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -121,6 +135,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\ExcelAdapter.cs" />
     <Compile Include="Adapters\GoogleSheetsAdapter.cs" />
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
@@ -130,13 +145,25 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
+    <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
+    <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
+    <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
+    <Compile Include="Domain\Settings Objects\ServiceAccount.cs" />
+    <Compile Include="Domain\Settings Objects\Template.cs" />
+    <Compile Include="Domain\Settings Objects\Token.cs" />
+    <Compile Include="Domain\Settings Objects\UserLink.cs" />
+    <Compile Include="Domain\Sources.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Disagreements\Disagreement.cs" />
     <Compile Include="Domain\Disagreements\FieldStringCollection.cs" />
     <Compile Include="Domain\MatchTasks\IMatchTasks.cs" />
     <Compile Include="Domain\Disagreements\ITaskField.cs" />
     <Compile Include="Domain\MatchTasks\MatchTasksById.cs" />
     <Compile Include="Domain\Disagreements\FieldString.cs" />
-    <Compile Include="Domain\User.cs" />
+    <Compile Include="DTO\Settings Objects\ServiceAccountDTO.cs" />
+    <Compile Include="DTO\Settings Objects\TemplateDTO.cs" />
+    <Compile Include="DTO\Settings Objects\TokenDTO.cs" />
     <Compile Include="Temp\Issue.cs" />
     <Compile Include="DTO\TaskMainDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
@@ -162,6 +189,7 @@
       <Name>TrelloNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

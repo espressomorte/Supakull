@@ -37,10 +37,10 @@ namespace SupakullTrackerServices
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection);
                 return taskMainDtoCollection;
-            }            
+            }
         }
 
-        #region ForceUpdate
+        #region Update
         [WebMethod]
         public void Update()
         {
@@ -61,7 +61,7 @@ namespace SupakullTrackerServices
             adapters.Add(new DBAdapter());
             adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
             adapters.Add(new GoogleSheetsAdapter());
-            //adapters.Add(new ExcelAdapter());
+            adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
             return adapters;
         }
 
@@ -92,6 +92,49 @@ namespace SupakullTrackerServices
                 }
             }
         }
+        #endregion
+
+
+        #region ServicesForSettings
+
+        [WebMethod]
+        public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int32 userId)
+        {
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var allUserLinks = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).List();
+                List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
+                List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
+                List<ServiceAccountDTO> allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                return allUserAccountsDTO;
+            }
+        }
+
+        [WebMethod]
+        public ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(Int32 userId, Int32 seviceAccountId)
+        {
+            ServiceAccountDTO UserAccountsDTO;
+
+
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.ServiceAccountId == seviceAccountId).SingleOrDefault();
+                if (userLink != null)
+                {
+                     UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO();
+                }
+                else
+                {
+                    UserAccountsDTO = null;
+                }
+
+                return UserAccountsDTO;
+            }
+        }
+
+
         #endregion
     }
 }

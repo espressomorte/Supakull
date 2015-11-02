@@ -52,8 +52,7 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CreatedByField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LinkToTrackerField;
+        private Supakulltracker.IssueService.Sources LinkToTrackerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstimationField;
@@ -210,13 +209,13 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=10)]
-        public string LinkToTracker {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
+        public Supakulltracker.IssueService.Sources LinkToTracker {
             get {
                 return this.LinkToTrackerField;
             }
             set {
-                if ((object.ReferenceEquals(this.LinkToTrackerField, value) != true)) {
+                if ((this.LinkToTrackerField.Equals(value) != true)) {
                     this.LinkToTrackerField = value;
                     this.RaisePropertyChanged("LinkToTracker");
                 }
@@ -298,6 +297,23 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Sources", Namespace="http://tempuri.org/")]
+    public enum Sources : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DataBase = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Trello = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Excel = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        GoogleSheets = 3,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserDTO", Namespace="http://tempuri.org/")]
@@ -359,6 +375,387 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceAccountDTO", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class ServiceAccountDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int ServiceAccountIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ServiceAccountNameField;
+        
+        private Supakulltracker.IssueService.Sources SourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.TemplateDTO[] MappingTemplatesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.TokenDTO[] TokensField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int ServiceAccountId {
+            get {
+                return this.ServiceAccountIdField;
+            }
+            set {
+                if ((this.ServiceAccountIdField.Equals(value) != true)) {
+                    this.ServiceAccountIdField = value;
+                    this.RaisePropertyChanged("ServiceAccountId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ServiceAccountName {
+            get {
+                return this.ServiceAccountNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ServiceAccountNameField, value) != true)) {
+                    this.ServiceAccountNameField = value;
+                    this.RaisePropertyChanged("ServiceAccountName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public Supakulltracker.IssueService.Sources Source {
+            get {
+                return this.SourceField;
+            }
+            set {
+                if ((this.SourceField.Equals(value) != true)) {
+                    this.SourceField = value;
+                    this.RaisePropertyChanged("Source");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public Supakulltracker.IssueService.TemplateDTO[] MappingTemplates {
+            get {
+                return this.MappingTemplatesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MappingTemplatesField, value) != true)) {
+                    this.MappingTemplatesField = value;
+                    this.RaisePropertyChanged("MappingTemplates");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public Supakulltracker.IssueService.TokenDTO[] Tokens {
+            get {
+                return this.TokensField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TokensField, value) != true)) {
+                    this.TokensField = value;
+                    this.RaisePropertyChanged("Tokens");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TemplateDTO", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class TemplateDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int TemplateIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TemplateNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.MappingForSerialization[] MappingField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int TemplateId {
+            get {
+                return this.TemplateIdField;
+            }
+            set {
+                if ((this.TemplateIdField.Equals(value) != true)) {
+                    this.TemplateIdField = value;
+                    this.RaisePropertyChanged("TemplateId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string TemplateName {
+            get {
+                return this.TemplateNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TemplateNameField, value) != true)) {
+                    this.TemplateNameField = value;
+                    this.RaisePropertyChanged("TemplateName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public Supakulltracker.IssueService.MappingForSerialization[] Mapping {
+            get {
+                return this.MappingField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MappingField, value) != true)) {
+                    this.MappingField = value;
+                    this.RaisePropertyChanged("Mapping");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenDTO", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class TokenDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int TokeneIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TokeneNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Supakulltracker.IssueService.TokenForSerialization[] TokensField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int TokeneId {
+            get {
+                return this.TokeneIdField;
+            }
+            set {
+                if ((this.TokeneIdField.Equals(value) != true)) {
+                    this.TokeneIdField = value;
+                    this.RaisePropertyChanged("TokeneId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string TokeneName {
+            get {
+                return this.TokeneNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TokeneNameField, value) != true)) {
+                    this.TokeneNameField = value;
+                    this.RaisePropertyChanged("TokeneName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public Supakulltracker.IssueService.TokenForSerialization[] Tokens {
+            get {
+                return this.TokensField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TokensField, value) != true)) {
+                    this.TokensField = value;
+                    this.RaisePropertyChanged("Tokens");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MappingForSerialization", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class MappingForSerialization : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KeyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValueField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Key {
+            get {
+                return this.KeyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KeyField, value) != true)) {
+                    this.KeyField = value;
+                    this.RaisePropertyChanged("Key");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenForSerialization", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class TokenForSerialization : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KeyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValueField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Key {
+            get {
+                return this.KeyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KeyField, value) != true)) {
+                    this.KeyField = value;
+                    this.RaisePropertyChanged("Key");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="IssueService.GetTrackerServicesSoap")]
     public interface GetTrackerServicesSoap {
@@ -375,6 +772,20 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         System.Threading.Tasks.Task UpdateAsync();
+        
+        // CODEGEN: Generating message contract since element name GetAllUserAccountsByUserIDResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllUserAccountsByUserID", ReplyAction="*")]
+        Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse GetAllUserAccountsByUserID(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllUserAccountsByUserID", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request);
+        
+        // CODEGEN: Generating message contract since element name GetUserAccountsByUserIDAndAccountIdResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
+        Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse GetUserAccountsByUserIDAndAccountId(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -438,6 +849,146 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllUserAccountsByUserIDRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody Body;
+        
+        public GetAllUserAccountsByUserIDRequest() {
+        }
+        
+        public GetAllUserAccountsByUserIDRequest(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllUserAccountsByUserIDRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int userId;
+        
+        public GetAllUserAccountsByUserIDRequestBody() {
+        }
+        
+        public GetAllUserAccountsByUserIDRequestBody(int userId) {
+            this.userId = userId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllUserAccountsByUserIDResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllUserAccountsByUserIDResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponseBody Body;
+        
+        public GetAllUserAccountsByUserIDResponse() {
+        }
+        
+        public GetAllUserAccountsByUserIDResponse(Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllUserAccountsByUserIDResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult;
+        
+        public GetAllUserAccountsByUserIDResponseBody() {
+        }
+        
+        public GetAllUserAccountsByUserIDResponseBody(Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult) {
+            this.GetAllUserAccountsByUserIDResult = GetAllUserAccountsByUserIDResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetUserAccountsByUserIDAndAccountIdRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUserAccountsByUserIDAndAccountId", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody Body;
+        
+        public GetUserAccountsByUserIDAndAccountIdRequest() {
+        }
+        
+        public GetUserAccountsByUserIDAndAccountIdRequest(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetUserAccountsByUserIDAndAccountIdRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int userId;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int seviceAccountId;
+        
+        public GetUserAccountsByUserIDAndAccountIdRequestBody() {
+        }
+        
+        public GetUserAccountsByUserIDAndAccountIdRequestBody(int userId, int seviceAccountId) {
+            this.userId = userId;
+            this.seviceAccountId = seviceAccountId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetUserAccountsByUserIDAndAccountIdResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUserAccountsByUserIDAndAccountIdResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponseBody Body;
+        
+        public GetUserAccountsByUserIDAndAccountIdResponse() {
+        }
+        
+        public GetUserAccountsByUserIDAndAccountIdResponse(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetUserAccountsByUserIDAndAccountIdResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult;
+        
+        public GetUserAccountsByUserIDAndAccountIdResponseBody() {
+        }
+        
+        public GetUserAccountsByUserIDAndAccountIdResponseBody(Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult) {
+            this.GetUserAccountsByUserIDAndAccountIdResult = GetUserAccountsByUserIDAndAccountIdResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GetTrackerServicesSoapChannel : Supakulltracker.IssueService.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
@@ -494,6 +1045,58 @@ namespace Supakulltracker.IssueService {
         
         public System.Threading.Tasks.Task UpdateAsync() {
             return base.Channel.UpdateAsync();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllUserAccountsByUserID(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllUserAccountsByUserID(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserID(int userId) {
+            Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserID(inValue);
+            return retVal.Body.GetAllUserAccountsByUserIDResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllUserAccountsByUserIDAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(int userId) {
+            Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserIDAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountId(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request) {
+            return base.Channel.GetUserAccountsByUserIDAndAccountId(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(int userId, int seviceAccountId) {
+            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
+            inValue.Body.userId = userId;
+            inValue.Body.seviceAccountId = seviceAccountId;
+            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountId(inValue);
+            return retVal.Body.GetUserAccountsByUserIDAndAccountIdResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountIdAsync(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request) {
+            return base.Channel.GetUserAccountsByUserIDAndAccountIdAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(int userId, int seviceAccountId) {
+            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
+            inValue.Body.userId = userId;
+            inValue.Body.seviceAccountId = seviceAccountId;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountIdAsync(inValue);
         }
     }
 }

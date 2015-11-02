@@ -26,7 +26,7 @@ namespace SupakullTrackerServices
         public virtual string Project { get; set; }
         public virtual string CreatedDate { get; set; }
         public virtual string CreatedBy { get; set; }
-        public virtual string LinkToTracker { get; set; }
+        public virtual Sources LinkToTracker { get; set; }
         public virtual string Estimation { get; set; }
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }
@@ -85,7 +85,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        private static TaskMainDAO GetTaskMainDaoFromDB(string taskID, string linkToTracker)
+        private static TaskMainDAO GetTaskMainDaoFromDB(string taskID, Sources linkToTracker)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 

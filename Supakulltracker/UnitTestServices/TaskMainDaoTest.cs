@@ -13,9 +13,9 @@ namespace UnitTestServices
         public void SaveOrUpdateCollectionInDB_Test1()
         {
             IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
-            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = "Tracker1" };
-            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task2", LinkToTracker = "Tracker2" };
-            TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task3", LinkToTracker = "Tracker1" };
+            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = Sources.DataBase };
+            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task2", LinkToTracker = Sources.Excel };
+            TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task3", LinkToTracker = Sources.DataBase };
             UserDAO userDAO1 = new UserDAO() { UserId = "user1", UserName = "user name 1" };
             UserDAO userDAO2 = new UserDAO() { UserId = "user2", UserName = "user name 2" };
             taskMainDAO1.MatchedTasks.Add(taskMainDAO2);
@@ -33,11 +33,11 @@ namespace UnitTestServices
         public void SaveOrUpdateCollectionInDB_Test2()
         {
             IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
-            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = null, LinkToTracker = "Tracker1" };
-            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = "Tracker1", Summary = "Summary1" };
-            TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = "Tracker1", Summary = "Summary2" };
-            TaskMainDAO taskMainDAO4 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = "Tracker2" };
-            TaskMainDAO taskMainDAO5 = new TaskMainDAO() { TaskID = "Task2", LinkToTracker = "Tracker1" };
+            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = null, LinkToTracker = Sources.DataBase };
+            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = Sources.DataBase, Summary = "Summary1" };
+            TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = Sources.DataBase, Summary = "Summary2" };
+            TaskMainDAO taskMainDAO4 = new TaskMainDAO() { TaskID = "Task1", LinkToTracker = Sources.Excel };
+            TaskMainDAO taskMainDAO5 = new TaskMainDAO() { TaskID = "Task2", LinkToTracker = Sources.DataBase };
             taskMainDaoCollection.Add(taskMainDAO1);
             taskMainDaoCollection.Add(taskMainDAO2);
             taskMainDaoCollection.Add(taskMainDAO3);

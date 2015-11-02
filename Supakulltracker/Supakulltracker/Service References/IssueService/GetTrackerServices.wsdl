@@ -29,7 +29,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Project" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="LinkToTracker" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LinkToTracker" type="tns:Sources" />
           <s:element minOccurs="0" maxOccurs="1" name="Estimation" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TargetVersion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
@@ -37,6 +37,14 @@
           <s:element minOccurs="0" maxOccurs="1" name="TaskParent" type="tns:TaskMainDTO" />
         </s:sequence>
       </s:complexType>
+      <s:simpleType name="Sources">
+        <s:restriction base="s:string">
+          <s:enumeration value="DataBase" />
+          <s:enumeration value="Trello" />
+          <s:enumeration value="Excel" />
+          <s:enumeration value="GoogleSheets" />
+        </s:restriction>
+      </s:simpleType>
       <s:complexType name="ArrayOfUserDTO">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="UserDTO" nillable="true" type="tns:UserDTO" />
@@ -54,6 +62,95 @@
       <s:element name="UpdateResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetAllUserAccountsByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUserAccountsByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServiceAccountDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceAccountDTO" nillable="true" type="tns:ServiceAccountDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceAccountDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ServiceAccountId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceAccountName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
+          <s:element minOccurs="0" maxOccurs="1" name="MappingTemplates" type="tns:ArrayOfTemplateDTO" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTemplateDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TemplateDTO" nillable="true" type="tns:TemplateDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mapping" type="tns:ArrayOfMappingForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMappingForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MappingForSerialization" nillable="true" type="tns:MappingForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MappingForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTokenDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TokenDTO" nillable="true" type="tns:TokenDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TokenDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TokeneId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TokeneName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTokenForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TokenForSerialization" nillable="true" type="tns:TokenForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TokenForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserAccountsByUserIDAndAccountId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="seviceAccountId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountsByUserIDAndAccountIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountsByUserIDAndAccountIdResult" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAllTasksSoapIn">
@@ -68,6 +165,18 @@
   <wsdl:message name="UpdateSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAllUserAccountsByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllUserAccountsByUserID" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUserAccountsByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllUserAccountsByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountsByUserIDAndAccountIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountsByUserIDAndAccountId" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountsByUserIDAndAccountIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountsByUserIDAndAccountIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
@@ -76,6 +185,14 @@
     <wsdl:operation name="Update">
       <wsdl:input message="tns:UpdateSoapIn" />
       <wsdl:output message="tns:UpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <wsdl:input message="tns:GetAllUserAccountsByUserIDSoapIn" />
+      <wsdl:output message="tns:GetAllUserAccountsByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <wsdl:input message="tns:GetUserAccountsByUserIDAndAccountIdSoapIn" />
+      <wsdl:output message="tns:GetUserAccountsByUserIDAndAccountIdSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -98,6 +215,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <soap:operation soapAction="http://tempuri.org/GetAllUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountsByUserIDAndAccountId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -112,6 +247,24 @@
     </wsdl:operation>
     <wsdl:operation name="Update">
       <soap12:operation soapAction="http://tempuri.org/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <soap12:operation soapAction="http://tempuri.org/GetAllUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountsByUserIDAndAccountId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
