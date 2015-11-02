@@ -21,10 +21,11 @@ namespace SupakullTrackerServices
         IList<User> Assigned { get; set; }
         ITask TaskParent { get; set; }
         IList<ITask> MatchedTasks { get; set; }
-        IList<Disagreement> Disagreements { get; set; }
+        ISet<Disagreement> Disagreements { get; set; }
 
         void AddMatchedTask(ITask taskToLink);
-        void AddDisagreement(Disagreement disagreement);
-        void AddDisagreementToMatchedTasks(Disagreement disagreement);
+        bool AddDisagreement(Disagreement disagreement);
+        void AddDisagreementCollection(IEnumerable<Disagreement> disagreementCollection);
+        IList<ITaskField> GetFields();
     }
 }

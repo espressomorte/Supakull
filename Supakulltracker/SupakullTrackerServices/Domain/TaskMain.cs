@@ -12,7 +12,7 @@ namespace SupakullTrackerServices
         {
             this.Assigned = new List<User>();
             this.MatchedTasks = new List<ITask>();
-            this.Disagreements = new List<Disagreement>();
+            this.Disagreements = new HashSet<Disagreement>();
         }
 
         public string TaskID { get; set; }
@@ -31,28 +31,63 @@ namespace SupakullTrackerServices
         public string Comments { get; set; }
         public IList<User> Assigned { get; set; }
         public ITask TaskParent { get; set; }
+
         public IList<ITask> MatchedTasks { get; set; }
-        public IList<Disagreement> Disagreements { get; set; }
+        public ISet<Disagreement> Disagreements { get; set; }
 
         public void AddMatchedTask(ITask taskMain)
         {
             this.MatchedTasks.Add(taskMain);
         }
 
-        public void AddDisagreement(Disagreement disagreement)
+        public bool AddDisagreement(Disagreement disagreement)
+        {            
+            return Disagreements.Add(disagreement);
+        }
+
+        public void AddDisagreementCollection(IEnumerable<Disagreement> disagreementCollection)
         {
-            if( !this.Disagreements.Contains(disagreement) )
+            foreach (Disagreement disagreement in disagreementCollection)
             {
-                this.Disagreements.Add(disagreement);
+                this.AddDisagreement(disagreement);
             }
         }
 
-        public void AddDisagreementToMatchedTasks(Disagreement disagreement)
+        public IList<ITaskField> GetFields()
         {
-            foreach(TaskMain matchedTask in this.MatchedTasks)
+            List<ITaskField> taskMainFields = new List<ITaskField>();
+
+            taskMainFields.Add(new FieldString(nameof(this.SubtaskType), this.SubtaskType));
+            taskMainFields.Add(new FieldString(nameof(this.Summary), this.Summary));
+            taskMainFields.Add(new FieldString(nameof(this.Description), this.Description));
+            taskMainFields.Add(new FieldString(nameof(this.Status), this.Status));
+            taskMainFields.Add(new FieldString(nameof(this.Priority), this.Priority));
+            taskMainFields.Add(new FieldString(nameof(this.Product), this.Product));
+            taskMainFields.Add(new FieldString(nameof(this.Project), this.Project));
+            taskMainFields.Add(new FieldString(nameof(this.CreatedDate), this.CreatedDate));
+            taskMainFields.Add(new FieldString(nameof(this.CreatedBy), this.CreatedBy));
+            taskMainFields.Add(new FieldString(nameof(this.Estimation), this.Estimation));
+            taskMainFields.Add(new FieldString(nameof(this.TargetVersion), this.TargetVersion));
+            taskMainFields.Add(new FieldString(nameof(this.Comments), this.Comments));
+            ICollection<string> assignedUserIDs = GetUserIDs();
+            taskMainFields.Add(new FieldStringCollection(nameof(this.Assigned), assignedUserIDs));
+            taskMainFields.Add(new FieldString(nameof(this.TaskParent), this.TaskParent == null ? null : this.TaskParent.TaskID));
+
+            return taskMainFields;
+        }
+
+        private ICollection<string> GetUserIDs()
+        {
+            if (Assigned == null)
             {
-                matchedTask.AddDisagreement(disagreement);
+                return null;
             }
+            ICollection<string> assignedUserIDs = new List<string>();
+            foreach (User user in Assigned)
+            {
+                assignedUserIDs.Add(user.UserId);
+            }
+            return assignedUserIDs;
         }
 
         public static void MatchTasks(IList<ITask> taskMainCollection, IMatchTasks taskMatcher)
@@ -72,136 +107,28 @@ namespace SupakullTrackerServices
                 }
             }
         }
-
-        public static ICollection<Disagreement> GetDisagreements(IList<ITask> taskMainCollection)
+        
+        public static IEnumerable<Disagreement> GetDisagreements(IList<ITask> taskMainCollection)
         {
-            ICollection<Disagreement> disagreements = new HashSet<Disagreement>();
+            HashSet<Disagreement> disagreements = new HashSet<Disagreement>();
             ITask taskA = taskMainCollection[0];
-            for(int b = 1; b < taskMainCollection.Count; b++)
+            IList<ITaskField> fieldsA = taskA.GetFields();
+            for (int b = 1; b < taskMainCollection.Count; b++)
             {
-                ITask taskB = taskMainCollection[b];
+                ITask taskB = taskMainCollection[b];                                
+                IList<ITaskField> fieldsB = taskB.GetFields();
 
-                if (taskA.SubtaskType != null &&
-                        taskB.SubtaskType != null &&
-                        taskA.SubtaskType != taskB.SubtaskType)
+                for(int i = 0; i < fieldsA.Count; i++)
                 {
-                    Disagreement disagreement = new Disagreement(nameof(taskA.SubtaskType));
-                    disagreements.Add(disagreement);
-                }
-
-
-                if (taskA.Summary != null &&
-                         taskB.Summary != null &&
-                         taskA.Summary != taskB.Summary)
-                {
-                    Disagreement disagreement = new Disagreement("Summary");
-                    taskA.AddDisagreement(disagreement);
-                    disagreements.Add(disagreement);
-                }
-
-
-                if (taskA.Description != null &&
-                     taskB.Description != null &&
-                     taskA.Description != taskB.Description)
-                {
-                    Disagreement disagreement = new Disagreement("Description");
-                    taskA.AddDisagreement(disagreement);
-                    disagreements.Add(disagreement);
-                }
-
-
-                if (taskA.Status != null &&
-                     taskB.Status != null &&
-                     taskA.Status != taskB.Status)
-                {
-                    Disagreement disagreement = new Disagreement("Status");
-                    taskA.AddDisagreement(disagreement);
-                    disagreements.Add(disagreement);
-                }
-
-
-                if (taskA.Priority != null &&
-                    taskB.Priority != null &&
-                    taskA.Priority != taskB.Priority)
-                {
-                    Disagreement disagreement = new Disagreement("Priority");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.Product != null &&
-                     taskB.Product != null &&
-                     taskA.Product != taskB.Product)
-                {
-                    Disagreement disagreement = new Disagreement("Product");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.Project != null &&
-                     taskB.Project != null &&
-                     taskA.Project != taskB.Project)
-                {
-                    Disagreement disagreement = new Disagreement("Project");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.CreatedDate != null &&
-                     taskB.CreatedDate != null &&
-                     taskA.CreatedDate != taskB.CreatedDate)
-                {
-                    Disagreement disagreement = new Disagreement("CreatedDate");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.CreatedBy != null &&
-                     taskB.CreatedBy != null &&
-                     taskA.CreatedBy != taskB.CreatedBy)
-                {
-                    Disagreement disagreement = new Disagreement("CreatedBy");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.LinkToTracker != null &&
-                     taskB.LinkToTracker != null &&
-                     taskA.LinkToTracker != taskB.LinkToTracker)
-                {
-                    Disagreement disagreement = new Disagreement("LinkToTracker");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.Estimation != null &&
-                     taskB.Estimation != null &&
-                     taskA.Estimation != taskB.Estimation)
-                {
-                    Disagreement disagreement = new Disagreement("Estimation");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.TargetVersion != null &&
-                     taskB.TargetVersion != null &&
-                     taskA.TargetVersion != taskB.TargetVersion)
-                {
-                    Disagreement disagreement = new Disagreement("TargetVersion");
-                    taskA.AddDisagreement(disagreement);
-                }
-
-
-                if (taskA.Comments != null &&
-                     taskB.Comments != null &&
-                     taskA.Comments != taskB.Comments)
-                {
-                    Disagreement disagreement = new Disagreement("Comments");
-                    taskA.AddDisagreement(disagreement);
+                    bool fieldsCompareResult = fieldsA[i].Equals(fieldsB[i]);
+                    if(!fieldsCompareResult)
+                    {
+                        Disagreement disagreement = new Disagreement(fieldsA[i].FieldName);
+                        disagreements.Add(disagreement);
+                    }
                 }
             }
             return disagreements;
-
         }
     }   
 }

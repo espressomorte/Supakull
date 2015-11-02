@@ -81,12 +81,13 @@ namespace SupakullTrackerServices
             {
                 if (taskMain.MatchedTasks.Count > 0)
                 {
-                    IList<ITask> matchedTasks = new List<ITask>(taskMain.MatchedTasks);
+                    List<ITask> matchedTasks = new List<ITask>();
                     matchedTasks.Add(taskMain);
-                    ICollection<Disagreement> disagreements = TaskMain.GetDisagreements(matchedTasks);
-                    foreach (Disagreement disagreement in disagreements)
+                    matchedTasks.AddRange(taskMain.MatchedTasks);
+                    IEnumerable<Disagreement> disagreements = TaskMain.GetDisagreements(matchedTasks);
+                    foreach (ITask matchedTask in matchedTasks)
                     {
-                        taskMain.AddDisagreement(disagreement);
+                        matchedTask.AddDisagreementCollection(disagreements);
                     }
                 }
             }
