@@ -107,6 +107,7 @@
     <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TokenDAO.hbm.xml" />
+    <EmbeddedResource Include="Mapping\DisagreementDAO.hbm.xml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -145,6 +146,7 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="DAO\Disagreements\DisagreementDAO.cs" />
     <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />

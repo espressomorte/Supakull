@@ -14,6 +14,7 @@ namespace SupakullTrackerServices
         {
             this.Assigned = new List<UserDAO>();
             this.MatchedTasks = new List<TaskMainDAO>();
+            this.Disagreements = new List<DisagreementDAO>();
         }
         public virtual int ID { get; set; }
         public virtual string TaskID { get; set; }
@@ -33,6 +34,7 @@ namespace SupakullTrackerServices
         public virtual IList<UserDAO> Assigned { get; set; }
         public virtual TaskMainDAO TaskParent { get; set; }
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
+        public virtual IList<DisagreementDAO> Disagreements { get; set; }
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
