@@ -52,7 +52,7 @@ namespace TrelloManagerApp
 
         private ITask GetTasksFromCard(Card card)
         {
-            var task = new TrelloTask();
+            var task = new TaskMain();
             try
             {
                 task.TaskID = card.Name.Substring(card.Name.IndexOf("<") + 1, card.Name.IndexOf(">") - card.Name.IndexOf("<") - 1);

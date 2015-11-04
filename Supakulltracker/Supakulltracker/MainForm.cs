@@ -14,6 +14,7 @@ namespace Supakulltracker
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IssueService.TaskMainDTO[] Tasks;
+        public UserProvider.UserForAuthentication LoggedUser { get; private set; }
 
         public MainForm()
         {
@@ -39,7 +40,7 @@ namespace Supakulltracker
         private async void PrepareApplicationAsync()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            await trackerServices.StoreSourcesAsync();
+            await trackerServices.UpdateAsync();
             Tasks = trackerServices.GetAllTasks();
             Board.DataSource = Tasks;
         }

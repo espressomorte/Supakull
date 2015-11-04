@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SupakullTrackerServices
 {
@@ -24,5 +20,12 @@ namespace SupakullTrackerServices
         string Comments { get; set; }
         IList<User> Assigned { get; set; }
         ITask TaskParent { get; set; }
+        IList<ITask> MatchedTasks { get; set; }
+        ISet<Disagreement> Disagreements { get; set; }
+
+        void AddMatchedTask(ITask taskToLink);
+        bool AddDisagreement(Disagreement disagreement);
+        void AddDisagreementCollection(IEnumerable<Disagreement> disagreementCollection);
+        IList<ITaskField> GetFields();
     }
 }

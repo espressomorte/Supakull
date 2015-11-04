@@ -1,7 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
   <class name="TaskMainDAO" table="TASKMAIN">
-    <id name="TaskID" column="TK_ID" type="string" generator="assigned" />
+
+    <id name="ID" type="Int32" column="TK_ID" >
+      <generator class="sequence">
+        <param name="sequence">taskmain_seq</param>
+      </generator>
+    </id>
+
+    <property name="TaskID" column="TK_TASKID" />
     <property name="SubtaskType" column="TK_SUB_TYPE" />
     <property name="Summary" column="TK_SUMMARY"  />
     <property name="Description" column="TK_DESCRIPTION" />
@@ -15,10 +22,23 @@
     <property name="Estimation" column="TK_ESTIMATION" />
     <property name="TargetVersion" column="TK_TARG_VERSION" />
     <property name="Comments" column="TK_COMENTS" />
-    <bag cascade="none" inverse="true" name="Assigned" table="TASKMAIN_TO_USER">
-      <key column="TK_ID" />
-      <many-to-many class="UserDAO" column="US_ID"/>
+
+    <bag cascade="all-delete-orphan" inverse="false" name="Assigned" table="TASKMAIN_TO_USER">
+      <key column="TKU_TK_ID" />
+      <many-to-many class="UserDAO" column="TKU_US_ID"/>
     </bag>
+
     <many-to-one name ="TaskParent" class="TaskMainDAO" column="TK_PARENT" />
+
+    <bag cascade="all-delete-orphan" inverse="false" name="MatchedTasks" table="MATCHEDTASKS">
+      <key column="MTK_TASKMAINID" />
+      <many-to-many class="TaskMainDAO" column="MTK_MATCHEDTASKID"/>
+    </bag>
+
+    <bag cascade="all-delete-orphan" inverse="false" name="Disagreements" table="DISAGREEMENT">
+      <key column="DA_TK_ID" />
+      <one-to-many class="DisagreementDAO" />
+    </bag>
+
   </class>
 </hibernate-mapping>
