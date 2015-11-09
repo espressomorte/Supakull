@@ -28,7 +28,7 @@
       <many-to-many class="UserDAO" column="TKU_US_ID"/>
     </bag>
 
-    <many-to-one name ="TaskParent" class="TaskMainDAO" column="TK_PARENT" />
+    <many-to-one cascade="all-delete-orphan" name ="TaskParent" class="TaskMainDAO" column="TK_PARENT" />
 
     <bag cascade="all-delete-orphan" inverse="false" name="MatchedTasks" table="MATCHEDTASKS">
       <key column="MTK_TASKMAINID" />

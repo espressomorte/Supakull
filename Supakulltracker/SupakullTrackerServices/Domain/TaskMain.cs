@@ -35,6 +35,14 @@ namespace SupakullTrackerServices
         public IList<ITask> MatchedTasks { get; set; }
         public ISet<Disagreement> Disagreements { get; set; }
 
+        public int MatchedCount
+        {
+            get
+            {
+                return MatchedTasks.Count;
+            }
+        }
+
         public void AddMatchedTask(ITask taskMain)
         {
             this.MatchedTasks.Add(taskMain);

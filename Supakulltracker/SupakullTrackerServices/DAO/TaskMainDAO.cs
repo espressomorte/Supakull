@@ -48,46 +48,59 @@ namespace SupakullTrackerServices
         {
             if (this.TaskID != null)
             {
-                TaskMainDAO taskFromDB = TaskMainDAO.GetTaskMainDaoFromDB(this.TaskID, this.LinkToTracker);
-                if (taskFromDB == null)
+                TaskMainDAO.PutIDsInCurrentMatchedAndParentTaskFromDB(this);                
+                
+                ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+                using (var session = applicationFactory.OpenSession())
                 {
-                    this.SaveTaskInDB();                        
-                }
-                else
-                {
-                    this.ID = taskFromDB.ID;
-                    this.UpdateTaskInDB();                    
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(this);
+                        transaction.Commit();
+                    }
                 }
             }
         }
 
-        private void SaveTaskInDB()
+        public static void PutIDsInCurrentMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            using (var session = applicationFactory.OpenSession())
+            TaskMainDAO.PutIDsInCurrentAndParentTaskFromDB(taskMainDAO);
+
+            foreach (TaskMainDAO matchedTask in taskMainDAO.MatchedTasks)
             {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Save(this);
-                    transaction.Commit();
-                }
+                TaskMainDAO.PutIDsInCurrentAndParentTaskFromDB(matchedTask);
             }
         }
 
-        private void UpdateTaskInDB()
+        private static void PutIDsInCurrentAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            using (var session = applicationFactory.OpenSession())
+            int taskIdFromDB = taskMainDAO.GetTaskIDFormDB();
+            if (taskIdFromDB > -1)
             {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Update(this);
-                    transaction.Commit();
-                }
+                taskMainDAO.ID = taskIdFromDB;
+            }
+
+            if (taskMainDAO.TaskParent != null)
+            {
+                TaskMainDAO.PutIDsInCurrentMatchedAndParentTaskFromDB(taskMainDAO.TaskParent);
             }
         }
 
-        private static TaskMainDAO GetTaskMainDaoFromDB(string taskID, Sources linkToTracker)
+        private int GetTaskIDFormDB()
+        {
+            TaskMainDAO taskParentFromDB = this.GetTaskFromDB();
+            if (taskParentFromDB != null)
+            {
+                return taskParentFromDB.ID;
+            }
+            if (this.TaskParent != null)
+            {
+                
+            }
+            return -1;
+        }
+
+        private TaskMainDAO GetTaskFromDB()
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
@@ -95,11 +108,11 @@ namespace SupakullTrackerServices
             {
                 TaskMainDAO taskMainDAO = session
                     .CreateCriteria(typeof(TaskMainDAO))
-                    .Add(Restrictions.Eq("TaskID", taskID))
-                    .Add(Restrictions.Eq("LinkToTracker", linkToTracker))
+                    .Add(Restrictions.Eq("TaskID", this.TaskID))
+                    .Add(Restrictions.Eq("LinkToTracker", this.LinkToTracker))
                     .UniqueResult<TaskMainDAO>();
                 return taskMainDAO;
             }
         }
-    }  
+    }
 }

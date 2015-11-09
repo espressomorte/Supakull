@@ -6,9 +6,9 @@ namespace SupakullTrackerServices
     {
         public string FieldName { get; set; }
 
-        public Disagreement(string fieldCode)
+        public Disagreement(string FieldName)
         {
-            this.FieldName = fieldCode;
+            this.FieldName = FieldName;
         }
 
         public override bool Equals(object obj)

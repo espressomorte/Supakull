@@ -22,6 +22,7 @@ namespace SupakullTrackerServices
         ITask TaskParent { get; set; }
         IList<ITask> MatchedTasks { get; set; }
         ISet<Disagreement> Disagreements { get; set; }
+        int MatchedCount { get; }
 
         void AddMatchedTask(ITask taskToLink);
         bool AddDisagreement(Disagreement disagreement);
