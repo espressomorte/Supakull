@@ -79,7 +79,7 @@ namespace SupakullTrackerServices
         {
             foreach (ITask taskMain in allTaskMainFromAdapters)
             {
-                if (taskMain.MatchedTasks.Count > 0)
+                if (taskMain.MatchedCount > 0)
                 {
                     List<ITask> matchedTasks = new List<ITask>();
                     matchedTasks.Add(taskMain);
