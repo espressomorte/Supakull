@@ -24,7 +24,7 @@ namespace SupakullTrackerServices
         public UserForAuthentication Find(string userLogin)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-
+            
             using (var session = applicationFactory.OpenSession())
             {
                 UserForAuthentication user = session

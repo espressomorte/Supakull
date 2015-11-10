@@ -65,11 +65,7 @@ namespace SupakullTrackerServices
 
         private static User UserDaoToUserSingle(UserDAO param)
         {
-            User target = new User();
-
-            target.UserName = param.UserName;
-            target.UserId = param.UserId;
-
+            User target = new User(param.UserId, param.UserName);
             return target;
         }
 

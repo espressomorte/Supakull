@@ -3,6 +3,6 @@
   <class name="UserForAuthentication" table="USER_FOR_AUTHENTIFICATION">
     <id name="UserID" column="US_ID" generator="assigned" />
     <property name="UserLogin" column="US_LOGIN" />
-    <property name="UserPinCode" column="US_PINCODE"  />
+    <property name="UserPinCode" column="US_PINCODE" />
   </class>
 </hibernate-mapping>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace UnitTestServices.Converters
 {
     [TestFixture]
-    public class ConverterDAOtoDomain
+    public class ConverterDAOtoDomainTest
     {
         [Test]
         public void ConverterDAOtoDomain_ReturnCorrectData()
@@ -89,9 +89,10 @@ namespace UnitTestServices.Converters
 
         private UserDAO GetUserDaoItem(string postfix)
         {
-            UserDAO userDAO = new UserDAO();
-            userDAO.UserId = string.Format("UserId{0}", postfix);
-            userDAO.UserName = string.Format("UserName{0}", postfix);
+            string userId = string.Format("UserId{0}", postfix);
+            string userName = string.Format("UserName{0}", postfix);
+            UserDAO userDAO = new UserDAO(userId, userName);
+            
             return userDAO;
         }
     }

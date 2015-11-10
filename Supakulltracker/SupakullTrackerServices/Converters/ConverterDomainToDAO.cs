@@ -12,10 +12,27 @@ namespace SupakullTrackerServices
         
         public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> param)
         {
-            IList<TaskMainDAO> target = new List<TaskMainDAO>();
+            List<TaskMainDAO> target = new List<TaskMainDAO>();
             foreach (ITask item in param)
             {
-                target.Add(TaskMainToTaskMainDaoSingle(item));
+                TaskMainDAO itemDAO = TaskMainToTaskMainDaoSingle(item);
+                if (item.MatchedCount > 0)
+                {
+                    List<TaskMainDAO> matchedTasksDAO = new List<TaskMainDAO>();
+                    matchedTasksDAO.Add(itemDAO);
+                    foreach (ITask matchedTask in item.MatchedTasks)
+                    {
+                        TaskMainDAO matchedTaskDAO = TaskMainToTaskMainDaoSingle(matchedTask);
+                        matchedTasksDAO.Add(matchedTaskDAO);
+                    }
+                    foreach (TaskMainDAO currentTask in matchedTasksDAO)
+                    {
+                        List<TaskMainDAO> collectionForCurrentTask = new List<TaskMainDAO>(matchedTasksDAO);
+                        collectionForCurrentTask.Remove(currentTask);
+                        currentTask.MatchedTasks = collectionForCurrentTask;
+                    }
+                }
+                target.Add(itemDAO);
             }
             return target;
         }
@@ -52,6 +69,23 @@ namespace SupakullTrackerServices
             return target;
         }
 
+        private static IList<DisagreementDAO> DisagreementToDisagreementDaoCollection(ISet<Disagreement> param, TaskMainDAO taskMainDaoLinked)
+        {
+            IList<DisagreementDAO> target = new List<DisagreementDAO>();
+
+            foreach (Disagreement item in param)
+            {
+                target.Add(DisagreementToDisagreementDao(item, taskMainDaoLinked));
+            }
+            return target;
+        }
+
+        private static DisagreementDAO DisagreementToDisagreementDao(Disagreement param, TaskMainDAO taskMainDaoLinked)
+        {
+            DisagreementDAO target = new DisagreementDAO(param.FieldName, taskMainDaoLinked);
+            return target;
+        }
+
         public static IList<UserDAO> UserToUserDaoCollection(IList<User> param)
         {
             IList<UserDAO> target = new List<UserDAO>();
@@ -65,11 +99,7 @@ namespace SupakullTrackerServices
 
         private static UserDAO UserToUserDaoSingle(User param)
         {
-            UserDAO target = new UserDAO();
-
-            target.UserName = param.UserName;
-            target.UserId = param.UserId;
-
+            UserDAO target = new UserDAO(param.UserId, param.UserName);
             return target;
         }
 

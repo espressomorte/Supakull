@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
+  <class name="DisagreementDAO" table="DISAGREEMENT">
+    <id name="FieldName" column="DA_FIELDNAME" type="string" >
+        <generator class="assigned" />
+    </id>
+    <many-to-one name="TaskMainDaoLinked" class="TaskMainDAO" column="DA_TK_ID" />
+  </class>
+</hibernate-mapping>

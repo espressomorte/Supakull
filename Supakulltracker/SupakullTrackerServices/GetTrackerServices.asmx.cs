@@ -40,16 +40,21 @@ namespace SupakullTrackerServices
             }
         }
 
-        #region StoreSources
+        #region Update
         [WebMethod]
-        public void StoreSources()
+        public void Update()
         {
             ICollection<IAdapter> adapters = GetAllAdapters();
             IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
-            TaskMainDAO.StoreToDB(taskMainDaoCollection);
-        }
 
+            IMatchTasks taskMatcher = new MatchTasksById();
+            TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
+            AddDisagreementsToTasks(allTaskMainFromAdapters);
+
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
+            TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+        }
+        
         private ICollection<IAdapter> GetAllAdapters()
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
@@ -68,6 +73,24 @@ namespace SupakullTrackerServices
                 allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
             }
             return allTasksFromAdapterCollection;
+        }
+
+        private void AddDisagreementsToTasks(IList<ITask> allTaskMainFromAdapters)
+        {
+            foreach (ITask taskMain in allTaskMainFromAdapters)
+            {
+                if (taskMain.MatchedCount > 0)
+                {
+                    List<ITask> matchedTasks = new List<ITask>();
+                    matchedTasks.Add(taskMain);
+                    matchedTasks.AddRange(taskMain.MatchedTasks);
+                    IEnumerable<Disagreement> disagreements = TaskMain.GetDisagreements(matchedTasks);
+                    foreach (ITask matchedTask in matchedTasks)
+                    {
+                        matchedTask.AddDisagreementCollection(disagreements);
+                    }
+                }
+            }
         }
         #endregion
 

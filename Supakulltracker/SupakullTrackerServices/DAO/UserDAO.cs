@@ -9,5 +9,15 @@ namespace SupakullTrackerServices
     {
         public virtual string UserId { get; set; }
         public virtual string UserName { get; set; }
+
+        public UserDAO()
+        {
+        }
+
+        public UserDAO(string UserId, string UserName)
+        {
+            this.UserId = UserId;
+            this.UserName = UserName;
+        }
     }
 }

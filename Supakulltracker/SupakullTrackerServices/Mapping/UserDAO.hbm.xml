@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
   <class name="UserDAO" table="USER">
-    <id name="UserId" column="USER_ID" type="string"  generator="assigned" />
-    <property name="UserName" column="USER_NAME"/>
+    <id name="UserId" column="US_ID" type="string"  generator="assigned" />
+    <property name="UserName" column="US_NAME"/>
   </class>
 </hibernate-mapping>
