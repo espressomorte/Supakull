@@ -49,16 +49,16 @@ namespace Supakulltracker
             }
         }
 
-        private void PrepareForShowingTokenDetails(TokenDTO token)
-        {
-            token.
-            //panelChoseDBProvider.Show();
-        }
+        //private void PrepareForShowingTokenDetails(TokenDTO token)
+        //{
+        //    token.
+        //    //panelChoseDBProvider.Show();
+        //}
 
         private void cmbTokens_SelectedIndexChanged(object sender, EventArgs e)
         {
             TokenDTO selectedToken = userDBFullAccount.Tokens.FirstOrDefault(x => x.TokenName == cmbTokens.SelectedItem.ToString());
-            PrepareForShowingTokenDetails(selectedToken);
+            //PrepareForShowingTokenDetails(selectedToken);
         }
     }
 }
