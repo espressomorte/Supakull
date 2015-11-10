@@ -18,12 +18,14 @@ namespace UnitTestServices
             TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task13", LinkToTracker = Sources.DataBase };
             UserDAO userDAO11 = new UserDAO("user11", "user name 11");
             UserDAO userDAO12 = new UserDAO("user12", "user name 12");
+            UserDAO userDAO13 = new UserDAO("user11", "user name 11");
+            UserDAO userDAO14 = new UserDAO("user12", "user name 12");
             taskMainDAO1.MatchedTasks.Add(taskMainDAO2);
             taskMainDAO2.MatchedTasks.Add(taskMainDAO1);
             taskMainDAO1.Assigned.Add(userDAO11);
             taskMainDAO1.Assigned.Add(userDAO12);
-            taskMainDAO2.Assigned.Add(userDAO12);
-            taskMainDAO2.Assigned.Add(userDAO11);
+            taskMainDAO2.Assigned.Add(userDAO13);
+            taskMainDAO2.Assigned.Add(userDAO14);
             taskMainDAO1.TaskParent = taskMainDAO3;
 
             taskMainDaoCollection.Add(taskMainDAO1);

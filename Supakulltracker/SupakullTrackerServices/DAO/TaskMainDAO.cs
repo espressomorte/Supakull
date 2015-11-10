@@ -48,7 +48,7 @@ namespace SupakullTrackerServices
         {
             if (this.TaskID != null)
             {
-                TaskMainDAO.PutIDsInCurrentMatchedAndParentTaskFromDB(this);                
+                TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(this);                
                 
                 ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
                 using (var session = applicationFactory.OpenSession())
@@ -62,7 +62,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public static void PutIDsInCurrentMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
+        public static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
             TaskMainDAO.PutIDsInCurrentAndParentTaskFromDB(taskMainDAO);
 
@@ -80,22 +80,27 @@ namespace SupakullTrackerServices
                 taskMainDAO.ID = taskIdFromDB;
             }
 
+            foreach (UserDAO user in taskMainDAO.Assigned)
+            {
+                int userIdFromDB = user.GetUserIDFormDB();
+                if (userIdFromDB > -1)
+                {
+                    user.ID = userIdFromDB;
+                }
+            }
+
             if (taskMainDAO.TaskParent != null)
             {
-                TaskMainDAO.PutIDsInCurrentMatchedAndParentTaskFromDB(taskMainDAO.TaskParent);
+                TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO.TaskParent);
             }
         }
 
         private int GetTaskIDFormDB()
         {
-            TaskMainDAO taskParentFromDB = this.GetTaskFromDB();
-            if (taskParentFromDB != null)
+            TaskMainDAO taskFromDB = this.GetTaskFromDB();
+            if (taskFromDB != null)
             {
-                return taskParentFromDB.ID;
-            }
-            if (this.TaskParent != null)
-            {
-                
+                return taskFromDB.ID;
             }
             return -1;
         }
