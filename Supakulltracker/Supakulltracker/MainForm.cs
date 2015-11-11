@@ -13,7 +13,6 @@ namespace Supakulltracker
     public partial class MainForm : Form
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public UserProvider.UserForAuthentication LoggedUser { get; set; }
         IssueService.TaskMainDTO[] Tasks;
         public UserProvider.UserForAuthentication LoggedUser { get; private set; }
 

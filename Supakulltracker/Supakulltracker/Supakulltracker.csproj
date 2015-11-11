@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Setting\DatabaseAccountSettings.cs" />
     <Compile Include="Setting\DBSettingDialog.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,12 +95,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Setting\IAccountSettings.cs" />
+    <Compile Include="Setting\IAccountToken.cs" />
     <Compile Include="Setting\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setting\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting\SettingsInstansFactory.cs" />
     <Compile Include="Setting\SettingsManager.cs" />
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
@@ -144,6 +148,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.SaveOrUdateAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.ServiceAccountDTO.datasource">

@@ -31,27 +31,26 @@
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtPasswrd = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtDataSource = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.panelChoseDBProvider = new System.Windows.Forms.Panel();
             this.cmbDBDialect = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmdDBType = new System.Windows.Forms.ComboBox();
+            this.cmbDBType = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.UserID = new System.Windows.Forms.TextBox();
+            this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.MappingSettings = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelItemName = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtNewTokenName = new System.Windows.Forms.TextBox();
             this.btnChekMapping = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtxtMapping = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.DBTab = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
@@ -61,25 +60,26 @@
             this.button2 = new System.Windows.Forms.Button();
             this.cmbAcconts = new System.Windows.Forms.ComboBox();
             this.groupBoxTokens = new System.Windows.Forms.GroupBox();
+            this.btnAddToken = new System.Windows.Forms.Button();
             this.cmbTokens = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.panelPreviewString = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtConnectionString = new System.Windows.Forms.TextBox();
+            this.btnTestConStr = new System.Windows.Forms.Button();
+            this.btnGoToMappingTab = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.flowLayoutPanelConSettings = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelConStrDiteils = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnApplyConSetDiteils = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelItemName.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.DBTab.SuspendLayout();
             this.Settings.SuspendLayout();
@@ -87,7 +87,7 @@
             this.groupBoxAccounts.SuspendLayout();
             this.groupBoxTokens.SuspendLayout();
             this.panelPreviewString.SuspendLayout();
-            this.flowLayoutPanelConSettings.SuspendLayout();
+            this.panelConStrDiteils.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -95,12 +95,13 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(81, 3);
+            this.btnSaveSettings.Location = new System.Drawing.Point(476, 81);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(76, 23);
             this.btnSaveSettings.TabIndex = 1;
             this.btnSaveSettings.Text = "Save";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
+            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
             // label4
             // 
@@ -123,12 +124,12 @@
             this.label8.Text = "Password";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox2
+            // txtPasswrd
             // 
-            this.textBox2.Location = new System.Drawing.Point(81, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(256, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtPasswrd.Location = new System.Drawing.Point(81, 3);
+            this.txtPasswrd.Name = "txtPasswrd";
+            this.txtPasswrd.Size = new System.Drawing.Size(256, 20);
+            this.txtPasswrd.TabIndex = 3;
             // 
             // label9
             // 
@@ -141,12 +142,12 @@
             this.label9.Text = "Data Source";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox3
+            // txtDataSource
             // 
-            this.textBox3.Location = new System.Drawing.Point(81, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(255, 20);
-            this.textBox3.TabIndex = 4;
+            this.txtDataSource.Location = new System.Drawing.Point(81, 3);
+            this.txtDataSource.Name = "txtDataSource";
+            this.txtDataSource.Size = new System.Drawing.Size(255, 20);
+            this.txtDataSource.TabIndex = 4;
             // 
             // textBox1
             // 
@@ -167,7 +168,7 @@
             this.panelChoseDBProvider.Controls.Add(this.cmbDBDialect);
             this.panelChoseDBProvider.Controls.Add(this.label1);
             this.panelChoseDBProvider.Controls.Add(this.label2);
-            this.panelChoseDBProvider.Controls.Add(this.cmdDBType);
+            this.panelChoseDBProvider.Controls.Add(this.cmbDBType);
             this.panelChoseDBProvider.Controls.Add(this.comboBox2);
             this.panelChoseDBProvider.Location = new System.Drawing.Point(24, 214);
             this.panelChoseDBProvider.Name = "panelChoseDBProvider";
@@ -178,14 +179,11 @@
             // cmbDBDialect
             // 
             this.cmbDBDialect.FormattingEnabled = true;
-            this.cmbDBDialect.Items.AddRange(new object[] {
-            "Oracle8iDialect",
-            "Oracle9iDialect",
-            "Oracle10gDialect"});
             this.cmbDBDialect.Location = new System.Drawing.Point(25, 89);
             this.cmbDBDialect.Name = "cmbDBDialect";
             this.cmbDBDialect.Size = new System.Drawing.Size(121, 21);
             this.cmbDBDialect.TabIndex = 0;
+            this.cmbDBDialect.SelectedIndexChanged += new System.EventHandler(this.cmbDBDialect_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -205,15 +203,14 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Choose DB Dialect";
             // 
-            // cmdDBType
+            // cmbDBType
             // 
-            this.cmdDBType.FormattingEnabled = true;
-            this.cmdDBType.Items.AddRange(new object[] {
-            "Oracle"});
-            this.cmdDBType.Location = new System.Drawing.Point(26, 27);
-            this.cmdDBType.Name = "cmdDBType";
-            this.cmdDBType.Size = new System.Drawing.Size(121, 21);
-            this.cmdDBType.TabIndex = 0;
+            this.cmbDBType.FormattingEnabled = true;
+            this.cmbDBType.Location = new System.Drawing.Point(26, 27);
+            this.cmbDBType.Name = "cmbDBType";
+            this.cmbDBType.Size = new System.Drawing.Size(121, 21);
+            this.cmbDBType.TabIndex = 0;
+            this.cmbDBType.SelectedIndexChanged += new System.EventHandler(this.cmbDBType_SelectedIndexChanged);
             // 
             // comboBox2
             // 
@@ -230,7 +227,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.23529F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.76471F));
-            this.tableLayoutPanel1.Controls.Add(this.UserID, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtUserID, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -239,13 +236,13 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(340, 27);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
-            // UserID
+            // txtUserID
             // 
-            this.UserID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UserID.Location = new System.Drawing.Point(81, 3);
-            this.UserID.Name = "UserID";
-            this.UserID.Size = new System.Drawing.Size(256, 20);
-            this.UserID.TabIndex = 2;
+            this.txtUserID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtUserID.Location = new System.Drawing.Point(81, 3);
+            this.txtUserID.Name = "txtUserID";
+            this.txtUserID.Size = new System.Drawing.Size(256, 20);
+            this.txtUserID.TabIndex = 2;
             // 
             // label7
             // 
@@ -260,9 +257,11 @@
             // 
             // MappingSettings
             // 
-            this.MappingSettings.Controls.Add(this.panel2);
-            this.MappingSettings.Controls.Add(this.panel1);
-            this.MappingSettings.Controls.Add(this.richTextBox1);
+            this.MappingSettings.Controls.Add(this.btnSaveSettings);
+            this.MappingSettings.Controls.Add(this.btnChekMapping);
+            this.MappingSettings.Controls.Add(this.label5);
+            this.MappingSettings.Controls.Add(this.panelItemName);
+            this.MappingSettings.Controls.Add(this.rtxtMapping);
             this.MappingSettings.Location = new System.Drawing.Point(4, 22);
             this.MappingSettings.Name = "MappingSettings";
             this.MappingSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -271,60 +270,48 @@
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // panelItemName
             // 
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.textBox5);
-            this.panel2.Location = new System.Drawing.Point(29, 58);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(194, 57);
-            this.panel2.TabIndex = 6;
-            this.panel2.Visible = false;
+            this.panelItemName.Controls.Add(this.label3);
+            this.panelItemName.Controls.Add(this.txtNewTokenName);
+            this.panelItemName.Location = new System.Drawing.Point(29, 58);
+            this.panelItemName.Name = "panelItemName";
+            this.panelItemName.Size = new System.Drawing.Size(194, 57);
+            this.panelItemName.TabIndex = 6;
+            this.panelItemName.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 10);
+            this.label3.Location = new System.Drawing.Point(50, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Connection Name";
             // 
-            // textBox5
+            // txtNewTokenName
             // 
-            this.textBox5.Location = new System.Drawing.Point(16, 26);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(163, 20);
-            this.textBox5.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.btnChekMapping);
-            this.panel1.Controls.Add(this.btnSaveSettings);
-            this.panel1.Location = new System.Drawing.Point(395, 88);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(157, 27);
-            this.panel1.TabIndex = 5;
-            this.panel1.Visible = false;
+            this.txtNewTokenName.Location = new System.Drawing.Point(16, 26);
+            this.txtNewTokenName.Name = "txtNewTokenName";
+            this.txtNewTokenName.Size = new System.Drawing.Size(163, 20);
+            this.txtNewTokenName.TabIndex = 3;
             // 
             // btnChekMapping
             // 
-            this.btnChekMapping.Location = new System.Drawing.Point(0, 3);
+            this.btnChekMapping.Location = new System.Drawing.Point(383, 81);
             this.btnChekMapping.Name = "btnChekMapping";
             this.btnChekMapping.Size = new System.Drawing.Size(75, 23);
             this.btnChekMapping.TabIndex = 2;
             this.btnChekMapping.Text = "Test";
             this.btnChekMapping.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // rtxtMapping
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(29, 132);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(523, 419);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.rtxtMapping.Location = new System.Drawing.Point(29, 132);
+            this.rtxtMapping.Name = "rtxtMapping";
+            this.rtxtMapping.Size = new System.Drawing.Size(523, 419);
+            this.rtxtMapping.TabIndex = 0;
+            this.rtxtMapping.Text = "";
             // 
             // tableLayoutPanel2
             // 
@@ -332,7 +319,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.94118F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.05882F));
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.txtPasswrd, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 49);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -358,7 +345,7 @@
             this.Settings.Controls.Add(this.groupBox1);
             this.Settings.Controls.Add(this.panelPreviewString);
             this.Settings.Controls.Add(this.label10);
-            this.Settings.Controls.Add(this.flowLayoutPanelConSettings);
+            this.Settings.Controls.Add(this.panelConStrDiteils);
             this.Settings.Controls.Add(this.panelChoseDBProvider);
             this.Settings.Location = new System.Drawing.Point(4, 22);
             this.Settings.Name = "Settings";
@@ -402,6 +389,7 @@
             this.btnEddNewConfigForDB.TabIndex = 6;
             this.btnEddNewConfigForDB.Text = "Add";
             this.btnEddNewConfigForDB.UseVisualStyleBackColor = true;
+            this.btnEddNewConfigForDB.Click += new System.EventHandler(this.btnEddNewConfigForDB_Click);
             // 
             // button2
             // 
@@ -427,6 +415,7 @@
             // 
             this.groupBoxTokens.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTokens.Controls.Add(this.btnAddToken);
             this.groupBoxTokens.Controls.Add(this.cmbTokens);
             this.groupBoxTokens.Controls.Add(this.button3);
             this.groupBoxTokens.Location = new System.Drawing.Point(353, 19);
@@ -435,6 +424,16 @@
             this.groupBoxTokens.TabIndex = 11;
             this.groupBoxTokens.TabStop = false;
             this.groupBoxTokens.Text = "Tokens";
+            // 
+            // btnAddToken
+            // 
+            this.btnAddToken.Location = new System.Drawing.Point(6, 24);
+            this.btnAddToken.Name = "btnAddToken";
+            this.btnAddToken.Size = new System.Drawing.Size(75, 23);
+            this.btnAddToken.TabIndex = 6;
+            this.btnAddToken.Text = "Add";
+            this.btnAddToken.UseVisualStyleBackColor = true;
+            this.btnAddToken.Click += new System.EventHandler(this.btnAddToken_Click);
             // 
             // cmbTokens
             // 
@@ -448,7 +447,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 22);
+            this.button3.Location = new System.Drawing.Point(6, 53);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 10;
@@ -459,9 +458,9 @@
             // 
             this.panelPreviewString.Controls.Add(this.label11);
             this.panelPreviewString.Controls.Add(this.label12);
-            this.panelPreviewString.Controls.Add(this.textBox6);
-            this.panelPreviewString.Controls.Add(this.button4);
-            this.panelPreviewString.Controls.Add(this.button1);
+            this.panelPreviewString.Controls.Add(this.txtConnectionString);
+            this.panelPreviewString.Controls.Add(this.btnTestConStr);
+            this.panelPreviewString.Controls.Add(this.btnGoToMappingTab);
             this.panelPreviewString.Location = new System.Drawing.Point(0, 440);
             this.panelPreviewString.Name = "panelPreviewString";
             this.panelPreviewString.Size = new System.Drawing.Size(586, 136);
@@ -487,32 +486,34 @@
             this.label12.Text = "hfgh";
             this.label12.Visible = false;
             // 
-            // textBox6
+            // txtConnectionString
             // 
-            this.textBox6.Location = new System.Drawing.Point(3, 43);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(460, 49);
-            this.textBox6.TabIndex = 14;
+            this.txtConnectionString.Location = new System.Drawing.Point(3, 43);
+            this.txtConnectionString.Multiline = true;
+            this.txtConnectionString.Name = "txtConnectionString";
+            this.txtConnectionString.Size = new System.Drawing.Size(460, 49);
+            this.txtConnectionString.TabIndex = 14;
             // 
-            // button4
+            // btnTestConStr
             // 
-            this.button4.Location = new System.Drawing.Point(476, 54);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Test";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnTestConStr.Location = new System.Drawing.Point(476, 54);
+            this.btnTestConStr.Name = "btnTestConStr";
+            this.btnTestConStr.Size = new System.Drawing.Size(75, 23);
+            this.btnTestConStr.TabIndex = 9;
+            this.btnTestConStr.Text = "Test";
+            this.btnTestConStr.UseVisualStyleBackColor = true;
+            this.btnTestConStr.Click += new System.EventHandler(this.btnTestConStr_Click);
             // 
-            // button1
+            // btnGoToMappingTab
             // 
-            this.button1.Location = new System.Drawing.Point(476, 103);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Next";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
+            this.btnGoToMappingTab.Location = new System.Drawing.Point(476, 103);
+            this.btnGoToMappingTab.Name = "btnGoToMappingTab";
+            this.btnGoToMappingTab.Size = new System.Drawing.Size(75, 23);
+            this.btnGoToMappingTab.TabIndex = 3;
+            this.btnGoToMappingTab.Text = "Next";
+            this.btnGoToMappingTab.UseVisualStyleBackColor = true;
+            this.btnGoToMappingTab.Visible = false;
+            this.btnGoToMappingTab.Click += new System.EventHandler(this.btnGoToMappingTab_Click);
             // 
             // label10
             // 
@@ -522,22 +523,21 @@
             this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 13;
             // 
-            // flowLayoutPanelConSettings
+            // panelConStrDiteils
             // 
-            this.flowLayoutPanelConSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanelConSettings.Controls.Add(this.label4);
-            this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel1);
-            this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel2);
-            this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel3);
-            this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel4);
-            this.flowLayoutPanelConSettings.Controls.Add(this.tableLayoutPanel5);
-            this.flowLayoutPanelConSettings.Controls.Add(this.button5);
-            this.flowLayoutPanelConSettings.Location = new System.Drawing.Point(232, 214);
-            this.flowLayoutPanelConSettings.Name = "flowLayoutPanelConSettings";
-            this.flowLayoutPanelConSettings.Size = new System.Drawing.Size(354, 220);
-            this.flowLayoutPanelConSettings.TabIndex = 12;
-            this.flowLayoutPanelConSettings.Visible = false;
+            this.panelConStrDiteils.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelConStrDiteils.Controls.Add(this.label4);
+            this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel1);
+            this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel2);
+            this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel3);
+            this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel4);
+            this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel5);
+            this.panelConStrDiteils.Controls.Add(this.btnApplyConSetDiteils);
+            this.panelConStrDiteils.Location = new System.Drawing.Point(232, 214);
+            this.panelConStrDiteils.Name = "panelConStrDiteils";
+            this.panelConStrDiteils.Size = new System.Drawing.Size(354, 220);
+            this.panelConStrDiteils.TabIndex = 12;
+            this.panelConStrDiteils.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -545,7 +545,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.23529F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.76471F));
             this.tableLayoutPanel3.Controls.Add(this.label9, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textBox3, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.txtDataSource, 1, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 82);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
@@ -581,15 +581,25 @@
             this.tableLayoutPanel5.TabIndex = 6;
             this.tableLayoutPanel5.Visible = false;
             // 
-            // button5
+            // btnApplyConSetDiteils
             // 
-            this.button5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button5.Location = new System.Drawing.Point(3, 181);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "Apply";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnApplyConSetDiteils.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnApplyConSetDiteils.Location = new System.Drawing.Point(3, 181);
+            this.btnApplyConSetDiteils.Name = "btnApplyConSetDiteils";
+            this.btnApplyConSetDiteils.Size = new System.Drawing.Size(75, 23);
+            this.btnApplyConSetDiteils.TabIndex = 9;
+            this.btnApplyConSetDiteils.Text = "Apply";
+            this.btnApplyConSetDiteils.UseVisualStyleBackColor = true;
+            this.btnApplyConSetDiteils.Click += new System.EventHandler(this.btnApplyConSetDiteils_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "label5";
             // 
             // DBSettingDialog
             // 
@@ -603,9 +613,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.MappingSettings.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.MappingSettings.PerformLayout();
+            this.panelItemName.ResumeLayout(false);
+            this.panelItemName.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.DBTab.ResumeLayout(false);
@@ -616,7 +626,7 @@
             this.groupBoxTokens.ResumeLayout(false);
             this.panelPreviewString.ResumeLayout(false);
             this.panelPreviewString.PerformLayout();
-            this.flowLayoutPanelConSettings.ResumeLayout(false);
+            this.panelConStrDiteils.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -632,25 +642,25 @@
         private System.Windows.Forms.Button btnSaveSettings;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtPasswrd;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtDataSource;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Panel panelChoseDBProvider;
         private System.Windows.Forms.ComboBox cmbDBDialect;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmdDBType;
+        private System.Windows.Forms.ComboBox cmbDBType;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox UserID;
+        private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage MappingSettings;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtNewTokenName;
         private System.Windows.Forms.Button btnChekMapping;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtxtMapping;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TabControl DBTab;
         private System.Windows.Forms.TabPage Settings;
@@ -665,16 +675,17 @@
         private System.Windows.Forms.Panel panelPreviewString;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtConnectionString;
+        private System.Windows.Forms.Button btnTestConStr;
+        private System.Windows.Forms.Button btnGoToMappingTab;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelConSettings;
+        private System.Windows.Forms.FlowLayoutPanel panelConStrDiteils;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnApplyConSetDiteils;
+        private System.Windows.Forms.Panel panelItemName;
+        private System.Windows.Forms.Button btnAddToken;
+        private System.Windows.Forms.Label label5;
     }
 }

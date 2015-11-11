@@ -13,29 +13,66 @@ namespace Supakulltracker
 
         private static GetTrackerServicesSoapClient services = new GetTrackerServicesSoapClient();
 
-        public static ServiceAccountDTO[] GetAllUserAccounts(this UserForAuthentication currentUser)
+        public static List<IAccountSettings> GetAllUserAccounts(this UserForAuthentication currentUser)
         {
-            return services.GetAllUserAccountsByUserID(currentUser.UserID);
+            ServiceAccountDTO[] allAcc = services.GetAllUserAccountsByUserID(currentUser.UserID);
+            List<IAccountSettings> targetAccs = new List<IAccountSettings>();
+            foreach (ServiceAccountDTO account in allAcc)
+            {
+                IAccountSettings acc = GetCurrentInstance(account);
+                if (acc != null)
+                {
+                    targetAccs.Add(acc.ConvertFromDAO(account));
+                }
+            }
+            return targetAccs;
         }
 
-        public static ServiceAccountDTO[] GetAllUserAccountsInSource(this UserForAuthentication currentUser, Sources sourceType)
+        public static List<IAccountSettings>GetAllUserAccountsInSource(List<IAccountSettings> allAccounts, Sources sourceType)
         {
-            ServiceAccountDTO[] accountsInSource;
-            ServiceAccountDTO[] allAccounts = GetAllUserAccounts(currentUser);
+            List<IAccountSettings> acc;
             if (allAccounts != null)
             {
-                accountsInSource = allAccounts.Select<ServiceAccountDTO, ServiceAccountDTO>(x => x).Where(x => x.Source == sourceType).ToArray();
+                acc = allAccounts.Select(x => x).Where(x => x.Source == sourceType).ToList();
             }
             else
             {
-                accountsInSource = null;
+                acc = null;
             }
-            return accountsInSource;
+            return acc;
         }
 
-        public static ServiceAccountDTO GetDetailsForAccount (this UserForAuthentication currentUser, Int32 accountId)
+        public static IAccountSettings GetDetailsForAccount(this UserForAuthentication currentUser, Int32 accountId)
         {
-            return services.GetUserAccountsByUserIDAndAccountId(currentUser.UserID, accountId);
+            ServiceAccountDTO serviceAcc = services.GetUserAccountsByUserIDAndAccountId(currentUser.UserID, accountId);
+            IAccountSettings targetAcc = GetCurrentInstance(serviceAcc);
+            targetAcc = targetAcc.ConvertFromDAO(serviceAcc);
+            return targetAcc;
+        }
+
+        public static void SaveOrUpdateAccount(IAccountSettings account)
+        {
+            ServiceAccountDTO targetAccount = account.ConvertToDAO(account);
+            services.SaveOrUdateAccount(targetAccount);
+        }
+
+
+        public static IAccountSettings GetCurrentInstance(ServiceAccountDTO setting)
+        {
+            switch (setting.Source)
+            {
+                case Sources.DataBase:
+                    return new DatabaseAccountSettings();
+                case Sources.Trello:
+                    return null;
+                case Sources.Excel:
+                    return null;
+                case Sources.GoogleSheets:
+                    return null;
+                default:
+                    return null;
+            }
         }
     }
 }
+

@@ -83,7 +83,7 @@ namespace SupakullTrackerServices
             }
             return target;
         }
-        
+
         /// <summary>
         /// Convert Domain Object for serialization 
         /// </summary>
@@ -143,7 +143,73 @@ namespace SupakullTrackerServices
             target.TemplateName = param.TemplateName;
             foreach (KeyValuePair<string, string> item in param.Mapping)
             {
-                target.Mapping.Add(new MappingForSerialization{ Key = item.Key, Value = item.Value });
+                target.Mapping.Add(new MappingForSerialization { Key = item.Key, Value = item.Value });
+            }
+
+            return target;
+        }
+
+        public static ServiceAccount ServiceAccountDTOToDomain(this ServiceAccountDTO param)
+        {
+            ServiceAccount target = new ServiceAccount();
+
+            target.ServiceAccountId = param.ServiceAccountId;
+            target.ServiceAccountName = param.ServiceAccountName;
+            target.Source = param.Source;
+
+            if (param.Tokens != null)
+            {
+                target.Tokens = param.Tokens.Select<TokenDTO, Token>(x => x.TokenDTOToTokenDomain()).ToList();
+            }
+            else
+            {
+                target.Tokens = null;
+            }
+
+            if (param.MappingTemplates != null)
+            {
+                target.MappingTemplates = param.MappingTemplates.Select<TemplateDTO, Template>(x => x.TemplateDTOToTemplateDomain()).ToList();
+            }
+            else
+            {
+                target.MappingTemplates = null;
+            }
+
+            return target;
+        }
+
+        public static Token TokenDTOToTokenDomain(this TokenDTO param)
+        {
+            Token target = new Token();
+
+            target.TokenId = param.TokenId;
+            target.TokenName = param.TokenName;
+
+            foreach (TokenForSerialization item in param.Tokens)
+            {
+                if (item.Key != null && item.Value != null)
+                {
+                    target.Tokens.Add(item.Key, item.Value);
+                }
+
+            }
+
+            return target;
+        }
+
+        public static Template TemplateDTOToTemplateDomain(this TemplateDTO param)
+        {
+            Template target = new Template();
+
+            target.TemplateId = param.TemplateId;
+            target.TemplateName = param.TemplateName;
+
+            foreach (MappingForSerialization item in param.Mapping)
+            {
+                if (item.Key != null && item.Value != null)
+                {
+                    target.Mapping.Add(item.Key, item.Value);
+                }
             }
 
             return target;

@@ -13,7 +13,7 @@ namespace Supakulltracker
     public partial class SettingsDialog : Form
     {
         private UserProvider.UserForAuthentication loggedUser;
-        private IssueService.ServiceAccountDTO[] userAccounts;
+        private List<IAccountSettings> userAccounts;
 
         public SettingsDialog(UserProvider.UserForAuthentication loggedUser)
         {

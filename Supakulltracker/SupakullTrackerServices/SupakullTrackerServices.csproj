@@ -151,6 +151,9 @@
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
     <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
+    <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\IAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\IAccountToken.cs" />
     <Compile Include="Domain\Settings Objects\ServiceAccount.cs" />
     <Compile Include="Domain\Settings Objects\Template.cs" />
     <Compile Include="Domain\Settings Objects\Token.cs" />

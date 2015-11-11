@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
   <class name="TokenDAO" table="TOKENS_IN_ACCOUNT">
-    <id name="TokenId" column="TOKEN_ID" generator="assigned" />
+    <id name="TokenId" column="TOKEN_ID">
+      <generator class="sequence">
+        <param name="sequence">taskmain_seq</param>
+      </generator>
+    </id>
     <property name="TokenName" column="TOKEN_NAME" />
 
     <map name="Token" table="TOKEN">

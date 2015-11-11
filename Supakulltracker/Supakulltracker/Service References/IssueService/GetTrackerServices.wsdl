@@ -151,6 +151,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SaveOrUdateAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrUdateAccountResponse">
+        <s:complexType />
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAllTasksSoapIn">
@@ -177,6 +187,12 @@
   <wsdl:message name="GetUserAccountsByUserIDAndAccountIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserAccountsByUserIDAndAccountIdResponse" />
   </wsdl:message>
+  <wsdl:message name="SaveOrUdateAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrUdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrUdateAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrUdateAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
@@ -193,6 +209,10 @@
     <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
       <wsdl:input message="tns:GetUserAccountsByUserIDAndAccountIdSoapIn" />
       <wsdl:output message="tns:GetUserAccountsByUserIDAndAccountIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <wsdl:input message="tns:SaveOrUdateAccountSoapIn" />
+      <wsdl:output message="tns:SaveOrUdateAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -233,6 +253,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <soap:operation soapAction="http://tempuri.org/SaveOrUdateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -265,6 +294,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
       <soap12:operation soapAction="http://tempuri.org/GetUserAccountsByUserIDAndAccountId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrUdateAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
