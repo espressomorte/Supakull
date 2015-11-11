@@ -11,7 +11,7 @@
     <map name="Token" table="TOKEN">
       <key column="TOKEN_ID" />
       <index column="KEY" type="System.String"/>
-      <element column="VALUE" type="System.String" length="1500" />
+      <element column="VALUE" type="System.String" length="2000" />
     </map>
   </class>
 </hibernate-mapping>

@@ -123,6 +123,7 @@ namespace Supakulltracker
             DatabaseAccountToken currentToken = (DatabaseAccountToken)token;
 
             target.TokenName = currentToken.TokenName;
+            target.TokenId = currentToken.TokenId;
             List<TokenForSerialization> tokenList = new List<TokenForSerialization>();
 
             TokenForSerialization userName = new TokenForSerialization();

@@ -1050,10 +1050,17 @@ namespace Supakulltracker.IssueService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
     public partial class SaveOrUdateAccountResponseBody {
         
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool SaveOrUdateAccountResult;
+        
         public SaveOrUdateAccountResponseBody() {
+        }
+        
+        public SaveOrUdateAccountResponseBody(bool SaveOrUdateAccountResult) {
+            this.SaveOrUdateAccountResult = SaveOrUdateAccountResult;
         }
     }
     
@@ -1172,11 +1179,12 @@ namespace Supakulltracker.IssueService {
             return base.Channel.SaveOrUdateAccount(request);
         }
         
-        public void SaveOrUdateAccount(Supakulltracker.IssueService.ServiceAccountDTO account) {
+        public bool SaveOrUdateAccount(Supakulltracker.IssueService.ServiceAccountDTO account) {
             Supakulltracker.IssueService.SaveOrUdateAccountRequest inValue = new Supakulltracker.IssueService.SaveOrUdateAccountRequest();
             inValue.Body = new Supakulltracker.IssueService.SaveOrUdateAccountRequestBody();
             inValue.Body.account = account;
             Supakulltracker.IssueService.SaveOrUdateAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).SaveOrUdateAccount(inValue);
+            return retVal.Body.SaveOrUdateAccountResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

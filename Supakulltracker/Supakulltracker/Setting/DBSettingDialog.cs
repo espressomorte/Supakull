@@ -44,12 +44,16 @@ namespace Supakulltracker
 
         private void availableConectionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IAccountSettings selectedAccount = userDBAccounts.FirstOrDefault(x => x.Name == cmbAcconts.SelectedItem.ToString());
-            userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
-            cmbTokens.Items.Clear();
-            foreach (var item in userDBFullAccount.Tokens)
+            if (cmbAcconts.SelectedItem != null)
             {
-                cmbTokens.Items.Add(item.TokenName);
+                IAccountSettings selectedAccount = userDBAccounts.FirstOrDefault(x => x.Name == cmbAcconts.SelectedItem.ToString());
+                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
+
+                cmbTokens.Items.Clear();
+                foreach (var item in userDBFullAccount.Tokens)
+                {
+                    cmbTokens.Items.Add(item.TokenName);
+                }
             }
         }
 
@@ -76,11 +80,6 @@ namespace Supakulltracker
             PrepareForShowingTokenDetails(selectedToken);
         }
 
-        private void btnEddNewConfigForDB_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddToken_Click(object sender, EventArgs e)
         {
             cmbDBType.Text = String.Empty;
@@ -90,6 +89,7 @@ namespace Supakulltracker
             txtUserID.Text = String.Empty;
             txtDataSource.Text = String.Empty;
             rtxtMapping.Text = String.Empty;
+            panelChoseDBProvider.Show();
             label2.Hide();
             cmbDBDialect.Hide();
             panelConStrDiteils.Hide();
@@ -151,7 +151,12 @@ namespace Supakulltracker
                 newToken.TokenName = txtNewTokenName.Text;
                 newToken.Mapping = rtxtMapping.Text;
                 userDBFullAccount.Tokens.Add(newToken);
-                SettingsManager.SaveOrUpdateAccount(userDBFullAccount);
+                if (SettingsManager.SaveOrUpdateAccount(userDBFullAccount))
+                {
+                    DBTab.SelectTab(0);
+                    btnSaveSettings.Enabled = false;
+                }
+                
             }
             else
             {

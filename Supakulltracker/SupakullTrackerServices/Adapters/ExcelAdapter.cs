@@ -69,7 +69,7 @@ namespace SupakullTrackerServices
 
             TaskMain task = new TaskMain();
 
-            task.TaskID = "E-" + array[0].ToString();
+            task.TaskID =array[0].ToString();
             task.Summary = array[1].ToString();
             task.SubtaskType = array[2].ToString();
             task.Status = array[3].ToString();

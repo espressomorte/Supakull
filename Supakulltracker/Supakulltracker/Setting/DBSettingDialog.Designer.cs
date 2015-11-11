@@ -46,17 +46,18 @@
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.MappingSettings = new System.Windows.Forms.TabPage();
+            this.btnChekMapping = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelItemName = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNewTokenName = new System.Windows.Forms.TextBox();
-            this.btnChekMapping = new System.Windows.Forms.Button();
             this.rtxtMapping = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.DBTab = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBoxAccounts = new System.Windows.Forms.GroupBox();
-            this.btnEddNewConfigForDB = new System.Windows.Forms.Button();
+            this.btnEddNewConfigAccountForDB = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.cmbAcconts = new System.Windows.Forms.ComboBox();
             this.groupBoxTokens = new System.Windows.Forms.GroupBox();
@@ -75,7 +76,6 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnApplyConSetDiteils = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
@@ -270,6 +270,24 @@
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
             // 
+            // btnChekMapping
+            // 
+            this.btnChekMapping.Location = new System.Drawing.Point(383, 81);
+            this.btnChekMapping.Name = "btnChekMapping";
+            this.btnChekMapping.Size = new System.Drawing.Size(75, 23);
+            this.btnChekMapping.TabIndex = 2;
+            this.btnChekMapping.Text = "Test";
+            this.btnChekMapping.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "label5";
+            // 
             // panelItemName
             // 
             this.panelItemName.Controls.Add(this.label3);
@@ -295,15 +313,6 @@
             this.txtNewTokenName.Name = "txtNewTokenName";
             this.txtNewTokenName.Size = new System.Drawing.Size(163, 20);
             this.txtNewTokenName.TabIndex = 3;
-            // 
-            // btnChekMapping
-            // 
-            this.btnChekMapping.Location = new System.Drawing.Point(383, 81);
-            this.btnChekMapping.Name = "btnChekMapping";
-            this.btnChekMapping.Size = new System.Drawing.Size(75, 23);
-            this.btnChekMapping.TabIndex = 2;
-            this.btnChekMapping.Text = "Test";
-            this.btnChekMapping.UseVisualStyleBackColor = true;
             // 
             // rtxtMapping
             // 
@@ -371,7 +380,7 @@
             // 
             this.groupBoxAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxAccounts.Controls.Add(this.btnEddNewConfigForDB);
+            this.groupBoxAccounts.Controls.Add(this.btnEddNewConfigAccountForDB);
             this.groupBoxAccounts.Controls.Add(this.button2);
             this.groupBoxAccounts.Controls.Add(this.cmbAcconts);
             this.groupBoxAccounts.Location = new System.Drawing.Point(15, 19);
@@ -381,15 +390,14 @@
             this.groupBoxAccounts.TabStop = false;
             this.groupBoxAccounts.Text = "Accounts";
             // 
-            // btnEddNewConfigForDB
+            // btnEddNewConfigAccountForDB
             // 
-            this.btnEddNewConfigForDB.Location = new System.Drawing.Point(133, 22);
-            this.btnEddNewConfigForDB.Name = "btnEddNewConfigForDB";
-            this.btnEddNewConfigForDB.Size = new System.Drawing.Size(75, 23);
-            this.btnEddNewConfigForDB.TabIndex = 6;
-            this.btnEddNewConfigForDB.Text = "Add";
-            this.btnEddNewConfigForDB.UseVisualStyleBackColor = true;
-            this.btnEddNewConfigForDB.Click += new System.EventHandler(this.btnEddNewConfigForDB_Click);
+            this.btnEddNewConfigAccountForDB.Location = new System.Drawing.Point(133, 22);
+            this.btnEddNewConfigAccountForDB.Name = "btnEddNewConfigAccountForDB";
+            this.btnEddNewConfigAccountForDB.Size = new System.Drawing.Size(75, 23);
+            this.btnEddNewConfigAccountForDB.TabIndex = 6;
+            this.btnEddNewConfigAccountForDB.Text = "Add";
+            this.btnEddNewConfigAccountForDB.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -525,7 +533,9 @@
             // 
             // panelConStrDiteils
             // 
-            this.panelConStrDiteils.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelConStrDiteils.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelConStrDiteils.Controls.Add(this.label4);
             this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel1);
             this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel2);
@@ -533,9 +543,9 @@
             this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel4);
             this.panelConStrDiteils.Controls.Add(this.tableLayoutPanel5);
             this.panelConStrDiteils.Controls.Add(this.btnApplyConSetDiteils);
-            this.panelConStrDiteils.Location = new System.Drawing.Point(232, 214);
+            this.panelConStrDiteils.Location = new System.Drawing.Point(229, 214);
             this.panelConStrDiteils.Name = "panelConStrDiteils";
-            this.panelConStrDiteils.Size = new System.Drawing.Size(354, 220);
+            this.panelConStrDiteils.Size = new System.Drawing.Size(354, 209);
             this.panelConStrDiteils.TabIndex = 12;
             this.panelConStrDiteils.Visible = false;
             // 
@@ -591,15 +601,6 @@
             this.btnApplyConSetDiteils.Text = "Apply";
             this.btnApplyConSetDiteils.UseVisualStyleBackColor = true;
             this.btnApplyConSetDiteils.Click += new System.EventHandler(this.btnApplyConSetDiteils_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(253, 14);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "label5";
             // 
             // DBSettingDialog
             // 
@@ -666,7 +667,7 @@
         private System.Windows.Forms.TabPage Settings;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBoxAccounts;
-        private System.Windows.Forms.Button btnEddNewConfigForDB;
+        private System.Windows.Forms.Button btnEddNewConfigAccountForDB;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox cmbAcconts;
         private System.Windows.Forms.GroupBox groupBoxTokens;

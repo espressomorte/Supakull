@@ -28,7 +28,7 @@ namespace Supakulltracker
             return targetAccs;
         }
 
-        public static List<IAccountSettings>GetAllUserAccountsInSource(List<IAccountSettings> allAccounts, Sources sourceType)
+        public static List<IAccountSettings> GetAllUserAccountsInSource(List<IAccountSettings> allAccounts, Sources sourceType)
         {
             List<IAccountSettings> acc;
             if (allAccounts != null)
@@ -50,10 +50,13 @@ namespace Supakulltracker
             return targetAcc;
         }
 
-        public static void SaveOrUpdateAccount(IAccountSettings account)
+
+        public static Boolean SaveOrUpdateAccount(IAccountSettings account)
         {
+            Boolean succeed = false;
             ServiceAccountDTO targetAccount = account.ConvertToDAO(account);
-            services.SaveOrUdateAccount(targetAccount);
+            succeed = services.SaveOrUdateAccount(targetAccount);
+            return succeed;
         }
 
 

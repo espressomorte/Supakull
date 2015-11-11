@@ -146,8 +146,9 @@ namespace SupakullTrackerServices
 
 
         [WebMethod]
-        public void SaveOrUdateAccount(ServiceAccountDTO account)
+        public Boolean SaveOrUdateAccount(ServiceAccountDTO account)
         {
+            Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO(); 
             using (ISession session = sessionFactory.OpenSession())
@@ -156,9 +157,11 @@ namespace SupakullTrackerServices
                 {
                     session.SaveOrUpdate(target);
                     transaction.Commit();
+                    succeed = transaction.WasCommitted;
                 }
                
             }
+            return succeed;
         }
 
         #endregion
