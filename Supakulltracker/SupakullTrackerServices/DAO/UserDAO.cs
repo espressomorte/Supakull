@@ -11,16 +11,14 @@ namespace SupakullTrackerServices
     {
         public virtual int ID { get; set; }
         public virtual string UserId { get; set; }
-        public virtual string UserName { get; set; }
 
         public UserDAO()
         {
         }
 
-        public UserDAO(string UserId, string UserName)
+        public UserDAO(string UserId)
         {
             this.UserId = UserId;
-            this.UserName = UserName;
         }
 
         public virtual int GetUserIDFormDB()

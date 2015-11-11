@@ -9,7 +9,6 @@
     </id>
     
     <property name="UserId" column="US_USERID"/>
-    <property name="UserName" column="US_USERNAME"/>
     
   </class>
 </hibernate-mapping>

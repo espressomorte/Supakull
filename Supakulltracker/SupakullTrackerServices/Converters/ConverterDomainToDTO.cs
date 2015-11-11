@@ -66,8 +66,7 @@ namespace SupakullTrackerServices
         private static UserDTO UserToUserDtoSingle(User param)
         {
             UserDTO target = new UserDTO();
-
-            target.UserName = param.UserName;
+            
             target.UserId = param.UserId;
 
             return target;

@@ -48,7 +48,6 @@ namespace UnitTestServices.Converters
 
             User userActual = taskMainActual.Assigned[0];
             StringAssert.Contains(userDAO1.UserId, userActual.UserId, "UserId is not correct");
-            StringAssert.Contains(userDAO1.UserName, userActual.UserName, "UserName is not correct");
 
             ITask taskParentActual = taskMainActual.TaskParent;
             StringAssert.Contains(taskMainDAO2.TaskID, taskParentActual.TaskID, "TaskID is not correct");
@@ -91,7 +90,7 @@ namespace UnitTestServices.Converters
         {
             string userId = string.Format("UserId{0}", postfix);
             string userName = string.Format("UserName{0}", postfix);
-            UserDAO userDAO = new UserDAO(userId, userName);
+            UserDAO userDAO = new UserDAO(userId);
             
             return userDAO;
         }

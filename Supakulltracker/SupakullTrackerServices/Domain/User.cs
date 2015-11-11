@@ -8,12 +8,10 @@ namespace SupakullTrackerServices
     public class User
     {
         public virtual string UserId { get; set; }
-        public virtual string UserName { get; set; }
 
-        public User(string UserId, string UserName)
+        public User(string UserId)
         {
             this.UserId = UserId;
-            this.UserName = UserName;
         }
     }
 }
