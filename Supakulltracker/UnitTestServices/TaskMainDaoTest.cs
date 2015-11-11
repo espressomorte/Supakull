@@ -37,48 +37,34 @@ namespace UnitTestServices
         [TestMethod]
         public void SaveOrUpdateCollectionInDB_Test2()
         {
-            IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
-            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = null, LinkToTracker = Sources.DataBase };
-            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task21", LinkToTracker = Sources.DataBase, Summary = "Summary21" };
-            TaskMainDAO taskMainDAO3 = new TaskMainDAO() { TaskID = "Task21", LinkToTracker = Sources.DataBase, Summary = "Summary22" };
-            TaskMainDAO taskMainDAO4 = new TaskMainDAO() { TaskID = "Task21", LinkToTracker = Sources.Excel };
-            TaskMainDAO taskMainDAO5 = new TaskMainDAO() { TaskID = "Task22", LinkToTracker = Sources.DataBase };
-            taskMainDaoCollection.Add(taskMainDAO1);
-            taskMainDaoCollection.Add(taskMainDAO2);
-            taskMainDaoCollection.Add(taskMainDAO3);
-            taskMainDaoCollection.Add(taskMainDAO4);
-            taskMainDaoCollection.Add(taskMainDAO5);
-            TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
-        }
+            IList<ITask> taskMainCollection = new List<ITask>();
+            ITask taskMainParent1 = new TaskMain() { TaskID = "TaskParent1", LinkToTracker = Sources.DataBase };
+            ITask taskMainParent2 = new TaskMain() { TaskID = "TaskParent2", LinkToTracker = Sources.Trello };
+            User user1 = new User("user1", "user1");
+            User user2 = new User("user2", "user2");
+            IList<User> assigned1 = new List<User>() { user1, user2 };
+            IList<User> assigned2 = new List<User>() { user2, user1 };
 
-        [TestMethod]
-        public void SaveOrUpdateCollectionInDB_Disagreements()
-        {
-            
-            IList<DisagreementDAO> disagreementCollection1 = new List<DisagreementDAO>();
-            DisagreementDAO disagreement1 = new DisagreementDAO() { FieldName = "Summary" };
-            DisagreementDAO disagreement2 = new DisagreementDAO() { FieldName = "Priority" };
-            disagreementCollection1.Add(disagreement1);
-            disagreementCollection1.Add(disagreement2);
+            ITask taskMain1 = new TaskMain()
+            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "e", LinkToTracker = Sources.DataBase, TaskParent = null, Assigned = assigned2 };
+            ITask taskMain2 = new TaskMain()
+            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "f", LinkToTracker = Sources.Trello, TaskParent = taskMainParent2, Assigned = null };
+            ITask taskMain3 = new TaskMain()
+            { TaskID = "Task1", SubtaskType = "a", Summary = "b", Description = "d", Status = "g", LinkToTracker = Sources.Excel, TaskParent = taskMainParent1, Assigned = assigned1 };
+            ITask taskMain4 = new TaskMain()
+            { TaskID = "TaskParent3", LinkToTracker = Sources.GoogleSheets };
 
-            IList<DisagreementDAO> disagreementCollection2 = new List<DisagreementDAO>();
-            DisagreementDAO disagreement3 = new DisagreementDAO() { FieldName = "Summary" };
-            DisagreementDAO disagreement4 = new DisagreementDAO() { FieldName = "Priority" };
-            disagreementCollection2.Add(disagreement3);
-            disagreementCollection2.Add(disagreement4);
+            taskMainCollection.Add(taskMainParent1);
+            taskMainCollection.Add(taskMain1);
+            taskMainCollection.Add(taskMain2);
+            taskMainCollection.Add(taskMain3);
+            taskMainCollection.Add(taskMain4);
+            taskMainCollection.Add(taskMainParent2);
 
-            TaskMainDAO taskMainDAO1 = new TaskMainDAO() { TaskID = "Task31", LinkToTracker = Sources.DataBase, Disagreements = disagreementCollection1 };
-            disagreement1.TaskMainDaoLinked = taskMainDAO1;
-            disagreement2.TaskMainDaoLinked = taskMainDAO1;
+            IMatchTasks taskMatcher = new MatchTasksById();
+            TaskMain.MatchTasks(taskMainCollection, taskMatcher);
 
-            TaskMainDAO taskMainDAO2 = new TaskMainDAO() { TaskID = "Task31", LinkToTracker = Sources.GoogleSheets, Disagreements = disagreementCollection2 };
-            disagreement3.TaskMainDaoLinked = taskMainDAO2;
-            disagreement4.TaskMainDaoLinked = taskMainDAO2;
-
-            IList<TaskMainDAO> taskMainDaoCollection = new List<TaskMainDAO>();
-            taskMainDaoCollection.Add(taskMainDAO1);
-            taskMainDaoCollection.Add(taskMainDAO2);
-
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(taskMainCollection);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
     }

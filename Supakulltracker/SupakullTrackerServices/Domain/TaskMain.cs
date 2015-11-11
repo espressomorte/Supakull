@@ -12,7 +12,6 @@ namespace SupakullTrackerServices
         {
             this.Assigned = new List<User>();
             this.MatchedTasks = new List<ITask>();
-            this.Disagreements = new HashSet<Disagreement>();
         }
 
         public string TaskID { get; set; }
@@ -31,9 +30,7 @@ namespace SupakullTrackerServices
         public string Comments { get; set; }
         public IList<User> Assigned { get; set; }
         public ITask TaskParent { get; set; }
-
         public IList<ITask> MatchedTasks { get; set; }
-        public ISet<Disagreement> Disagreements { get; set; }
 
         public int MatchedCount
         {
@@ -47,43 +44,7 @@ namespace SupakullTrackerServices
         {
             this.MatchedTasks.Add(taskMain);
         }
-
-        public bool AddDisagreement(Disagreement disagreement)
-        {            
-            return Disagreements.Add(disagreement);
-        }
-
-        public void AddDisagreementCollection(IEnumerable<Disagreement> disagreementCollection)
-        {
-            foreach (Disagreement disagreement in disagreementCollection)
-            {
-                this.AddDisagreement(disagreement);
-            }
-        }
-
-        public IList<ITaskField> GetFields()
-        {
-            List<ITaskField> taskMainFields = new List<ITaskField>();
-
-            taskMainFields.Add(new FieldString(nameof(this.SubtaskType), this.SubtaskType));
-            taskMainFields.Add(new FieldString(nameof(this.Summary), this.Summary));
-            taskMainFields.Add(new FieldString(nameof(this.Description), this.Description));
-            taskMainFields.Add(new FieldString(nameof(this.Status), this.Status));
-            taskMainFields.Add(new FieldString(nameof(this.Priority), this.Priority));
-            taskMainFields.Add(new FieldString(nameof(this.Product), this.Product));
-            taskMainFields.Add(new FieldString(nameof(this.Project), this.Project));
-            taskMainFields.Add(new FieldString(nameof(this.CreatedDate), this.CreatedDate));
-            taskMainFields.Add(new FieldString(nameof(this.CreatedBy), this.CreatedBy));
-            taskMainFields.Add(new FieldString(nameof(this.Estimation), this.Estimation));
-            taskMainFields.Add(new FieldString(nameof(this.TargetVersion), this.TargetVersion));
-            taskMainFields.Add(new FieldString(nameof(this.Comments), this.Comments));
-            ICollection<string> assignedUserIDs = GetUserIDs();
-            taskMainFields.Add(new FieldStringCollection(nameof(this.Assigned), assignedUserIDs));
-            taskMainFields.Add(new FieldString(nameof(this.TaskParent), this.TaskParent == null ? null : this.TaskParent.TaskID));
-
-            return taskMainFields;
-        }
-
+        
         private ICollection<string> GetUserIDs()
         {
             if (Assigned == null)
@@ -114,29 +75,6 @@ namespace SupakullTrackerServices
                     }
                 }
             }
-        }
-        
-        public static IEnumerable<Disagreement> GetDisagreements(IList<ITask> taskMainCollection)
-        {
-            HashSet<Disagreement> disagreements = new HashSet<Disagreement>();
-            ITask taskA = taskMainCollection[0];
-            IList<ITaskField> fieldsA = taskA.GetFields();
-            for (int b = 1; b < taskMainCollection.Count; b++)
-            {
-                ITask taskB = taskMainCollection[b];                                
-                IList<ITaskField> fieldsB = taskB.GetFields();
-
-                for(int i = 0; i < fieldsA.Count; i++)
-                {
-                    bool fieldsCompareResult = fieldsA[i].Equals(fieldsB[i]);
-                    if(!fieldsCompareResult)
-                    {
-                        Disagreement disagreement = new Disagreement(fieldsA[i].FieldName);
-                        disagreements.Add(disagreement);
-                    }
-                }
-            }
-            return disagreements;
         }
     }   
 }

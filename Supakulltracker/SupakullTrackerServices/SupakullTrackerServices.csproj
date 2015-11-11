@@ -107,7 +107,6 @@
     <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TokenDAO.hbm.xml" />
-    <EmbeddedResource Include="Mapping\DisagreementDAO.hbm.xml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -141,12 +140,12 @@
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\ConverterForSettings.cs" />
     <Compile Include="Converters\ConverterDomainToDAO.cs" />
     <Compile Include="Converters\ConverterDAOtoDomain.cs" />
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
-    <Compile Include="DAO\Disagreements\DisagreementDAO.cs" />
     <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
@@ -157,12 +156,8 @@
     <Compile Include="Domain\Settings Objects\UserLink.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\User.cs" />
-    <Compile Include="Domain\Disagreements\Disagreement.cs" />
-    <Compile Include="Domain\Disagreements\FieldStringCollection.cs" />
     <Compile Include="Domain\MatchTasks\IMatchTasks.cs" />
-    <Compile Include="Domain\Disagreements\ITaskField.cs" />
     <Compile Include="Domain\MatchTasks\MatchTasksById.cs" />
-    <Compile Include="Domain\Disagreements\FieldString.cs" />
     <Compile Include="DTO\Settings Objects\ServiceAccountDTO.cs" />
     <Compile Include="DTO\Settings Objects\TemplateDTO.cs" />
     <Compile Include="DTO\Settings Objects\TokenDTO.cs" />

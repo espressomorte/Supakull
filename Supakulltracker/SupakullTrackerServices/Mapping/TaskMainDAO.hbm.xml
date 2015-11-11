@@ -35,10 +35,5 @@
       <many-to-many class="TaskMainDAO" column="MTK_MATCHEDTASKID"/>
     </bag>
 
-    <bag cascade="all-delete-orphan" inverse="false" name="Disagreements" table="DISAGREEMENT">
-      <key column="DA_TK_ID" />
-      <one-to-many class="DisagreementDAO" />
-    </bag>
-
   </class>
 </hibernate-mapping>
