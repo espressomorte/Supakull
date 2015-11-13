@@ -164,6 +164,50 @@ namespace SupakullTrackerServices
             return succeed;
         }
 
+        [WebMethod]
+        public Boolean DeleteToken(TokenDTO token)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            TokenDAO target = token.TokenDTOToTokenDomain().TokenToTokenDAO();
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(target);
+                    transaction.Commit();
+                    succeed = transaction.WasCommitted;
+                }
+
+            }
+            return succeed;
+        }
+
+        [WebMethod]
+        public Boolean CreateNewAccount(Int64 UserID,ServiceAccountDTO newAccount)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            UserLinkDAO newUserLink = new UserLinkDAO();
+            ServiceAccountDAO target = newAccount.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            newUserLink.Account = target;
+            newUserLink.Owner = true;
+            newUserLink.UserId = UserID;
+
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    
+                    session.Save(newUserLink);
+                    transaction.Commit();
+                    succeed = transaction.WasCommitted;
+                }
+
+            }
+            return succeed;
+        }
         #endregion
 
     }

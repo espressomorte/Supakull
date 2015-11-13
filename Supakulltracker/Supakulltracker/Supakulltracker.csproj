@@ -96,6 +96,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Setting\IAccountSettings.cs" />
+    <Compile Include="Setting\IAccountTemplate.cs" />
     <Compile Include="Setting\IAccountToken.cs" />
     <Compile Include="Setting\SettingsDialog.cs">
       <SubType>Form</SubType>
@@ -103,7 +104,6 @@
     <Compile Include="Setting\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Setting\SettingsInstansFactory.cs" />
     <Compile Include="Setting\SettingsManager.cs" />
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
@@ -141,6 +141,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Service References\IssueService\GetTrackerServices.wsdl" />
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.CreateNewAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllTasksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

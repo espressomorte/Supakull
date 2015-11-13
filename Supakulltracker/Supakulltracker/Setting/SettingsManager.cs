@@ -60,6 +60,22 @@ namespace Supakulltracker
         }
 
 
+        public static Boolean DeleteToken(IAccountToken token)
+        {
+            Boolean succeed = false;
+            TokenDTO targetToken = token.ConvertToDAO(token);
+            succeed = services.DeleteToken(targetToken);
+            return succeed;
+        }
+
+        public static Boolean CreateNewAccount(this UserForAuthentication currentUser,IAccountSettings newAccount)
+        {
+            Boolean succeed = false;
+            ServiceAccountDTO targetnewAccount = newAccount.ConvertToDAO(newAccount);
+            succeed = services.CreateNewAccount(currentUser.UserID, targetnewAccount);
+            return succeed;
+        }
+
         public static IAccountSettings GetCurrentInstance(ServiceAccountDTO setting)
         {
             switch (setting.Source)

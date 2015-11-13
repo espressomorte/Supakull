@@ -44,7 +44,7 @@ namespace Supakulltracker
             target.Source = Sources.DataBase;
 
             List<TokenDTO> tok = new List<TokenDTO>();
-            if (currentAccount.Tokens.Count > 0)
+            if (currentAccount.Tokens != null)
             {
                 foreach (DatabaseAccountToken token in currentAccount.Tokens)
                 {
@@ -155,6 +155,11 @@ namespace Supakulltracker
             databaseDialect.Key = "DatabaseDialect";
             databaseDialect.Value = currentToken.DatabaseDialect.ToString();
             tokenList.Add(databaseDialect);
+
+            TokenForSerialization databaseConnectionString = new TokenForSerialization();
+            databaseConnectionString.Key = "ConnectionString";
+            databaseConnectionString.Value = currentToken.ConnectionString;
+            tokenList.Add(databaseConnectionString);
 
             target.Tokens = tokenList.ToArray();
             return target;

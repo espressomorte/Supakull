@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="GetAllTasks">
@@ -165,6 +165,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DeleteToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="tns:TokenDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteTokenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="newAccount" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateNewAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAllTasksSoapIn">
@@ -197,6 +226,18 @@
   <wsdl:message name="SaveOrUdateAccountSoapOut">
     <wsdl:part name="parameters" element="tns:SaveOrUdateAccountResponse" />
   </wsdl:message>
+  <wsdl:message name="DeleteTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteToken" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewAccount" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
@@ -217,6 +258,14 @@
     <wsdl:operation name="SaveOrUdateAccount">
       <wsdl:input message="tns:SaveOrUdateAccountSoapIn" />
       <wsdl:output message="tns:SaveOrUdateAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <wsdl:input message="tns:DeleteTokenSoapIn" />
+      <wsdl:output message="tns:DeleteTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <wsdl:input message="tns:CreateNewAccountSoapIn" />
+      <wsdl:output message="tns:CreateNewAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -266,6 +315,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <soap:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <soap:operation soapAction="http://tempuri.org/CreateNewAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -307,6 +374,24 @@
     </wsdl:operation>
     <wsdl:operation name="SaveOrUdateAccount">
       <soap12:operation soapAction="http://tempuri.org/SaveOrUdateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <soap12:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <soap12:operation soapAction="http://tempuri.org/CreateNewAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

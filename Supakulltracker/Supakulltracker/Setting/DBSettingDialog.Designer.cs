@@ -41,11 +41,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbDBType = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.MappingSettings = new System.Windows.Forms.TabPage();
+            this.flpSaveAccount = new System.Windows.Forms.FlowLayoutPanel();
             this.btnChekMapping = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panelItemName = new System.Windows.Forms.Panel();
@@ -57,13 +57,13 @@
             this.Settings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBoxAccounts = new System.Windows.Forms.GroupBox();
-            this.btnEddNewConfigAccountForDB = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddNewConfigAccountForDB = new System.Windows.Forms.Button();
+            this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.cmbAcconts = new System.Windows.Forms.ComboBox();
             this.groupBoxTokens = new System.Windows.Forms.GroupBox();
             this.btnAddToken = new System.Windows.Forms.Button();
             this.cmbTokens = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnDeleteToken = new System.Windows.Forms.Button();
             this.panelPreviewString = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -76,9 +76,15 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnApplyConSetDiteils = new System.Windows.Forms.Button();
+            this.txtNewNameForAccount = new System.Windows.Forms.TextBox();
+            this.btnSaveNewAccount = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnNewAccountCancel = new System.Windows.Forms.Button();
+            this.panelNewAccount = new System.Windows.Forms.Panel();
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
+            this.flpSaveAccount.SuspendLayout();
             this.panelItemName.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.DBTab.SuspendLayout();
@@ -91,11 +97,12 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.panelNewAccount.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(476, 81);
+            this.btnSaveSettings.Location = new System.Drawing.Point(84, 3);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(76, 23);
             this.btnSaveSettings.TabIndex = 1;
@@ -169,7 +176,6 @@
             this.panelChoseDBProvider.Controls.Add(this.label1);
             this.panelChoseDBProvider.Controls.Add(this.label2);
             this.panelChoseDBProvider.Controls.Add(this.cmbDBType);
-            this.panelChoseDBProvider.Controls.Add(this.comboBox2);
             this.panelChoseDBProvider.Location = new System.Drawing.Point(24, 214);
             this.panelChoseDBProvider.Name = "panelChoseDBProvider";
             this.panelChoseDBProvider.Size = new System.Drawing.Size(175, 122);
@@ -178,8 +184,9 @@
             // 
             // cmbDBDialect
             // 
+            this.cmbDBDialect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDBDialect.FormattingEnabled = true;
-            this.cmbDBDialect.Location = new System.Drawing.Point(25, 89);
+            this.cmbDBDialect.Location = new System.Drawing.Point(26, 89);
             this.cmbDBDialect.Name = "cmbDBDialect";
             this.cmbDBDialect.Size = new System.Drawing.Size(121, 21);
             this.cmbDBDialect.TabIndex = 0;
@@ -205,22 +212,13 @@
             // 
             // cmbDBType
             // 
+            this.cmbDBType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDBType.FormattingEnabled = true;
             this.cmbDBType.Location = new System.Drawing.Point(26, 27);
             this.cmbDBType.Name = "cmbDBType";
             this.cmbDBType.Size = new System.Drawing.Size(121, 21);
             this.cmbDBType.TabIndex = 0;
             this.cmbDBType.SelectedIndexChanged += new System.EventHandler(this.cmbDBType_SelectedIndexChanged);
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Oracle"});
-            this.comboBox2.Location = new System.Drawing.Point(26, 27);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -257,8 +255,7 @@
             // 
             // MappingSettings
             // 
-            this.MappingSettings.Controls.Add(this.btnSaveSettings);
-            this.MappingSettings.Controls.Add(this.btnChekMapping);
+            this.MappingSettings.Controls.Add(this.flpSaveAccount);
             this.MappingSettings.Controls.Add(this.label5);
             this.MappingSettings.Controls.Add(this.panelItemName);
             this.MappingSettings.Controls.Add(this.rtxtMapping);
@@ -270,9 +267,19 @@
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
             // 
+            // flpSaveAccount
+            // 
+            this.flpSaveAccount.Controls.Add(this.btnChekMapping);
+            this.flpSaveAccount.Controls.Add(this.btnSaveSettings);
+            this.flpSaveAccount.Location = new System.Drawing.Point(388, 74);
+            this.flpSaveAccount.Name = "flpSaveAccount";
+            this.flpSaveAccount.Size = new System.Drawing.Size(164, 30);
+            this.flpSaveAccount.TabIndex = 8;
+            this.flpSaveAccount.Visible = false;
+            // 
             // btnChekMapping
             // 
-            this.btnChekMapping.Location = new System.Drawing.Point(383, 81);
+            this.btnChekMapping.Location = new System.Drawing.Point(3, 3);
             this.btnChekMapping.Name = "btnChekMapping";
             this.btnChekMapping.Size = new System.Drawing.Size(75, 23);
             this.btnChekMapping.TabIndex = 2;
@@ -284,9 +291,8 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(253, 14);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "label5";
             // 
             // panelItemName
             // 
@@ -380,8 +386,9 @@
             // 
             this.groupBoxAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxAccounts.Controls.Add(this.btnEddNewConfigAccountForDB);
-            this.groupBoxAccounts.Controls.Add(this.button2);
+            this.groupBoxAccounts.Controls.Add(this.panelNewAccount);
+            this.groupBoxAccounts.Controls.Add(this.btnAddNewConfigAccountForDB);
+            this.groupBoxAccounts.Controls.Add(this.btnDeleteAccount);
             this.groupBoxAccounts.Controls.Add(this.cmbAcconts);
             this.groupBoxAccounts.Location = new System.Drawing.Point(15, 19);
             this.groupBoxAccounts.Name = "groupBoxAccounts";
@@ -390,32 +397,32 @@
             this.groupBoxAccounts.TabStop = false;
             this.groupBoxAccounts.Text = "Accounts";
             // 
-            // btnEddNewConfigAccountForDB
+            // btnAddNewConfigAccountForDB
             // 
-            this.btnEddNewConfigAccountForDB.Location = new System.Drawing.Point(133, 22);
-            this.btnEddNewConfigAccountForDB.Name = "btnEddNewConfigAccountForDB";
-            this.btnEddNewConfigAccountForDB.Size = new System.Drawing.Size(75, 23);
-            this.btnEddNewConfigAccountForDB.TabIndex = 6;
-            this.btnEddNewConfigAccountForDB.Text = "Add";
-            this.btnEddNewConfigAccountForDB.UseVisualStyleBackColor = true;
+            this.btnAddNewConfigAccountForDB.Location = new System.Drawing.Point(133, 22);
+            this.btnAddNewConfigAccountForDB.Name = "btnAddNewConfigAccountForDB";
+            this.btnAddNewConfigAccountForDB.Size = new System.Drawing.Size(75, 23);
+            this.btnAddNewConfigAccountForDB.TabIndex = 6;
+            this.btnAddNewConfigAccountForDB.Text = "Add";
+            this.btnAddNewConfigAccountForDB.UseVisualStyleBackColor = true;
+            this.btnAddNewConfigAccountForDB.Click += new System.EventHandler(this.btnEddNewConfigAccountForDB_Click);
             // 
-            // button2
+            // btnDeleteAccount
             // 
-            this.button2.Location = new System.Drawing.Point(133, 51);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Activate";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnDeleteAccount.Location = new System.Drawing.Point(133, 51);
+            this.btnDeleteAccount.Name = "btnDeleteAccount";
+            this.btnDeleteAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteAccount.TabIndex = 9;
+            this.btnDeleteAccount.Text = "Delete";
+            this.btnDeleteAccount.UseVisualStyleBackColor = true;
             // 
             // cmbAcconts
             // 
-            this.cmbAcconts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.cmbAcconts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbAcconts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAcconts.FormattingEnabled = true;
             this.cmbAcconts.Location = new System.Drawing.Point(6, 24);
             this.cmbAcconts.Name = "cmbAcconts";
-            this.cmbAcconts.Size = new System.Drawing.Size(121, 150);
+            this.cmbAcconts.Size = new System.Drawing.Size(121, 21);
             this.cmbAcconts.TabIndex = 4;
             this.cmbAcconts.SelectedIndexChanged += new System.EventHandler(this.availableConectionsList_SelectedIndexChanged);
             // 
@@ -425,7 +432,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTokens.Controls.Add(this.btnAddToken);
             this.groupBoxTokens.Controls.Add(this.cmbTokens);
-            this.groupBoxTokens.Controls.Add(this.button3);
+            this.groupBoxTokens.Controls.Add(this.btnDeleteToken);
             this.groupBoxTokens.Location = new System.Drawing.Point(353, 19);
             this.groupBoxTokens.Name = "groupBoxTokens";
             this.groupBoxTokens.Size = new System.Drawing.Size(215, 180);
@@ -453,14 +460,15 @@
             this.cmbTokens.TabIndex = 7;
             this.cmbTokens.SelectedIndexChanged += new System.EventHandler(this.cmbTokens_SelectedIndexChanged);
             // 
-            // button3
+            // btnDeleteToken
             // 
-            this.button3.Location = new System.Drawing.Point(6, 53);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnDeleteToken.Location = new System.Drawing.Point(6, 53);
+            this.btnDeleteToken.Name = "btnDeleteToken";
+            this.btnDeleteToken.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteToken.TabIndex = 10;
+            this.btnDeleteToken.Text = "Delete";
+            this.btnDeleteToken.UseVisualStyleBackColor = true;
+            this.btnDeleteToken.Click += new System.EventHandler(this.button3_Click);
             // 
             // panelPreviewString
             // 
@@ -480,9 +488,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(15, 15);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(45, 13);
+            this.label11.Size = new System.Drawing.Size(89, 13);
             this.label11.TabIndex = 15;
-            this.label11.Text = "Preview";
+            this.label11.Text = "Connection string";
             // 
             // label12
             // 
@@ -514,7 +522,7 @@
             // 
             // btnGoToMappingTab
             // 
-            this.btnGoToMappingTab.Location = new System.Drawing.Point(476, 103);
+            this.btnGoToMappingTab.Location = new System.Drawing.Point(476, 98);
             this.btnGoToMappingTab.Name = "btnGoToMappingTab";
             this.btnGoToMappingTab.Size = new System.Drawing.Size(75, 23);
             this.btnGoToMappingTab.TabIndex = 3;
@@ -602,6 +610,55 @@
             this.btnApplyConSetDiteils.UseVisualStyleBackColor = true;
             this.btnApplyConSetDiteils.Click += new System.EventHandler(this.btnApplyConSetDiteils_Click);
             // 
+            // txtNewNameForAccount
+            // 
+            this.txtNewNameForAccount.Location = new System.Drawing.Point(43, 16);
+            this.txtNewNameForAccount.Name = "txtNewNameForAccount";
+            this.txtNewNameForAccount.Size = new System.Drawing.Size(121, 20);
+            this.txtNewNameForAccount.TabIndex = 10;
+            // 
+            // btnSaveNewAccount
+            // 
+            this.btnSaveNewAccount.Location = new System.Drawing.Point(27, 42);
+            this.btnSaveNewAccount.Name = "btnSaveNewAccount";
+            this.btnSaveNewAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveNewAccount.TabIndex = 11;
+            this.btnSaveNewAccount.Text = "Save";
+            this.btnSaveNewAccount.UseVisualStyleBackColor = true;
+            this.btnSaveNewAccount.Click += new System.EventHandler(this.btnSaveNewAccount_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(29, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(160, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Please enter new account name";
+            // 
+            // btnNewAccountCancel
+            // 
+            this.btnNewAccountCancel.Location = new System.Drawing.Point(108, 42);
+            this.btnNewAccountCancel.Name = "btnNewAccountCancel";
+            this.btnNewAccountCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnNewAccountCancel.TabIndex = 13;
+            this.btnNewAccountCancel.Text = "Cancel";
+            this.btnNewAccountCancel.UseVisualStyleBackColor = true;
+            this.btnNewAccountCancel.Click += new System.EventHandler(this.btnNewAccountCancel_Click);
+            // 
+            // panelNewAccount
+            // 
+            this.panelNewAccount.Controls.Add(this.label6);
+            this.panelNewAccount.Controls.Add(this.btnNewAccountCancel);
+            this.panelNewAccount.Controls.Add(this.txtNewNameForAccount);
+            this.panelNewAccount.Controls.Add(this.btnSaveNewAccount);
+            this.panelNewAccount.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelNewAccount.Location = new System.Drawing.Point(3, 103);
+            this.panelNewAccount.Name = "panelNewAccount";
+            this.panelNewAccount.Size = new System.Drawing.Size(209, 74);
+            this.panelNewAccount.TabIndex = 14;
+            this.panelNewAccount.Visible = false;
+            // 
             // DBSettingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -615,6 +672,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.MappingSettings.ResumeLayout(false);
             this.MappingSettings.PerformLayout();
+            this.flpSaveAccount.ResumeLayout(false);
             this.panelItemName.ResumeLayout(false);
             this.panelItemName.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -634,6 +692,8 @@
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.panelNewAccount.ResumeLayout(false);
+            this.panelNewAccount.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -653,7 +713,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbDBType;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;
@@ -667,12 +726,12 @@
         private System.Windows.Forms.TabPage Settings;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBoxAccounts;
-        private System.Windows.Forms.Button btnEddNewConfigAccountForDB;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAddNewConfigAccountForDB;
+        private System.Windows.Forms.Button btnDeleteAccount;
         private System.Windows.Forms.ComboBox cmbAcconts;
         private System.Windows.Forms.GroupBox groupBoxTokens;
         private System.Windows.Forms.ComboBox cmbTokens;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnDeleteToken;
         private System.Windows.Forms.Panel panelPreviewString;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
@@ -688,5 +747,11 @@
         private System.Windows.Forms.Panel panelItemName;
         private System.Windows.Forms.Button btnAddToken;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.FlowLayoutPanel flpSaveAccount;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnSaveNewAccount;
+        private System.Windows.Forms.TextBox txtNewNameForAccount;
+        private System.Windows.Forms.Panel panelNewAccount;
+        private System.Windows.Forms.Button btnNewAccountCancel;
     }
 }
