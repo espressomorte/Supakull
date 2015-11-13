@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-     public class TaskMainDAO
+     public class TaskMainDAO: IEquatable<TaskMainDAO>
     {        
         public TaskMainDAO()
         {
@@ -33,6 +33,8 @@ namespace SupakullTrackerServices
         public virtual IList<UserDAO> Assigned { get; set; }
         public virtual TaskMainDAO TaskParent { get; set; }
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
+
+        #region SaveOrUpdat
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
@@ -117,5 +119,43 @@ namespace SupakullTrackerServices
                 return taskMainDAO;
             }
         }
+
+        #endregion
+
+
+        #region IEquatable
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            TaskMainDAO taskMainDaoToCompare = obj as TaskMainDAO;
+            if (taskMainDaoToCompare == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(taskMainDaoToCompare);
+            }
+        }
+
+        public virtual bool Equals(TaskMainDAO taskMainDaoToCompare)
+        {
+            if (taskMainDaoToCompare == null)
+            {
+                return false;
+            }
+            return ( this.TaskID.Equals(taskMainDaoToCompare.TaskID) && this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker) );
+        }
+
+        public override int GetHashCode()
+        {
+            return this.GetHashCode();
+        }
+
+        #endregion
     }
 }

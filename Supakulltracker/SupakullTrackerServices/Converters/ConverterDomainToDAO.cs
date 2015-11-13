@@ -9,59 +9,78 @@ namespace SupakullTrackerServices
     public static class ConverterDomainToDAO
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
-        public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> param)
+        private static IList<TaskMainDAO> taskMainDaoCollection;
+
+        public static IList<TaskMainDAO> TaskMainToTaskMainDaoCollection(IList<ITask> TaskMainCollection)
         {
             List<TaskMainDAO> target = new List<TaskMainDAO>();
-            foreach (ITask item in param)
+            foreach (ITask taskMain in TaskMainCollection)
             {
-                TaskMainDAO itemDAO = TaskMainToTaskMainDaoWithMatchedTasks(item);
-                target.Add(itemDAO);
+                taskMainDaoCollection = new List<TaskMainDAO>();
+                TaskMainDAO taskMainDAO = TaskMainToTaskMainDaoWithMatchedTasks(taskMain);
+                target.Add(taskMainDAO);
             }
             return target;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDaoWithMatchedTasks(ITask item)
-        {
-            TaskMainDAO itemDAO = TaskMainToTaskMainDAO(item);
-            if (item.MatchedCount > 0)
+        private static TaskMainDAO TaskMainToTaskMainDaoWithMatchedTasks(ITask taskMain)
+        {            
+            TaskMainDAO taskMainDAO = TaskMainToTaskMainDAO(taskMain);
+            if (taskMain.MatchedCount > 0)
             {
-                IList<TaskMainDAO> matchedTasksDAO = GetMatchedTasksDAO(item.MatchedTasks, itemDAO);
-                itemDAO.MatchedTasks = matchedTasksDAO;
+                IList<TaskMainDAO> matchedTasksDAO = GetMatchedTasksDAO(taskMain.MatchedTasks, taskMainDAO);
+                taskMainDAO.MatchedTasks = matchedTasksDAO;
             }
-            return itemDAO;
+            return taskMainDAO;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDAO(ITask param)
+        private static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
         {
-            TaskMainDAO target = new TaskMainDAO();
-
-            target.TaskID = param.TaskID;
-            target.TargetVersion = param.TargetVersion;
-            target.Summary = param.Summary;
-            target.SubtaskType = param.SubtaskType;
-            target.Status = param.Status;
-            target.Project = param.Project;
-            target.Product = param.Product;
-            target.Priority = param.Priority;
-            target.LinkToTracker = param.LinkToTracker;
-            target.Estimation = param.Estimation;
-            target.Description = param.Description;
-            target.CreatedDate = param.CreatedDate;
-            target.CreatedBy = param.CreatedBy;
-            target.Comments = param.Comments;
-
-            if (param.TaskParent != null)
+            TaskMainDAO taskMainDAO = GetExistedTaskDAO(taskMain.TaskID, taskMain.LinkToTracker);
+            if (taskMainDAO == null)
             {
-                target.TaskParent = TaskMainToTaskMainDaoWithMatchedTasks(param.TaskParent);
-            }
+                taskMainDAO = new TaskMainDAO();
 
-            if (param.Assigned != null && param.Assigned.Count > 0)
+                taskMainDAO.TaskID = taskMain.TaskID;
+                taskMainDAO.TargetVersion = taskMain.TargetVersion;
+                taskMainDAO.Summary = taskMain.Summary;
+                taskMainDAO.SubtaskType = taskMain.SubtaskType;
+                taskMainDAO.Status = taskMain.Status;
+                taskMainDAO.Project = taskMain.Project;
+                taskMainDAO.Product = taskMain.Product;
+                taskMainDAO.Priority = taskMain.Priority;
+                taskMainDAO.LinkToTracker = taskMain.LinkToTracker;
+                taskMainDAO.Estimation = taskMain.Estimation;
+                taskMainDAO.Description = taskMain.Description;
+                taskMainDAO.CreatedDate = taskMain.CreatedDate;
+                taskMainDAO.CreatedBy = taskMain.CreatedBy;
+                taskMainDAO.Comments = taskMain.Comments;
+
+                if (taskMain.TaskParent != null)
+                {
+                    taskMainDAO.TaskParent = TaskMainToTaskMainDaoWithMatchedTasks(taskMain.TaskParent);
+                }
+
+                if (taskMain.Assigned != null && taskMain.Assigned.Count > 0)
+                {
+                    taskMainDAO.Assigned = UserToUserDaoCollection(taskMain.Assigned);
+                }
+
+                taskMainDaoCollection.Add(taskMainDAO);
+            }           
+            return taskMainDAO;
+        }
+
+        private static TaskMainDAO GetExistedTaskDAO(string taskID, Sources linkToTracker)
+        {
+            foreach (TaskMainDAO existedTaskMainDAO in taskMainDaoCollection)
             {
-                target.Assigned = UserToUserDaoCollection(param.Assigned);
+                if (existedTaskMainDAO.TaskID.Equals(taskID) && existedTaskMainDAO.LinkToTracker.Equals(linkToTracker))
+                {
+                    return existedTaskMainDAO;
+                }
             }
-
-            return target;
+            return null;
         }
 
         private static IList<TaskMainDAO> GetMatchedTasksDAO(IEnumerable<ITask> matchedTasks, TaskMainDAO itemDAO)
