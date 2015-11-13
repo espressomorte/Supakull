@@ -15,29 +15,24 @@ namespace SupakullTrackerServices
             List<TaskMainDAO> target = new List<TaskMainDAO>();
             foreach (ITask item in param)
             {
-                TaskMainDAO itemDAO = TaskMainToTaskMainDaoSingle(item);
-                if (item.MatchedCount > 0)
-                {
-                    List<TaskMainDAO> matchedTasksDAO = new List<TaskMainDAO>();
-                    matchedTasksDAO.Add(itemDAO);
-                    foreach (ITask matchedTask in item.MatchedTasks)
-                    {
-                        TaskMainDAO matchedTaskDAO = TaskMainToTaskMainDaoSingle(matchedTask);
-                        matchedTasksDAO.Add(matchedTaskDAO);
-                    }
-                    foreach (TaskMainDAO currentTask in matchedTasksDAO)
-                    {
-                        List<TaskMainDAO> collectionForCurrentTask = new List<TaskMainDAO>(matchedTasksDAO);
-                        collectionForCurrentTask.Remove(currentTask);
-                        currentTask.MatchedTasks = collectionForCurrentTask;
-                    }
-                }
+                TaskMainDAO itemDAO = TaskMainToTaskMainDaoWithMatchedTasks(item);
                 target.Add(itemDAO);
             }
             return target;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDaoSingle(ITask param)
+        private static TaskMainDAO TaskMainToTaskMainDaoWithMatchedTasks(ITask item)
+        {
+            TaskMainDAO itemDAO = TaskMainToTaskMainDAO(item);
+            if (item.MatchedCount > 0)
+            {
+                IList<TaskMainDAO> matchedTasksDAO = GetMatchedTasksDAO(item.MatchedTasks, itemDAO);
+                itemDAO.MatchedTasks = matchedTasksDAO;
+            }
+            return itemDAO;
+        }
+
+        private static TaskMainDAO TaskMainToTaskMainDAO(ITask param)
         {
             TaskMainDAO target = new TaskMainDAO();
 
@@ -58,15 +53,33 @@ namespace SupakullTrackerServices
 
             if (param.TaskParent != null)
             {
-                target.TaskParent = TaskMainToTaskMainDaoSingle(param.TaskParent);
+                target.TaskParent = TaskMainToTaskMainDaoWithMatchedTasks(param.TaskParent);
             }
 
-            if (param.Assigned != null)
+            if (param.Assigned != null && param.Assigned.Count > 0)
             {
                 target.Assigned = UserToUserDaoCollection(param.Assigned);
             }
 
             return target;
+        }
+
+        private static IList<TaskMainDAO> GetMatchedTasksDAO(IEnumerable<ITask> matchedTasks, TaskMainDAO itemDAO)
+        {
+            List<TaskMainDAO> matchedTasksDAO = new List<TaskMainDAO>();
+            foreach (ITask matchedTask in matchedTasks)
+            {
+                TaskMainDAO matchedTaskDAO = TaskMainToTaskMainDAO(matchedTask);
+                matchedTasksDAO.Add(matchedTaskDAO);
+            }
+            foreach (TaskMainDAO currentTask in matchedTasksDAO)
+            {
+                List<TaskMainDAO> collectionForCurrentTask = new List<TaskMainDAO>(matchedTasksDAO);
+                collectionForCurrentTask.Remove(currentTask);
+                collectionForCurrentTask.Add(itemDAO);
+                currentTask.MatchedTasks = collectionForCurrentTask;
+            }
+            return matchedTasksDAO;
         }
 
         public static IList<UserDAO> UserToUserDaoCollection(IList<User> param)

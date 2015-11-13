@@ -44,26 +44,26 @@ namespace UnitTestServices
             IList<ITask> taskMainCollection = new List<ITask>();
             ITask taskMainParent1 = new TaskMain() { TaskID = "TaskParent1", LinkToTracker = Sources.DataBase };
             ITask taskMainParent2 = new TaskMain() { TaskID = "TaskParent1", LinkToTracker = Sources.Trello };
-            User user1 = new User("user1");
-            User user2 = new User("user2");
-            IList<User> assigned1 = new List<User>() { user1, user2 };
-            IList<User> assigned2 = new List<User>() { user2, user1 };
+            //User user1 = new User("user1");
+            //User user2 = new User("user2");
+            //IList<User> assigned1 = new List<User>() { user1, user2 };
+            //IList<User> assigned2 = new List<User>() { user2, user1 };
 
             ITask taskMain1 = new TaskMain()
-            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "e", LinkToTracker = Sources.DataBase, TaskParent = taskMainParent1, Assigned = assigned2};
+            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "e", LinkToTracker = Sources.DataBase, TaskParent = taskMainParent1/*, Assigned = assigned2*/};
             ITask taskMain2 = new TaskMain()
-            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "f", LinkToTracker = Sources.Trello, TaskParent = null, Assigned = null };
-            ITask taskMain3 = new TaskMain()
-            { TaskID = "Task1", SubtaskType = "a", Summary = "b", Description = "d", Status = "g", LinkToTracker = Sources.Excel, TaskParent = taskMainParent1, Assigned = assigned1 };
-            ITask taskMain4 = new TaskMain()
-            { TaskID = "TaskParent3", LinkToTracker = Sources.GoogleSheets };
+            { TaskID = "Task1", SubtaskType = "a", Summary = null, Description = "cc", Status = "f", LinkToTracker = Sources.Trello, TaskParent = taskMainParent2, Assigned = null };
+            //ITask taskMain3 = new TaskMain()
+            //{ TaskID = "Task1", SubtaskType = "a", Summary = "b", Description = "d", Status = "g", LinkToTracker = Sources.Excel, TaskParent = taskMainParent1, Assigned = assigned1 };
+            //ITask taskMain4 = new TaskMain()
+            //{ TaskID = "TaskParent3", LinkToTracker = Sources.GoogleSheets };
 
             taskMainCollection.Add(taskMain1);
             taskMainCollection.Add(taskMain2);
             taskMainCollection.Add(taskMainParent1);
             taskMainCollection.Add(taskMainParent2);
-            taskMainCollection.Add(taskMain3);
-            taskMainCollection.Add(taskMain4);
+            //taskMainCollection.Add(taskMain3);
+            //taskMainCollection.Add(taskMain4);
 
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(taskMainCollection, taskMatcher);
