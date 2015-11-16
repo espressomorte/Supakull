@@ -155,6 +155,8 @@
     <Compile Include="Domain\Settings Objects\Token.cs" />
     <Compile Include="Domain\Settings Objects\UserLink.cs" />
     <Compile Include="Domain\Sources.cs" />
+    <Compile Include="Domain\UserKay.cs" />
+    <Compile Include="Domain\TaskKay.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\MatchTasks\IMatchTasks.cs" />
     <Compile Include="Domain\MatchTasks\MatchTasksById.cs" />

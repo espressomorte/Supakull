@@ -76,5 +76,10 @@ namespace SupakullTrackerServices
                 }
             }
         }
+
+        public TaskKay GetTaskKay()
+        {
+            return new TaskKay(this.TaskID, this.LinkToTracker);
+        }
     }   
 }

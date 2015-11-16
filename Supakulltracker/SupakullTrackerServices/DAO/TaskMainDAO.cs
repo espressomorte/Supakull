@@ -127,33 +127,20 @@ namespace SupakullTrackerServices
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
             TaskMainDAO taskMainDaoToCompare = obj as TaskMainDAO;
-            if (taskMainDaoToCompare == null)
-            {
-                return false;
-            }
-            else
-            {
-                return Equals(taskMainDaoToCompare);
-            }
+            return Equals(taskMainDaoToCompare);
         }
 
         public virtual bool Equals(TaskMainDAO taskMainDaoToCompare)
         {
-            if (taskMainDaoToCompare == null)
-            {
-                return false;
-            }
-            return ( this.TaskID.Equals(taskMainDaoToCompare.TaskID) && this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker) );
+            return ( taskMainDaoToCompare != null &&
+                this.TaskID.Equals(taskMainDaoToCompare.TaskID) &&
+                this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker) );
         }
 
         public override int GetHashCode()
         {
-            return this.GetHashCode();
+            return (this.TaskID.GetHashCode()) ^ (int)this.LinkToTracker;
         }
 
         #endregion

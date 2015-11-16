@@ -50,7 +50,7 @@ namespace SupakullTrackerServices
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
 
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDao(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
         
