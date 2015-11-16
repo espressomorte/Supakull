@@ -15,20 +15,15 @@ namespace Supakulltracker.UserProvider {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserForAuthentication", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDTO", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class UserForAuthentication : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UserDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private long UserIDField;
-        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserLoginField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserPinCodeField;
+        private string UserIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -40,41 +35,15 @@ namespace Supakulltracker.UserProvider {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public long UserID {
-            get {
-                return this.UserIDField;
-            }
-            set {
-                if ((this.UserIDField.Equals(value) != true)) {
-                    this.UserIDField = value;
-                    this.RaisePropertyChanged("UserID");
-                }
-            }
-        }
-        
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string UserLogin {
+        public string UserId {
             get {
-                return this.UserLoginField;
+                return this.UserIdField;
             }
             set {
-                if ((object.ReferenceEquals(this.UserLoginField, value) != true)) {
-                    this.UserLoginField = value;
-                    this.RaisePropertyChanged("UserLogin");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string UserPinCode {
-            get {
-                return this.UserPinCodeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserPinCodeField, value) != true)) {
-                    this.UserPinCodeField = value;
-                    this.RaisePropertyChanged("UserPinCode");
+                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
                 }
             }
         }
@@ -93,14 +62,14 @@ namespace Supakulltracker.UserProvider {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="UserProvider.UserProviderSoap")]
     public interface UserProviderSoap {
         
-        // CODEGEN: Generating message contract since element name userLogin from namespace http://tempuri.org/ is not marked nillable
+        // CODEGEN: Generating message contract since element name userId from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Find", ReplyAction="*")]
         Supakulltracker.UserProvider.FindResponse Find(Supakulltracker.UserProvider.FindRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Find", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(Supakulltracker.UserProvider.FindRequest request);
         
-        // CODEGEN: Generating message contract since element name userLogin from namespace http://tempuri.org/ is not marked nillable
+        // CODEGEN: Generating message contract since element name userId from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Exist", ReplyAction="*")]
         Supakulltracker.UserProvider.ExistResponse Exist(Supakulltracker.UserProvider.ExistRequest request);
         
@@ -132,13 +101,13 @@ namespace Supakulltracker.UserProvider {
     public partial class FindRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string userLogin;
+        public string userId;
         
         public FindRequestBody() {
         }
         
-        public FindRequestBody(string userLogin) {
-            this.userLogin = userLogin;
+        public FindRequestBody(string userId) {
+            this.userId = userId;
         }
     }
     
@@ -166,12 +135,12 @@ namespace Supakulltracker.UserProvider {
     public partial class FindResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.UserProvider.UserForAuthentication FindResult;
+        public Supakulltracker.UserProvider.UserDTO FindResult;
         
         public FindResponseBody() {
         }
         
-        public FindResponseBody(Supakulltracker.UserProvider.UserForAuthentication FindResult) {
+        public FindResponseBody(Supakulltracker.UserProvider.UserDTO FindResult) {
             this.FindResult = FindResult;
         }
     }
@@ -200,13 +169,13 @@ namespace Supakulltracker.UserProvider {
     public partial class ExistRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string userLogin;
+        public string userId;
         
         public ExistRequestBody() {
         }
         
-        public ExistRequestBody(string userLogin) {
-            this.userLogin = userLogin;
+        public ExistRequestBody(string userId) {
+            this.userId = userId;
         }
     }
     
@@ -276,10 +245,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.Find(request);
         }
         
-        public Supakulltracker.UserProvider.UserForAuthentication Find(string userLogin) {
+        public Supakulltracker.UserProvider.UserDTO Find(string userId) {
             Supakulltracker.UserProvider.FindRequest inValue = new Supakulltracker.UserProvider.FindRequest();
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
-            inValue.Body.userLogin = userLogin;
+            inValue.Body.userId = userId;
             Supakulltracker.UserProvider.FindResponse retVal = ((Supakulltracker.UserProvider.UserProviderSoap)(this)).Find(inValue);
             return retVal.Body.FindResult;
         }
@@ -289,10 +258,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.FindAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(string userLogin) {
+        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.FindResponse> FindAsync(string userId) {
             Supakulltracker.UserProvider.FindRequest inValue = new Supakulltracker.UserProvider.FindRequest();
             inValue.Body = new Supakulltracker.UserProvider.FindRequestBody();
-            inValue.Body.userLogin = userLogin;
+            inValue.Body.userId = userId;
             return ((Supakulltracker.UserProvider.UserProviderSoap)(this)).FindAsync(inValue);
         }
         
@@ -301,10 +270,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.Exist(request);
         }
         
-        public bool Exist(string userLogin) {
+        public bool Exist(string userId) {
             Supakulltracker.UserProvider.ExistRequest inValue = new Supakulltracker.UserProvider.ExistRequest();
             inValue.Body = new Supakulltracker.UserProvider.ExistRequestBody();
-            inValue.Body.userLogin = userLogin;
+            inValue.Body.userId = userId;
             Supakulltracker.UserProvider.ExistResponse retVal = ((Supakulltracker.UserProvider.UserProviderSoap)(this)).Exist(inValue);
             return retVal.Body.ExistResult;
         }
@@ -314,10 +283,10 @@ namespace Supakulltracker.UserProvider {
             return base.Channel.ExistAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.ExistResponse> ExistAsync(string userLogin) {
+        public System.Threading.Tasks.Task<Supakulltracker.UserProvider.ExistResponse> ExistAsync(string userId) {
             Supakulltracker.UserProvider.ExistRequest inValue = new Supakulltracker.UserProvider.ExistRequest();
             inValue.Body = new Supakulltracker.UserProvider.ExistRequestBody();
-            inValue.Body.userLogin = userLogin;
+            inValue.Body.userId = userId;
             return ((Supakulltracker.UserProvider.UserProviderSoap)(this)).ExistAsync(inValue);
         }
     }

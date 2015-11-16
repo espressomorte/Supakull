@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Supakulltracker.UserProvider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace Supakulltracker
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IssueService.TaskMainDTO[] Tasks;
-        public UserProvider.UserForAuthentication LoggedUser { get; private set; }
+        public UserDTO LoggedUser { get; private set; }
 
         public MainForm()
         {

@@ -9,11 +9,12 @@ namespace Supakulltracker
 {
     public class Authorizer : IAuthorizer
     {
-        public bool Authorize(CredentialInfo credentiolInfo)
+        public AuthorizationResult Authorize(CredentialInfo credentiolInfo)
         {
-            string userLogin = credentiolInfo.UserLogin;
             UserProviderSoapClient userProvider = new UserProviderSoapClient();
-            bool authorizationResult = userProvider.Exist(userLogin);
+            string userLogin = credentiolInfo.UserLogin;
+            UserDTO userDTO = userProvider.Find(userLogin);
+            AuthorizationResult authorizationResult = new AuthorizationResult( (userDTO != null), userDTO );
             return authorizationResult;
         }
     }

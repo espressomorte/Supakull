@@ -6,7 +6,7 @@ namespace Supakulltracker
 {
     public partial class LoginForm : Form
     {
-        public UserForAuthentication LoggedUser { get; private set; }
+        public UserDTO LoggedUser { get; private set; }
         private IAuthorizer authorizer;
 
         public LoginForm(IAuthorizer authorizer)
@@ -37,9 +37,10 @@ namespace Supakulltracker
         private void Authorize()
         {
             CredentialInfo credentialInfo = new CredentialInfo(textBoxUseName.Text);
-            bool authorizeResult = authorizer.Authorize(credentialInfo);
-            if (authorizeResult)
+            AuthorizationResult authorizationResult = authorizer.Authorize(credentialInfo);
+            if (authorizationResult.Authorized)
             {
+                LoggedUser = authorizationResult.AuthorizedUser;
                 this.DialogResult = DialogResult.OK;
             }
             else

@@ -59,6 +59,7 @@
     <Compile Include="DetailPanel.Designer.cs">
       <DependentUpon>DetailPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\AuthorizationResult.cs" />
     <Compile Include="Login\Authorizer.cs" />
     <Compile Include="Login\CredentiolInfo.cs" />
     <Compile Include="Login\IAuthorizer.cs" />
@@ -139,7 +140,7 @@
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.FindResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.UserForAuthentication.datasource">
+    <None Include="Service References\UserProvider\Supakulltracker.UserProvider.UserDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\UserProvider.wsdl" />

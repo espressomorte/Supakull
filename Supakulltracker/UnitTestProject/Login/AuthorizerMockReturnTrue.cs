@@ -9,9 +9,9 @@ namespace UnitTestClient.Login
 {
     class AuthorizerMockReturnTrue : IAuthorizer
     {
-        public bool Authorize(CredentialInfo credentiolInfo)
+        public AuthorizationResult Authorize(CredentialInfo credentiolInfo)
         {
-            return true;
+            return new AuthorizationResult(true, null);
         }
     }
 }

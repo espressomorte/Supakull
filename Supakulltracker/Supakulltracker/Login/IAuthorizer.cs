@@ -2,6 +2,6 @@
 {
     public interface IAuthorizer
     {
-        bool Authorize(CredentialInfo credentiolInfo);
+        AuthorizationResult Authorize(CredentialInfo credentiolInfo);
     }
 }

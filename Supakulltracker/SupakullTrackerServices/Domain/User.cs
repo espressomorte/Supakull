@@ -9,9 +9,9 @@ namespace SupakullTrackerServices
     {
         public virtual string UserId { get; set; }
 
-        public User(string UserId)
+        public User(string userId)
         {
-            this.UserId = UserId;
+            this.UserId = userId;
         }
 
         public UserKay GetUserKay()

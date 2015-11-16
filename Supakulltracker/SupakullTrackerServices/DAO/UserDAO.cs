@@ -16,9 +16,9 @@ namespace SupakullTrackerServices
         {
         }
 
-        public UserDAO(string UserId)
+        public UserDAO(string userId)
         {
-            this.UserId = UserId;
+            this.UserId = userId;
         }
 
         public virtual int GetUserIDFormDB()

@@ -58,18 +58,19 @@ namespace SupakullTrackerServices
 
             foreach (User item in param)
             {
-                target.Add(UserToUserDtoSingle(item));
+                target.Add(UserToUserDTO(item));
             }
             return target;
         }
 
-        private static UserDTO UserToUserDtoSingle(User param)
+        public static UserDTO UserToUserDTO(User user)
         {
-            UserDTO target = new UserDTO();
-            
-            target.UserId = param.UserId;
-
-            return target;
+            UserDTO userDAO = null;
+            if (user != null)
+            {
+                userDAO = new UserDTO(user.UserId);
+            }
+            return userDAO;
         }
 
         #region Converters For Settings

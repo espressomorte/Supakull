@@ -21,31 +21,33 @@ namespace SupakullTrackerServices
     public class UserProvider : System.Web.Services.WebService
     {
         [WebMethod]
-        public UserForAuthentication Find(string userLogin)
+        public UserDTO Find(string userId)
         {
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            
-            using (var session = applicationFactory.OpenSession())
-            {
-                UserForAuthentication user = session
-                    .CreateCriteria(typeof(UserForAuthentication))
-                    .Add(Restrictions.Eq("UserLogin", userLogin))                    
-                    .UniqueResult<UserForAuthentication>();
-                return user;
-            }
+            UserDAO userDAO = FindUserDAO(userId);
+            User user = ConverterDAOtoDomain.UserDaoToUser(userDAO);
+            UserDTO userDTO = ConverterDomainToDTO.UserToUserDTO(user);
+            return userDTO;
         }
 
         [WebMethod]
-        public bool Exist(string userLogin)
+        public bool Exist(string userId)
         {
-            UserForAuthentication user = Find(userLogin);
-            if (user == null)
+            UserDAO userDAO = FindUserDAO(userId);
+            return (userId != null);
+        }
+        
+        private UserDAO FindUserDAO(string userId)
+        {
+            ISessionFactory applicationFactory =
+                            NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
             {
-                return false;
-            }
-            else
-            {
-                return true;
+                UserDAO userDAO = session
+                    .CreateCriteria(typeof(UserDAO))
+                    .Add(Restrictions.Eq("UserId", userId))
+                    .UniqueResult<UserDAO>();
+                return userDAO;
             }
         }
     }
