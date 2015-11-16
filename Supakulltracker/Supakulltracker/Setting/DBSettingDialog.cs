@@ -16,17 +16,18 @@ namespace Supakulltracker
     {
         private UserForAuthentication loggedUser;
         private List<IAccountSettings> userDBAccounts;
+        private List<IAccountSettings> sharedUserDBAccounts;
         private DatabaseAccountSettings userDBFullAccount;
         private DatabaseAccountSettings newAccountSetting;
         private DatabaseAccountToken newToken;
 
 
-        public DBSettingDialog(UserForAuthentication user, List<IAccountSettings> accounts)
+        public DBSettingDialog(UserForAuthentication user, List<IAccountSettings> accounts, List<IAccountSettings> sharedAccounts)
         {
             InitializeComponent();
             this.loggedUser = user;
             this.userDBAccounts = SettingsManager.GetAllUserAccountsInSource(accounts, Sources.DataBase);
-
+            this.sharedUserDBAccounts = SettingsManager.GetAllUserAccountsInSource(sharedAccounts, Sources.DataBase);
             PrepareDialog();
         }
 
@@ -43,28 +44,36 @@ namespace Supakulltracker
             btnAddToken.Enabled = false;
             btnDeleteToken.Enabled = false;
             btnDeleteAccount.Enabled = false;
+            btnShareAccount.Enabled = false;
             cmbDBType.SelectedIndexChanged -= cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged -= cmbDBDialect_SelectedIndexChanged;
             cmbDBType.Items.AddRange(Enum.GetNames(typeof(DatabaseDriver)));
             cmbDBDialect.Items.AddRange(Enum.GetNames(typeof(DatabaseDialect)));
+            if (sharedUserDBAccounts.Count > 0)
+            {
+                label13.Show();
+                cmbSharedAccounts.Show();
+                foreach (var item in sharedUserDBAccounts)
+                {
+                    cmbSharedAccounts.Items.Add(item.Name);
+                }
+            }
+            else
+            {
+                label13.Hide();
+                cmbSharedAccounts.Hide();
+            }
         }
 
         private void availableConectionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbAcconts.SelectedItem != null)
             {
-                IAccountSettings selectedAccount = userDBAccounts.FirstOrDefault(x => x.Name == cmbAcconts.SelectedItem.ToString());
-                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
-                if (userDBFullAccount != null)
-                {
-                    cmbTokens.Items.Clear();
-                    foreach (var item in userDBFullAccount.Tokens)
-                    {
-                        cmbTokens.Items.Add(item.TokenName);
-                    }
-                    btnDeleteAccount.Enabled = true;
-                    btnAddToken.Enabled = true;
-                }
+                cmbSharedAccounts.SelectedItem = null;
+                UdateDataBaseSettingForm();
+                btnShareAccount.Enabled = true;
+                btnDeleteAccount.Enabled = true;
+                btnAddToken.Enabled = true;
 
             }
         }
@@ -102,7 +111,16 @@ namespace Supakulltracker
                 if (selectedToken != null)
                 {
                     PrepareForShowingTokenDetails(selectedToken);
-                    btnDeleteToken.Enabled = true;
+                    if (userDBFullAccount.Owner)
+                    {
+                        btnDeleteToken.Enabled = true;
+                        btnChangeToken.Enabled = true;
+                    }
+                    else
+                    {
+                        btnChangeToken.Enabled = false;
+                        btnDeleteToken.Enabled = false;
+                    }
                 }
 
             }
@@ -119,6 +137,7 @@ namespace Supakulltracker
             txtUserID.Text = String.Empty;
             txtDataSource.Text = String.Empty;
             rtxtMapping.Text = String.Empty;
+            txtNewTokenName.Text = String.Empty;
             label1.Text = "Choose DB Type";
             label2.Text = "Choose DB Dialect";
             label4.Text = "Set a conection string details";
@@ -185,7 +204,7 @@ namespace Supakulltracker
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            if (txtNewTokenName.Text != String.Empty && rtxtMapping.Text != String.Empty)
+            if (txtNewTokenName.Text.Trim() != String.Empty && rtxtMapping.Text.Trim() != String.Empty)
             {
                 newToken.TokenName = txtNewTokenName.Text.Trim();
                 newToken.Mapping = rtxtMapping.Text.Trim();
@@ -235,19 +254,28 @@ namespace Supakulltracker
             btnGoToMappingTab.Hide();
             rtxtMapping.Clear();
             btnApplyConSetDiteils.Hide();
+            GetSelectedAccountAndFillTokensToControl();
+        }
+
+        private void GetSelectedAccountAndFillTokensToControl()
+        {
             if (cmbAcconts.SelectedItem != null)
             {
                 IAccountSettings selectedAccount = userDBAccounts.FirstOrDefault(x => x.Name == cmbAcconts.SelectedItem.ToString());
                 userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
-
+                userDBFullAccount.Owner = true;
                 cmbTokens.Items.Clear();
                 cmbTokens.Text = String.Empty;
+
                 foreach (var item in userDBFullAccount.Tokens)
                 {
                     cmbTokens.Items.Add(item.TokenName);
                 }
+                btnChangeToken.Enabled = false;
+                btnDeleteToken.Enabled = false;
             }
         }
+
         private void MakeFieldsReadonly()
         {
             cmbDBType.Enabled = false;
@@ -257,7 +285,7 @@ namespace Supakulltracker
             txtNewTokenName.Enabled = false;
             txtPasswrd.Enabled = false;
             txtUserID.Enabled = false;
-            rtxtMapping.Enabled = false;
+            rtxtMapping.ReadOnly = true;
 
         }
 
@@ -270,7 +298,7 @@ namespace Supakulltracker
             txtNewTokenName.Enabled = true;
             txtPasswrd.Enabled = true;
             txtUserID.Enabled = true;
-            rtxtMapping.Enabled = true;
+            rtxtMapping.ReadOnly = false;
         }
 
         private void btnEddNewConfigAccountForDB_Click(object sender, EventArgs e)
@@ -301,6 +329,8 @@ namespace Supakulltracker
         private void btnSaveNewAccount_Click(object sender, EventArgs e)
         {
             String newAccountName = txtNewNameForAccount.Text.Trim();
+            label6.Text = "Please enter new account name";
+            label6.ForeColor = Color.Black;
             if (newAccountName != String.Empty)
             {
                 if (CheckNewAccauntNameAlreadyExist(newAccountName))
@@ -313,14 +343,9 @@ namespace Supakulltracker
                     newAccountSetting.Name = newAccountName;
                     if (loggedUser.CreateNewAccount(newAccountSetting))
                     {
-                        List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();
-                        userDBAccounts = SettingsManager.GetAllUserAccountsInSource(userAllAccounts, Sources.DataBase);
+                        RefreshSettingsAccountList();
                         panelNewAccount.Hide();
-                        cmbAcconts.Items.Clear();
-                        foreach (var item in userDBAccounts)
-                        {
-                            cmbAcconts.Items.Add(item.Name);
-                        }
+                        ClearAllForm();
                     }
                     else
                     {
@@ -329,6 +354,170 @@ namespace Supakulltracker
                     }
                 }
             }
+            else
+            {
+                label6.Text = "Name can not be empty string";
+                label6.ForeColor = Color.Red;
+            }
+        }
+
+        private void RefreshSettingsAccountList()
+        {
+            List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();
+            sharedUserDBAccounts = loggedUser.GetAllSharedUserAccounts();
+            userDBAccounts = SettingsManager.GetAllUserAccountsInSource(userAllAccounts, Sources.DataBase);
+            sharedUserDBAccounts = SettingsManager.GetAllUserAccountsInSource(sharedUserDBAccounts, Sources.DataBase);
+
+            cmbAcconts.Items.Clear();
+            foreach (var item in userDBAccounts)
+            {
+                cmbAcconts.Items.Add(item.Name);
+            }
+            cmbSharedAccounts.Items.Clear();
+            if (sharedUserDBAccounts.Count > 0)
+            {
+                label13.Show();
+                cmbSharedAccounts.Show();
+                foreach (var item in sharedUserDBAccounts)
+                {
+                    cmbSharedAccounts.Items.Add(item.Name);
+                }
+            }
+            else
+            {
+                label13.Hide();
+                cmbSharedAccounts.Hide();
+            }
+        }
+
+        private void ClearAllForm()
+        {
+            panelChoseDBProvider.Hide();
+            panelConStrDiteils.Hide();
+            panelItemName.Hide();
+            panelPreviewString.Hide();
+            cmbTokens.Items.Clear();
+            txtNewNameForAccount.Text = String.Empty;
+            cmbTokens.Text = String.Empty;
+            txtShareUserName.Text = String.Empty;
+        }
+
+        private void btnDeleteAccount_Click(object sender, EventArgs e)
+        {
+            String selectedAccountName;
+            if (cmbAcconts.SelectedItem != null && (cmbAcconts.SelectedItem.ToString() == userDBFullAccount.Name))
+            {
+                selectedAccountName = cmbAcconts.SelectedItem.ToString();
+            }
+            else if (cmbSharedAccounts.SelectedItem != null && (cmbSharedAccounts.SelectedItem.ToString() == userDBFullAccount.Name))
+            {
+                selectedAccountName = cmbSharedAccounts.SelectedItem.ToString();
+            }
+            else
+            {
+                selectedAccountName = String.Empty;
+            }
+
+            if (selectedAccountName != String.Empty)
+            {
+                Boolean deleteResult;
+
+                if (DialogResult.Yes == MessageBox.Show(
+                    String.Format("Delete this Account: {0}.", selectedAccountName), "Confirm", MessageBoxButtons.YesNo))
+                {
+                    if (userDBFullAccount.Owner)
+                    {
+                        if (DialogResult.Yes == MessageBox.Show(
+                        String.Format("Delete this account for all users?", selectedAccountName), "Confirm", MessageBoxButtons.YesNo))
+                        {
+                            deleteResult = loggedUser.DeleteAccount(userDBFullAccount, true);
+                        }
+                        else
+                        {
+                            deleteResult = loggedUser.DeleteAccount(userDBFullAccount, false);
+                        }
+                    }
+                    else
+                    {
+                        deleteResult = loggedUser.DeleteAccount(userDBFullAccount, false);
+                    }
+
+                    if (deleteResult)
+                    {
+                        ClearAllForm();
+                        RefreshSettingsAccountList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Oops! Error. Try later");
+                    }
+                }
+            }
+        }
+
+        private void cmbSharedAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbSharedAccounts.SelectedItem != null)
+            {
+                cmbAcconts.SelectedItem = null;
+                IAccountSettings selectedAccount = sharedUserDBAccounts.FirstOrDefault(x => x.Name == cmbSharedAccounts.SelectedItem.ToString());
+                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
+                userDBFullAccount.Owner = false;
+                cmbTokens.Text = String.Empty;
+                if (userDBFullAccount != null)
+                {
+                    cmbTokens.Items.Clear();
+                    foreach (var item in userDBFullAccount.Tokens)
+                    {
+                        cmbTokens.Items.Add(item.TokenName);
+                    }
+                    btnDeleteAccount.Enabled = true;
+                }
+                btnShareAccount.Enabled = false;
+                ClearAllForm();
+            }
+        }
+
+        private void btnShareAccount_Click(object sender, EventArgs e)
+        {
+            panelNewShareAccount.Show();
+        }
+
+        private void btnCancelSaveShareAccount_Click(object sender, EventArgs e)
+        {
+            txtShareUserName.Text = String.Empty;
+            lblSharedAccountError.Hide();
+            panelNewShareAccount.Hide();
+        }
+
+        private void btnSaveSharedAccount_Click(object sender, EventArgs e)
+        {
+            String shareUserName = txtShareUserName.Text.Trim();
+            if (shareUserName != String.Empty && shareUserName != loggedUser.UserLogin)
+            {
+                Boolean result = loggedUser.ShareTheSettingAccount(userDBFullAccount, shareUserName, chboxMakeUserOwner.Checked);
+                if (result)
+                {
+                    RefreshSettingsAccountList();
+                    ClearAllForm();
+                    panelNewShareAccount.Hide();
+                }
+                else
+                {
+                    lblSharedAccountError.Text = "Please try later";
+                    lblSharedAccountError.Show();
+                }
+            }
+            else
+            {
+                lblSharedAccountError.Text = "Envalid user name!";
+                lblSharedAccountError.Show();
+            }
+        }
+
+        private void btnChangeToken_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

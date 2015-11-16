@@ -20,7 +20,7 @@ namespace Supakulltracker
         void SetCorrentUser()
         {
             UserProvider.UserProviderSoapClient userProvider = new UserProvider.UserProviderSoapClient();
-            LoggedUser = userProvider.Find("supakull");
+            LoggedUser = userProvider.Find("supakull"); //user1
         }
 
         public MainForm()

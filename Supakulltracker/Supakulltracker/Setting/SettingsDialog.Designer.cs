@@ -78,6 +78,7 @@
             this.trelloToolStripMenuItem.Name = "trelloToolStripMenuItem";
             this.trelloToolStripMenuItem.Size = new System.Drawing.Size(171, 19);
             this.trelloToolStripMenuItem.Text = "Trello";
+            this.trelloToolStripMenuItem.Click += new System.EventHandler(this.trelloToolStripMenuItem_Click);
             // 
             // SettingsDialog
             // 
@@ -86,6 +87,7 @@
             this.ClientSize = new System.Drawing.Size(764, 591);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "SettingsDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";

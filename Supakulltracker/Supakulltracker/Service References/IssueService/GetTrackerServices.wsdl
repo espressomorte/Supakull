@@ -194,6 +194,53 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DeleteAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountToDelete" type="tns:ServiceAccountDTO" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteForAllUsers" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSharedUserAccountsByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSharedUserAccountsByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllSharedUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShareTheSettingAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="currentUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountToShare" type="tns:ServiceAccountDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="shareUserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="owner" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShareTheSettingAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ShareTheSettingAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAllTasksSoapIn">
@@ -238,6 +285,24 @@
   <wsdl:message name="CreateNewAccountSoapOut">
     <wsdl:part name="parameters" element="tns:CreateNewAccountResponse" />
   </wsdl:message>
+  <wsdl:message name="DeleteAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAccount" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSharedUserAccountsByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllSharedUserAccountsByUserID" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSharedUserAccountsByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllSharedUserAccountsByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShareTheSettingAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:ShareTheSettingAccount" />
+  </wsdl:message>
+  <wsdl:message name="ShareTheSettingAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:ShareTheSettingAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
@@ -266,6 +331,18 @@
     <wsdl:operation name="CreateNewAccount">
       <wsdl:input message="tns:CreateNewAccountSoapIn" />
       <wsdl:output message="tns:CreateNewAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <wsdl:input message="tns:DeleteAccountSoapIn" />
+      <wsdl:output message="tns:DeleteAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <wsdl:input message="tns:GetAllSharedUserAccountsByUserIDSoapIn" />
+      <wsdl:output message="tns:GetAllSharedUserAccountsByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <wsdl:input message="tns:ShareTheSettingAccountSoapIn" />
+      <wsdl:output message="tns:ShareTheSettingAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -333,6 +410,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap:operation soapAction="http://tempuri.org/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <soap:operation soapAction="http://tempuri.org/GetAllSharedUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <soap:operation soapAction="http://tempuri.org/ShareTheSettingAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -392,6 +496,33 @@
     </wsdl:operation>
     <wsdl:operation name="CreateNewAccount">
       <soap12:operation soapAction="http://tempuri.org/CreateNewAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap12:operation soapAction="http://tempuri.org/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <soap12:operation soapAction="http://tempuri.org/GetAllSharedUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <soap12:operation soapAction="http://tempuri.org/ShareTheSettingAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

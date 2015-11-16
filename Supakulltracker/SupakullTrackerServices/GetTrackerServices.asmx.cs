@@ -6,6 +6,7 @@ using System.Web.Services;
 using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
+using System.Web.Services.Protocols;
 using TrelloManagerApp;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -54,7 +55,7 @@ namespace SupakullTrackerServices
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDaoCollection(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
-        
+
         private ICollection<IAdapter> GetAllAdapters()
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
@@ -100,25 +101,8 @@ namespace SupakullTrackerServices
         [WebMethod]
         public List<ServiceAccountDTO> GetAllUserAccountsByUserID(Int64 userId)
         {
-            List<ServiceAccountDTO> allUserAccountsDTO;
+            return AllUserAccountsByUserID(userId, true);
 
-            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            using (ISession session = sessionFactory.OpenSession())
-            {
-                var allUserLinks = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).List();
-                if (allUserLinks != null)
-                {
-                    List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
-                    List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
-                    allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
-                }
-                else
-                {
-                     allUserAccountsDTO = null;
-                }
-
-                return allUserAccountsDTO;
-            }
         }
 
         [WebMethod]
@@ -130,7 +114,7 @@ namespace SupakullTrackerServices
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             using (ISession session = sessionFactory.OpenSession())
             {
-                UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.ServiceAccountId == seviceAccountId).SingleOrDefault();
+                UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.Account.ServiceAccountId == seviceAccountId).SingleOrDefault();
                 if (userLink != null)
                 {
                     UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO(IsDetailsNeed: true);
@@ -150,7 +134,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO(); 
+            ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -159,7 +143,7 @@ namespace SupakullTrackerServices
                     transaction.Commit();
                     succeed = transaction.WasCommitted;
                 }
-               
+
             }
             return succeed;
         }
@@ -184,7 +168,7 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
-        public Boolean CreateNewAccount(Int64 UserID,ServiceAccountDTO newAccount)
+        public Boolean CreateNewAccount(Int64 UserID, ServiceAccountDTO newAccount)
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
@@ -199,7 +183,7 @@ namespace SupakullTrackerServices
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    
+
                     session.Save(newUserLink);
                     transaction.Commit();
                     succeed = transaction.WasCommitted;
@@ -208,6 +192,127 @@ namespace SupakullTrackerServices
             }
             return succeed;
         }
+
+        [WebMethod]
+        public Boolean DeleteAccount(Int64 UserID, ServiceAccountDTO accountToDelete, Boolean DeleteForAllUsers)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            ServiceAccountDAO targetAccountToDelete = accountToDelete.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+
+                    UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.Account.ServiceAccountId == accountToDelete.ServiceAccountId).And(x => x.UserId == UserID).SingleOrDefault();
+                    if (userLink != null)
+                    {
+                        try
+                        {
+                            IList<UserLinkDAO> Links = session.QueryOver<UserLinkDAO>().Where(x => x.Account.ServiceAccountId == accountToDelete.ServiceAccountId).List();
+
+                            if (DeleteForAllUsers)
+                            {
+                                foreach (var item in Links)
+                                {
+                                    session.Delete(item);
+                                }
+                                session.Delete(targetAccountToDelete);
+                            }
+                            else
+                            {
+                                if (Links.Count == 1)
+                                {
+                                    session.Delete(targetAccountToDelete);
+                                }
+                                session.Delete(userLink);
+                            }
+
+                            transaction.Commit();
+                            succeed = transaction.WasCommitted;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            return succeed;
+                        }
+                    }
+
+                }
+
+            }
+            return succeed;
+        }
+
+        [WebMethod]
+        public List<ServiceAccountDTO> GetAllSharedUserAccountsByUserID(Int64 userId)
+        {
+            return AllUserAccountsByUserID(userId, false);
+        }
+
+        [WebMethod]
+        public Boolean ShareTheSettingAccount(Int64 currentUserID, ServiceAccountDTO accountToShare, String shareUserName, Boolean owner)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            UserForAuthentication shareUser;
+            UserLinkDAO newUserLink = new UserLinkDAO();
+            ServiceAccountDAO targetShareAccount = accountToShare.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            newUserLink.Account = targetShareAccount;
+            newUserLink.Owner = owner;
+            newUserLink.UserOwnerID = currentUserID;
+
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                shareUser = session.QueryOver<UserForAuthentication>().Where(user => user.UserLogin == shareUserName).SingleOrDefault();
+                if (shareUser != null)
+                {
+                    newUserLink.UserId = shareUser.UserID;
+                    UserLinkDAO checkLink = session.QueryOver<UserLinkDAO>().Where(link => link.Account.ServiceAccountId == targetShareAccount.ServiceAccountId).And(link => link.UserId == shareUser.UserID).SingleOrDefault();
+                    if (checkLink == null)
+                    {
+                        using (ITransaction transaction = session.BeginTransaction())
+                        {
+                            session.Save(newUserLink);
+                            transaction.Commit();
+                            succeed = transaction.WasCommitted;
+                        }
+                    }
+                    else
+                    {
+                        return succeed;
+                    }
+                }
+            }
+            return succeed;
+        }
+
+
+        private List<ServiceAccountDTO> AllUserAccountsByUserID(Int64 userId, Boolean owner)
+        {
+            List<ServiceAccountDTO> allUserAccountsDTO;
+
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var allUserLinks = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(link => link.Owner == owner).List();
+                if (allUserLinks != null)
+                {
+                    List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
+                    List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
+                    allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                }
+                else
+                {
+                    allUserAccountsDTO = null;
+                }
+
+                return allUserAccountsDTO;
+            }
+        }
+
+
         #endregion
 
     }

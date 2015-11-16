@@ -807,6 +807,27 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.CreateNewAccountResponse> CreateNewAccountAsync(Supakulltracker.IssueService.CreateNewAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToDelete from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.DeleteAccountResponse DeleteAccount(Supakulltracker.IssueService.DeleteAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> DeleteAccountAsync(Supakulltracker.IssueService.DeleteAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name GetAllSharedUserAccountsByUserIDResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse GetAllSharedUserAccountsByUserID(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToShare from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.ShareTheSettingAccountResponse ShareTheSettingAccount(Supakulltracker.IssueService.ShareTheSettingAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(Supakulltracker.IssueService.ShareTheSettingAccountRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1218,6 +1239,230 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteAccountRequestBody Body;
+        
+        public DeleteAccountRequest() {
+        }
+        
+        public DeleteAccountRequest(Supakulltracker.IssueService.DeleteAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public long UserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountToDelete;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public bool DeleteForAllUsers;
+        
+        public DeleteAccountRequestBody() {
+        }
+        
+        public DeleteAccountRequestBody(long UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            this.UserID = UserID;
+            this.accountToDelete = accountToDelete;
+            this.DeleteForAllUsers = DeleteForAllUsers;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteAccountResponseBody Body;
+        
+        public DeleteAccountResponse() {
+        }
+        
+        public DeleteAccountResponse(Supakulltracker.IssueService.DeleteAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteAccountResult;
+        
+        public DeleteAccountResponseBody() {
+        }
+        
+        public DeleteAccountResponseBody(bool DeleteAccountResult) {
+            this.DeleteAccountResult = DeleteAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDRequest() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequest(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public long userId;
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody(long userId) {
+            this.userId = userId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserIDResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponseBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDResponse() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponse(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult;
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody(Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult) {
+            this.GetAllSharedUserAccountsByUserIDResult = GetAllSharedUserAccountsByUserIDResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.ShareTheSettingAccountRequestBody Body;
+        
+        public ShareTheSettingAccountRequest() {
+        }
+        
+        public ShareTheSettingAccountRequest(Supakulltracker.IssueService.ShareTheSettingAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public long currentUserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountToShare;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string shareUserName;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public bool owner;
+        
+        public ShareTheSettingAccountRequestBody() {
+        }
+        
+        public ShareTheSettingAccountRequestBody(long currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            this.currentUserID = currentUserID;
+            this.accountToShare = accountToShare;
+            this.shareUserName = shareUserName;
+            this.owner = owner;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.ShareTheSettingAccountResponseBody Body;
+        
+        public ShareTheSettingAccountResponse() {
+        }
+        
+        public ShareTheSettingAccountResponse(Supakulltracker.IssueService.ShareTheSettingAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool ShareTheSettingAccountResult;
+        
+        public ShareTheSettingAccountResponseBody() {
+        }
+        
+        public ShareTheSettingAccountResponseBody(bool ShareTheSettingAccountResult) {
+            this.ShareTheSettingAccountResult = ShareTheSettingAccountResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GetTrackerServicesSoapChannel : Supakulltracker.IssueService.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
@@ -1403,6 +1648,91 @@ namespace Supakulltracker.IssueService {
             inValue.Body.UserID = UserID;
             inValue.Body.newAccount = newAccount;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).CreateNewAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.DeleteAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteAccount(Supakulltracker.IssueService.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccount(request);
+        }
+        
+        public bool DeleteAccount(long UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            Supakulltracker.IssueService.DeleteAccountRequest inValue = new Supakulltracker.IssueService.DeleteAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            Supakulltracker.IssueService.DeleteAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteAccount(inValue);
+            return retVal.Body.DeleteAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteAccountAsync(Supakulltracker.IssueService.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> DeleteAccountAsync(long UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            Supakulltracker.IssueService.DeleteAccountRequest inValue = new Supakulltracker.IssueService.DeleteAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserID(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserID(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserID(long userId) {
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserID(inValue);
+            return retVal.Body.GetAllSharedUserAccountsByUserIDResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserIDAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(long userId) {
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserIDAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.ShareTheSettingAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.ShareTheSettingAccount(Supakulltracker.IssueService.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccount(request);
+        }
+        
+        public bool ShareTheSettingAccount(long currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            Supakulltracker.IssueService.ShareTheSettingAccountRequest inValue = new Supakulltracker.IssueService.ShareTheSettingAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            Supakulltracker.IssueService.ShareTheSettingAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).ShareTheSettingAccount(inValue);
+            return retVal.Body.ShareTheSettingAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.ShareTheSettingAccountAsync(Supakulltracker.IssueService.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(long currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            Supakulltracker.IssueService.ShareTheSettingAccountRequest inValue = new Supakulltracker.IssueService.ShareTheSettingAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).ShareTheSettingAccountAsync(inValue);
         }
     }
 }

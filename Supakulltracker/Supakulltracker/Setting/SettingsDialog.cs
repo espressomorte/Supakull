@@ -14,19 +14,31 @@ namespace Supakulltracker
     {
         private UserProvider.UserForAuthentication loggedUser;
         private List<IAccountSettings> userAccounts;
+        private List<IAccountSettings> sharedUserAccounts;
+
+        DBSettingDialog dbSetingDialog;
+
 
         public SettingsDialog(UserProvider.UserForAuthentication loggedUser)
         {
             InitializeComponent();
             this.loggedUser = loggedUser;
             this.userAccounts = loggedUser.GetAllUserAccounts();
+            this.sharedUserAccounts = loggedUser.GetAllSharedUserAccounts();
+
+            dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
+           
         }
 
         private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBSettingDialog dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts);
-            splitContainer1.Panel2.Controls.Add(dbSetingDialog);
-           
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(dbSetingDialog);     
+        }
+
+        private void trelloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2.Controls.Clear();
         }
     }
 }

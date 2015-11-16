@@ -13,6 +13,11 @@ namespace Supakulltracker
 
         private static GetTrackerServicesSoapClient services = new GetTrackerServicesSoapClient();
 
+        /// <summary>
+        /// Get user setting for each adapter. Where current user is owner.
+        /// </summary>
+        /// <param name="currentUser"> Logged user.</param>
+        /// <returns></returns>
         public static List<IAccountSettings> GetAllUserAccounts(this UserForAuthentication currentUser)
         {
             ServiceAccountDTO[] allAcc = services.GetAllUserAccountsByUserID(currentUser.UserID);
@@ -73,6 +78,45 @@ namespace Supakulltracker
             Boolean succeed = false;
             ServiceAccountDTO targetnewAccount = newAccount.ConvertToDAO(newAccount);
             succeed = services.CreateNewAccount(currentUser.UserID, targetnewAccount);
+            return succeed;
+        }
+
+
+        public static Boolean DeleteAccount(this UserForAuthentication currentUser, IAccountSettings accountToDelete, Boolean DeleteForAllUsers)
+        {
+            Boolean succeed = false;
+            ServiceAccountDTO targetAccountToDelete = accountToDelete.ConvertToDAO(accountToDelete);
+            succeed = services.DeleteAccount(currentUser.UserID, targetAccountToDelete, DeleteForAllUsers);
+            return succeed;
+        }
+
+
+        /// <summary>
+        /// Get user setting for each adapter. Where current user is not owner. Setting can not be changed.
+        /// </summary>
+        /// <param name="currentUser">Logged user.</param>
+        /// <returns></returns>
+        public static List<IAccountSettings> GetAllSharedUserAccounts(this UserForAuthentication currentUser)
+        {
+            ServiceAccountDTO[] allAcc = services.GetAllSharedUserAccountsByUserID(currentUser.UserID);
+            List<IAccountSettings> targetAccs = new List<IAccountSettings>();
+            foreach (ServiceAccountDTO account in allAcc)
+            {
+                IAccountSettings acc = GetCurrentInstance(account);
+                if (acc != null)
+                {
+                    targetAccs.Add(acc.ConvertFromDAO(account));
+                }
+            }
+            return targetAccs;
+        }
+
+
+        public static Boolean ShareTheSettingAccount(this UserForAuthentication currentUser, IAccountSettings accountToShare, String shareUserName, Boolean owner)
+        {
+            Boolean succeed = false;
+            ServiceAccountDTO targetAccountToShare = accountToShare.ConvertToDAO(accountToShare);
+            succeed = services.ShareTheSettingAccount(currentUser.UserID, targetAccountToShare, shareUserName, owner);
             return succeed;
         }
 

@@ -57,6 +57,14 @@
             this.Settings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBoxAccounts = new System.Windows.Forms.GroupBox();
+            this.panelNewAccount = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnNewAccountCancel = new System.Windows.Forms.Button();
+            this.txtNewNameForAccount = new System.Windows.Forms.TextBox();
+            this.btnSaveNewAccount = new System.Windows.Forms.Button();
+            this.btnShareAccount = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cmbSharedAccounts = new System.Windows.Forms.ComboBox();
             this.btnAddNewConfigAccountForDB = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.cmbAcconts = new System.Windows.Forms.ComboBox();
@@ -76,11 +84,14 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnApplyConSetDiteils = new System.Windows.Forms.Button();
-            this.txtNewNameForAccount = new System.Windows.Forms.TextBox();
-            this.btnSaveNewAccount = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnNewAccountCancel = new System.Windows.Forms.Button();
-            this.panelNewAccount = new System.Windows.Forms.Panel();
+            this.panelNewShareAccount = new System.Windows.Forms.Panel();
+            this.txtShareUserName = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnSaveSharedAccount = new System.Windows.Forms.Button();
+            this.btnCancelSaveShareAccount = new System.Windows.Forms.Button();
+            this.lblSharedAccountError = new System.Windows.Forms.Label();
+            this.chboxMakeUserOwner = new System.Windows.Forms.CheckBox();
+            this.btnChangeToken = new System.Windows.Forms.Button();
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
@@ -91,13 +102,14 @@
             this.Settings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxAccounts.SuspendLayout();
+            this.panelNewAccount.SuspendLayout();
             this.groupBoxTokens.SuspendLayout();
             this.panelPreviewString.SuspendLayout();
             this.panelConStrDiteils.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.panelNewAccount.SuspendLayout();
+            this.panelNewShareAccount.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSaveSettings
@@ -372,6 +384,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.panelNewShareAccount);
             this.groupBox1.Controls.Add(this.groupBoxAccounts);
             this.groupBox1.Controls.Add(this.groupBoxTokens);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -387,21 +400,107 @@
             this.groupBoxAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBoxAccounts.Controls.Add(this.panelNewAccount);
+            this.groupBoxAccounts.Controls.Add(this.btnShareAccount);
+            this.groupBoxAccounts.Controls.Add(this.label13);
+            this.groupBoxAccounts.Controls.Add(this.cmbSharedAccounts);
             this.groupBoxAccounts.Controls.Add(this.btnAddNewConfigAccountForDB);
             this.groupBoxAccounts.Controls.Add(this.btnDeleteAccount);
             this.groupBoxAccounts.Controls.Add(this.cmbAcconts);
             this.groupBoxAccounts.Location = new System.Drawing.Point(15, 19);
             this.groupBoxAccounts.Name = "groupBoxAccounts";
-            this.groupBoxAccounts.Size = new System.Drawing.Size(215, 180);
+            this.groupBoxAccounts.Size = new System.Drawing.Size(196, 180);
             this.groupBoxAccounts.TabIndex = 12;
             this.groupBoxAccounts.TabStop = false;
             this.groupBoxAccounts.Text = "Accounts";
+            // 
+            // panelNewAccount
+            // 
+            this.panelNewAccount.Controls.Add(this.label6);
+            this.panelNewAccount.Controls.Add(this.btnNewAccountCancel);
+            this.panelNewAccount.Controls.Add(this.txtNewNameForAccount);
+            this.panelNewAccount.Controls.Add(this.btnSaveNewAccount);
+            this.panelNewAccount.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelNewAccount.Location = new System.Drawing.Point(3, 103);
+            this.panelNewAccount.Name = "panelNewAccount";
+            this.panelNewAccount.Size = new System.Drawing.Size(190, 74);
+            this.panelNewAccount.TabIndex = 14;
+            this.panelNewAccount.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoEllipsis = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(160, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Please enter new account name";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnNewAccountCancel
+            // 
+            this.btnNewAccountCancel.Location = new System.Drawing.Point(97, 42);
+            this.btnNewAccountCancel.Name = "btnNewAccountCancel";
+            this.btnNewAccountCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnNewAccountCancel.TabIndex = 13;
+            this.btnNewAccountCancel.Text = "Cancel";
+            this.btnNewAccountCancel.UseVisualStyleBackColor = true;
+            this.btnNewAccountCancel.Click += new System.EventHandler(this.btnNewAccountCancel_Click);
+            // 
+            // txtNewNameForAccount
+            // 
+            this.txtNewNameForAccount.Location = new System.Drawing.Point(32, 16);
+            this.txtNewNameForAccount.Name = "txtNewNameForAccount";
+            this.txtNewNameForAccount.Size = new System.Drawing.Size(121, 20);
+            this.txtNewNameForAccount.TabIndex = 10;
+            // 
+            // btnSaveNewAccount
+            // 
+            this.btnSaveNewAccount.Location = new System.Drawing.Point(16, 42);
+            this.btnSaveNewAccount.Name = "btnSaveNewAccount";
+            this.btnSaveNewAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveNewAccount.TabIndex = 11;
+            this.btnSaveNewAccount.Text = "Save";
+            this.btnSaveNewAccount.UseVisualStyleBackColor = true;
+            this.btnSaveNewAccount.Click += new System.EventHandler(this.btnSaveNewAccount_Click);
+            // 
+            // btnShareAccount
+            // 
+            this.btnShareAccount.Enabled = false;
+            this.btnShareAccount.Location = new System.Drawing.Point(133, 80);
+            this.btnShareAccount.Name = "btnShareAccount";
+            this.btnShareAccount.Size = new System.Drawing.Size(53, 23);
+            this.btnShareAccount.TabIndex = 17;
+            this.btnShareAccount.Text = "Share";
+            this.btnShareAccount.UseVisualStyleBackColor = true;
+            this.btnShareAccount.Click += new System.EventHandler(this.btnShareAccount_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(27, 53);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(84, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "Shared Account";
+            // 
+            // cmbSharedAccounts
+            // 
+            this.cmbSharedAccounts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSharedAccounts.FormattingEnabled = true;
+            this.cmbSharedAccounts.Location = new System.Drawing.Point(7, 69);
+            this.cmbSharedAccounts.Name = "cmbSharedAccounts";
+            this.cmbSharedAccounts.Size = new System.Drawing.Size(121, 21);
+            this.cmbSharedAccounts.TabIndex = 15;
+            this.cmbSharedAccounts.SelectedIndexChanged += new System.EventHandler(this.cmbSharedAccounts_SelectedIndexChanged);
             // 
             // btnAddNewConfigAccountForDB
             // 
             this.btnAddNewConfigAccountForDB.Location = new System.Drawing.Point(133, 22);
             this.btnAddNewConfigAccountForDB.Name = "btnAddNewConfigAccountForDB";
-            this.btnAddNewConfigAccountForDB.Size = new System.Drawing.Size(75, 23);
+            this.btnAddNewConfigAccountForDB.Size = new System.Drawing.Size(53, 23);
             this.btnAddNewConfigAccountForDB.TabIndex = 6;
             this.btnAddNewConfigAccountForDB.Text = "Add";
             this.btnAddNewConfigAccountForDB.UseVisualStyleBackColor = true;
@@ -411,10 +510,11 @@
             // 
             this.btnDeleteAccount.Location = new System.Drawing.Point(133, 51);
             this.btnDeleteAccount.Name = "btnDeleteAccount";
-            this.btnDeleteAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteAccount.Size = new System.Drawing.Size(53, 23);
             this.btnDeleteAccount.TabIndex = 9;
             this.btnDeleteAccount.Text = "Delete";
             this.btnDeleteAccount.UseVisualStyleBackColor = true;
+            this.btnDeleteAccount.Click += new System.EventHandler(this.btnDeleteAccount_Click);
             // 
             // cmbAcconts
             // 
@@ -430,12 +530,13 @@
             // 
             this.groupBoxTokens.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTokens.Controls.Add(this.btnChangeToken);
             this.groupBoxTokens.Controls.Add(this.btnAddToken);
             this.groupBoxTokens.Controls.Add(this.cmbTokens);
             this.groupBoxTokens.Controls.Add(this.btnDeleteToken);
-            this.groupBoxTokens.Location = new System.Drawing.Point(353, 19);
+            this.groupBoxTokens.Location = new System.Drawing.Point(372, 19);
             this.groupBoxTokens.Name = "groupBoxTokens";
-            this.groupBoxTokens.Size = new System.Drawing.Size(215, 180);
+            this.groupBoxTokens.Size = new System.Drawing.Size(196, 180);
             this.groupBoxTokens.TabIndex = 11;
             this.groupBoxTokens.TabStop = false;
             this.groupBoxTokens.Text = "Tokens";
@@ -444,7 +545,7 @@
             // 
             this.btnAddToken.Location = new System.Drawing.Point(6, 24);
             this.btnAddToken.Name = "btnAddToken";
-            this.btnAddToken.Size = new System.Drawing.Size(75, 23);
+            this.btnAddToken.Size = new System.Drawing.Size(53, 23);
             this.btnAddToken.TabIndex = 6;
             this.btnAddToken.Text = "Add";
             this.btnAddToken.UseVisualStyleBackColor = true;
@@ -454,7 +555,7 @@
             // 
             this.cmbTokens.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.cmbTokens.FormattingEnabled = true;
-            this.cmbTokens.Location = new System.Drawing.Point(84, 22);
+            this.cmbTokens.Location = new System.Drawing.Point(65, 22);
             this.cmbTokens.Name = "cmbTokens";
             this.cmbTokens.Size = new System.Drawing.Size(121, 150);
             this.cmbTokens.TabIndex = 7;
@@ -464,7 +565,7 @@
             // 
             this.btnDeleteToken.Location = new System.Drawing.Point(6, 53);
             this.btnDeleteToken.Name = "btnDeleteToken";
-            this.btnDeleteToken.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteToken.Size = new System.Drawing.Size(53, 23);
             this.btnDeleteToken.TabIndex = 10;
             this.btnDeleteToken.Text = "Delete";
             this.btnDeleteToken.UseVisualStyleBackColor = true;
@@ -610,54 +711,87 @@
             this.btnApplyConSetDiteils.UseVisualStyleBackColor = true;
             this.btnApplyConSetDiteils.Click += new System.EventHandler(this.btnApplyConSetDiteils_Click);
             // 
-            // txtNewNameForAccount
+            // panelNewShareAccount
             // 
-            this.txtNewNameForAccount.Location = new System.Drawing.Point(43, 16);
-            this.txtNewNameForAccount.Name = "txtNewNameForAccount";
-            this.txtNewNameForAccount.Size = new System.Drawing.Size(121, 20);
-            this.txtNewNameForAccount.TabIndex = 10;
+            this.panelNewShareAccount.Controls.Add(this.chboxMakeUserOwner);
+            this.panelNewShareAccount.Controls.Add(this.lblSharedAccountError);
+            this.panelNewShareAccount.Controls.Add(this.btnCancelSaveShareAccount);
+            this.panelNewShareAccount.Controls.Add(this.btnSaveSharedAccount);
+            this.panelNewShareAccount.Controls.Add(this.label14);
+            this.panelNewShareAccount.Controls.Add(this.txtShareUserName);
+            this.panelNewShareAccount.Location = new System.Drawing.Point(214, 19);
+            this.panelNewShareAccount.Name = "panelNewShareAccount";
+            this.panelNewShareAccount.Size = new System.Drawing.Size(152, 180);
+            this.panelNewShareAccount.TabIndex = 13;
+            this.panelNewShareAccount.Visible = false;
             // 
-            // btnSaveNewAccount
+            // txtShareUserName
             // 
-            this.btnSaveNewAccount.Location = new System.Drawing.Point(27, 42);
-            this.btnSaveNewAccount.Name = "btnSaveNewAccount";
-            this.btnSaveNewAccount.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveNewAccount.TabIndex = 11;
-            this.btnSaveNewAccount.Text = "Save";
-            this.btnSaveNewAccount.UseVisualStyleBackColor = true;
-            this.btnSaveNewAccount.Click += new System.EventHandler(this.btnSaveNewAccount_Click);
+            this.txtShareUserName.Location = new System.Drawing.Point(12, 46);
+            this.txtShareUserName.Name = "txtShareUserName";
+            this.txtShareUserName.Size = new System.Drawing.Size(125, 20);
+            this.txtShareUserName.TabIndex = 0;
             // 
-            // label6
+            // label14
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(160, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Please enter new account name";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(28, 24);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(86, 13);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Enter User name";
             // 
-            // btnNewAccountCancel
+            // btnSaveSharedAccount
             // 
-            this.btnNewAccountCancel.Location = new System.Drawing.Point(108, 42);
-            this.btnNewAccountCancel.Name = "btnNewAccountCancel";
-            this.btnNewAccountCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnNewAccountCancel.TabIndex = 13;
-            this.btnNewAccountCancel.Text = "Cancel";
-            this.btnNewAccountCancel.UseVisualStyleBackColor = true;
-            this.btnNewAccountCancel.Click += new System.EventHandler(this.btnNewAccountCancel_Click);
+            this.btnSaveSharedAccount.Location = new System.Drawing.Point(12, 98);
+            this.btnSaveSharedAccount.Name = "btnSaveSharedAccount";
+            this.btnSaveSharedAccount.Size = new System.Drawing.Size(53, 23);
+            this.btnSaveSharedAccount.TabIndex = 2;
+            this.btnSaveSharedAccount.Text = "Save";
+            this.btnSaveSharedAccount.UseVisualStyleBackColor = true;
+            this.btnSaveSharedAccount.Click += new System.EventHandler(this.btnSaveSharedAccount_Click);
             // 
-            // panelNewAccount
+            // btnCancelSaveShareAccount
             // 
-            this.panelNewAccount.Controls.Add(this.label6);
-            this.panelNewAccount.Controls.Add(this.btnNewAccountCancel);
-            this.panelNewAccount.Controls.Add(this.txtNewNameForAccount);
-            this.panelNewAccount.Controls.Add(this.btnSaveNewAccount);
-            this.panelNewAccount.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelNewAccount.Location = new System.Drawing.Point(3, 103);
-            this.panelNewAccount.Name = "panelNewAccount";
-            this.panelNewAccount.Size = new System.Drawing.Size(209, 74);
-            this.panelNewAccount.TabIndex = 14;
-            this.panelNewAccount.Visible = false;
+            this.btnCancelSaveShareAccount.Location = new System.Drawing.Point(84, 98);
+            this.btnCancelSaveShareAccount.Name = "btnCancelSaveShareAccount";
+            this.btnCancelSaveShareAccount.Size = new System.Drawing.Size(53, 23);
+            this.btnCancelSaveShareAccount.TabIndex = 3;
+            this.btnCancelSaveShareAccount.Text = "Cancel";
+            this.btnCancelSaveShareAccount.UseVisualStyleBackColor = true;
+            this.btnCancelSaveShareAccount.Click += new System.EventHandler(this.btnCancelSaveShareAccount_Click);
+            // 
+            // lblSharedAccountError
+            // 
+            this.lblSharedAccountError.AutoSize = true;
+            this.lblSharedAccountError.ForeColor = System.Drawing.Color.Red;
+            this.lblSharedAccountError.Location = new System.Drawing.Point(38, 135);
+            this.lblSharedAccountError.Name = "lblSharedAccountError";
+            this.lblSharedAccountError.Size = new System.Drawing.Size(76, 13);
+            this.lblSharedAccountError.TabIndex = 4;
+            this.lblSharedAccountError.Text = "Please try later";
+            this.lblSharedAccountError.Visible = false;
+            // 
+            // chboxMakeUserOwner
+            // 
+            this.chboxMakeUserOwner.AutoSize = true;
+            this.chboxMakeUserOwner.Location = new System.Drawing.Point(12, 69);
+            this.chboxMakeUserOwner.Name = "chboxMakeUserOwner";
+            this.chboxMakeUserOwner.Size = new System.Drawing.Size(99, 17);
+            this.chboxMakeUserOwner.TabIndex = 5;
+            this.chboxMakeUserOwner.Text = "Permit changes";
+            this.chboxMakeUserOwner.UseVisualStyleBackColor = true;
+            // 
+            // btnChangeToken
+            // 
+            this.btnChangeToken.Enabled = false;
+            this.btnChangeToken.Location = new System.Drawing.Point(6, 82);
+            this.btnChangeToken.Name = "btnChangeToken";
+            this.btnChangeToken.Size = new System.Drawing.Size(53, 23);
+            this.btnChangeToken.TabIndex = 11;
+            this.btnChangeToken.Text = "Change";
+            this.btnChangeToken.UseVisualStyleBackColor = true;
+            this.btnChangeToken.Click += new System.EventHandler(this.btnChangeToken_Click);
             // 
             // DBSettingDialog
             // 
@@ -682,6 +816,9 @@
             this.Settings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBoxAccounts.ResumeLayout(false);
+            this.groupBoxAccounts.PerformLayout();
+            this.panelNewAccount.ResumeLayout(false);
+            this.panelNewAccount.PerformLayout();
             this.groupBoxTokens.ResumeLayout(false);
             this.panelPreviewString.ResumeLayout(false);
             this.panelPreviewString.PerformLayout();
@@ -692,8 +829,8 @@
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            this.panelNewAccount.ResumeLayout(false);
-            this.panelNewAccount.PerformLayout();
+            this.panelNewShareAccount.ResumeLayout(false);
+            this.panelNewShareAccount.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -753,5 +890,16 @@
         private System.Windows.Forms.TextBox txtNewNameForAccount;
         private System.Windows.Forms.Panel panelNewAccount;
         private System.Windows.Forms.Button btnNewAccountCancel;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmbSharedAccounts;
+        private System.Windows.Forms.Button btnShareAccount;
+        private System.Windows.Forms.Panel panelNewShareAccount;
+        private System.Windows.Forms.Button btnCancelSaveShareAccount;
+        private System.Windows.Forms.Button btnSaveSharedAccount;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtShareUserName;
+        private System.Windows.Forms.Label lblSharedAccountError;
+        private System.Windows.Forms.CheckBox chboxMakeUserOwner;
+        private System.Windows.Forms.Button btnChangeToken;
     }
 }

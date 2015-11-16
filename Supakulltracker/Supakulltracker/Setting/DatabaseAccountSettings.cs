@@ -12,6 +12,7 @@ namespace Supakulltracker
         public Int32 ID { get; set; }
         public String Name { get; set; }
         public Sources Source { get; set; }
+        public Boolean Owner { get; set; }
         public List<DatabaseAccountToken> Tokens { get; set; }
 
         public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
