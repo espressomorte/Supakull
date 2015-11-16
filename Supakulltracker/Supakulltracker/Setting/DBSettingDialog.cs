@@ -20,6 +20,7 @@ namespace Supakulltracker
         private DatabaseAccountSettings userDBFullAccount;
         private DatabaseAccountSettings newAccountSetting;
         private DatabaseAccountToken newToken;
+        private DatabaseAccountToken selectedToken;
 
 
         public DBSettingDialog(UserForAuthentication user, List<IAccountSettings> accounts, List<IAccountSettings> sharedAccounts)
@@ -47,6 +48,7 @@ namespace Supakulltracker
             btnShareAccount.Enabled = false;
             cmbDBType.SelectedIndexChanged -= cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged -= cmbDBDialect_SelectedIndexChanged;
+            btnCancelSaveOrEditingSettings.Click += btnCancelSaveNewToken_Click;
             cmbDBType.Items.AddRange(Enum.GetNames(typeof(DatabaseDriver)));
             cmbDBDialect.Items.AddRange(Enum.GetNames(typeof(DatabaseDialect)));
             if (sharedUserDBAccounts.Count > 0)
@@ -110,6 +112,7 @@ namespace Supakulltracker
                 DatabaseAccountToken selectedToken = userDBFullAccount.Tokens.FirstOrDefault(x => x.TokenName == cmbTokens.SelectedItem.ToString());
                 if (selectedToken != null)
                 {
+                    this.selectedToken = selectedToken;
                     PrepareForShowingTokenDetails(selectedToken);
                     if (userDBFullAccount.Owner)
                     {
@@ -142,6 +145,7 @@ namespace Supakulltracker
             label2.Text = "Choose DB Dialect";
             label4.Text = "Set a conection string details";
             panelChoseDBProvider.Show();
+            btnCancelSaveOrEditingSettings.Show();
             label2.Hide();
             cmbDBDialect.Hide();
             panelConStrDiteils.Hide();
@@ -149,7 +153,14 @@ namespace Supakulltracker
             MakeFieldsEnabled();
             cmbDBType.SelectedIndexChanged += cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChanged;
-
+            btnApplyConSetDiteils.Click += btnApplyConSetDiteils_Click;
+            btnApplyConSetDiteils.Click -= btnApplyConSetDiteilsForExistingToken_Click;
+            btnSaveSettings.Click += btnSaveSettings_Click;
+            btnSaveSettings.Click -= btnSaveChangedSettings_Click;
+            cmbDBDialect.SelectedIndexChanged -= cmbDBDialect_SelectedIndexChangedForExistingToken;
+            cmbDBDialect.SelectedIndexChanged -= cmbDBType_SelectedIndexChangedForExistingToken;
+            cmbDBDialect.SelectedIndexChanged += cmbDBType_SelectedIndexChanged;
+            cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChanged;
         }
 
         private void cmbDBType_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,16 +188,16 @@ namespace Supakulltracker
             newToken.Password = txtPasswrd.Text;
             newToken.DataSource = txtDataSource.Text;
 
-            CreateConString();
+            newToken.ConnectionString = CreateConString(newToken);
             panelPreviewString.Show();
             btnTestConStr.Show();
             txtConnectionString.Text = newToken.ConnectionString;
         }
 
-        private void CreateConString()
+        private String CreateConString(DatabaseAccountToken token)
         {
-            String conStr = String.Format("User ID = '{0}'; Password = {1}; Data Source = {2}", newToken.UserName, newToken.Password, newToken.DataSource);
-            newToken.ConnectionString = conStr;
+            String conStr = String.Format("User ID = '{0}'; Password = {1}; Data Source = {2}", token.UserName, token.Password, token.DataSource);
+            return conStr;
         }
 
         private void btnTestConStr_Click(object sender, EventArgs e)
@@ -213,6 +224,7 @@ namespace Supakulltracker
                 {
                     DBTab.SelectTab(0);
                     UdateDataBaseSettingForm();
+                    btnApplyConSetDiteils.Click -= btnApplyConSetDiteils_Click;
                 }
             }
             else
@@ -304,12 +316,14 @@ namespace Supakulltracker
         private void btnEddNewConfigAccountForDB_Click(object sender, EventArgs e)
         {
             panelNewAccount.Show();
+            groupBoxTokens.Enabled = false;
             newAccountSetting = new DatabaseAccountSettings();
         }
 
         private void btnNewAccountCancel_Click(object sender, EventArgs e)
         {
             panelNewAccount.Hide();
+            groupBoxTokens.Enabled = true;
             txtNewNameForAccount.Text = String.Empty;
         }
 
@@ -517,6 +531,84 @@ namespace Supakulltracker
 
         private void btnChangeToken_Click(object sender, EventArgs e)
         {
+            MakeFieldsEnabled();
+            groupBoxAccounts.Enabled = false;
+            cmbTokens.Enabled = false;
+            cmbAcconts.Enabled = false;
+            cmbSharedAccounts.Enabled = false;
+            btnAddToken.Enabled = false;
+            btnDeleteToken.Enabled = false;
+            btnChangeToken.Enabled = false;
+            btnCancelSaveOrEditingSettings.Show();
+            btnApplyConSetDiteils.Show();
+            btnTestConStr.Show();
+
+            btnSaveSettings.Click -= btnSaveSettings_Click;
+            btnSaveSettings.Click += btnSaveChangedSettings_Click;
+            btnApplyConSetDiteils.Click -= btnApplyConSetDiteils_Click;
+            btnApplyConSetDiteils.Click += btnApplyConSetDiteilsForExistingToken_Click;
+            cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChangedForExistingToken;
+            cmbDBDialect.SelectedIndexChanged += cmbDBType_SelectedIndexChangedForExistingToken;
+            cmbDBDialect.SelectedIndexChanged -= cmbDBType_SelectedIndexChanged;
+            cmbDBDialect.SelectedIndexChanged -= cmbDBDialect_SelectedIndexChanged;
+            btnApplyConSetDiteils.Click += btnApplyConSetDiteilsForExistingToken_Click;
+        }
+
+        private void btnApplyConSetDiteilsForExistingToken_Click(object sender, EventArgs e)
+        {
+            selectedToken.UserName = txtUserID.Text;
+            selectedToken.Password = txtPasswrd.Text;
+            selectedToken.DataSource = txtDataSource.Text;
+
+            selectedToken.ConnectionString = CreateConString(selectedToken);
+            txtConnectionString.Text = selectedToken.ConnectionString;
+        }
+
+        private void btnSaveChangedSettings_Click(object sender, EventArgs e)
+        {
+            if (txtNewTokenName.Text.Trim() != String.Empty && rtxtMapping.Text.Trim() != String.Empty)
+            {
+                selectedToken.TokenName = txtNewTokenName.Text.Trim();
+                selectedToken.Mapping = rtxtMapping.Text.Trim(); 
+                if (SettingsManager.SaveOrUpdateAccount(userDBFullAccount))
+                {
+                    DBTab.SelectTab(0);
+                    UdateDataBaseSettingForm();
+                }
+            }
+            else
+            {
+                label5.Text = "Plese enter token name and mapping!";
+                label5.ForeColor = Color.Red;
+            }
+        }
+
+        private void cmbDBType_SelectedIndexChangedForExistingToken(object sender, EventArgs e)
+        {
+            DatabaseDriver dbDriver;
+            Enum.TryParse(cmbDBType.SelectedItem.ToString(), out dbDriver);
+            selectedToken.DatabaseDriver = dbDriver;      
+        }
+
+        private void cmbDBDialect_SelectedIndexChangedForExistingToken(object sender, EventArgs e)
+        {
+            DatabaseDialect dbDialect;
+            Enum.TryParse(cmbDBDialect.SelectedItem.ToString(), out dbDialect);
+            selectedToken.DatabaseDialect = dbDialect;        
+        }
+
+        private void btnCancelSaveNewToken_Click(object sender, EventArgs e)
+        {
+            DBTab.SelectTab(0);
+            cmbTokens.Enabled = true;
+            cmbAcconts.Enabled = true;
+            btnAddToken.Enabled = true;
+            btnDeleteToken.Enabled = true;
+            btnChangeToken.Enabled = true;
+            cmbSharedAccounts.Enabled = true;
+            groupBoxAccounts.Enabled = true;
+            UdateDataBaseSettingForm();
+            btnCancelSaveOrEditingSettings.Hide();
 
         }
     }
