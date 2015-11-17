@@ -2,6 +2,6 @@
 {
     interface ILoginProvider
     {
-        bool Login();
+        AuthorizationResult Login();
     }
 }

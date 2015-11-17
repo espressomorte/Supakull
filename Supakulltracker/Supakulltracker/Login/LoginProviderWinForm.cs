@@ -16,11 +16,12 @@ namespace Supakulltracker
             this.authorizer = authorizer;
         }
 
-        public bool Login()
+        public AuthorizationResult Login()
         {
             LoginForm loginForm = new LoginForm(authorizer);
-            DialogResult dialogResult = loginForm.ShowDialog();
-            return (dialogResult == DialogResult.OK);
+            loginForm.ShowDialog();
+            AuthorizationResult authorizationResult = loginForm.AuthorizationResult;
+            return authorizationResult;
         }
     }
 }

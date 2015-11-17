@@ -23,6 +23,6 @@ namespace SupakullTrackerServices
         IList<ITask> MatchedTasks { get; set; }
         int MatchedCount { get; }
         void AddMatchedTask(ITask taskToLink);
-        TaskKay GetTaskKay();
+        TaskKey GetTaskKey();
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class TaskKay: IEquatable<TaskKay>
+    public class TaskKey: IEquatable<TaskKey>
     {
         public string TaskID { get; set; }
         public Sources LinkToTracker { get; set; }
@@ -18,7 +18,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public TaskKay(string taskID, Sources linkToTracker)
+        public TaskKey(string taskID, Sources linkToTracker)
         {
             this.TaskID = taskID;
             this.LinkToTracker = linkToTracker;
@@ -26,15 +26,15 @@ namespace SupakullTrackerServices
 
         public override bool Equals(object obj)
         {
-            TaskKay taskKayToCompare = obj as TaskKay;
-            return Equals(taskKayToCompare);
+            TaskKey taskKeyToCompare = obj as TaskKey;
+            return Equals(taskKeyToCompare);
         }
 
-        public virtual bool Equals(TaskKay taskKayToCompare)
+        public virtual bool Equals(TaskKey taskKeyToCompare)
         {
-            return (taskKayToCompare != null &&
-                this.TaskID.Equals(taskKayToCompare.TaskID) &&
-                this.LinkToTracker.Equals(taskKayToCompare.LinkToTracker));
+            return (taskKeyToCompare != null &&
+                this.TaskID.Equals(taskKeyToCompare.TaskID) &&
+                this.LinkToTracker.Equals(taskKeyToCompare.LinkToTracker));
         }
 
         public override int GetHashCode()

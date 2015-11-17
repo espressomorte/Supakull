@@ -77,9 +77,9 @@ namespace SupakullTrackerServices
             }
         }
 
-        public TaskKay GetTaskKay()
+        public TaskKey GetTaskKey()
         {
-            return new TaskKay(this.TaskID, this.LinkToTracker);
+            return new TaskKey(this.TaskID, this.LinkToTracker);
         }
     }   
 }

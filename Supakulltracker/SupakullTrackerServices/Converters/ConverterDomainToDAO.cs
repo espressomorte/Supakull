@@ -9,14 +9,14 @@ namespace SupakullTrackerServices
     public static class ConverterDomainToDAO
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static IDictionary<TaskKay, TaskMainDAO> taskMainDaoCollection;
-        private static IDictionary<UserKay, UserDAO> userDaoCollection;
+        private static IDictionary<TaskKey, TaskMainDAO> taskMainDaoCollection;
+        private static IDictionary<UserKey, UserDAO> userDaoCollection;
 
         public static IList<TaskMainDAO> TaskMainToTaskMainDao(IList<ITask> TaskMainCollection)
         {
             List<TaskMainDAO> target = new List<TaskMainDAO>();
-            taskMainDaoCollection = new Dictionary<TaskKay, TaskMainDAO>();
-            userDaoCollection = new Dictionary<UserKay, UserDAO>();
+            taskMainDaoCollection = new Dictionary<TaskKey, TaskMainDAO>();
+            userDaoCollection = new Dictionary<UserKey, UserDAO>();
 
             foreach (ITask taskMain in TaskMainCollection)
             {
@@ -39,8 +39,8 @@ namespace SupakullTrackerServices
 
         private static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
         {
-            TaskKay taskKay = taskMain.GetTaskKay();
-            TaskMainDAO taskMainDAO = GetExistingTaskDAO(taskKay);
+            TaskKey taskKey = taskMain.GetTaskKey();
+            TaskMainDAO taskMainDAO = GetExistingTaskDAO(taskKey);
             if (taskMainDAO == null)
             {
                 taskMainDAO = new TaskMainDAO();
@@ -70,15 +70,15 @@ namespace SupakullTrackerServices
                     taskMainDAO.Assigned = UserToUserDao(taskMain.Assigned);
                 }
 
-                taskMainDaoCollection.Add(taskKay, taskMainDAO);
+                taskMainDaoCollection.Add(taskKey, taskMainDAO);
             }           
             return taskMainDAO;
         }
 
-        private static TaskMainDAO GetExistingTaskDAO(TaskKay taskKay)
+        private static TaskMainDAO GetExistingTaskDAO(TaskKey taskKey)
         {
             TaskMainDAO existedTaskMainDAO = null;
-            taskMainDaoCollection.TryGetValue(taskKay, out existedTaskMainDAO);
+            taskMainDaoCollection.TryGetValue(taskKey, out existedTaskMainDAO);
             return existedTaskMainDAO;
         }
 
@@ -112,20 +112,20 @@ namespace SupakullTrackerServices
 
         private static UserDAO UserToUserDao(User user)
         {
-            UserKay userKay = user.GetUserKay();
-            UserDAO userDAO = GetExistingUserDAO(userKay);
+            UserKey userKey = user.GetUserKey();
+            UserDAO userDAO = GetExistingUserDAO(userKey);
             if (userDAO == null)
             {
                 userDAO = new UserDAO(user.UserId);
-                userDaoCollection.Add(userKay, userDAO);
+                userDaoCollection.Add(userKey, userDAO);
             }
             return userDAO;
         }
 
-        private static UserDAO GetExistingUserDAO(UserKay userKay)
+        private static UserDAO GetExistingUserDAO(UserKey userKey)
         {
             UserDAO existedUserMainDAO = null;
-            userDaoCollection.TryGetValue(userKay, out existedUserMainDAO);
+            userDaoCollection.TryGetValue(userKey, out existedUserMainDAO);
             return existedUserMainDAO;
         }
     }

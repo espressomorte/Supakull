@@ -12,6 +12,12 @@ namespace Supakulltracker
         public bool Authorized { get; set; }
         public UserDTO AuthorizedUser { get; set; }
 
+        public AuthorizationResult()
+        {
+            this.Authorized = false;
+            this.AuthorizedUser = null;
+        }
+
         public AuthorizationResult(bool authorized, UserDTO authorizedUser)
         {
             this.Authorized = authorized;

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class UserKay//: IEquatable<UserKay>
+    public class UserKey: IEquatable<UserKey>
     {
         public string UserId { get; set; }
 
@@ -17,21 +17,21 @@ namespace SupakullTrackerServices
             }
         }
 
-        public UserKay(string userId)
+        public UserKey(string userId)
         {
             this.UserId = userId;
         }
 
         public override bool Equals(object obj)
         {
-            UserKay userKayToCompare = obj as UserKay;
-            return Equals(userKayToCompare);
+            UserKey userKeyToCompare = obj as UserKey;
+            return Equals(userKeyToCompare);
         }
 
-        public virtual bool Equals(UserKay userKayToCompare)
+        public virtual bool Equals(UserKey userKeyToCompare)
         {
-            return (userKayToCompare != null &&
-                this.UserId.Equals(userKayToCompare.UserId));
+            return (userKeyToCompare != null &&
+                this.UserId.Equals(userKeyToCompare.UserId));
         }
 
         public override int GetHashCode()

@@ -14,9 +14,9 @@ namespace SupakullTrackerServices
             this.UserId = userId;
         }
 
-        public UserKay GetUserKay()
+        public UserKey GetUserKey()
         {
-            return new UserKay(this.UserId);
+            return new UserKey(this.UserId);
         }
     }
 }

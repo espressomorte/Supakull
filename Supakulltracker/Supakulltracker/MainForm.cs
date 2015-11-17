@@ -15,11 +15,12 @@ namespace Supakulltracker
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IssueService.TaskMainDTO[] Tasks;
-        public UserDTO LoggedUser { get; private set; }
+        public AuthorizationResult AuthorizationResult { get; private set; }
 
         public MainForm()
         {
             InitializeComponent();
+            AuthorizationResult = new AuthorizationResult();
         }
 
         private void StartApplication_Load(object sender, EventArgs e)
@@ -27,8 +28,8 @@ namespace Supakulltracker
             IAuthorizer authorizer = new Authorizer();
             LoginProviderWinForm loginProvider = new LoginProviderWinForm(authorizer);
 
-            bool loginResult = loginProvider.Login();
-            if (loginResult)
+            AuthorizationResult = loginProvider.Login();
+            if (AuthorizationResult.Authorized)
             {
                 PrepareApplicationAsync();
             }
