@@ -12,23 +12,26 @@ namespace SupakullTrackerServices
         private static IDictionary<TaskKey, TaskMainDAO> taskMainDaoCollection;
         private static IDictionary<UserKey, UserDAO> userDaoCollection;
 
-        public static IList<TaskMainDAO> TaskMainToTaskMainDao(IList<ITask> TaskMainCollection)
+        static ConverterDomainToDAO()
         {
-            List<TaskMainDAO> target = new List<TaskMainDAO>();
             taskMainDaoCollection = new Dictionary<TaskKey, TaskMainDAO>();
             userDaoCollection = new Dictionary<UserKey, UserDAO>();
+        }
 
+        public static IList<TaskMainDAO> TaskMainToTaskMainDao(IList<ITask> TaskMainCollection)
+        {
+            List<TaskMainDAO> target = new List<TaskMainDAO>();  
             foreach (ITask taskMain in TaskMainCollection)
             {
-                TaskMainDAO taskMainDAO = TaskMainToTaskMainDaoWithMatchedTasks(taskMain);
+                TaskMainDAO taskMainDAO = TaskMainToTaskMainDAO(taskMain);
                 target.Add(taskMainDAO);
             }
             return target;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDaoWithMatchedTasks(ITask taskMain)
+        public static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
         {            
-            TaskMainDAO taskMainDAO = TaskMainToTaskMainDAO(taskMain);
+            TaskMainDAO taskMainDAO = TaskMainToTaskMainDAOWithoutMatchedTasks(taskMain);
             if (taskMain.MatchedCount > 0)
             {
                 IList<TaskMainDAO> matchedTasksDAO = GetMatchedTasksDAO(taskMain.MatchedTasks, taskMainDAO);
@@ -37,7 +40,7 @@ namespace SupakullTrackerServices
             return taskMainDAO;
         }
 
-        private static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
+        private static TaskMainDAO TaskMainToTaskMainDAOWithoutMatchedTasks(ITask taskMain)
         {
             TaskKey taskKey = taskMain.GetTaskKey();
             TaskMainDAO taskMainDAO = GetExistingTaskDAO(taskKey);
@@ -62,7 +65,7 @@ namespace SupakullTrackerServices
 
                 if (taskMain.TaskParent != null)
                 {
-                    taskMainDAO.TaskParent = TaskMainToTaskMainDaoWithMatchedTasks(taskMain.TaskParent);
+                    taskMainDAO.TaskParent = TaskMainToTaskMainDAO(taskMain.TaskParent);
                 }
 
                 if (taskMain.Assigned != null && taskMain.Assigned.Count > 0)
@@ -87,7 +90,7 @@ namespace SupakullTrackerServices
             List<TaskMainDAO> matchedTasksDAO = new List<TaskMainDAO>();
             foreach (ITask matchedTask in matchedTasks)
             {
-                TaskMainDAO matchedTaskDAO = TaskMainToTaskMainDAO(matchedTask);
+                TaskMainDAO matchedTaskDAO = TaskMainToTaskMainDAOWithoutMatchedTasks(matchedTask);
                 matchedTasksDAO.Add(matchedTaskDAO);
             }
             foreach (TaskMainDAO currentTask in matchedTasksDAO)

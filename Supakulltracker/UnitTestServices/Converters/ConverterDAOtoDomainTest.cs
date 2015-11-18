@@ -28,7 +28,7 @@ namespace UnitTestServices.Converters
             taskMainDaoCollection.Add(taskMainDAO1);
 
             // Actual Item
-            IList<ITask> taskMainCollection = SupakullTrackerServices.ConverterDAOtoDomain.TaskMainDaoToTaskMainCollection(taskMainDaoCollection);
+            IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDaoCollection);
             ITask taskMainActual = taskMainCollection[0];
 
             StringAssert.Contains(taskMainDAO1.TaskID, taskMainActual.TaskID, "TaskID is not correct");

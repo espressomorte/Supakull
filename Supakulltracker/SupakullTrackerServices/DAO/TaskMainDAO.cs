@@ -34,7 +34,7 @@ namespace SupakullTrackerServices
         public virtual TaskMainDAO TaskParent { get; set; }
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
-        public int MatchedCount
+        public virtual int MatchedCount
         {
             get
             {
@@ -42,7 +42,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public TaskKey GetTaskKey()
+        public virtual TaskKey GetTaskKey()
         {
             return new TaskKey(this.TaskID, this.LinkToTracker);
         }
