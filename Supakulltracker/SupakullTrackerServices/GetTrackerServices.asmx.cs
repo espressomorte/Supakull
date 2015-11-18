@@ -59,7 +59,7 @@ namespace SupakullTrackerServices
         private ICollection<IAdapter> GetAllAdapters()
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
-            adapters.Add(new DBAdapter());
+            adapters.Add(new DatabaseAdapter());
             adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
             adapters.Add(new GoogleSheetsAdapter());
             adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
@@ -71,8 +71,17 @@ namespace SupakullTrackerServices
             List<ITask> allTasksFromAdapterCollection = new List<ITask>();
             foreach (IAdapter adapter in adapters)
             {
-                allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
+                if (adapter is DatabaseAdapter)
+                {
+                    allTasksFromAdapterCollection.AddRange(((DatabaseAdapter)adapter).GetAllTasks(272));
+                }
+                else
+                {
+                    allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
+                }
+
             }
+            allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
             return allTasksFromAdapterCollection;
         }
 

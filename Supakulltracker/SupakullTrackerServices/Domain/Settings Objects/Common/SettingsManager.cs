@@ -11,24 +11,41 @@ namespace SupakullTrackerServices
     {
         private static ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
-        public static IAccountSettings GetAccountByAccountID(Int32 id)
+        public static IAccountSettings GetAccountByTokenID(Int32 id)
         {
             IAccountSettings targetAccount = null;
             using (ISession session = sessionFactory.OpenSession())
             {
-                ServiceAccountDAO accountFromDB = session.Get<ServiceAccountDAO>(id);
-                
+                TokenDAO token = session.Get<TokenDAO>(id);
+                ServiceAccountDAO accountFromDB = session.QueryOver<ServiceAccountDAO>().Where(x => x.Tokens.Contains(token)).SingleOrDefault();
                 if (accountFromDB != null)
                 {
                     targetAccount = GetCurrentInstance(accountFromDB.Source);
                     if (targetAccount != null)
                     {
                         targetAccount = targetAccount.Convert(accountFromDB);
-                    }   
+                    }
                 }
-               return targetAccount;
+                return targetAccount;
             }
         }
+
+        public static IAccountToken GetTokenByID(Int32 tokenId, Sources source)
+        {
+            IAccountToken targetToken = null;
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                TokenDAO token = session.Get<TokenDAO>(tokenId);
+
+                targetToken = GetCurrentInstanceForToken(source);
+                if (targetToken != null)
+                {
+                    targetToken = targetToken.Convert(token);
+                }
+            }
+            return targetToken;
+        }
+
 
         public static List<IAccountSettings> GetAllUserAccountsByUserID(Int64 userId)
         {
@@ -45,7 +62,7 @@ namespace SupakullTrackerServices
                         IAccountSettings temp = GetCurrentInstance(account.Source);
                         allUserAccounts.Add(temp.Convert(account));
                     }
-                   
+
                 }
                 else
                 {
@@ -55,7 +72,6 @@ namespace SupakullTrackerServices
                 return allUserAccounts;
             }
         }
-
 
         public static IAccountSettings GetCurrentInstance(Sources source)
         {
@@ -73,5 +89,23 @@ namespace SupakullTrackerServices
                     return null;
             }
         }
+
+        public static IAccountToken GetCurrentInstanceForToken(Sources source)
+        {
+            switch (source)
+            {
+                case Sources.DataBase:
+                    return new DatabaseAccountToken();
+                case Sources.Trello:
+                    return null;
+                case Sources.Excel:
+                    return null;
+                case Sources.GoogleSheets:
+                    return null;
+                default:
+                    return null;
+            }
+        }
     }
 }
+

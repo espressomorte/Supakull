@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace SupakullTrackerServices
 {
@@ -15,6 +16,7 @@ namespace SupakullTrackerServices
         string CreatedDate { get; set; }
         string CreatedBy { get; set; }
         Sources LinkToTracker { get; set; }
+        Int32 TokenID { get; set; }
         string Estimation { get; set; }
         string TargetVersion { get; set; }
         string Comments { get; set; }

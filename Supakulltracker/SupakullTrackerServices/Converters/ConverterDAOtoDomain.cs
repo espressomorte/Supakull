@@ -38,6 +38,7 @@ namespace SupakullTrackerServices
             target.CreatedDate = param.CreatedDate;
             target.CreatedBy = param.CreatedBy;
             target.Comments = param.Comments;
+            target.TokenID = param.TokenID;
 
             if (param.TaskParent != null)
             {

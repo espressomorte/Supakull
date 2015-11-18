@@ -67,14 +67,13 @@ namespace Supakulltracker
 
         private void availableConectionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnAddToken.Enabled = true;
             if (cmbAcconts.SelectedItem != null)
             {
                 cmbSharedAccounts.SelectedItem = null;
                 UdateDataBaseSettingForm();
                 btnShareAccount.Enabled = true;
                 btnDeleteAccount.Enabled = true;
-                btnAddToken.Enabled = true;
-
             }
         }
 
