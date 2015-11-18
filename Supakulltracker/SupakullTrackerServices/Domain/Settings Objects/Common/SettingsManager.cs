@@ -20,7 +20,7 @@ namespace SupakullTrackerServices
                 
                 if (accountFromDB != null)
                 {
-                    targetAccount = GetCurrentInstance(accountFromDB);
+                    targetAccount = GetCurrentInstance(accountFromDB.Source);
                     if (targetAccount != null)
                     {
                         targetAccount = targetAccount.Convert(accountFromDB);
@@ -32,7 +32,7 @@ namespace SupakullTrackerServices
 
         public static List<IAccountSettings> GetAllUserAccountsByUserID(Int64 userId)
         {
-            List<IAccountSettings> allUserAccounts= new List<IAccountSettings>();
+            List<IAccountSettings> allUserAccounts = new List<IAccountSettings>();
 
             using (ISession session = sessionFactory.OpenSession())
             {
@@ -42,7 +42,7 @@ namespace SupakullTrackerServices
                     List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
                     foreach (ServiceAccountDAO account in allUserAccountsDAO)
                     {
-                        IAccountSettings temp = GetCurrentInstance(account);
+                        IAccountSettings temp = GetCurrentInstance(account.Source);
                         allUserAccounts.Add(temp.Convert(account));
                     }
                    
@@ -57,25 +57,9 @@ namespace SupakullTrackerServices
         }
 
 
-        public static IAccountSettings GetCurrentInstance(ServiceAccountDTO setting)
+        public static IAccountSettings GetCurrentInstance(Sources source)
         {
-            switch (setting.Source)
-            {
-                case Sources.DataBase:
-                    return new DatabaseAccountSettings();
-                case Sources.Trello:
-                    return null;
-                case Sources.Excel:
-                    return null;
-                case Sources.GoogleSheets:
-                    return null;
-                default:
-                    return null;
-            }
-        }
-        public static IAccountSettings GetCurrentInstance(ServiceAccountDAO setting)
-        {
-            switch (setting.Source)
+            switch (source)
             {
                 case Sources.DataBase:
                     return new DatabaseAccountSettings();

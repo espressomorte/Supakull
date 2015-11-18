@@ -8,6 +8,7 @@ namespace SupakullTrackerServices
 {
     public interface IAdapter
     {
+
         IList<ITask> GetAllTasks();
         ITask GetTask(int index);
     }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SupakullTrackerServices
 {
-    public class DBAdapter : IAdapter
+    public class DBAdapter : IAdapter, ITokenTest
     {
         public IList<ITask> GetAllTasks()
         {
@@ -31,6 +31,11 @@ namespace SupakullTrackerServices
         }
 
         public ITask GetTask(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TestToken(TokenDTO tokenForTest)
         {
             throw new NotImplementedException();
         }
