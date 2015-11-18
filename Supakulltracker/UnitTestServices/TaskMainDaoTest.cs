@@ -80,6 +80,8 @@ namespace UnitTestServices
             IList<User> assigned1 = new List<User>() { user1, user2 };
             IList<User> assigned2 = new List<User>() { user2, user1 };
 
+            #region Tasks
+
             ITask taskMainParent1 = new TaskMain()
             {
                 TaskID = "TaskParent1",
@@ -216,6 +218,8 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
                 TaskParent = taskMainParent3,
                 Assigned = assigned2
             };
+
+            #endregion
 
             IList<ITask> taskMainCollection = new List<ITask>();
             taskMainCollection.Add(taskMain1);

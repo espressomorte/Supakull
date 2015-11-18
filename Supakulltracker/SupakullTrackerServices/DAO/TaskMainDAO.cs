@@ -34,6 +34,19 @@ namespace SupakullTrackerServices
         public virtual TaskMainDAO TaskParent { get; set; }
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
+        public int MatchedCount
+        {
+            get
+            {
+                return MatchedTasks.Count;
+            }
+        }
+
+        public TaskKey GetTaskKey()
+        {
+            return new TaskKey(this.TaskID, this.LinkToTracker);
+        }
+
         #region SaveOrUpdat
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
@@ -144,5 +157,6 @@ namespace SupakullTrackerServices
         }
 
         #endregion
+
     }
 }

@@ -9,131 +9,125 @@ namespace SupakullTrackerServices
     public static class ConverterDAOtoDomain
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
-        public static IList<ITask> TaskMainDaoToTaskMainCollection(IList<TaskMainDAO> param)
+        private static IDictionary<TaskKey, ITask> taskMainCollection;
+        private static IDictionary<UserKey, User> userCollection;
+
+        public static IList<ITask> TaskMainDaoToTaskMain(IList<TaskMainDAO> TaskMainDaoCollection)
         {
-            IList<ITask> target = new List<ITask>();
-            foreach (TaskMainDAO item in param)
+            List<ITask> target = new List<ITask>();
+            taskMainCollection = new Dictionary<TaskKey, ITask>();
+            userCollection = new Dictionary<UserKey, User>();
+
+            foreach (TaskMainDAO taskMainDAO in TaskMainDaoCollection)
             {
-                target.Add(TaskMainDaoToTaskMainSingle(item));
+                ITask taskMain = TaskMainDaoToTaskMainWithMatchedTasks(taskMainDAO);
+                target.Add(taskMain);
             }
             return target;
         }
 
-        public static ITask TaskMainDaoToTaskMainSingle(TaskMainDAO param)
+        private static ITask TaskMainDaoToTaskMainWithMatchedTasks(TaskMainDAO taskMainDAO)
         {
-            ITask target = new TaskMain();
-
-            target.TaskID = param.TaskID;
-            target.TargetVersion = param.TargetVersion;
-            target.Summary = param.Summary;
-            target.SubtaskType = param.SubtaskType;
-            target.Status = param.Status;
-            target.Project = param.Project;
-            target.Product = param.Product;
-            target.Priority = param.Priority;
-            target.LinkToTracker = param.LinkToTracker;
-            target.Estimation = param.Estimation;
-            target.Description = param.Description;
-            target.CreatedDate = param.CreatedDate;
-            target.CreatedBy = param.CreatedBy;
-            target.Comments = param.Comments;
-
-            if (param.TaskParent != null)
+            ITask taskMain = TaskMainDaoToTaskMain(taskMainDAO);
+            if (taskMainDAO.MatchedCount > 0)
             {
-                target.TaskParent = TaskMainDaoToTaskMainSingle(param.TaskParent);
+                IList<ITask> matchedTasks = GetMatchedTasks(taskMainDAO.MatchedTasks, taskMain);
+                taskMain.MatchedTasks = matchedTasks;
             }
-
-            if (param.Assigned != null)
-            {
-                target.Assigned = UserDaoToUserCollection(param.Assigned);
-            }
-
-            return target;
+            return taskMain;
         }
 
-        public static IList<User> UserDaoToUserCollection(IList<UserDAO> param)
+        private static ITask TaskMainDaoToTaskMain(TaskMainDAO taskMainDAO)
         {
-            IList<User> target = new List<User>();
-
-            foreach (UserDAO item in param)
+            TaskKey taskKey = taskMainDAO.GetTaskKey();
+            ITask taskMain = GetExistingTask(taskKey);
+            if (taskMain == null)
             {
-                target.Add(UserDaoToUser(item));
+                taskMain = new TaskMain();
+
+                taskMain.TaskID = taskMainDAO.TaskID;
+                taskMain.TargetVersion = taskMainDAO.TargetVersion;
+                taskMain.Summary = taskMainDAO.Summary;
+                taskMain.SubtaskType = taskMainDAO.SubtaskType;
+                taskMain.Status = taskMainDAO.Status;
+                taskMain.Project = taskMainDAO.Project;
+                taskMain.Product = taskMainDAO.Product;
+                taskMain.Priority = taskMainDAO.Priority;
+                taskMain.LinkToTracker = taskMainDAO.LinkToTracker;
+                taskMain.Estimation = taskMainDAO.Estimation;
+                taskMain.Description = taskMainDAO.Description;
+                taskMain.CreatedDate = taskMainDAO.CreatedDate;
+                taskMain.CreatedBy = taskMainDAO.CreatedBy;
+                taskMain.Comments = taskMainDAO.Comments;
+
+                if (taskMainDAO.TaskParent != null)
+                {
+                    taskMain.TaskParent = TaskMainDaoToTaskMainWithMatchedTasks(taskMainDAO.TaskParent);
+                }
+
+                if (taskMainDAO.Assigned != null && taskMainDAO.Assigned.Count > 0)
+                {
+                    taskMain.Assigned = UserDaoToUser(taskMainDAO.Assigned);
+                }
+
+                taskMainCollection.Add(taskKey, taskMain);
             }
-            return target;
+            return taskMain;
         }
 
-        public static User UserDaoToUser(UserDAO userDAO)
+        private static ITask GetExistingTask(TaskKey taskKey)
         {
-            User user = null;
-            if (userDAO != null)
+            ITask existedTaskMain = null;
+            taskMainCollection.TryGetValue(taskKey, out existedTaskMain);
+            return existedTaskMain;
+        }
+
+        private static IList<ITask> GetMatchedTasks(IEnumerable<TaskMainDAO> matchedTasksDAO, ITask item)
+        {
+            List<ITask> matchedTasks = new List<ITask>();
+            foreach (TaskMainDAO matchedTaskDAO in matchedTasksDAO)
             {
-                user = new User(userDAO.UserId);
+                ITask matchedTask = TaskMainDaoToTaskMain(matchedTaskDAO);
+                matchedTasks.Add(matchedTask);
+            }
+            foreach (ITask currentTask in matchedTasks)
+            {
+                List<ITask> collectionForCurrentTask = new List<ITask>(matchedTasks);
+                collectionForCurrentTask.Remove(currentTask);
+                collectionForCurrentTask.Add(item);
+                currentTask.MatchedTasks = collectionForCurrentTask;
+            }
+            return matchedTasks;
+        }
+        //////////////////////
+
+        public static IList<User> UserDaoToUser(IList<UserDAO> userDAO)
+        {
+            IList<User> user = new List<User>();
+            foreach (UserDAO item in userDAO)
+            {
+                user.Add(UserDaoToUser(item));
             }
             return user;
         }
 
-        #region Converters For Settings
-        public static List<ServiceAccount> ServiceAccountDAOCollectionToDomain(this IList<ServiceAccountDAO> param)
+        private static UserDAO UserDaoToUser(UserDAO userDAO)
         {
-            List<ServiceAccount> target = new List<ServiceAccount>();
-            foreach (ServiceAccountDAO item in param)
+            UserKey userKey = user.GetUserKey();
+            UserDAO userDAO = GetExistingUserDAO(userKey);
+            if (userDAO == null)
             {
-                target.Add(ServiceAccountDAOToDomain(item));
+                userDAO = new UserDAO(user.UserId);
+                userCollection.Add(userKey, userDAO);
             }
-            return target;
+            return userDAO;
         }
 
-        public static ServiceAccount ServiceAccountDAOToDomain(this ServiceAccountDAO param)
+        private static UserDAO GetExistingUserDAO(UserKey userKey)
         {
-            ServiceAccount target = new ServiceAccount();
-
-            target.ServiceAccountId = param.ServiceAccountId;
-            target.ServiceAccountName = param.ServiceAccountName;
-            target.Source = param.Source;
-
-            if (param.Tokens != null)
-            {
-                target.Tokens = param.Tokens.Select<TokenDAO, Token>(x => x.TokenDAOToToken()).ToList();
-            }
-            else
-            {
-                target.Tokens = null;
-            }
-
-            if (param.MappingTemplates != null)
-            { 
-                target.MappingTemplates = param.MappingTemplates.Select<TemplateDAO, Template>(x => x.TemplateDAOToTemplate()).ToList();
-            }
-            else
-            {
-                target.MappingTemplates = null;
-            }
-
-            return target;
+            UserDAO existedUserMainDAO = null;
+            userCollection.TryGetValue(userKey, out existedUserMainDAO);
+            return existedUserMainDAO;
         }
-
-        public static Token TokenDAOToToken(this TokenDAO param)
-        {
-            Token target = new Token();
-
-            target.TokeneId = param.TokeneId;
-            target.TokeneName = param.TokeneName;
-            target.Tokens = param.Token;
-
-            return target;
-        }
-
-        public static Template TemplateDAOToTemplate(this TemplateDAO param)
-        {
-            Template target = new Template();
-
-            target.TemplateId = param.TemplateId;
-            target.TemplateName = param.TemplateName;
-            target.Mapping = param.Mapping;
-
-            return target;
-        }
-        #endregion
     }
 }
