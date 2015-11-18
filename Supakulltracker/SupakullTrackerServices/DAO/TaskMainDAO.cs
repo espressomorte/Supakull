@@ -27,6 +27,7 @@ namespace SupakullTrackerServices
         public virtual string CreatedDate { get; set; }
         public virtual string CreatedBy { get; set; }
         public virtual Sources LinkToTracker { get; set; }
+        public virtual Int32 TokenID { get; set; }
         public virtual string Estimation { get; set; }
         public virtual string TargetVersion { get; set; }
         public virtual string Comments { get; set; }

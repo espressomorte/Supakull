@@ -8,15 +8,17 @@ namespace SupakullTrackerServices
     [Serializable]
     public class UserDTO
     {
-        public  string UserId { get; set; }
+        public Int32 UserID { get; set; }
+        public  string UserLogin { get; set; }
 
         public UserDTO()
         {
         }
 
-        public UserDTO(string userId)
+        public UserDTO(Int32 userID, string userLogin)
         {
-            this.UserId = userId;
+            this.UserID = userID;
+            this.UserLogin = userLogin;
         }
     }
 }

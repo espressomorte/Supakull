@@ -47,7 +47,7 @@ namespace UnitTestServices.Converters
             StringAssert.Contains(taskMainDAO1.Comments, taskMainActual.Comments, "Comments is not correct");
 
             User userActual = taskMainActual.Assigned[0];
-            StringAssert.Contains(userDAO1.UserId, userActual.UserId, "UserId is not correct");
+            StringAssert.Contains(userDAO1.UserId, userActual.UserLogin, "UserId is not correct");
 
             ITask taskParentActual = taskMainActual.TaskParent;
             StringAssert.Contains(taskMainDAO2.TaskID, taskParentActual.TaskID, "TaskID is not correct");

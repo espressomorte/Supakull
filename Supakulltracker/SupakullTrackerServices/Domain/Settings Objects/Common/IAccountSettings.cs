@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SupakullTrackerServices
+{
+    public interface IAccountSettings
+    {
+        Int32 ID { get; set; }
+        String Name { get; set; }
+        Sources Source { get; set; }
+
+        IAccountSettings Convert(ServiceAccountDAO token);
+        IAccountSettings Convert(ServiceAccountDTO token);
+    }
+}

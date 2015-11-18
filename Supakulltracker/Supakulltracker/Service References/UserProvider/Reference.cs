@@ -22,8 +22,10 @@ namespace Supakulltracker.UserProvider {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        private int UserIDField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserIdField;
+        private string UserLoginField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -35,15 +37,28 @@ namespace Supakulltracker.UserProvider {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string UserId {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int UserID {
             get {
-                return this.UserIdField;
+                return this.UserIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserLogin {
+            get {
+                return this.UserLoginField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserLoginField, value) != true)) {
+                    this.UserLoginField = value;
+                    this.RaisePropertyChanged("UserLogin");
                 }
             }
         }

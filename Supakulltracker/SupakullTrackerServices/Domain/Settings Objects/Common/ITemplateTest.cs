@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    public interface IAdapter
+    public interface ITemplateTest
     {
-
-        IList<ITask> GetAllTasks();
-        ITask GetTask(int index);
+        Boolean TestTemplate(TemplateDTO templateForTest);
     }
 }
