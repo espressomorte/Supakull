@@ -77,12 +77,12 @@
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.cmbAcconts = new System.Windows.Forms.ComboBox();
             this.groupBoxTokens = new System.Windows.Forms.GroupBox();
+            this.btnCancelSaveOrEditingSettings = new System.Windows.Forms.Button();
             this.btnChangeToken = new System.Windows.Forms.Button();
             this.btnAddToken = new System.Windows.Forms.Button();
             this.cmbTokens = new System.Windows.Forms.ComboBox();
             this.btnDeleteToken = new System.Windows.Forms.Button();
             this.panelPreviewString = new System.Windows.Forms.Panel();
-            this.btnCancelSaveOrEditingSettings = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txtConnectionString = new System.Windows.Forms.TextBox();
@@ -626,6 +626,16 @@
             this.groupBoxTokens.TabStop = false;
             this.groupBoxTokens.Text = "Tokens";
             // 
+            // btnCancelSaveOrEditingSettings
+            // 
+            this.btnCancelSaveOrEditingSettings.Location = new System.Drawing.Point(6, 111);
+            this.btnCancelSaveOrEditingSettings.Name = "btnCancelSaveOrEditingSettings";
+            this.btnCancelSaveOrEditingSettings.Size = new System.Drawing.Size(53, 23);
+            this.btnCancelSaveOrEditingSettings.TabIndex = 17;
+            this.btnCancelSaveOrEditingSettings.Text = "Cancel";
+            this.btnCancelSaveOrEditingSettings.UseVisualStyleBackColor = true;
+            this.btnCancelSaveOrEditingSettings.Visible = false;
+            // 
             // btnChangeToken
             // 
             this.btnChangeToken.Enabled = false;
@@ -679,16 +689,6 @@
             this.panelPreviewString.Size = new System.Drawing.Size(586, 136);
             this.panelPreviewString.TabIndex = 17;
             this.panelPreviewString.Visible = false;
-            // 
-            // btnCancelSaveOrEditingSettings
-            // 
-            this.btnCancelSaveOrEditingSettings.Location = new System.Drawing.Point(6, 111);
-            this.btnCancelSaveOrEditingSettings.Name = "btnCancelSaveOrEditingSettings";
-            this.btnCancelSaveOrEditingSettings.Size = new System.Drawing.Size(53, 23);
-            this.btnCancelSaveOrEditingSettings.TabIndex = 17;
-            this.btnCancelSaveOrEditingSettings.Text = "Cancel";
-            this.btnCancelSaveOrEditingSettings.UseVisualStyleBackColor = true;
-            this.btnCancelSaveOrEditingSettings.Visible = false;
             // 
             // label11
             // 

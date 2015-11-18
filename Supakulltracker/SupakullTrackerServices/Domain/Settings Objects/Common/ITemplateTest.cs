@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    public interface IAccountToken
+    public interface ITemplateTest
     {
-        Int32 TokenId { get; set; }
-        String TokenName { get; set; }
+        Boolean TestTemplate(TemplateDTO templateForTest);
     }
-
-
 }

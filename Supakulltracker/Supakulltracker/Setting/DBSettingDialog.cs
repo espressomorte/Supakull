@@ -53,8 +53,7 @@ namespace Supakulltracker
             cmbDBDialect.Items.AddRange(Enum.GetNames(typeof(DatabaseDialect)));
             if (sharedUserDBAccounts.Count > 0)
             {
-                label13.Show();
-                cmbSharedAccounts.Show();
+                cmbSharedAccounts.Enabled = true;
                 foreach (var item in sharedUserDBAccounts)
                 {
                     cmbSharedAccounts.Items.Add(item.Name);
@@ -62,8 +61,7 @@ namespace Supakulltracker
             }
             else
             {
-                label13.Hide();
-                cmbSharedAccounts.Hide();
+                cmbSharedAccounts.Enabled = false;
             }
         }
 
@@ -133,6 +131,8 @@ namespace Supakulltracker
         private void btnAddToken_Click(object sender, EventArgs e)
         {
             newToken = new DatabaseAccountToken();
+            cmbTokens.Enabled = false;
+            btnAddToken.Enabled = false;
             cmbDBType.Text = String.Empty;
             cmbDBDialect.Text = String.Empty;
             txtConnectionString.Text = String.Empty;
@@ -151,6 +151,7 @@ namespace Supakulltracker
             panelConStrDiteils.Hide();
             panelPreviewString.Hide();
             MakeFieldsEnabled();
+            groupBoxAccounts.Enabled = false;
             cmbDBType.SelectedIndexChanged += cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChanged;
             btnApplyConSetDiteils.Click += btnApplyConSetDiteils_Click;
@@ -224,11 +225,13 @@ namespace Supakulltracker
                 {
                     DBTab.SelectTab(0);
                     UdateDataBaseSettingForm();
+                    btnCancelSaveOrEditingSettings.Hide();
                     btnApplyConSetDiteils.Click -= btnApplyConSetDiteils_Click;
                 }
             }
             else
             {
+                label5.Show();
                 label5.Text = "Plese enter token name and mapping!";
                 label5.ForeColor = Color.Red;
             }
@@ -257,6 +260,8 @@ namespace Supakulltracker
 
         private void UdateDataBaseSettingForm()
         {
+            groupBoxAccounts.Enabled = true;
+            label5.Hide();
             panelChoseDBProvider.Hide();
             panelConStrDiteils.Hide();
             panelItemName.Hide();
@@ -267,6 +272,8 @@ namespace Supakulltracker
             rtxtMapping.Clear();
             btnApplyConSetDiteils.Hide();
             GetSelectedAccountAndFillTokensToControl();
+            btnAddToken.Enabled = true;
+            cmbTokens.Enabled = true;
         }
 
         private void GetSelectedAccountAndFillTokensToControl()
@@ -274,8 +281,7 @@ namespace Supakulltracker
             if (cmbAcconts.SelectedItem != null)
             {
                 IAccountSettings selectedAccount = userDBAccounts.FirstOrDefault(x => x.Name == cmbAcconts.SelectedItem.ToString());
-                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
-                userDBFullAccount.Owner = true;
+                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID, selectedAccount.Owner);
                 cmbTokens.Items.Clear();
                 cmbTokens.Text = String.Empty;
 
@@ -410,7 +416,6 @@ namespace Supakulltracker
             panelConStrDiteils.Hide();
             panelItemName.Hide();
             panelPreviewString.Hide();
-            cmbTokens.Items.Clear();
             txtNewNameForAccount.Text = String.Empty;
             cmbTokens.Text = String.Empty;
             txtShareUserName.Text = String.Empty;
@@ -475,9 +480,11 @@ namespace Supakulltracker
             {
                 cmbAcconts.SelectedItem = null;
                 IAccountSettings selectedAccount = sharedUserDBAccounts.FirstOrDefault(x => x.Name == cmbSharedAccounts.SelectedItem.ToString());
-                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
-                userDBFullAccount.Owner = false;
+                userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID, selectedAccount.Owner);
                 cmbTokens.Text = String.Empty;
+                btnAddToken.Enabled = false;
+                btnDeleteToken.Enabled = false;
+                btnChangeToken.Enabled = false;
                 if (userDBFullAccount != null)
                 {
                     cmbTokens.Items.Clear();
@@ -542,6 +549,7 @@ namespace Supakulltracker
             btnCancelSaveOrEditingSettings.Show();
             btnApplyConSetDiteils.Show();
             btnTestConStr.Show();
+            txtNewTokenName.Text = selectedToken.TokenName;
 
             btnSaveSettings.Click -= btnSaveSettings_Click;
             btnSaveSettings.Click += btnSaveChangedSettings_Click;
@@ -605,8 +613,9 @@ namespace Supakulltracker
             btnAddToken.Enabled = true;
             btnDeleteToken.Enabled = true;
             btnChangeToken.Enabled = true;
-            cmbSharedAccounts.Enabled = true;
             groupBoxAccounts.Enabled = true;
+            groupBoxAccounts.Enabled = true;
+            btnAddToken.Enabled = true;
             UdateDataBaseSettingForm();
             btnCancelSaveOrEditingSettings.Hide();
 

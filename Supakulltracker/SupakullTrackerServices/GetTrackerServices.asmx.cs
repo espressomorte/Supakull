@@ -117,7 +117,7 @@ namespace SupakullTrackerServices
                 UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.Account.ServiceAccountId == seviceAccountId).SingleOrDefault();
                 if (userLink != null)
                 {
-                    UserAccountsDTO = userLink.Account.ServiceAccountDAOToDomain().ServiceAccountDomainToDTO(IsDetailsNeed: true);
+                    UserAccountsDTO = userLink.Account.ServiceAccountDomainToDTO(IsDetailsNeed: true);
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            ServiceAccountDAO target = account.ServiceAccountDTOToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -153,7 +153,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            TokenDAO target = token.TokenDTOToTokenDomain().TokenToTokenDAO();
+            TokenDAO target = token.TokenDTOToTokenDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -174,7 +174,7 @@ namespace SupakullTrackerServices
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
             UserLinkDAO newUserLink = new UserLinkDAO();
-            ServiceAccountDAO target = newAccount.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            ServiceAccountDAO target = newAccount.ServiceAccountDTOToDAO();
             newUserLink.Account = target;
             newUserLink.Owner = true;
             newUserLink.UserId = UserID;
@@ -198,7 +198,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            ServiceAccountDAO targetAccountToDelete = accountToDelete.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            ServiceAccountDAO targetAccountToDelete = accountToDelete.ServiceAccountDTOToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -258,7 +258,7 @@ namespace SupakullTrackerServices
 
             UserForAuthentication shareUser;
             UserLinkDAO newUserLink = new UserLinkDAO();
-            ServiceAccountDAO targetShareAccount = accountToShare.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            ServiceAccountDAO targetShareAccount = accountToShare.ServiceAccountDTOToDAO();
             newUserLink.Account = targetShareAccount;
             newUserLink.Owner = owner;
             newUserLink.UserOwnerID = currentUserID;
@@ -300,8 +300,7 @@ namespace SupakullTrackerServices
                 if (allUserLinks != null)
                 {
                     List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
-                    List<ServiceAccount> allUserAccounts = allUserAccountsDAO.ServiceAccountDAOCollectionToDomain();
-                    allUserAccountsDTO = allUserAccounts.ServiceAccountDomainCollectionToDTO();
+                    allUserAccountsDTO = SettingsConverter.ServiceAccountDAOCollectionToDTO(allUserAccountsDAO);
                 }
                 else
                 {

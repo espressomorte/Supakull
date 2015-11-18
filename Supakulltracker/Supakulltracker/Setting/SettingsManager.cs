@@ -24,10 +24,13 @@ namespace Supakulltracker
             List<IAccountSettings> targetAccs = new List<IAccountSettings>();
             foreach (ServiceAccountDTO account in allAcc)
             {
+
                 IAccountSettings acc = GetCurrentInstance(account);
                 if (acc != null)
                 {
-                    targetAccs.Add(acc.ConvertFromDAO(account));
+                    acc = acc.ConvertFromDAO(account);
+                    acc.Owner = true;
+                    targetAccs.Add(acc);
                 }
             }
             return targetAccs;
@@ -47,11 +50,12 @@ namespace Supakulltracker
             return acc;
         }
 
-        public static IAccountSettings GetDetailsForAccount(this UserForAuthentication currentUser, Int32 accountId)
+        public static IAccountSettings GetDetailsForAccount(this UserForAuthentication currentUser, Int32 accountId, Boolean owner = true)
         {
             ServiceAccountDTO serviceAcc = services.GetUserAccountsByUserIDAndAccountId(currentUser.UserID, accountId);
             IAccountSettings targetAcc = GetCurrentInstance(serviceAcc);
             targetAcc = targetAcc.ConvertFromDAO(serviceAcc);
+            targetAcc.Owner = owner;
             return targetAcc;
         }
 
@@ -105,6 +109,8 @@ namespace Supakulltracker
                 IAccountSettings acc = GetCurrentInstance(account);
                 if (acc != null)
                 {
+                    acc = acc.ConvertFromDAO(account);
+                    acc.Owner = false;
                     targetAccs.Add(acc.ConvertFromDAO(account));
                 }
             }
