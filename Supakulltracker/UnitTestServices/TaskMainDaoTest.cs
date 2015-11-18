@@ -230,6 +230,9 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
 
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDao(taskMainCollection);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+
+            GetTrackerServices services = new GetTrackerServices();
+            TaskMainDTO taskMainDTO = services.GetTask("Task1", Sources.DataBase);
         }
     }
 }

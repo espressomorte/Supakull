@@ -20,7 +20,7 @@ namespace SupakullTrackerServices
             return target;
         }
 
-        private static TaskMainDTO TaskMainToTaskMainDtoSingle(ITask param)
+        public static TaskMainDTO TaskMainToTaskMainDtoSingle(ITask param)
         {
             TaskMainDTO target = new TaskMainDTO();
 

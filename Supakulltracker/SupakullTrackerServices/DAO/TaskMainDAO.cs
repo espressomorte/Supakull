@@ -62,7 +62,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
+        private static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
             TaskMainDAO.PutIDsInCurrentAndParentTaskFromDB(taskMainDAO);
 
@@ -97,7 +97,7 @@ namespace SupakullTrackerServices
 
         private int GetTaskIDFormDB()
         {
-            TaskMainDAO taskFromDB = this.GetTaskFromDB();
+            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.LinkToTracker);
             if (taskFromDB != null)
             {
                 return taskFromDB.ID;
@@ -105,7 +105,7 @@ namespace SupakullTrackerServices
             return -1;
         }
 
-        private TaskMainDAO GetTaskFromDB()
+        public static TaskMainDAO GetTaskFromDB(string taskID, Sources linkToTracker)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
@@ -113,8 +113,8 @@ namespace SupakullTrackerServices
             {
                 TaskMainDAO taskMainDAO = session
                     .CreateCriteria(typeof(TaskMainDAO))
-                    .Add(Restrictions.Eq("TaskID", this.TaskID))
-                    .Add(Restrictions.Eq("LinkToTracker", this.LinkToTracker))
+                    .Add(Restrictions.Eq("TaskID", taskID))
+                    .Add(Restrictions.Eq("LinkToTracker", linkToTracker))
                     .UniqueResult<TaskMainDAO>();
                 return taskMainDAO;
             }

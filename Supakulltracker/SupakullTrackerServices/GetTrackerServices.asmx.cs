@@ -40,6 +40,15 @@ namespace SupakullTrackerServices
             }
         }
 
+        [WebMethod]
+        public TaskMainDTO GetTask(string taskID, Sources linkToTracker)
+        {
+            TaskMainDAO taskMainDAO = TaskMainDAO.GetTaskFromDB(taskID, linkToTracker);
+            ITask taskMain = ConverterDAOtoDomain.TaskMainDaoToTaskMainSingle(taskMainDAO);
+            TaskMainDTO taskMainDTO = ConverterDomainToDTO.TaskMainToTaskMainDtoSingle(taskMain);
+            return taskMainDTO;
+        }
+
         #region Update
         [WebMethod]
         public void Update()
