@@ -175,6 +175,9 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TaskMainDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.TestAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

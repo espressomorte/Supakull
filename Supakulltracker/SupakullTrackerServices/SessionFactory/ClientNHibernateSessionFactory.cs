@@ -55,5 +55,41 @@ namespace SupakullTrackerServices
 
             }
         }
+
+        public static Boolean TestAccount(DatabaseAccountToken token, Boolean testMapping = false)
+        {
+            try
+            {
+                Configuration configuration = new Configuration();
+                configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionString, token.ConnectionString);
+                configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionDriver, String.Format("NHibernate.Driver.{0}", token.DatabaseDriver));
+                configuration.SetProperty(NHibernate.Cfg.Environment.Dialect, String.Format("NHibernate.Dialect.{0}", token.DatabaseDialect));
+                if (testMapping)
+                {
+                    configuration.AddXml(token.Mapping);
+                    using (ISessionFactory sessionFactory = configuration.BuildSessionFactory())
+                    {
+                        using (ISession session = sessionFactory.OpenSession())
+                        {
+                            return session.IsConnected;
+                        }
+                    }   
+                }
+                else
+                {
+                    using (ISessionFactory sessionFactory = configuration.BuildSessionFactory())
+                    {
+                        using (ISession session = sessionFactory.OpenSession())
+                        {
+                            return session.IsConnected;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

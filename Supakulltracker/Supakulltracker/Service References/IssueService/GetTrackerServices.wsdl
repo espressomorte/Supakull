@@ -89,6 +89,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
           <s:element minOccurs="0" maxOccurs="1" name="MappingTemplates" type="tns:ArrayOfTemplateDTO" />
           <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenDTO" />
+          <s:element minOccurs="1" maxOccurs="1" name="TestResult" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTemplateDTO">
@@ -242,6 +243,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="TestAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="accountForTest" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestAccountResult" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAllTasksSoapIn">
@@ -304,6 +319,12 @@
   <wsdl:message name="ShareTheSettingAccountSoapOut">
     <wsdl:part name="parameters" element="tns:ShareTheSettingAccountResponse" />
   </wsdl:message>
+  <wsdl:message name="TestAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:TestAccount" />
+  </wsdl:message>
+  <wsdl:message name="TestAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:TestAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="GetTrackerServicesSoap">
     <wsdl:operation name="GetAllTasks">
       <wsdl:input message="tns:GetAllTasksSoapIn" />
@@ -344,6 +365,10 @@
     <wsdl:operation name="ShareTheSettingAccount">
       <wsdl:input message="tns:ShareTheSettingAccountSoapIn" />
       <wsdl:output message="tns:ShareTheSettingAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <wsdl:input message="tns:TestAccountSoapIn" />
+      <wsdl:output message="tns:TestAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
@@ -438,6 +463,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <soap:operation soapAction="http://tempuri.org/TestAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -524,6 +558,15 @@
     </wsdl:operation>
     <wsdl:operation name="ShareTheSettingAccount">
       <soap12:operation soapAction="http://tempuri.org/ShareTheSettingAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <soap12:operation soapAction="http://tempuri.org/TestAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

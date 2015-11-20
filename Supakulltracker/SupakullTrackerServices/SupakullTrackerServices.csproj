@@ -130,9 +130,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AdapterInstanceFactory.cs" />
     <Compile Include="Adapters\DatabaseAdapter.cs" />
     <Compile Include="Adapters\ExcelAdapter.cs" />
     <Compile Include="Adapters\GoogleSheetsAdapter.cs" />
+    <Compile Include="Adapters\IAdapterTest.cs" />
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
     <Compile Include="Constants.cs" />
@@ -147,10 +149,12 @@
     <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountTemplate.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountSettings.cs" />
-    <Compile Include="Domain\Settings Objects\Common\ITemplateTest.cs" />
-    <Compile Include="Domain\Settings Objects\Common\ITokenTest.cs" />
+    <Compile Include="Domain\Settings Objects\Common\IAccountTest.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountToken.cs" />
+    <Compile Include="Domain\Settings Objects\Common\ServiceAccount.cs" />
     <Compile Include="Domain\Settings Objects\Common\SettingsManager.cs" />
+    <Compile Include="Domain\Settings Objects\Common\Template.cs" />
+    <Compile Include="Domain\Settings Objects\Common\Token.cs" />
     <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\UserKey.cs" />

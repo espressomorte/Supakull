@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    public interface ITemplateTest
+    public interface IAdapterTest
     {
-        Boolean TestTemplate(TemplateDTO templateForTest);
+        IAccountSettings TestAccount(IAccountSettings accountnForTest);
     }
 }

@@ -16,5 +16,6 @@ namespace SupakullTrackerServices
         public Sources Source { get; set; }
         public List<TemplateDTO> MappingTemplates { get; set; }
         public List<TokenDTO> Tokens { get; set; }
+        public Boolean TestResult { get; set; }
     }
 }

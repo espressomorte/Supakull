@@ -54,6 +54,26 @@ namespace SupakullTrackerServices
         {
             throw new NotImplementedException();
         }
+
+        public IAccountSettings TestAccount(IAccountSettings accountnForTest)
+        {
+            DatabaseAccountSettings accountForTestDB = (DatabaseAccountSettings)accountnForTest;
+            DatabaseAccountToken tokenForTest = accountForTestDB.Tokens.FirstOrDefault();
+            Boolean result = false;
+            if (tokenForTest != null)
+            {
+                if (tokenForTest.Mapping == null)
+                {
+                    result = ClientNHibernateSessionFactory.TestAccount(tokenForTest);
+                }
+                else
+                {
+                    result = ClientNHibernateSessionFactory.TestAccount(tokenForTest, true);
+                }
+            }
+            accountForTestDB.TestResult = result;
+            return accountForTestDB;
+        }
     }
 
 

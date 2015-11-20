@@ -11,8 +11,8 @@ namespace SupakullTrackerServices
         Int32 TemplateId { get; set; }
         String TemplateName { get; set; }
 
-        IAccountTemplate Convert(TemplateDAO template);
-        IAccountTemplate Convert(TemplateDTO template);
+        IAccountTemplate Convert(Template template);
+        Template Convert(IAccountTemplate template);
 
     }
 }

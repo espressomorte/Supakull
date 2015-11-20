@@ -151,6 +151,7 @@ namespace Supakulltracker
             panelPreviewString.Hide();
             MakeFieldsEnabled();
             groupBoxAccounts.Enabled = false;
+
             cmbDBType.SelectedIndexChanged += cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChanged;
             btnApplyConSetDiteils.Click += btnApplyConSetDiteils_Click;
@@ -161,6 +162,10 @@ namespace Supakulltracker
             cmbDBDialect.SelectedIndexChanged -= cmbDBType_SelectedIndexChangedForExistingToken;
             cmbDBDialect.SelectedIndexChanged += cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged += cmbDBDialect_SelectedIndexChanged;
+            btnTestConStr.Click += btnTestConStr_Click;
+            btnTestConStr.Click -= btnTestConStrChanged_Click;
+            btnChekMapping.Click += btnChekMapping_Click;
+            btnChekMapping.Click -= btnChekMappingChanged_Click;
         }
 
         private void cmbDBType_SelectedIndexChanged(object sender, EventArgs e)
@@ -202,7 +207,43 @@ namespace Supakulltracker
 
         private void btnTestConStr_Click(object sender, EventArgs e)
         {
-            btnGoToMappingTab.Show();
+            DatabaseAccountSettings accForTest = new DatabaseAccountSettings();
+            accForTest.Tokens.Add(newToken);
+            if (SettingsManager.AccountSettingsTest(accForTest))
+            {
+                label12.Text = "Connected!";
+                label12.ForeColor = Color.Green;
+                label12.Show();
+                btnGoToMappingTab.Show();
+            }
+            else
+            {
+                label12.Text = "Error! Check settings.";
+                label12.ForeColor = Color.Red;
+                label12.Show();
+            }
+            
+
+        }
+
+        private void btnTestConStrChanged_Click(object sender, EventArgs e)
+        {
+            DatabaseAccountSettings accForTest = new DatabaseAccountSettings();
+            accForTest.Tokens.Add(selectedToken);
+            if (SettingsManager.AccountSettingsTest(accForTest))
+            {
+                label12.Text = "Connected!";
+                label12.ForeColor = Color.Green;
+                label12.Show();
+                btnGoToMappingTab.Show();
+            }
+            else
+            {
+                label12.Text = "Error! Check settings.";
+                label12.ForeColor = Color.Red;
+                label12.Show();
+            }
+
 
         }
 
@@ -260,11 +301,13 @@ namespace Supakulltracker
         private void UdateDataBaseSettingForm()
         {
             groupBoxAccounts.Enabled = true;
+            label12.Hide();
             label5.Hide();
             panelChoseDBProvider.Hide();
             panelConStrDiteils.Hide();
             panelItemName.Hide();
             panelPreviewString.Hide();
+            btnSaveSettings.Hide();
             flpSaveAccount.Hide();
             panelItemName.Hide();
             btnGoToMappingTab.Hide();
@@ -559,6 +602,11 @@ namespace Supakulltracker
             cmbDBDialect.SelectedIndexChanged -= cmbDBType_SelectedIndexChanged;
             cmbDBDialect.SelectedIndexChanged -= cmbDBDialect_SelectedIndexChanged;
             btnApplyConSetDiteils.Click += btnApplyConSetDiteilsForExistingToken_Click;
+            btnTestConStr.Click -= btnTestConStr_Click;
+            btnTestConStr.Click += btnTestConStrChanged_Click;
+            btnChekMapping.Click -= btnChekMapping_Click;
+            btnChekMapping.Click += btnChekMappingChanged_Click;
+            
         }
 
         private void btnApplyConSetDiteilsForExistingToken_Click(object sender, EventArgs e)
@@ -617,6 +665,48 @@ namespace Supakulltracker
             btnAddToken.Enabled = true;
             UdateDataBaseSettingForm();
             btnCancelSaveOrEditingSettings.Hide();
+
+        }
+
+        private void btnChekMapping_Click(object sender, EventArgs e)
+        {
+            DatabaseAccountSettings accForTest = new DatabaseAccountSettings();
+            newToken.Mapping = rtxtMapping.Text;
+            accForTest.Tokens.Add(newToken);
+            
+            if (SettingsManager.AccountSettingsTest(accForTest))
+            {
+                label5.Text = "Connected!";
+                label5.ForeColor = Color.Green;
+                label5.Show();
+                btnSaveSettings.Show();
+            }
+            else
+            {
+                label5.Text = "Error! Check settings.";
+                label5.ForeColor = Color.Red;
+                label5.Show();
+            }
+
+        }
+        private void btnChekMappingChanged_Click(object sender, EventArgs e)
+        {
+            DatabaseAccountSettings accForTest = new DatabaseAccountSettings();
+            selectedToken.Mapping = rtxtMapping.Text;
+            accForTest.Tokens.Add(selectedToken);
+            if (SettingsManager.AccountSettingsTest(accForTest))
+            {
+                label5.Text = "Connected!";
+                label5.ForeColor = Color.Green;
+                label5.Show();
+                btnSaveSettings.Show();
+            }
+            else
+            {
+                label5.Text = "Error! Check settings.";
+                label5.ForeColor = Color.Red;
+                label5.Show();
+            }
 
         }
     }

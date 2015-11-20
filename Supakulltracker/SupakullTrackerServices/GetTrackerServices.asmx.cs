@@ -107,7 +107,8 @@ namespace SupakullTrackerServices
                 UserLinkDAO userLink = session.QueryOver<UserLinkDAO>().Where(x => x.UserId == userId).And(x => x.Account.ServiceAccountId == seviceAccountId).SingleOrDefault();
                 if (userLink != null)
                 {
-                    UserAccountsDTO = userLink.Account.ServiceAccountDomainToDTO(IsDetailsNeed: true);
+                    ServiceAccount account = userLink.Account.ServiceAccountDAOToDomain(IsDetailsNeed: true);
+                    UserAccountsDTO = account.ServiceAccountDomainToDTO();
                 }
                 else
                 {
@@ -124,7 +125,8 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            ServiceAccountDAO target = account.ServiceAccountDTOToDAO();
+            
+            ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -143,7 +145,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            TokenDAO target = token.TokenDTOToTokenDAO();
+            TokenDAO target = token.TokenDTOToTokenDomain().TokenToTokenDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -164,7 +166,7 @@ namespace SupakullTrackerServices
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
             UserLinkDAO newUserLink = new UserLinkDAO();
-            ServiceAccountDAO target = newAccount.ServiceAccountDTOToDAO();
+            ServiceAccountDAO target = newAccount.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             newUserLink.Account = target;
             newUserLink.Owner = true;
             newUserLink.UserId = UserID;
@@ -188,7 +190,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            ServiceAccountDAO targetAccountToDelete = accountToDelete.ServiceAccountDTOToDAO();
+            ServiceAccountDAO targetAccountToDelete = accountToDelete.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -248,7 +250,7 @@ namespace SupakullTrackerServices
 
             UserDAO shareUser;
             UserLinkDAO newUserLink = new UserLinkDAO();
-            ServiceAccountDAO targetShareAccount = accountToShare.ServiceAccountDTOToDAO();
+            ServiceAccountDAO targetShareAccount = accountToShare.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             newUserLink.Account = targetShareAccount;
             newUserLink.Owner = owner;
             newUserLink.UserOwnerID = currentUserID;
@@ -290,7 +292,8 @@ namespace SupakullTrackerServices
                 if (allUserLinks != null)
                 {
                     List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
-                    allUserAccountsDTO = SettingsConverter.ServiceAccountDAOCollectionToDTO(allUserAccountsDAO);
+                    List<ServiceAccount> alAcc = SettingsConverter.ServiceAccountDAOCollectionToDomain(allUserAccountsDAO);
+                    allUserAccountsDTO = SettingsConverter.ServiceAccountDomainCollectionToDTO(alAcc);
                 }
                 else
                 {
@@ -301,6 +304,21 @@ namespace SupakullTrackerServices
             }
         }
 
+
+        [WebMethod]
+        public ServiceAccountDTO TestAccount (ServiceAccountDTO accountForTest)
+        {
+            IAdapter currentAdapter = AdapterInstanceFactory.GetCurentAdapterInstance(accountForTest.Source);
+            IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
+
+            currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
+
+            IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
+            ServiceAccount resultDomain = new ServiceAccount();
+            resultDomain = testResult.Convert(testResult);
+            ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
+            return result;
+        }
 
         #endregion
 

@@ -23,7 +23,8 @@ namespace SupakullTrackerServices
                     targetAccount = GetCurrentInstance(accountFromDB.Source);
                     if (targetAccount != null)
                     {
-                        targetAccount = targetAccount.Convert(accountFromDB);
+                        ServiceAccount accountDomain = accountFromDB.ServiceAccountDAOToDomain();
+                        targetAccount = targetAccount.Convert(accountDomain);
                     }
                 }
                 return targetAccount;
@@ -35,9 +36,10 @@ namespace SupakullTrackerServices
             IAccountToken targetToken = null;
             using (ISession session = sessionFactory.OpenSession())
             {
-                TokenDAO token = session.Get<TokenDAO>(tokenId);
-
+                TokenDAO tok = session.Get<TokenDAO>(tokenId);
+                Token token = tok.TokenDAOToTokenDomain();
                 targetToken = GetCurrentInstanceForToken(source);
+
                 if (targetToken != null)
                 {
                     targetToken = targetToken.Convert(token);
@@ -57,9 +59,11 @@ namespace SupakullTrackerServices
                 if (allUserLinks != null)
                 {
                     List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
-                    foreach (ServiceAccountDAO account in allUserAccountsDAO)
+                    List<ServiceAccount> allUserAc = SettingsConverter.ServiceAccountDAOCollectionToDomain(allUserAccountsDAO);
+                    foreach (ServiceAccount account in allUserAc)
                     {
                         IAccountSettings temp = GetCurrentInstance(account.Source);
+
                         allUserAccounts.Add(temp.Convert(account));
                     }
 

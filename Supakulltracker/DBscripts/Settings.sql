@@ -21,8 +21,7 @@ DROP TABLE "USER_LINK" cascade constraints;
 --------------------------------------------------------
 
   CREATE TABLE "MAPPING" 
-   (	"AA_ID" NUMBER, 
-	"TEMPLATE_ID" NUMBER, 
+   (	"TEMPLATE_ID" NUMBER, 
 	"FIELD_NAME_APP" VARCHAR2(50 BYTE), 
 	"FIELD_NAME_SOURCE" VARCHAR2(50 BYTE)
    ) ;
@@ -202,10 +201,7 @@ Insert into USER_LINK (LINK_ID,USER_ID,SERVICE_ACCOUNT_ID,OWNER,USER_OWNER_ID) v
 --  DDL for Index MAPPING_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "MAPPING_PK" ON "MAPPING" ("AA_ID") 
-  ;
---------------------------------------------------------
---  DDL for Index SERVICE_ACCOUNT_PK
+
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "SERVICE_ACCOUNT_PK" ON "SERVICE_ACCOUNT" ("SERVICE_ID") 

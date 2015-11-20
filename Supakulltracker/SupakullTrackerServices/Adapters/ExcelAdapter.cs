@@ -92,5 +92,10 @@ namespace SupakullTrackerServices
         {
             throw new NotImplementedException();
         }
+
+        public IAccountSettings TestAccount(IAccountSettings accountnForTest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace SupakullTrackerServices
         String Name { get; set; }
         Sources Source { get; set; }
 
-        IAccountSettings Convert(ServiceAccountDAO token);
-        IAccountSettings Convert(ServiceAccountDTO token);
+        IAccountSettings Convert(ServiceAccount serviceAccount);
+        ServiceAccount Convert(IAccountSettings serviceAccount);
     }
 }

@@ -40,6 +40,11 @@ namespace TrelloManagerApp
 
         }
 
+        public IAccountSettings TestAccount(IAccountSettings accountnForTest)
+        {
+            throw new NotImplementedException();
+        }
+
         //IList<ITask> IAdapter.GetAllItems()
         //{
         //    throw new NotImplementedException();

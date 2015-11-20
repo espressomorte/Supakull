@@ -142,6 +142,28 @@ namespace Supakulltracker
                     return null;
             }
         }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestAccount(account);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount); 
+            return resultAccount.TestResult;
+
+        }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest, out IAccountSettings settingResult)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestAccount(account);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
+            settingResult = resultIaccount;
+            return resultAccount.TestResult;
+        }
     }
 }
 

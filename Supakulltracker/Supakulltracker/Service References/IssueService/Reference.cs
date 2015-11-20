@@ -411,6 +411,8 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TokenDTO[] TokensField;
         
+        private bool TestResultField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -482,6 +484,19 @@ namespace Supakulltracker.IssueService {
                 if ((object.ReferenceEquals(this.TokensField, value) != true)) {
                     this.TokensField = value;
                     this.RaisePropertyChanged("Tokens");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public bool TestResult {
+            get {
+                return this.TestResultField;
+            }
+            set {
+                if ((this.TestResultField.Equals(value) != true)) {
+                    this.TestResultField = value;
+                    this.RaisePropertyChanged("TestResult");
                 }
             }
         }
@@ -842,6 +857,13 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(Supakulltracker.IssueService.ShareTheSettingAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountForTest from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.TestAccountResponse TestAccount(Supakulltracker.IssueService.TestAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> TestAccountAsync(Supakulltracker.IssueService.TestAccountRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1477,6 +1499,74 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestAccountRequestBody Body;
+        
+        public TestAccountRequest() {
+        }
+        
+        public TestAccountRequest(Supakulltracker.IssueService.TestAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountForTest;
+        
+        public TestAccountRequestBody() {
+        }
+        
+        public TestAccountRequestBody(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            this.accountForTest = accountForTest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestAccountResponseBody Body;
+        
+        public TestAccountResponse() {
+        }
+        
+        public TestAccountResponse(Supakulltracker.IssueService.TestAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO TestAccountResult;
+        
+        public TestAccountResponseBody() {
+        }
+        
+        public TestAccountResponseBody(Supakulltracker.IssueService.ServiceAccountDTO TestAccountResult) {
+            this.TestAccountResult = TestAccountResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GetTrackerServicesSoapChannel : Supakulltracker.IssueService.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
@@ -1747,6 +1837,31 @@ namespace Supakulltracker.IssueService {
             inValue.Body.shareUserName = shareUserName;
             inValue.Body.owner = owner;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).ShareTheSettingAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.TestAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.TestAccount(Supakulltracker.IssueService.TestAccountRequest request) {
+            return base.Channel.TestAccount(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO TestAccount(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            Supakulltracker.IssueService.TestAccountRequest inValue = new Supakulltracker.IssueService.TestAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            Supakulltracker.IssueService.TestAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestAccount(inValue);
+            return retVal.Body.TestAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.TestAccountAsync(Supakulltracker.IssueService.TestAccountRequest request) {
+            return base.Channel.TestAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> TestAccountAsync(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            Supakulltracker.IssueService.TestAccountRequest inValue = new Supakulltracker.IssueService.TestAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestAccountAsync(inValue);
         }
     }
 }

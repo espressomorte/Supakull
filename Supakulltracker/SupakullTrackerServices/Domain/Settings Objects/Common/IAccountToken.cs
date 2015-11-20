@@ -11,8 +11,8 @@ namespace SupakullTrackerServices
         Int32 TokenId { get; set; }
         String TokenName { get; set; }
 
-        IAccountToken Convert(TokenDTO token);
-        IAccountToken Convert(TokenDAO token);
+        IAccountToken Convert(Token token);
+        Token Convert(IAccountToken token);
     }
 
 }

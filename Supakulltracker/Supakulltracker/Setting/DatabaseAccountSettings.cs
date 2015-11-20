@@ -14,6 +14,10 @@ namespace Supakulltracker
         public Sources Source { get; set; }
         public Boolean Owner { get; set; }
         public List<DatabaseAccountToken> Tokens { get; set; }
+        public DatabaseAccountSettings()
+        {
+            this.Tokens = new List<DatabaseAccountToken>();
+        }
 
         public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
         {
@@ -21,7 +25,6 @@ namespace Supakulltracker
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
-            target.Tokens = new List<DatabaseAccountToken>();
 
             if (serviceAccount.Tokens.Length > 0)
             {

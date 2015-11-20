@@ -122,6 +122,7 @@
             this.btnSaveSettings.TabIndex = 1;
             this.btnSaveSettings.Text = "Save";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
+            this.btnSaveSettings.Visible = false;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
             // label4
@@ -300,6 +301,7 @@
             this.btnChekMapping.TabIndex = 2;
             this.btnChekMapping.Text = "Test";
             this.btnChekMapping.UseVisualStyleBackColor = true;
+            this.btnChekMapping.Click += new System.EventHandler(this.btnChekMapping_Click);
             // 
             // btnCancelSaveNewToken
             // 
