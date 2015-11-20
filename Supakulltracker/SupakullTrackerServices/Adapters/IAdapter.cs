@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    public interface IAdapter
+    public interface IAdapter : IAdapterTest
     {
+
         IList<ITask> GetAllTasks();
         ITask GetTask(int index);
     }

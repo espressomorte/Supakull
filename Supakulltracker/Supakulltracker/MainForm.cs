@@ -17,6 +17,7 @@ namespace Supakulltracker
         IssueService.TaskMainDTO[] Tasks;
         public AuthorizationResult AuthorizationResult { get; private set; }
 
+
         public MainForm()
         {
             InitializeComponent();
@@ -63,6 +64,12 @@ namespace Supakulltracker
             newTabPage.Controls.Add(detail);
             taskDetailTabControl.TabPages.Add(newTabPage);
             taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsDialog setingDialog = new SettingsDialog(AuthorizationResult.AuthorizedUser);
+            setingDialog.Show();
         }
     }
 }

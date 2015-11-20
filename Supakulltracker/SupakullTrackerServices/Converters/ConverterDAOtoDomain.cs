@@ -20,7 +20,6 @@ namespace SupakullTrackerServices
 
         public static IList<ITask> TaskMainDaoToTaskMain(IList<TaskMainDAO> TaskMainDaoCollection)
         {
-
             List<ITask> target = new List<ITask>();
             foreach (TaskMainDAO taskMainDAO in TaskMainDaoCollection)
             {
@@ -63,6 +62,7 @@ namespace SupakullTrackerServices
                 taskMain.CreatedDate = taskMainDAO.CreatedDate;
                 taskMain.CreatedBy = taskMainDAO.CreatedBy;
                 taskMain.Comments = taskMainDAO.Comments;
+                taskMain.TokenID = taskMainDAO.TokenID;
 
                 if (taskMainDAO.TaskParent != null)
                 {
@@ -138,68 +138,5 @@ namespace SupakullTrackerServices
             User user = new User(userDAO.UserId);
             return user;
         }
-
-        #region Converters For Settings
-        public static List<ServiceAccount> ServiceAccountDAOCollectionToDomain(this IList<ServiceAccountDAO> param)
-        {
-            List<ServiceAccount> target = new List<ServiceAccount>();
-            foreach (ServiceAccountDAO item in param)
-            {
-                target.Add(ServiceAccountDAOToDomain(item));
-            }
-            return target;
-        }
-
-        public static ServiceAccount ServiceAccountDAOToDomain(this ServiceAccountDAO param)
-        {
-            ServiceAccount target = new ServiceAccount();
-
-            target.ServiceAccountId = param.ServiceAccountId;
-            target.ServiceAccountName = param.ServiceAccountName;
-            target.Source = param.Source;
-
-            if (param.Tokens != null)
-            {
-                target.Tokens = param.Tokens.Select<TokenDAO, Token>(x => x.TokenDAOToToken()).ToList();
-            }
-            else
-            {
-                target.Tokens = null;
-            }
-
-            if (param.MappingTemplates != null)
-            {
-                target.MappingTemplates = param.MappingTemplates.Select<TemplateDAO, Template>(x => x.TemplateDAOToTemplate()).ToList();
-            }
-            else
-            {
-                target.MappingTemplates = null;
-            }
-
-            return target;
-        }
-
-        public static Token TokenDAOToToken(this TokenDAO param)
-        {
-            Token target = new Token();
-
-            target.TokeneId = param.TokeneId;
-            target.TokeneName = param.TokeneName;
-            target.Tokens = param.Token;
-
-            return target;
-        }
-
-        public static Template TemplateDAOToTemplate(this TemplateDAO param)
-        {
-            Template target = new Template();
-
-            target.TemplateId = param.TemplateId;
-            target.TemplateName = param.TemplateName;
-            target.Mapping = param.Mapping;
-
-            return target;
-        }
-        #endregion
     }
 }

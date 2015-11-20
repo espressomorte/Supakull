@@ -21,6 +21,12 @@ namespace SupakullTrackerServices
             this.UserId = userId;
         }
 
+        public UserDAO(Int32 id, string userId)
+        {
+            this.ID = id;
+            this.UserId = userId;
+        }
+
         public virtual UserKey GetUserKey()
         {
             return new UserKey(this.UserId);

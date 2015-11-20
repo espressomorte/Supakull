@@ -62,6 +62,7 @@ namespace SupakullTrackerServices
                 taskMainDAO.CreatedDate = taskMain.CreatedDate;
                 taskMainDAO.CreatedBy = taskMain.CreatedBy;
                 taskMainDAO.Comments = taskMain.Comments;
+                taskMainDAO.TokenID = taskMain.TokenID;
 
                 if (taskMain.TaskParent != null)
                 {
@@ -77,6 +78,7 @@ namespace SupakullTrackerServices
             }           
             return taskMainDAO;
         }
+
 
         private static TaskMainDAO GetExistingTaskDAO(TaskKey taskKey)
         {
@@ -119,7 +121,7 @@ namespace SupakullTrackerServices
             UserDAO userDAO = GetExistingUserDAO(userKey);
             if (userDAO == null)
             {
-                userDAO = new UserDAO(user.UserId);
+                userDAO = new UserDAO(user.UserID ,user.UserLogin);
                 userDaoCollection.Add(userKey, userDAO);
             }
             return userDAO;
@@ -131,5 +133,6 @@ namespace SupakullTrackerServices
             userDaoCollection.TryGetValue(userKey, out existedUserDAO);
             return existedUserDAO;
         }
+
     }
 }

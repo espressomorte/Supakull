@@ -11,8 +11,7 @@ namespace SupakullTrackerServices
     {
         public enum SessionFactoryConfiguration
         {
-            Application,
-            Client
+            Application
         }
 
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -23,8 +22,6 @@ namespace SupakullTrackerServices
             sesionFactoryDictionary = new Dictionary<SessionFactoryConfiguration, ISessionFactory>();
             Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.hibernate.cfg.xml"));
             sesionFactoryDictionary.Add(SessionFactoryConfiguration.Application, configuration.BuildSessionFactory());
-            configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Client.hibernate.cfg.xml"));
-            sesionFactoryDictionary.Add(SessionFactoryConfiguration.Client, configuration.BuildSessionFactory());
         }
 
         public static ISessionFactory GetSessionFactory(SessionFactoryConfiguration configurationName)

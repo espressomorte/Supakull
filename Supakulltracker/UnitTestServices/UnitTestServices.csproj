@@ -114,6 +114,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Service References\GetTrackerServices\GetTrackerServices.wsdl" />
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.CreateNewAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.DeleteAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.DeleteTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.GetAllTasksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -126,10 +138,19 @@
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.ServiceAccountDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.TaskMainDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.TestAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>

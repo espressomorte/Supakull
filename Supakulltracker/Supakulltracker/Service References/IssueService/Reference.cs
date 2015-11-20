@@ -54,6 +54,8 @@ namespace Supakulltracker.IssueService {
         
         private Supakulltracker.IssueService.Sources LinkToTrackerField;
         
+        private int TokenIDField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstimationField;
         
@@ -68,9 +70,6 @@ namespace Supakulltracker.IssueService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TaskMainDTO TaskParentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TaskMainDTO[] MatchedTasksField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -225,7 +224,20 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        public int TokenID {
+            get {
+                return this.TokenIDField;
+            }
+            set {
+                if ((this.TokenIDField.Equals(value) != true)) {
+                    this.TokenIDField = value;
+                    this.RaisePropertyChanged("TokenID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
         public string Estimation {
             get {
                 return this.EstimationField;
@@ -238,7 +250,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
         public string TargetVersion {
             get {
                 return this.TargetVersionField;
@@ -251,7 +263,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
         public string Comments {
             get {
                 return this.CommentsField;
@@ -264,7 +276,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
         public Supakulltracker.IssueService.UserDTO[] Assigned {
             get {
                 return this.AssignedField;
@@ -277,7 +289,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
         public Supakulltracker.IssueService.TaskMainDTO TaskParent {
             get {
                 return this.TaskParentField;
@@ -286,19 +298,6 @@ namespace Supakulltracker.IssueService {
                 if ((object.ReferenceEquals(this.TaskParentField, value) != true)) {
                     this.TaskParentField = value;
                     this.RaisePropertyChanged("TaskParent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
-        public Supakulltracker.IssueService.TaskMainDTO[] MatchedTasks {
-            get {
-                return this.MatchedTasksField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MatchedTasksField, value) != true)) {
-                    this.MatchedTasksField = value;
-                    this.RaisePropertyChanged("MatchedTasks");
                 }
             }
         }
@@ -339,8 +338,10 @@ namespace Supakulltracker.IssueService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        private int UserIDField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserIdField;
+        private string UserLoginField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -352,15 +353,28 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string UserId {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int UserID {
             get {
-                return this.UserIdField;
+                return this.UserIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserLogin {
+            get {
+                return this.UserLoginField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserLoginField, value) != true)) {
+                    this.UserLoginField = value;
+                    this.RaisePropertyChanged("UserLogin");
                 }
             }
         }
@@ -396,6 +410,8 @@ namespace Supakulltracker.IssueService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TokenDTO[] TokensField;
+        
+        private bool TestResultField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -468,6 +484,19 @@ namespace Supakulltracker.IssueService {
                 if ((object.ReferenceEquals(this.TokensField, value) != true)) {
                     this.TokensField = value;
                     this.RaisePropertyChanged("Tokens");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public bool TestResult {
+            get {
+                return this.TestResultField;
+            }
+            set {
+                if ((this.TestResultField.Equals(value) != true)) {
+                    this.TestResultField = value;
+                    this.RaisePropertyChanged("TestResult");
                 }
             }
         }
@@ -567,10 +596,10 @@ namespace Supakulltracker.IssueService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private int TokeneIdField;
+        private int TokenIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TokeneNameField;
+        private string TokenNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TokenForSerialization[] TokensField;
@@ -586,27 +615,27 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int TokeneId {
+        public int TokenId {
             get {
-                return this.TokeneIdField;
+                return this.TokenIdField;
             }
             set {
-                if ((this.TokeneIdField.Equals(value) != true)) {
-                    this.TokeneIdField = value;
-                    this.RaisePropertyChanged("TokeneId");
+                if ((this.TokenIdField.Equals(value) != true)) {
+                    this.TokenIdField = value;
+                    this.RaisePropertyChanged("TokenId");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string TokeneName {
+        public string TokenName {
             get {
-                return this.TokeneNameField;
+                return this.TokenNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokeneNameField, value) != true)) {
-                    this.TokeneNameField = value;
-                    this.RaisePropertyChanged("TokeneName");
+                if ((object.ReferenceEquals(this.TokenNameField, value) != true)) {
+                    this.TokenNameField = value;
+                    this.RaisePropertyChanged("TokenName");
                 }
             }
         }
@@ -793,6 +822,55 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request);
+        
+        // CODEGEN: Generating message contract since element name account from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SaveOrUdateAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.SaveOrUdateAccountResponse SaveOrUdateAccount(Supakulltracker.IssueService.SaveOrUdateAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SaveOrUdateAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.SaveOrUdateAccountResponse> SaveOrUdateAccountAsync(Supakulltracker.IssueService.SaveOrUdateAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name token from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteToken", ReplyAction="*")]
+        Supakulltracker.IssueService.DeleteTokenResponse DeleteToken(Supakulltracker.IssueService.DeleteTokenRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteToken", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteTokenResponse> DeleteTokenAsync(Supakulltracker.IssueService.DeleteTokenRequest request);
+        
+        // CODEGEN: Generating message contract since element name newAccount from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.CreateNewAccountResponse CreateNewAccount(Supakulltracker.IssueService.CreateNewAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.CreateNewAccountResponse> CreateNewAccountAsync(Supakulltracker.IssueService.CreateNewAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToDelete from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.DeleteAccountResponse DeleteAccount(Supakulltracker.IssueService.DeleteAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> DeleteAccountAsync(Supakulltracker.IssueService.DeleteAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name GetAllSharedUserAccountsByUserIDResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse GetAllSharedUserAccountsByUserID(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToShare from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.ShareTheSettingAccountResponse ShareTheSettingAccount(Supakulltracker.IssueService.ShareTheSettingAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(Supakulltracker.IssueService.ShareTheSettingAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountForTest from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.TestAccountResponse TestAccount(Supakulltracker.IssueService.TestAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> TestAccountAsync(Supakulltracker.IssueService.TestAccountRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1068,6 +1146,506 @@ namespace Supakulltracker.IssueService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveOrUdateAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveOrUdateAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.SaveOrUdateAccountRequestBody Body;
+        
+        public SaveOrUdateAccountRequest() {
+        }
+        
+        public SaveOrUdateAccountRequest(Supakulltracker.IssueService.SaveOrUdateAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SaveOrUdateAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO account;
+        
+        public SaveOrUdateAccountRequestBody() {
+        }
+        
+        public SaveOrUdateAccountRequestBody(Supakulltracker.IssueService.ServiceAccountDTO account) {
+            this.account = account;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveOrUdateAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveOrUdateAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.SaveOrUdateAccountResponseBody Body;
+        
+        public SaveOrUdateAccountResponse() {
+        }
+        
+        public SaveOrUdateAccountResponse(Supakulltracker.IssueService.SaveOrUdateAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SaveOrUdateAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool SaveOrUdateAccountResult;
+        
+        public SaveOrUdateAccountResponseBody() {
+        }
+        
+        public SaveOrUdateAccountResponseBody(bool SaveOrUdateAccountResult) {
+            this.SaveOrUdateAccountResult = SaveOrUdateAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteTokenRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteToken", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteTokenRequestBody Body;
+        
+        public DeleteTokenRequest() {
+        }
+        
+        public DeleteTokenRequest(Supakulltracker.IssueService.DeleteTokenRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteTokenRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.TokenDTO token;
+        
+        public DeleteTokenRequestBody() {
+        }
+        
+        public DeleteTokenRequestBody(Supakulltracker.IssueService.TokenDTO token) {
+            this.token = token;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteTokenResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteTokenResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteTokenResponseBody Body;
+        
+        public DeleteTokenResponse() {
+        }
+        
+        public DeleteTokenResponse(Supakulltracker.IssueService.DeleteTokenResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteTokenResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteTokenResult;
+        
+        public DeleteTokenResponseBody() {
+        }
+        
+        public DeleteTokenResponseBody(bool DeleteTokenResult) {
+            this.DeleteTokenResult = DeleteTokenResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateNewAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateNewAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.CreateNewAccountRequestBody Body;
+        
+        public CreateNewAccountRequest() {
+        }
+        
+        public CreateNewAccountRequest(Supakulltracker.IssueService.CreateNewAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateNewAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int UserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public Supakulltracker.IssueService.ServiceAccountDTO newAccount;
+        
+        public CreateNewAccountRequestBody() {
+        }
+        
+        public CreateNewAccountRequestBody(int UserID, Supakulltracker.IssueService.ServiceAccountDTO newAccount) {
+            this.UserID = UserID;
+            this.newAccount = newAccount;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateNewAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateNewAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.CreateNewAccountResponseBody Body;
+        
+        public CreateNewAccountResponse() {
+        }
+        
+        public CreateNewAccountResponse(Supakulltracker.IssueService.CreateNewAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateNewAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool CreateNewAccountResult;
+        
+        public CreateNewAccountResponseBody() {
+        }
+        
+        public CreateNewAccountResponseBody(bool CreateNewAccountResult) {
+            this.CreateNewAccountResult = CreateNewAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteAccountRequestBody Body;
+        
+        public DeleteAccountRequest() {
+        }
+        
+        public DeleteAccountRequest(Supakulltracker.IssueService.DeleteAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int UserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountToDelete;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public bool DeleteForAllUsers;
+        
+        public DeleteAccountRequestBody() {
+        }
+        
+        public DeleteAccountRequestBody(int UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            this.UserID = UserID;
+            this.accountToDelete = accountToDelete;
+            this.DeleteForAllUsers = DeleteForAllUsers;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteAccountResponseBody Body;
+        
+        public DeleteAccountResponse() {
+        }
+        
+        public DeleteAccountResponse(Supakulltracker.IssueService.DeleteAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteAccountResult;
+        
+        public DeleteAccountResponseBody() {
+        }
+        
+        public DeleteAccountResponseBody(bool DeleteAccountResult) {
+            this.DeleteAccountResult = DeleteAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDRequest() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequest(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int userId;
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody(int userId) {
+            this.userId = userId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserIDResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponseBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDResponse() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponse(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult;
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody(Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult) {
+            this.GetAllSharedUserAccountsByUserIDResult = GetAllSharedUserAccountsByUserIDResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.ShareTheSettingAccountRequestBody Body;
+        
+        public ShareTheSettingAccountRequest() {
+        }
+        
+        public ShareTheSettingAccountRequest(Supakulltracker.IssueService.ShareTheSettingAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int currentUserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountToShare;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string shareUserName;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public bool owner;
+        
+        public ShareTheSettingAccountRequestBody() {
+        }
+        
+        public ShareTheSettingAccountRequestBody(int currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            this.currentUserID = currentUserID;
+            this.accountToShare = accountToShare;
+            this.shareUserName = shareUserName;
+            this.owner = owner;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.ShareTheSettingAccountResponseBody Body;
+        
+        public ShareTheSettingAccountResponse() {
+        }
+        
+        public ShareTheSettingAccountResponse(Supakulltracker.IssueService.ShareTheSettingAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool ShareTheSettingAccountResult;
+        
+        public ShareTheSettingAccountResponseBody() {
+        }
+        
+        public ShareTheSettingAccountResponseBody(bool ShareTheSettingAccountResult) {
+            this.ShareTheSettingAccountResult = ShareTheSettingAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestAccountRequestBody Body;
+        
+        public TestAccountRequest() {
+        }
+        
+        public TestAccountRequest(Supakulltracker.IssueService.TestAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountForTest;
+        
+        public TestAccountRequestBody() {
+        }
+        
+        public TestAccountRequestBody(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            this.accountForTest = accountForTest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestAccountResponseBody Body;
+        
+        public TestAccountResponse() {
+        }
+        
+        public TestAccountResponse(Supakulltracker.IssueService.TestAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO TestAccountResult;
+        
+        public TestAccountResponseBody() {
+        }
+        
+        public TestAccountResponseBody(Supakulltracker.IssueService.ServiceAccountDTO TestAccountResult) {
+            this.TestAccountResult = TestAccountResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GetTrackerServicesSoapChannel : Supakulltracker.IssueService.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
@@ -1203,6 +1781,193 @@ namespace Supakulltracker.IssueService {
             inValue.Body.userId = userId;
             inValue.Body.seviceAccountId = seviceAccountId;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountIdAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.SaveOrUdateAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.SaveOrUdateAccount(Supakulltracker.IssueService.SaveOrUdateAccountRequest request) {
+            return base.Channel.SaveOrUdateAccount(request);
+        }
+        
+        public bool SaveOrUdateAccount(Supakulltracker.IssueService.ServiceAccountDTO account) {
+            Supakulltracker.IssueService.SaveOrUdateAccountRequest inValue = new Supakulltracker.IssueService.SaveOrUdateAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.SaveOrUdateAccountRequestBody();
+            inValue.Body.account = account;
+            Supakulltracker.IssueService.SaveOrUdateAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).SaveOrUdateAccount(inValue);
+            return retVal.Body.SaveOrUdateAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.SaveOrUdateAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.SaveOrUdateAccountAsync(Supakulltracker.IssueService.SaveOrUdateAccountRequest request) {
+            return base.Channel.SaveOrUdateAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.SaveOrUdateAccountResponse> SaveOrUdateAccountAsync(Supakulltracker.IssueService.ServiceAccountDTO account) {
+            Supakulltracker.IssueService.SaveOrUdateAccountRequest inValue = new Supakulltracker.IssueService.SaveOrUdateAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.SaveOrUdateAccountRequestBody();
+            inValue.Body.account = account;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).SaveOrUdateAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.DeleteTokenResponse Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteToken(Supakulltracker.IssueService.DeleteTokenRequest request) {
+            return base.Channel.DeleteToken(request);
+        }
+        
+        public bool DeleteToken(Supakulltracker.IssueService.TokenDTO token) {
+            Supakulltracker.IssueService.DeleteTokenRequest inValue = new Supakulltracker.IssueService.DeleteTokenRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteTokenRequestBody();
+            inValue.Body.token = token;
+            Supakulltracker.IssueService.DeleteTokenResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteToken(inValue);
+            return retVal.Body.DeleteTokenResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteTokenResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteTokenAsync(Supakulltracker.IssueService.DeleteTokenRequest request) {
+            return base.Channel.DeleteTokenAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteTokenResponse> DeleteTokenAsync(Supakulltracker.IssueService.TokenDTO token) {
+            Supakulltracker.IssueService.DeleteTokenRequest inValue = new Supakulltracker.IssueService.DeleteTokenRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteTokenRequestBody();
+            inValue.Body.token = token;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteTokenAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.CreateNewAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.CreateNewAccount(Supakulltracker.IssueService.CreateNewAccountRequest request) {
+            return base.Channel.CreateNewAccount(request);
+        }
+        
+        public bool CreateNewAccount(int UserID, Supakulltracker.IssueService.ServiceAccountDTO newAccount) {
+            Supakulltracker.IssueService.CreateNewAccountRequest inValue = new Supakulltracker.IssueService.CreateNewAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.CreateNewAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.newAccount = newAccount;
+            Supakulltracker.IssueService.CreateNewAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).CreateNewAccount(inValue);
+            return retVal.Body.CreateNewAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.CreateNewAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.CreateNewAccountAsync(Supakulltracker.IssueService.CreateNewAccountRequest request) {
+            return base.Channel.CreateNewAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.CreateNewAccountResponse> CreateNewAccountAsync(int UserID, Supakulltracker.IssueService.ServiceAccountDTO newAccount) {
+            Supakulltracker.IssueService.CreateNewAccountRequest inValue = new Supakulltracker.IssueService.CreateNewAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.CreateNewAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.newAccount = newAccount;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).CreateNewAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.DeleteAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteAccount(Supakulltracker.IssueService.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccount(request);
+        }
+        
+        public bool DeleteAccount(int UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            Supakulltracker.IssueService.DeleteAccountRequest inValue = new Supakulltracker.IssueService.DeleteAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            Supakulltracker.IssueService.DeleteAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteAccount(inValue);
+            return retVal.Body.DeleteAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteAccountAsync(Supakulltracker.IssueService.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteAccountResponse> DeleteAccountAsync(int UserID, Supakulltracker.IssueService.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            Supakulltracker.IssueService.DeleteAccountRequest inValue = new Supakulltracker.IssueService.DeleteAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserID(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserID(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllSharedUserAccountsByUserID(int userId) {
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserID(inValue);
+            return retVal.Body.GetAllSharedUserAccountsByUserIDResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserIDAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(int userId) {
+            Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserIDAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.ShareTheSettingAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.ShareTheSettingAccount(Supakulltracker.IssueService.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccount(request);
+        }
+        
+        public bool ShareTheSettingAccount(int currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            Supakulltracker.IssueService.ShareTheSettingAccountRequest inValue = new Supakulltracker.IssueService.ShareTheSettingAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            Supakulltracker.IssueService.ShareTheSettingAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).ShareTheSettingAccount(inValue);
+            return retVal.Body.ShareTheSettingAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.ShareTheSettingAccountAsync(Supakulltracker.IssueService.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(int currentUserID, Supakulltracker.IssueService.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            Supakulltracker.IssueService.ShareTheSettingAccountRequest inValue = new Supakulltracker.IssueService.ShareTheSettingAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).ShareTheSettingAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.TestAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.TestAccount(Supakulltracker.IssueService.TestAccountRequest request) {
+            return base.Channel.TestAccount(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO TestAccount(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            Supakulltracker.IssueService.TestAccountRequest inValue = new Supakulltracker.IssueService.TestAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            Supakulltracker.IssueService.TestAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestAccount(inValue);
+            return retVal.Body.TestAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.TestAccountAsync(Supakulltracker.IssueService.TestAccountRequest request) {
+            return base.Channel.TestAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.TestAccountResponse> TestAccountAsync(Supakulltracker.IssueService.ServiceAccountDTO accountForTest) {
+            Supakulltracker.IssueService.TestAccountRequest inValue = new Supakulltracker.IssueService.TestAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestAccountAsync(inValue);
         }
     }
 }

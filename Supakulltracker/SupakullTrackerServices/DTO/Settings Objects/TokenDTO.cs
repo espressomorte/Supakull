@@ -10,8 +10,8 @@ namespace SupakullTrackerServices
         {
             Tokens = new List<TokenForSerialization>();
         }
-        public  Int32 TokeneId { get; set; }
-        public  String TokeneName { get; set; }
+        public  Int32 TokenId { get; set; }
+        public  String TokenName { get; set; }
         public List<TokenForSerialization> Tokens { get; set; }
     }
 

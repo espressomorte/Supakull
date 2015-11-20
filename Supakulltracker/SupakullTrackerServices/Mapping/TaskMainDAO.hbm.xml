@@ -22,6 +22,7 @@
     <property name="Estimation" column="TK_ESTIMATION" />
     <property name="TargetVersion" column="TK_TARG_VERSION" />
     <property name="Comments" column="TK_COMENTS" />
+    <property name="TokenID" column="TK_TOKEN_ID" />
 
     <bag lazy="false" cascade="all-delete-orphan" inverse="false" name="Assigned" table="TASKMAIN_TO_USER">
       <key column="TKU_TK_ID" />

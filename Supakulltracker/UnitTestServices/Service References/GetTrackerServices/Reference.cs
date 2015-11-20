@@ -54,6 +54,8 @@ namespace UnitTestServices.GetTrackerServices {
         
         private UnitTestServices.GetTrackerServices.Sources LinkToTrackerField;
         
+        private int TokenIDField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstimationField;
         
@@ -68,9 +70,6 @@ namespace UnitTestServices.GetTrackerServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private UnitTestServices.GetTrackerServices.TaskMainDTO TaskParentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private UnitTestServices.GetTrackerServices.TaskMainDTO[] MatchedTasksField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -225,7 +224,20 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        public int TokenID {
+            get {
+                return this.TokenIDField;
+            }
+            set {
+                if ((this.TokenIDField.Equals(value) != true)) {
+                    this.TokenIDField = value;
+                    this.RaisePropertyChanged("TokenID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
         public string Estimation {
             get {
                 return this.EstimationField;
@@ -238,7 +250,7 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
         public string TargetVersion {
             get {
                 return this.TargetVersionField;
@@ -251,7 +263,7 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
         public string Comments {
             get {
                 return this.CommentsField;
@@ -264,7 +276,7 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
         public UnitTestServices.GetTrackerServices.UserDTO[] Assigned {
             get {
                 return this.AssignedField;
@@ -277,7 +289,7 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
         public UnitTestServices.GetTrackerServices.TaskMainDTO TaskParent {
             get {
                 return this.TaskParentField;
@@ -286,19 +298,6 @@ namespace UnitTestServices.GetTrackerServices {
                 if ((object.ReferenceEquals(this.TaskParentField, value) != true)) {
                     this.TaskParentField = value;
                     this.RaisePropertyChanged("TaskParent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
-        public UnitTestServices.GetTrackerServices.TaskMainDTO[] MatchedTasks {
-            get {
-                return this.MatchedTasksField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MatchedTasksField, value) != true)) {
-                    this.MatchedTasksField = value;
-                    this.RaisePropertyChanged("MatchedTasks");
                 }
             }
         }
@@ -339,8 +338,10 @@ namespace UnitTestServices.GetTrackerServices {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        private int UserIDField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserIdField;
+        private string UserLoginField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -352,15 +353,28 @@ namespace UnitTestServices.GetTrackerServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string UserId {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int UserID {
             get {
-                return this.UserIdField;
+                return this.UserIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserLogin {
+            get {
+                return this.UserLoginField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserLoginField, value) != true)) {
+                    this.UserLoginField = value;
+                    this.RaisePropertyChanged("UserLogin");
                 }
             }
         }
@@ -396,6 +410,8 @@ namespace UnitTestServices.GetTrackerServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private UnitTestServices.GetTrackerServices.TokenDTO[] TokensField;
+        
+        private bool TestResultField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -468,6 +484,19 @@ namespace UnitTestServices.GetTrackerServices {
                 if ((object.ReferenceEquals(this.TokensField, value) != true)) {
                     this.TokensField = value;
                     this.RaisePropertyChanged("Tokens");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public bool TestResult {
+            get {
+                return this.TestResultField;
+            }
+            set {
+                if ((this.TestResultField.Equals(value) != true)) {
+                    this.TestResultField = value;
+                    this.RaisePropertyChanged("TestResult");
                 }
             }
         }
@@ -567,10 +596,10 @@ namespace UnitTestServices.GetTrackerServices {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private int TokeneIdField;
+        private int TokenIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TokeneNameField;
+        private string TokenNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private UnitTestServices.GetTrackerServices.TokenForSerialization[] TokensField;
@@ -586,27 +615,27 @@ namespace UnitTestServices.GetTrackerServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int TokeneId {
+        public int TokenId {
             get {
-                return this.TokeneIdField;
+                return this.TokenIdField;
             }
             set {
-                if ((this.TokeneIdField.Equals(value) != true)) {
-                    this.TokeneIdField = value;
-                    this.RaisePropertyChanged("TokeneId");
+                if ((this.TokenIdField.Equals(value) != true)) {
+                    this.TokenIdField = value;
+                    this.RaisePropertyChanged("TokenId");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string TokeneName {
+        public string TokenName {
             get {
-                return this.TokeneNameField;
+                return this.TokenNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokeneNameField, value) != true)) {
-                    this.TokeneNameField = value;
-                    this.RaisePropertyChanged("TokeneName");
+                if ((object.ReferenceEquals(this.TokenNameField, value) != true)) {
+                    this.TokenNameField = value;
+                    this.RaisePropertyChanged("TokenName");
                 }
             }
         }
@@ -793,6 +822,55 @@ namespace UnitTestServices.GetTrackerServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
         System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest request);
+        
+        // CODEGEN: Generating message contract since element name account from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SaveOrUdateAccount", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse SaveOrUdateAccount(UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SaveOrUdateAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse> SaveOrUdateAccountAsync(UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name token from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteToken", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.DeleteTokenResponse DeleteToken(UnitTestServices.GetTrackerServices.DeleteTokenRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteToken", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteTokenResponse> DeleteTokenAsync(UnitTestServices.GetTrackerServices.DeleteTokenRequest request);
+        
+        // CODEGEN: Generating message contract since element name newAccount from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.CreateNewAccountResponse CreateNewAccount(UnitTestServices.GetTrackerServices.CreateNewAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.CreateNewAccountResponse> CreateNewAccountAsync(UnitTestServices.GetTrackerServices.CreateNewAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToDelete from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.DeleteAccountResponse DeleteAccount(UnitTestServices.GetTrackerServices.DeleteAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteAccountResponse> DeleteAccountAsync(UnitTestServices.GetTrackerServices.DeleteAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name GetAllSharedUserAccountsByUserIDResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse GetAllSharedUserAccountsByUserID(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllSharedUserAccountsByUserID", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountToShare from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse ShareTheSettingAccount(UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ShareTheSettingAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest request);
+        
+        // CODEGEN: Generating message contract since element name accountForTest from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.TestAccountResponse TestAccount(UnitTestServices.GetTrackerServices.TestAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.TestAccountResponse> TestAccountAsync(UnitTestServices.GetTrackerServices.TestAccountRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1068,6 +1146,506 @@ namespace UnitTestServices.GetTrackerServices {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveOrUdateAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveOrUdateAccount", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequestBody Body;
+        
+        public SaveOrUdateAccountRequest() {
+        }
+        
+        public SaveOrUdateAccountRequest(UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SaveOrUdateAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO account;
+        
+        public SaveOrUdateAccountRequestBody() {
+        }
+        
+        public SaveOrUdateAccountRequestBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO account) {
+            this.account = account;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveOrUdateAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveOrUdateAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponseBody Body;
+        
+        public SaveOrUdateAccountResponse() {
+        }
+        
+        public SaveOrUdateAccountResponse(UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SaveOrUdateAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool SaveOrUdateAccountResult;
+        
+        public SaveOrUdateAccountResponseBody() {
+        }
+        
+        public SaveOrUdateAccountResponseBody(bool SaveOrUdateAccountResult) {
+            this.SaveOrUdateAccountResult = SaveOrUdateAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteTokenRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteToken", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.DeleteTokenRequestBody Body;
+        
+        public DeleteTokenRequest() {
+        }
+        
+        public DeleteTokenRequest(UnitTestServices.GetTrackerServices.DeleteTokenRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteTokenRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.TokenDTO token;
+        
+        public DeleteTokenRequestBody() {
+        }
+        
+        public DeleteTokenRequestBody(UnitTestServices.GetTrackerServices.TokenDTO token) {
+            this.token = token;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteTokenResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteTokenResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.DeleteTokenResponseBody Body;
+        
+        public DeleteTokenResponse() {
+        }
+        
+        public DeleteTokenResponse(UnitTestServices.GetTrackerServices.DeleteTokenResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteTokenResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteTokenResult;
+        
+        public DeleteTokenResponseBody() {
+        }
+        
+        public DeleteTokenResponseBody(bool DeleteTokenResult) {
+            this.DeleteTokenResult = DeleteTokenResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateNewAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateNewAccount", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.CreateNewAccountRequestBody Body;
+        
+        public CreateNewAccountRequest() {
+        }
+        
+        public CreateNewAccountRequest(UnitTestServices.GetTrackerServices.CreateNewAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateNewAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int UserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO newAccount;
+        
+        public CreateNewAccountRequestBody() {
+        }
+        
+        public CreateNewAccountRequestBody(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO newAccount) {
+            this.UserID = UserID;
+            this.newAccount = newAccount;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateNewAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateNewAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.CreateNewAccountResponseBody Body;
+        
+        public CreateNewAccountResponse() {
+        }
+        
+        public CreateNewAccountResponse(UnitTestServices.GetTrackerServices.CreateNewAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateNewAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool CreateNewAccountResult;
+        
+        public CreateNewAccountResponseBody() {
+        }
+        
+        public CreateNewAccountResponseBody(bool CreateNewAccountResult) {
+            this.CreateNewAccountResult = CreateNewAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccount", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.DeleteAccountRequestBody Body;
+        
+        public DeleteAccountRequest() {
+        }
+        
+        public DeleteAccountRequest(UnitTestServices.GetTrackerServices.DeleteAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int UserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToDelete;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public bool DeleteForAllUsers;
+        
+        public DeleteAccountRequestBody() {
+        }
+        
+        public DeleteAccountRequestBody(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            this.UserID = UserID;
+            this.accountToDelete = accountToDelete;
+            this.DeleteForAllUsers = DeleteForAllUsers;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.DeleteAccountResponseBody Body;
+        
+        public DeleteAccountResponse() {
+        }
+        
+        public DeleteAccountResponse(UnitTestServices.GetTrackerServices.DeleteAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteAccountResult;
+        
+        public DeleteAccountResponseBody() {
+        }
+        
+        public DeleteAccountResponseBody(bool DeleteAccountResult) {
+            this.DeleteAccountResult = DeleteAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequestBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDRequest() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequest(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int userId;
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDRequestBody(int userId) {
+            this.userId = userId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAllSharedUserAccountsByUserIDResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllSharedUserAccountsByUserIDResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponseBody Body;
+        
+        public GetAllSharedUserAccountsByUserIDResponse() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponse(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetAllSharedUserAccountsByUserIDResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult;
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody() {
+        }
+        
+        public GetAllSharedUserAccountsByUserIDResponseBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllSharedUserAccountsByUserIDResult) {
+            this.GetAllSharedUserAccountsByUserIDResult = GetAllSharedUserAccountsByUserIDResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccount", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequestBody Body;
+        
+        public ShareTheSettingAccountRequest() {
+        }
+        
+        public ShareTheSettingAccountRequest(UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int currentUserID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToShare;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string shareUserName;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public bool owner;
+        
+        public ShareTheSettingAccountRequestBody() {
+        }
+        
+        public ShareTheSettingAccountRequestBody(int currentUserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            this.currentUserID = currentUserID;
+            this.accountToShare = accountToShare;
+            this.shareUserName = shareUserName;
+            this.owner = owner;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ShareTheSettingAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ShareTheSettingAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponseBody Body;
+        
+        public ShareTheSettingAccountResponse() {
+        }
+        
+        public ShareTheSettingAccountResponse(UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ShareTheSettingAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool ShareTheSettingAccountResult;
+        
+        public ShareTheSettingAccountResponseBody() {
+        }
+        
+        public ShareTheSettingAccountResponseBody(bool ShareTheSettingAccountResult) {
+            this.ShareTheSettingAccountResult = ShareTheSettingAccountResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccount", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.TestAccountRequestBody Body;
+        
+        public TestAccountRequest() {
+        }
+        
+        public TestAccountRequest(UnitTestServices.GetTrackerServices.TestAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO accountForTest;
+        
+        public TestAccountRequestBody() {
+        }
+        
+        public TestAccountRequestBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO accountForTest) {
+            this.accountForTest = accountForTest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.TestAccountResponseBody Body;
+        
+        public TestAccountResponse() {
+        }
+        
+        public TestAccountResponse(UnitTestServices.GetTrackerServices.TestAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO TestAccountResult;
+        
+        public TestAccountResponseBody() {
+        }
+        
+        public TestAccountResponseBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO TestAccountResult) {
+            this.TestAccountResult = TestAccountResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GetTrackerServicesSoapChannel : UnitTestServices.GetTrackerServices.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
@@ -1203,6 +1781,193 @@ namespace UnitTestServices.GetTrackerServices {
             inValue.Body.userId = userId;
             inValue.Body.seviceAccountId = seviceAccountId;
             return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountIdAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.SaveOrUdateAccount(UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest request) {
+            return base.Channel.SaveOrUdateAccount(request);
+        }
+        
+        public bool SaveOrUdateAccount(UnitTestServices.GetTrackerServices.ServiceAccountDTO account) {
+            UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest inValue = new UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequestBody();
+            inValue.Body.account = account;
+            UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).SaveOrUdateAccount(inValue);
+            return retVal.Body.SaveOrUdateAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.SaveOrUdateAccountAsync(UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest request) {
+            return base.Channel.SaveOrUdateAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.SaveOrUdateAccountResponse> SaveOrUdateAccountAsync(UnitTestServices.GetTrackerServices.ServiceAccountDTO account) {
+            UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest inValue = new UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.SaveOrUdateAccountRequestBody();
+            inValue.Body.account = account;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).SaveOrUdateAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.DeleteTokenResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.DeleteToken(UnitTestServices.GetTrackerServices.DeleteTokenRequest request) {
+            return base.Channel.DeleteToken(request);
+        }
+        
+        public bool DeleteToken(UnitTestServices.GetTrackerServices.TokenDTO token) {
+            UnitTestServices.GetTrackerServices.DeleteTokenRequest inValue = new UnitTestServices.GetTrackerServices.DeleteTokenRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.DeleteTokenRequestBody();
+            inValue.Body.token = token;
+            UnitTestServices.GetTrackerServices.DeleteTokenResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).DeleteToken(inValue);
+            return retVal.Body.DeleteTokenResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteTokenResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.DeleteTokenAsync(UnitTestServices.GetTrackerServices.DeleteTokenRequest request) {
+            return base.Channel.DeleteTokenAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteTokenResponse> DeleteTokenAsync(UnitTestServices.GetTrackerServices.TokenDTO token) {
+            UnitTestServices.GetTrackerServices.DeleteTokenRequest inValue = new UnitTestServices.GetTrackerServices.DeleteTokenRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.DeleteTokenRequestBody();
+            inValue.Body.token = token;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).DeleteTokenAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.CreateNewAccountResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.CreateNewAccount(UnitTestServices.GetTrackerServices.CreateNewAccountRequest request) {
+            return base.Channel.CreateNewAccount(request);
+        }
+        
+        public bool CreateNewAccount(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO newAccount) {
+            UnitTestServices.GetTrackerServices.CreateNewAccountRequest inValue = new UnitTestServices.GetTrackerServices.CreateNewAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.CreateNewAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.newAccount = newAccount;
+            UnitTestServices.GetTrackerServices.CreateNewAccountResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).CreateNewAccount(inValue);
+            return retVal.Body.CreateNewAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.CreateNewAccountResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.CreateNewAccountAsync(UnitTestServices.GetTrackerServices.CreateNewAccountRequest request) {
+            return base.Channel.CreateNewAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.CreateNewAccountResponse> CreateNewAccountAsync(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO newAccount) {
+            UnitTestServices.GetTrackerServices.CreateNewAccountRequest inValue = new UnitTestServices.GetTrackerServices.CreateNewAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.CreateNewAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.newAccount = newAccount;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).CreateNewAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.DeleteAccountResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.DeleteAccount(UnitTestServices.GetTrackerServices.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccount(request);
+        }
+        
+        public bool DeleteAccount(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            UnitTestServices.GetTrackerServices.DeleteAccountRequest inValue = new UnitTestServices.GetTrackerServices.DeleteAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            UnitTestServices.GetTrackerServices.DeleteAccountResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).DeleteAccount(inValue);
+            return retVal.Body.DeleteAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteAccountResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.DeleteAccountAsync(UnitTestServices.GetTrackerServices.DeleteAccountRequest request) {
+            return base.Channel.DeleteAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.DeleteAccountResponse> DeleteAccountAsync(int UserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToDelete, bool DeleteForAllUsers) {
+            UnitTestServices.GetTrackerServices.DeleteAccountRequest inValue = new UnitTestServices.GetTrackerServices.DeleteAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.DeleteAccountRequestBody();
+            inValue.Body.UserID = UserID;
+            inValue.Body.accountToDelete = accountToDelete;
+            inValue.Body.DeleteForAllUsers = DeleteForAllUsers;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).DeleteAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserID(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserID(request);
+        }
+        
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllSharedUserAccountsByUserID(int userId) {
+            UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest inValue = new UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserID(inValue);
+            return retVal.Body.GetAllSharedUserAccountsByUserIDResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllSharedUserAccountsByUserIDAsync(UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest request) {
+            return base.Channel.GetAllSharedUserAccountsByUserIDAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse> GetAllSharedUserAccountsByUserIDAsync(int userId) {
+            UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest inValue = new UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDRequestBody();
+            inValue.Body.userId = userId;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllSharedUserAccountsByUserIDAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.ShareTheSettingAccount(UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccount(request);
+        }
+        
+        public bool ShareTheSettingAccount(int currentUserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest inValue = new UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).ShareTheSettingAccount(inValue);
+            return retVal.Body.ShareTheSettingAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.ShareTheSettingAccountAsync(UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest request) {
+            return base.Channel.ShareTheSettingAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.ShareTheSettingAccountResponse> ShareTheSettingAccountAsync(int currentUserID, UnitTestServices.GetTrackerServices.ServiceAccountDTO accountToShare, string shareUserName, bool owner) {
+            UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest inValue = new UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.ShareTheSettingAccountRequestBody();
+            inValue.Body.currentUserID = currentUserID;
+            inValue.Body.accountToShare = accountToShare;
+            inValue.Body.shareUserName = shareUserName;
+            inValue.Body.owner = owner;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).ShareTheSettingAccountAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.TestAccountResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.TestAccount(UnitTestServices.GetTrackerServices.TestAccountRequest request) {
+            return base.Channel.TestAccount(request);
+        }
+        
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO TestAccount(UnitTestServices.GetTrackerServices.ServiceAccountDTO accountForTest) {
+            UnitTestServices.GetTrackerServices.TestAccountRequest inValue = new UnitTestServices.GetTrackerServices.TestAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            UnitTestServices.GetTrackerServices.TestAccountResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).TestAccount(inValue);
+            return retVal.Body.TestAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.TestAccountResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.TestAccountAsync(UnitTestServices.GetTrackerServices.TestAccountRequest request) {
+            return base.Channel.TestAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.TestAccountResponse> TestAccountAsync(UnitTestServices.GetTrackerServices.ServiceAccountDTO accountForTest) {
+            UnitTestServices.GetTrackerServices.TestAccountRequest inValue = new UnitTestServices.GetTrackerServices.TestAccountRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.TestAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).TestAccountAsync(inValue);
         }
     }
 }

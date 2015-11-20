@@ -102,14 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\UserDAO.hbm.xml" />
-    <EmbeddedResource Include="Mapping\Issue.hbm.xml" />
     <EmbeddedResource Include="Mapping\ServiceAccountDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TemplateDAO.hbm.xml" />
     <EmbeddedResource Include="Mapping\TokenDAO.hbm.xml" />
     <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App.hibernate.cfg.xml">
@@ -134,25 +130,32 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AdapterInstanceFactory.cs" />
+    <Compile Include="Adapters\DatabaseAdapter.cs" />
     <Compile Include="Adapters\ExcelAdapter.cs" />
     <Compile Include="Adapters\GoogleSheetsAdapter.cs" />
+    <Compile Include="Adapters\IAdapterTest.cs" />
     <Compile Include="Adapters\TrelloManager.cs" />
     <Compile Include="Adapters\TrelloTask.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Converters\ConverterForSettings.cs" />
     <Compile Include="Converters\ConverterDomainToDAO.cs" />
     <Compile Include="Converters\ConverterDAOtoDomain.cs" />
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
-    <Compile Include="Adapters\DBAdapter.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="Converters\SettingsConverter.cs" />
     <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
     <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
-    <Compile Include="Domain\Settings Objects\ServiceAccount.cs" />
-    <Compile Include="Domain\Settings Objects\Template.cs" />
-    <Compile Include="Domain\Settings Objects\Token.cs" />
-    <Compile Include="Domain\Settings Objects\UserLink.cs" />
+    <Compile Include="Domain\Settings Objects\Common\IAccountTemplate.cs" />
+    <Compile Include="Domain\Settings Objects\Common\IAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\Common\IAccountTest.cs" />
+    <Compile Include="Domain\Settings Objects\Common\IAccountToken.cs" />
+    <Compile Include="Domain\Settings Objects\Common\ServiceAccount.cs" />
+    <Compile Include="Domain\Settings Objects\Common\SettingsManager.cs" />
+    <Compile Include="Domain\Settings Objects\Common\Template.cs" />
+    <Compile Include="Domain\Settings Objects\Common\Token.cs" />
+    <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\UserKey.cs" />
     <Compile Include="Domain\TaskKey.cs" />
@@ -162,7 +165,7 @@
     <Compile Include="DTO\Settings Objects\ServiceAccountDTO.cs" />
     <Compile Include="DTO\Settings Objects\TemplateDTO.cs" />
     <Compile Include="DTO\Settings Objects\TokenDTO.cs" />
-    <Compile Include="Temp\Issue.cs" />
+    <Compile Include="SessionFactory\ClientNHibernateSessionFactory.cs" />
     <Compile Include="DTO\TaskMainDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Domain\TaskMain.cs" />

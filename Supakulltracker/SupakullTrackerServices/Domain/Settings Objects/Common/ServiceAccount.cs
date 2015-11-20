@@ -15,6 +15,7 @@ namespace SupakullTrackerServices
         public virtual Sources Source { get; set; }
         public virtual IList<Template> MappingTemplates { get; set; }
         public virtual IList<Token> Tokens { get; set; }
+        public Boolean TestResult { get; set; }
     }
 }
 
