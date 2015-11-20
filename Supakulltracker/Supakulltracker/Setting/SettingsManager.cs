@@ -133,7 +133,7 @@ namespace Supakulltracker
                 case Sources.DataBase:
                     return new DatabaseAccountSettings();
                 case Sources.Trello:
-                    return null;
+                    return new TrelloAccountSettings();
                 case Sources.Excel:
                     return null;
                 case Sources.GoogleSheets:

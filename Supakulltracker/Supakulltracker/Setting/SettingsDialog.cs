@@ -17,6 +17,7 @@ namespace Supakulltracker
         private List<IAccountSettings> sharedUserAccounts;
 
         DBSettingDialog dbSetingDialog;
+        TrelloSettingDialog trelloSettingDialog;
 
 
         public SettingsDialog(UserProvider.UserDTO loggedUser)
@@ -27,6 +28,7 @@ namespace Supakulltracker
             this.sharedUserAccounts = loggedUser.GetAllSharedUserAccounts();
 
             dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
+            trelloSettingDialog = new TrelloSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
            
         }
 
@@ -39,6 +41,7 @@ namespace Supakulltracker
         private void trelloToolStripMenuItem_Click(object sender, EventArgs e)
         {
             splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(trelloSettingDialog);
         }
     }
 }

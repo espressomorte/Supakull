@@ -106,6 +106,13 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Setting\SettingsManager.cs" />
+    <Compile Include="Setting\TrelloAccountSettings.cs" />
+    <Compile Include="Setting\TrelloSettingDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\TrelloSettingDialog.designer.cs">
+      <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="Setting\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\TrelloSettingDialog.resx">
+      <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

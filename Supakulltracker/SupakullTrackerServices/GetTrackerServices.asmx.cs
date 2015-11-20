@@ -8,6 +8,7 @@ using NHibernate;
 using NHibernate.Linq;
 using System.Web.Services.Protocols;
 using TrelloManagerApp;
+using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -82,21 +83,21 @@ namespace SupakullTrackerServices
         private IList<ITask> GetAllTasksFromAdapterCollection(ICollection<IAdapter> adapters)
         {
             List<ITask> allTasksFromAdapterCollection = new List<ITask>();
-            foreach (IAdapter adapter in adapters)
+            Parallel.ForEach(adapters, a =>
             {
-                if (adapter is DatabaseAdapter)
+                if (a is DatabaseAdapter)
                 {
-                    allTasksFromAdapterCollection.AddRange(((DatabaseAdapter)adapter).GetAllTasks(272));
+                    allTasksFromAdapterCollection.AddRange(((DatabaseAdapter)a).GetAllTasks(272));
                 }
                 else
                 {
-                    allTasksFromAdapterCollection.AddRange(adapter.GetAllTasks());
+                    allTasksFromAdapterCollection.AddRange(a.GetAllTasks());
                 }
+            });
 
-            }
             allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
             return allTasksFromAdapterCollection;
-        }        
+        }
         #endregion
 
 
@@ -139,7 +140,7 @@ namespace SupakullTrackerServices
         {
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-            
+
             ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
@@ -320,7 +321,7 @@ namespace SupakullTrackerServices
 
 
         [WebMethod]
-        public ServiceAccountDTO TestAccount (ServiceAccountDTO accountForTest)
+        public ServiceAccountDTO TestAccount(ServiceAccountDTO accountForTest)
         {
             IAdapter currentAdapter = AdapterInstanceFactory.GetCurentAdapterInstance(accountForTest.Source);
             IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
