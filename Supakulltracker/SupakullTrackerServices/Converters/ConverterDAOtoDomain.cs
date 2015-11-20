@@ -135,7 +135,7 @@ namespace SupakullTrackerServices
 
         public static User UserDaoToUser(UserDAO userDAO)
         {
-            User user = new User(userDAO.UserId);
+            User user = new User(userDAO.ID,userDAO.UserId);
             return user;
         }
     }
