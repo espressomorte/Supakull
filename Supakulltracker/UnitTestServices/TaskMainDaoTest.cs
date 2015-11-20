@@ -68,8 +68,11 @@ namespace UnitTestServices
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(taskMainCollection, taskMatcher);
 
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDao(taskMainCollection);
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(taskMainCollection);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+
+            GetTrackerServices.GetTrackerServicesSoapClient services = new GetTrackerServices.GetTrackerServicesSoapClient();
+            GetTrackerServices.TaskMainDTO[] taskMainDTO = services.GetMatchedTasks("Task1", GetTrackerServices.Sources.DataBase);
         }
         
         [TestMethod]
@@ -232,11 +235,11 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(taskMainCollection, taskMatcher);
 
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDao(taskMainCollection);
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(taskMainCollection);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
 
-            GetTrackerServices services = new GetTrackerServices();
-            TaskMainDTO taskMainDTO = services.GetTask("Task1", Sources.DataBase);
+            GetTrackerServices.GetTrackerServicesSoapClient services = new GetTrackerServices.GetTrackerServicesSoapClient();
+            GetTrackerServices.TaskMainDTO[] taskMainDTO = services.GetMatchedTasks("Task1", GetTrackerServices.Sources.DataBase);
         }
     }
 }

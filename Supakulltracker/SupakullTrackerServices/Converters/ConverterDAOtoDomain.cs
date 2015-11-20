@@ -20,6 +20,7 @@ namespace SupakullTrackerServices
 
         public static IList<ITask> TaskMainDaoToTaskMain(IList<TaskMainDAO> TaskMainDaoCollection)
         {
+
             List<ITask> target = new List<ITask>();
             foreach (TaskMainDAO taskMainDAO in TaskMainDaoCollection)
             {
@@ -103,23 +104,23 @@ namespace SupakullTrackerServices
             return matchedTasks;
         }
 
-        public static IList<User> UserDaoToUser(IList<UserDAO> userDAO)
+        private static IList<User> UserDaoToUser(IList<UserDAO> userDAO)
         {
             IList<User> user = new List<User>();
             foreach (UserDAO item in userDAO)
             {
-                user.Add(UserDaoToUser(item));
+                user.Add(UserDaoToUserWithCheckingExistence(item));
             }
             return user;
         }
 
-        public static User UserDaoToUser(UserDAO userDAO)
+        private static User UserDaoToUserWithCheckingExistence(UserDAO userDAO)
         {
             UserKey userKey = userDAO.GetUserKey();
             User user = GetExistingUser(userKey);
             if (user == null)
             {
-                user = new User(userDAO.UserId);
+                user = UserDaoToUser(userDAO);
                 userCollection.Add(userKey, user);
             }
             return user;
@@ -127,9 +128,15 @@ namespace SupakullTrackerServices
 
         private static User GetExistingUser(UserKey userKey)
         {
-            User existedUserMain = null;
-            userCollection.TryGetValue(userKey, out existedUserMain);
-            return existedUserMain;
+            User existedUser = null;
+            userCollection.TryGetValue(userKey, out existedUser);
+            return existedUser;
+        }
+
+        public static User UserDaoToUser(UserDAO userDAO)
+        {
+            User user = new User(userDAO.UserId);
+            return user;
         }
 
         #region Converters For Settings

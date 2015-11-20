@@ -10,17 +10,17 @@ namespace SupakullTrackerServices
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static List<TaskMainDTO> TaskMainToTaskMainDtoCollection(IList<ITask> param)
+        public static List<TaskMainDTO> TaskMainToTaskMainDTO(IList<ITask> param)
         {
             List<TaskMainDTO> target = new List<TaskMainDTO>();
             foreach (ITask item in param)
             {
-                target.Add(TaskMainToTaskMainDtoSingle(item));
+                target.Add(TaskMainToTaskMainDTO(item));
             }
             return target;
         }
 
-        public static TaskMainDTO TaskMainToTaskMainDtoSingle(ITask param)
+        private static TaskMainDTO TaskMainToTaskMainDTO(ITask param)
         {
             TaskMainDTO target = new TaskMainDTO();
 
@@ -39,20 +39,21 @@ namespace SupakullTrackerServices
             target.CreatedBy = param.CreatedBy;
             target.Comments = param.Comments;
 
+
             if (param.TaskParent != null)
             {
-                target.TaskParent = TaskMainToTaskMainDtoSingle(param.TaskParent);
+                target.TaskParent = TaskMainToTaskMainDTO(param.TaskParent);
             }
 
             if (param.Assigned != null)
             {
-                target.Assigned = UserToUserDtoCollection(param.Assigned);
+                target.Assigned = UserToUserDTO(param.Assigned);
             }
 
             return target;
         }
 
-        public static List<UserDTO> UserToUserDtoCollection(IList<User> param)
+        private static List<UserDTO> UserToUserDTO(IList<User> param)
         {
             List<UserDTO> target = new List<UserDTO>();
 

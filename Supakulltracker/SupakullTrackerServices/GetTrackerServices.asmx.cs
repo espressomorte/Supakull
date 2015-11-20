@@ -35,17 +35,22 @@ namespace SupakullTrackerServices
             {
                 IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDaoCollection);
-                List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDtoCollection(taskMainCollection);
+                List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMainCollection);
                 return taskMainDtoCollection;
             }
         }
 
         [WebMethod]
-        public TaskMainDTO GetTask(string taskID, Sources linkToTracker)
+        public List<TaskMainDTO> GetMatchedTasks(string taskID, Sources linkToTracker)
         {
             TaskMainDAO taskMainDAO = TaskMainDAO.GetTaskFromDB(taskID, linkToTracker);
             ITask taskMain = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDAO);
-            TaskMainDTO taskMainDTO = ConverterDomainToDTO.TaskMainToTaskMainDtoSingle(taskMain);
+
+            List<ITask> matchedTasks = new List<ITask>();
+            matchedTasks.Add(taskMain);
+            matchedTasks.AddRange(taskMain.MatchedTasks);
+
+            List<TaskMainDTO> taskMainDTO = ConverterDomainToDTO.TaskMainToTaskMainDTO(matchedTasks);
             return taskMainDTO;
         }
 
@@ -59,7 +64,7 @@ namespace SupakullTrackerServices
             IMatchTasks taskMatcher = new MatchTasksById();
             TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
 
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDao(allTaskMainFromAdapters);
+            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTaskMainFromAdapters);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
         

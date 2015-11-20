@@ -18,7 +18,7 @@ namespace SupakullTrackerServices
             userDaoCollection = new Dictionary<UserKey, UserDAO>();
         }
 
-        public static IList<TaskMainDAO> TaskMainToTaskMainDao(IList<ITask> TaskMainCollection)
+        public static IList<TaskMainDAO> TaskMainToTaskMainDAO(IList<ITask> TaskMainCollection)
         {
             List<TaskMainDAO> target = new List<TaskMainDAO>();  
             foreach (ITask taskMain in TaskMainCollection)
@@ -29,7 +29,7 @@ namespace SupakullTrackerServices
             return target;
         }
 
-        public static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
+        private static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
         {            
             TaskMainDAO taskMainDAO = TaskMainToTaskMainDAOWithoutMatchedTasks(taskMain);
             if (taskMain.MatchedCount > 0)
@@ -70,7 +70,7 @@ namespace SupakullTrackerServices
 
                 if (taskMain.Assigned != null && taskMain.Assigned.Count > 0)
                 {
-                    taskMainDAO.Assigned = UserToUserDao(taskMain.Assigned);
+                    taskMainDAO.Assigned = UserToUserDAO(taskMain.Assigned);
                 }
 
                 taskMainDaoCollection.Add(taskKey, taskMainDAO);
@@ -103,17 +103,17 @@ namespace SupakullTrackerServices
             return matchedTasksDAO;
         }
 
-        public static IList<UserDAO> UserToUserDao(IList<User> user)
+        public static IList<UserDAO> UserToUserDAO(IList<User> user)
         {
             IList<UserDAO> userDAO = new List<UserDAO>();
             foreach (User item in user)
             {    
-                userDAO.Add(UserToUserDao(item));
+                userDAO.Add(UserToUserDAO(item));
             }
             return userDAO;
         }
 
-        private static UserDAO UserToUserDao(User user)
+        private static UserDAO UserToUserDAO(User user)
         {
             UserKey userKey = user.GetUserKey();
             UserDAO userDAO = GetExistingUserDAO(userKey);
@@ -127,9 +127,9 @@ namespace SupakullTrackerServices
 
         private static UserDAO GetExistingUserDAO(UserKey userKey)
         {
-            UserDAO existedUserMainDAO = null;
-            userDaoCollection.TryGetValue(userKey, out existedUserMainDAO);
-            return existedUserMainDAO;
+            UserDAO existedUserDAO = null;
+            userDaoCollection.TryGetValue(userKey, out existedUserDAO);
+            return existedUserDAO;
         }
     }
 }

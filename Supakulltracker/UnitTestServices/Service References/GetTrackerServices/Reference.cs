@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Supakulltracker.IssueService {
+namespace UnitTestServices.GetTrackerServices {
     using System.Runtime.Serialization;
     using System;
     
@@ -52,7 +52,7 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CreatedByField;
         
-        private Supakulltracker.IssueService.Sources LinkToTrackerField;
+        private UnitTestServices.GetTrackerServices.Sources LinkToTrackerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstimationField;
@@ -64,13 +64,13 @@ namespace Supakulltracker.IssueService {
         private string CommentsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.UserDTO[] AssignedField;
+        private UnitTestServices.GetTrackerServices.UserDTO[] AssignedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TaskMainDTO TaskParentField;
+        private UnitTestServices.GetTrackerServices.TaskMainDTO TaskParentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TaskMainDTO[] MatchedTasksField;
+        private UnitTestServices.GetTrackerServices.TaskMainDTO[] MatchedTasksField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -213,7 +213,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
-        public Supakulltracker.IssueService.Sources LinkToTracker {
+        public UnitTestServices.GetTrackerServices.Sources LinkToTracker {
             get {
                 return this.LinkToTrackerField;
             }
@@ -265,7 +265,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
-        public Supakulltracker.IssueService.UserDTO[] Assigned {
+        public UnitTestServices.GetTrackerServices.UserDTO[] Assigned {
             get {
                 return this.AssignedField;
             }
@@ -278,7 +278,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
-        public Supakulltracker.IssueService.TaskMainDTO TaskParent {
+        public UnitTestServices.GetTrackerServices.TaskMainDTO TaskParent {
             get {
                 return this.TaskParentField;
             }
@@ -291,7 +291,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
-        public Supakulltracker.IssueService.TaskMainDTO[] MatchedTasks {
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] MatchedTasks {
             get {
                 return this.MatchedTasksField;
             }
@@ -389,13 +389,13 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ServiceAccountNameField;
         
-        private Supakulltracker.IssueService.Sources SourceField;
+        private UnitTestServices.GetTrackerServices.Sources SourceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TemplateDTO[] MappingTemplatesField;
+        private UnitTestServices.GetTrackerServices.TemplateDTO[] MappingTemplatesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TokenDTO[] TokensField;
+        private UnitTestServices.GetTrackerServices.TokenDTO[] TokensField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -434,7 +434,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public Supakulltracker.IssueService.Sources Source {
+        public UnitTestServices.GetTrackerServices.Sources Source {
             get {
                 return this.SourceField;
             }
@@ -447,7 +447,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
-        public Supakulltracker.IssueService.TemplateDTO[] MappingTemplates {
+        public UnitTestServices.GetTrackerServices.TemplateDTO[] MappingTemplates {
             get {
                 return this.MappingTemplatesField;
             }
@@ -460,7 +460,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public Supakulltracker.IssueService.TokenDTO[] Tokens {
+        public UnitTestServices.GetTrackerServices.TokenDTO[] Tokens {
             get {
                 return this.TokensField;
             }
@@ -497,7 +497,7 @@ namespace Supakulltracker.IssueService {
         private string TemplateNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.MappingForSerialization[] MappingField;
+        private UnitTestServices.GetTrackerServices.MappingForSerialization[] MappingField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -536,7 +536,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
-        public Supakulltracker.IssueService.MappingForSerialization[] Mapping {
+        public UnitTestServices.GetTrackerServices.MappingForSerialization[] Mapping {
             get {
                 return this.MappingField;
             }
@@ -573,7 +573,7 @@ namespace Supakulltracker.IssueService {
         private string TokeneNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Supakulltracker.IssueService.TokenForSerialization[] TokensField;
+        private UnitTestServices.GetTrackerServices.TokenForSerialization[] TokensField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -612,7 +612,7 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Supakulltracker.IssueService.TokenForSerialization[] Tokens {
+        public UnitTestServices.GetTrackerServices.TokenForSerialization[] Tokens {
             get {
                 return this.TokensField;
             }
@@ -757,22 +757,22 @@ namespace Supakulltracker.IssueService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="IssueService.GetTrackerServicesSoap")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="GetTrackerServices.GetTrackerServicesSoap")]
     public interface GetTrackerServicesSoap {
         
         // CODEGEN: Generating message contract since element name GetAllTasksResult from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
-        Supakulltracker.IssueService.GetAllTasksResponse GetAllTasks(Supakulltracker.IssueService.GetAllTasksRequest request);
+        UnitTestServices.GetTrackerServices.GetAllTasksResponse GetAllTasks(UnitTestServices.GetTrackerServices.GetAllTasksRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllTasksResponse> GetAllTasksAsync(UnitTestServices.GetTrackerServices.GetAllTasksRequest request);
         
         // CODEGEN: Generating message contract since element name taskID from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
-        Supakulltracker.IssueService.GetMatchedTasksResponse GetMatchedTasks(Supakulltracker.IssueService.GetMatchedTasksRequest request);
+        UnitTestServices.GetTrackerServices.GetMatchedTasksResponse GetMatchedTasks(UnitTestServices.GetTrackerServices.GetMatchedTasksRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(Supakulltracker.IssueService.GetMatchedTasksRequest request);
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetMatchedTasksResponse> GetMatchedTasksAsync(UnitTestServices.GetTrackerServices.GetMatchedTasksRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
@@ -782,17 +782,17 @@ namespace Supakulltracker.IssueService {
         
         // CODEGEN: Generating message contract since element name GetAllUserAccountsByUserIDResult from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllUserAccountsByUserID", ReplyAction="*")]
-        Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse GetAllUserAccountsByUserID(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request);
+        UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse GetAllUserAccountsByUserID(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllUserAccountsByUserID", ReplyAction="*")]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request);
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest request);
         
         // CODEGEN: Generating message contract since element name GetUserAccountsByUserIDAndAccountIdResult from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
-        Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse GetUserAccountsByUserIDAndAccountId(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request);
+        UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse GetUserAccountsByUserIDAndAccountId(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserAccountsByUserIDAndAccountId", ReplyAction="*")]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request);
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -802,12 +802,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllTasksRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllTasks", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllTasksRequestBody Body;
+        public UnitTestServices.GetTrackerServices.GetAllTasksRequestBody Body;
         
         public GetAllTasksRequest() {
         }
         
-        public GetAllTasksRequest(Supakulltracker.IssueService.GetAllTasksRequestBody Body) {
+        public GetAllTasksRequest(UnitTestServices.GetTrackerServices.GetAllTasksRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -829,12 +829,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllTasksResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllTasksResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllTasksResponseBody Body;
+        public UnitTestServices.GetTrackerServices.GetAllTasksResponseBody Body;
         
         public GetAllTasksResponse() {
         }
         
-        public GetAllTasksResponse(Supakulltracker.IssueService.GetAllTasksResponseBody Body) {
+        public GetAllTasksResponse(UnitTestServices.GetTrackerServices.GetAllTasksResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -846,12 +846,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllTasksResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.TaskMainDTO[] GetAllTasksResult;
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] GetAllTasksResult;
         
         public GetAllTasksResponseBody() {
         }
         
-        public GetAllTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetAllTasksResult) {
+        public GetAllTasksResponseBody(UnitTestServices.GetTrackerServices.TaskMainDTO[] GetAllTasksResult) {
             this.GetAllTasksResult = GetAllTasksResult;
         }
     }
@@ -863,12 +863,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetMatchedTasksRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMatchedTasks", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetMatchedTasksRequestBody Body;
+        public UnitTestServices.GetTrackerServices.GetMatchedTasksRequestBody Body;
         
         public GetMatchedTasksRequest() {
         }
         
-        public GetMatchedTasksRequest(Supakulltracker.IssueService.GetMatchedTasksRequestBody Body) {
+        public GetMatchedTasksRequest(UnitTestServices.GetTrackerServices.GetMatchedTasksRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -883,12 +883,12 @@ namespace Supakulltracker.IssueService {
         public string taskID;
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-        public Supakulltracker.IssueService.Sources linkToTracker;
+        public UnitTestServices.GetTrackerServices.Sources linkToTracker;
         
         public GetMatchedTasksRequestBody() {
         }
         
-        public GetMatchedTasksRequestBody(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
+        public GetMatchedTasksRequestBody(string taskID, UnitTestServices.GetTrackerServices.Sources linkToTracker) {
             this.taskID = taskID;
             this.linkToTracker = linkToTracker;
         }
@@ -901,12 +901,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetMatchedTasksResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMatchedTasksResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetMatchedTasksResponseBody Body;
+        public UnitTestServices.GetTrackerServices.GetMatchedTasksResponseBody Body;
         
         public GetMatchedTasksResponse() {
         }
         
-        public GetMatchedTasksResponse(Supakulltracker.IssueService.GetMatchedTasksResponseBody Body) {
+        public GetMatchedTasksResponse(UnitTestServices.GetTrackerServices.GetMatchedTasksResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -918,12 +918,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetMatchedTasksResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasksResult;
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] GetMatchedTasksResult;
         
         public GetMatchedTasksResponseBody() {
         }
         
-        public GetMatchedTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasksResult) {
+        public GetMatchedTasksResponseBody(UnitTestServices.GetTrackerServices.TaskMainDTO[] GetMatchedTasksResult) {
             this.GetMatchedTasksResult = GetMatchedTasksResult;
         }
     }
@@ -935,12 +935,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllUserAccountsByUserIDRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody Body;
+        public UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequestBody Body;
         
         public GetAllUserAccountsByUserIDRequest() {
         }
         
-        public GetAllUserAccountsByUserIDRequest(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody Body) {
+        public GetAllUserAccountsByUserIDRequest(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -969,12 +969,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllUserAccountsByUserIDResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllUserAccountsByUserIDResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponseBody Body;
+        public UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponseBody Body;
         
         public GetAllUserAccountsByUserIDResponse() {
         }
         
-        public GetAllUserAccountsByUserIDResponse(Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponseBody Body) {
+        public GetAllUserAccountsByUserIDResponse(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -986,12 +986,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetAllUserAccountsByUserIDResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult;
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult;
         
         public GetAllUserAccountsByUserIDResponseBody() {
         }
         
-        public GetAllUserAccountsByUserIDResponseBody(Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult) {
+        public GetAllUserAccountsByUserIDResponseBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllUserAccountsByUserIDResult) {
             this.GetAllUserAccountsByUserIDResult = GetAllUserAccountsByUserIDResult;
         }
     }
@@ -1003,12 +1003,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetUserAccountsByUserIDAndAccountIdRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUserAccountsByUserIDAndAccountId", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody Body;
+        public UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequestBody Body;
         
         public GetUserAccountsByUserIDAndAccountIdRequest() {
         }
         
-        public GetUserAccountsByUserIDAndAccountIdRequest(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody Body) {
+        public GetUserAccountsByUserIDAndAccountIdRequest(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -1041,12 +1041,12 @@ namespace Supakulltracker.IssueService {
     public partial class GetUserAccountsByUserIDAndAccountIdResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUserAccountsByUserIDAndAccountIdResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponseBody Body;
+        public UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponseBody Body;
         
         public GetUserAccountsByUserIDAndAccountIdResponse() {
         }
         
-        public GetUserAccountsByUserIDAndAccountIdResponse(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponseBody Body) {
+        public GetUserAccountsByUserIDAndAccountIdResponse(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -1058,23 +1058,23 @@ namespace Supakulltracker.IssueService {
     public partial class GetUserAccountsByUserIDAndAccountIdResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult;
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult;
         
         public GetUserAccountsByUserIDAndAccountIdResponseBody() {
         }
         
-        public GetUserAccountsByUserIDAndAccountIdResponseBody(Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult) {
+        public GetUserAccountsByUserIDAndAccountIdResponseBody(UnitTestServices.GetTrackerServices.ServiceAccountDTO GetUserAccountsByUserIDAndAccountIdResult) {
             this.GetUserAccountsByUserIDAndAccountIdResult = GetUserAccountsByUserIDAndAccountIdResult;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface GetTrackerServicesSoapChannel : Supakulltracker.IssueService.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
+    public interface GetTrackerServicesSoapChannel : UnitTestServices.GetTrackerServices.GetTrackerServicesSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetTrackerServicesSoapClient : System.ServiceModel.ClientBase<Supakulltracker.IssueService.GetTrackerServicesSoap>, Supakulltracker.IssueService.GetTrackerServicesSoap {
+    public partial class GetTrackerServicesSoapClient : System.ServiceModel.ClientBase<UnitTestServices.GetTrackerServices.GetTrackerServicesSoap>, UnitTestServices.GetTrackerServices.GetTrackerServicesSoap {
         
         public GetTrackerServicesSoapClient() {
         }
@@ -1096,53 +1096,53 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Supakulltracker.IssueService.GetAllTasksResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllTasks(Supakulltracker.IssueService.GetAllTasksRequest request) {
+        UnitTestServices.GetTrackerServices.GetAllTasksResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllTasks(UnitTestServices.GetTrackerServices.GetAllTasksRequest request) {
             return base.Channel.GetAllTasks(request);
         }
         
-        public Supakulltracker.IssueService.TaskMainDTO[] GetAllTasks() {
-            Supakulltracker.IssueService.GetAllTasksRequest inValue = new Supakulltracker.IssueService.GetAllTasksRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllTasksRequestBody();
-            Supakulltracker.IssueService.GetAllTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasks(inValue);
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] GetAllTasks() {
+            UnitTestServices.GetTrackerServices.GetAllTasksRequest inValue = new UnitTestServices.GetTrackerServices.GetAllTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllTasksRequestBody();
+            UnitTestServices.GetTrackerServices.GetAllTasksResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllTasks(inValue);
             return retVal.Body.GetAllTasksResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request) {
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllTasksResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllTasksAsync(UnitTestServices.GetTrackerServices.GetAllTasksRequest request) {
             return base.Channel.GetAllTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync() {
-            Supakulltracker.IssueService.GetAllTasksRequest inValue = new Supakulltracker.IssueService.GetAllTasksRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllTasksRequestBody();
-            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllTasksResponse> GetAllTasksAsync() {
+            UnitTestServices.GetTrackerServices.GetAllTasksRequest inValue = new UnitTestServices.GetTrackerServices.GetAllTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllTasksRequestBody();
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Supakulltracker.IssueService.GetMatchedTasksResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetMatchedTasks(Supakulltracker.IssueService.GetMatchedTasksRequest request) {
+        UnitTestServices.GetTrackerServices.GetMatchedTasksResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetMatchedTasks(UnitTestServices.GetTrackerServices.GetMatchedTasksRequest request) {
             return base.Channel.GetMatchedTasks(request);
         }
         
-        public Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasks(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
-            Supakulltracker.IssueService.GetMatchedTasksRequest inValue = new Supakulltracker.IssueService.GetMatchedTasksRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetMatchedTasksRequestBody();
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] GetMatchedTasks(string taskID, UnitTestServices.GetTrackerServices.Sources linkToTracker) {
+            UnitTestServices.GetTrackerServices.GetMatchedTasksRequest inValue = new UnitTestServices.GetTrackerServices.GetMatchedTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetMatchedTasksRequestBody();
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
-            Supakulltracker.IssueService.GetMatchedTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasks(inValue);
+            UnitTestServices.GetTrackerServices.GetMatchedTasksResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetMatchedTasks(inValue);
             return retVal.Body.GetMatchedTasksResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetMatchedTasksAsync(Supakulltracker.IssueService.GetMatchedTasksRequest request) {
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetMatchedTasksResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetMatchedTasksAsync(UnitTestServices.GetTrackerServices.GetMatchedTasksRequest request) {
             return base.Channel.GetMatchedTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
-            Supakulltracker.IssueService.GetMatchedTasksRequest inValue = new Supakulltracker.IssueService.GetMatchedTasksRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetMatchedTasksRequestBody();
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetMatchedTasksResponse> GetMatchedTasksAsync(string taskID, UnitTestServices.GetTrackerServices.Sources linkToTracker) {
+            UnitTestServices.GetTrackerServices.GetMatchedTasksRequest inValue = new UnitTestServices.GetTrackerServices.GetMatchedTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetMatchedTasksRequestBody();
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
-            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
         }
         
         public void Update() {
@@ -1154,55 +1154,55 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllUserAccountsByUserID(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request) {
+        UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllUserAccountsByUserID(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest request) {
             return base.Channel.GetAllUserAccountsByUserID(request);
         }
         
-        public Supakulltracker.IssueService.ServiceAccountDTO[] GetAllUserAccountsByUserID(int userId) {
-            Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO[] GetAllUserAccountsByUserID(int userId) {
+            UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest inValue = new UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequestBody();
             inValue.Body.userId = userId;
-            Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserID(inValue);
+            UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserID(inValue);
             return retVal.Body.GetAllUserAccountsByUserIDResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetAllUserAccountsByUserIDAsync(Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest request) {
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetAllUserAccountsByUserIDAsync(UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest request) {
             return base.Channel.GetAllUserAccountsByUserIDAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(int userId) {
-            Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest inValue = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetAllUserAccountsByUserIDRequestBody();
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDResponse> GetAllUserAccountsByUserIDAsync(int userId) {
+            UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest inValue = new UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetAllUserAccountsByUserIDRequestBody();
             inValue.Body.userId = userId;
-            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserIDAsync(inValue);
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllUserAccountsByUserIDAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountId(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request) {
+        UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountId(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest request) {
             return base.Channel.GetUserAccountsByUserIDAndAccountId(request);
         }
         
-        public Supakulltracker.IssueService.ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(int userId, int seviceAccountId) {
-            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
+        public UnitTestServices.GetTrackerServices.ServiceAccountDTO GetUserAccountsByUserIDAndAccountId(int userId, int seviceAccountId) {
+            UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest inValue = new UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequestBody();
             inValue.Body.userId = userId;
             inValue.Body.seviceAccountId = seviceAccountId;
-            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountId(inValue);
+            UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountId(inValue);
             return retVal.Body.GetUserAccountsByUserIDAndAccountIdResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountIdAsync(Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest request) {
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.GetUserAccountsByUserIDAndAccountIdAsync(UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest request) {
             return base.Channel.GetUserAccountsByUserIDAndAccountIdAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(int userId, int seviceAccountId) {
-            Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest inValue = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequest();
-            inValue.Body = new Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdRequestBody();
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdResponse> GetUserAccountsByUserIDAndAccountIdAsync(int userId, int seviceAccountId) {
+            UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest inValue = new UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.GetUserAccountsByUserIDAndAccountIdRequestBody();
             inValue.Body.userId = userId;
             inValue.Body.seviceAccountId = seviceAccountId;
-            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountIdAsync(inValue);
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetUserAccountsByUserIDAndAccountIdAsync(inValue);
         }
     }
 }
