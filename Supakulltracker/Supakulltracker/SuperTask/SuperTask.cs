@@ -9,63 +9,62 @@ namespace Supakulltracker
 {
     public class SuperTask: INotifyPropertyChanged
     {
+        #region Fields
+        private string multipleValuesMessage = "<Multiple Values>";
+
         private string[] subtaskTypes;
         private string[] summaries;
-        
-        public string SubtaskType
-        {
-            get
-            {
-                return CanGetSingleSubtaskType ? subtaskTypes[0] : "<Multiple Values>";
-            }
-        }
+        private string[] descriptions;
+        private string[] statuses;
+        private string[] priorities;
+        private string[] products;
+        private string[] projects;
+        private string[] createdDates;
+        private string[] createdBy;
+        private IssueService.Sources[] linkToTrackers;
+        private string[] estimations;
+        private string[] targetVersions;
+        private string[] comments;
+        private IssueService.UserDTO[][] assigneds;
+        private IssueService.TaskMainDTO[] taskParents;
+        #endregion
 
-        public string Summary
-        {
-            get
-            {
-                return CanGetSingleSummary ? summaries[0] : "<Multiple Values>";
-            }
-        }
+        #region Properties
+        public string SubtaskType { get; private set; }
+        public string Summary { get; private set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public string Priority { get; set; }
+        public string Product { get; set; }
+        public string Project { get; set; }
+        public string CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public IssueService.Sources LinkToTracker { get; set; }
+        public string Estimation { get; set; }
+        public string TargetVersion { get; set; }
+        public string Comments { get; set; }
+        public IssueService.UserDTO[] Assigned { get; set; }
+        public IssueService.TaskMainDTO TaskParent { get; set; }
+        #endregion
 
-        public bool CanGetSingleSubtaskType { get; private set; }
-        public bool CanGetSingleSummary { get; private set; }
-
-        public void Refresh()
-        {
-            InvokePropertyChanged(new PropertyChangedEventArgs( nameof(this.SubtaskType) ));
-        }
-
-        /// <summary>
-        /// todo: should be replaced with Task collection property, it would copy fields appropriately 
-        /// </summary>
-        public string[] MultipleSubtaskTypes
-        {
-            set
-            {
-                subtaskTypes = value;
-                CanGetSingleSubtaskType = ValuesAreTheSame(subtaskTypes);
-                InvokePropertyChanged(new PropertyChangedEventArgs("ID"));
-            }
-        }
-
-        /// <summary>
-        /// todo: should be replaced with Task collection property, it would copy fields appropriately 
-        /// </summary>
-        public string[] MultipleSummaries
-        {
-            set
-            {
-                summaries = value;
-                CanGetSingleSummary = ValuesAreTheSame(summaries);
-                InvokePropertyChanged(new PropertyChangedEventArgs("Summary"));
-            }
-        }
-         
         public SuperTask(ICollection<IssueService.TaskMainDTO> matchedTasks)
         {
             subtaskTypes = new string[matchedTasks.Count];
             summaries = new string[matchedTasks.Count];
+            descriptions = new string[matchedTasks.Count];
+            statuses = new string[matchedTasks.Count];
+            priorities = new string[matchedTasks.Count];
+            products = new string[matchedTasks.Count];
+            projects = new string[matchedTasks.Count];
+            createdDates = new string[matchedTasks.Count];
+            createdBy = new string[matchedTasks.Count];
+            linkToTrackers = new IssueService.Sources[matchedTasks.Count];
+            estimations = new string[matchedTasks.Count];
+            targetVersions = new string[matchedTasks.Count];
+            comments = new string[matchedTasks.Count];
+            //assigneds = 
+            taskParents = new IssueService.TaskMainDTO[matchedTasks.Count];
+
             int arrayCount = 0;
 
             foreach (IssueService.TaskMainDTO task in matchedTasks)
@@ -75,8 +74,18 @@ namespace Supakulltracker
                 arrayCount++;
             }
 
-            CanGetSingleSubtaskType = ValuesAreTheSame(subtaskTypes);
-            CanGetSingleSummary = ValuesAreTheSame(summaries);
+            FillSuperTaskProperties();
+        }
+
+        private void FillSuperTaskProperties()
+        {
+            SubtaskType = ValuesAreTheSame(subtaskTypes) ? subtaskTypes[0] : multipleValuesMessage;
+            Summary = ValuesAreTheSame(summaries) ? summaries[0] : multipleValuesMessage;
+        }
+
+        public void InvokePropertyChanged()
+        {
+            InvokePropertyChanged(new PropertyChangedEventArgs(nameof(this.SubtaskType)));
         }
 
         private static bool ValuesAreTheSame(string[] values)
@@ -93,7 +102,7 @@ namespace Supakulltracker
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void InvokePropertyChanged(PropertyChangedEventArgs e)
+        private void InvokePropertyChanged(PropertyChangedEventArgs e)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, e);

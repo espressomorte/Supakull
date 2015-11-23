@@ -12,18 +12,14 @@ namespace Supakulltracker
 {
     public partial class SuperTaskControl: UserControl
     {
-        public SuperTaskControl()
+        public SuperTaskControl(SuperTask superTask)
         {
             InitializeComponent();
-        }
 
-        public SuperTask SuperTask
-        {
-            set
-            {
-                this.SubtaskType.DataBindings.Add("Text", value, nameof(value.SubtaskType));
-                this.TaskSummary.DataBindings.Add("Text", value, nameof(value.Summary));
-            }
+            this.SubtaskType.DataBindings.Add("Text", superTask, nameof(superTask.SubtaskType));
+            this.TaskSummary.DataBindings.Add("Text", superTask, nameof(superTask.Summary));
+
+            superTask.InvokePropertyChanged();
         }
     }
 }
