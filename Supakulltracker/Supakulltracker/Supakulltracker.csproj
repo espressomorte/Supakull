@@ -113,6 +113,13 @@
     <Compile Include="Setting\TrelloSettingDialog.designer.cs">
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SuperTask\SuperTask.cs" />
+    <Compile Include="SuperTask\SuperTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SuperTask\SuperTaskControl.designer.cs">
+      <DependentUpon>SuperTaskControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\TrelloSettingDialog.resx">
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperTask\SuperTaskControl.resx">
+      <DependentUpon>SuperTaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
