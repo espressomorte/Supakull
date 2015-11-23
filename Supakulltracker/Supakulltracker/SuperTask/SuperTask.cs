@@ -28,22 +28,12 @@ namespace Supakulltracker
             }
         }
 
-        public bool CanGetSingleSubtaskType { get; set; }
-        public bool CanGetSingleSummary { get; set; }
+        public bool CanGetSingleSubtaskType { get; private set; }
+        public bool CanGetSingleSummary { get; private set; }
 
-        public IEnumerable<IssueService.TaskMainDTO> Task
+        public void Refresh()
         {
-            set
-            {
-                foreach (IssueService.TaskMainDTO taskMainDTO in value)
-                {
-
-                }
-
-                subtaskTypes = value;
-                CanGetSingleSubtaskType = ValuesAreTheSame(subtaskTypes);
-                InvokePropertyChanged(new PropertyChangedEventArgs("ID"));
-            }
+            InvokePropertyChanged(new PropertyChangedEventArgs( nameof(this.SubtaskType) ));
         }
 
         /// <summary>
@@ -70,6 +60,23 @@ namespace Supakulltracker
                 CanGetSingleSummary = ValuesAreTheSame(summaries);
                 InvokePropertyChanged(new PropertyChangedEventArgs("Summary"));
             }
+        }
+         
+        public SuperTask(ICollection<IssueService.TaskMainDTO> matchedTasks)
+        {
+            subtaskTypes = new string[matchedTasks.Count];
+            summaries = new string[matchedTasks.Count];
+            int arrayCount = 0;
+
+            foreach (IssueService.TaskMainDTO task in matchedTasks)
+            {
+                subtaskTypes[arrayCount] = task.SubtaskType;
+                summaries[arrayCount] = task.Summary;
+                arrayCount++;
+            }
+
+            CanGetSingleSubtaskType = ValuesAreTheSame(subtaskTypes);
+            CanGetSingleSummary = ValuesAreTheSame(summaries);
         }
 
         private static bool ValuesAreTheSame(string[] values)

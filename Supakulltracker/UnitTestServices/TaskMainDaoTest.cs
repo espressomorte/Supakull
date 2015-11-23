@@ -157,7 +157,7 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
             ITask taskMain1 = new TaskMain()
             {
                 TaskID = "Task1",
-                SubtaskType = "fhdhfd",
+                SubtaskType = "1fhdhfd",
                 Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"3MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode
 Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
@@ -181,7 +181,7 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
             {
                 TaskID = "Task1",
                 SubtaskType = "fhdhfd",
-                Summary = "5MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
+                Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"2MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read modePedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
 Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - 
 Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
@@ -203,7 +203,7 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
             {
                 TaskID = "Task1",
                 SubtaskType = "fhdhfd",
-                Summary = "6MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
+                Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"1MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode
 Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
 Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - 
