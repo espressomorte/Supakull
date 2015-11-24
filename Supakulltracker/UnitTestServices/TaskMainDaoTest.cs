@@ -151,7 +151,7 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
                 TargetVersion = "563k43276",
                 Comments = "3Pedigree chart - Duplication of patients after press",
                 TaskParent = null,
-                Assigned = assigned2
+                Assigned = null
             };
 
             ITask taskMain1 = new TaskMain()
