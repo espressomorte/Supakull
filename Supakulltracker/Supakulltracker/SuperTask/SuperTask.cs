@@ -11,7 +11,7 @@ namespace Supakulltracker
     public class SuperTask: INotifyPropertyChanged
     {
         #region Fields
-        private string multipleValuesMessage = "<Multiple Values>";
+        private static string multipleValuesMessage = "<Multiple Values>";
 
         private string[] subtaskTypes;
         private string[] summaries;
@@ -111,26 +111,52 @@ namespace Supakulltracker
         }
 
 
-        private string GetSingleValue(string[] values)
+        private static string GetSingleValue(string[] values)
         {
-            return ValuesAreTheSame(values) ? values[0] : multipleValuesMessage;
+            string singleValue = multipleValuesMessage;
+            if (ValuesAreTheSame(values))
+            {
+                singleValue = null;
+                foreach (string value in values)
+                {
+                    if (value != null)
+                    {
+                        singleValue = value;
+                        break;
+                    }
+                }
+            }            
+            return singleValue;
         }
 
-        private bool ValuesAreTheSame(string[] values)
+        private static bool ValuesAreTheSame(string[] values)
         {
-            string firstVal = values[0];
-            for(int i = 1; i <  values.Length; i++)
+            int indexFirstVal = 0;
+            while (values[indexFirstVal] == null && indexFirstVal < values.Length - 2)
             {
-                if (firstVal != values[i])
+                indexFirstVal++;
+            }
+            string firstVal = values[indexFirstVal];
+
+            for (int indexSecondVal = indexFirstVal + 1; indexSecondVal < values.Length; indexSecondVal++)
+            {
+                string secondVal = values[indexSecondVal];
+                if (firstVal != null && secondVal != null)
                 {
-                    return false;
+                    char[] trimers = new char[] { ' ', ',', '.' };
+                    firstVal = firstVal.Trim(trimers);
+                    secondVal = secondVal.Trim(trimers);
+                    if (!string.Equals(firstVal, secondVal, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return false;
+                    }                    
                 }
             }
             return true;
         }
 
 
-        private string GetSingleValue(Sources[] values)
+        private static string GetSingleValue(Sources[] values)
         {
             string[] stringValues = new string[values.Length];
             for (int i = 0; i < values.Length; i++)
@@ -141,58 +167,104 @@ namespace Supakulltracker
         }
         
 
-        private string GetSingleValue(UserDTO[][] values)
-        {            
+        private static string GetSingleValue(UserDTO[][] values)
+        {
+            string singleValue = multipleValuesMessage;
             if (ValuesAreTheSame(values))
             {
-                string[] stringValues = new string[values[0].Length];
-                for (int i = 0; i < values[0].Length; i++)
+                singleValue = null;
+                foreach (UserDTO[] usersDTO in values)
                 {
-                    stringValues[i] = values[0][i].UserLogin;
+                    if (usersDTO.Length > 0)
+                    {
+                        string[] userLogins = new string[usersDTO.Length];
+                        for (int i = 0; i < usersDTO.Length; i++)
+                        {
+                            userLogins[i] = usersDTO[i].UserLogin;
+                        }
+                        singleValue = string.Join(", ", userLogins);
+                        break;
+                    }
                 }
-                return string.Join(", ", stringValues);
             }
-            return multipleValuesMessage;
+            return singleValue;
         }
 
-        private bool ValuesAreTheSame(UserDTO[][] values)
+        private static bool ValuesAreTheSame(UserDTO[][] values)
         {
-            UserDTO[] firstArray = values[0];
-            for (int i = 1; i < values.Length; i++)
+            int indexFirstArray = 0;
+            while (values[indexFirstArray].Length == 0 && indexFirstArray < values.Length - 2)
             {
-                UserDTO[] secondArray = values[i];
-                for(int n = 0; n < firstArray.Length; n++)
+                indexFirstArray++;
+            }
+            UserDTO[] firstArray = values[indexFirstArray];
+
+            for (int indexSecondArray = indexFirstArray + 1; indexSecondArray < values.Length; indexSecondArray++)
+            {
+                UserDTO[] secondArray = values[indexSecondArray];
+                if ( firstArray.Length > 0 && secondArray.Length > 0 &&
+                    (!FirstArrayIsInSecond(firstArray, secondArray) || !FirstArrayIsInSecond(secondArray, firstArray)) )
                 {
-                    bool valueFromFirstArrayIsInSecond = false;
-                    for (int m = 0; m < secondArray.Length; m++)
-                    {
-                        valueFromFirstArrayIsInSecond = firstArray[n].UserLogin.Equals(secondArray[m].UserLogin);
-                        if (valueFromFirstArrayIsInSecond)
-                        {
-                            break;
-                        }
-                    }
-                    if(!valueFromFirstArrayIsInSecond)
-                    {
-                        return false;
-                    }
-                }                
+                    return false;
+                }
             }
             return true;
         }
 
-
-        private string GetSingleValue(TaskMainDTO[] values)
+        private static bool FirstArrayIsInSecond(UserDTO[] firstArray, UserDTO[] secondArray)
         {
-            return ValuesAreTheSame(values) ? values[0].TaskID : multipleValuesMessage;
+            for (int n = 0; n < firstArray.Length; n++)
+            {
+                bool valueFromFirstArrayIsInSecond = false;
+                for (int m = 0; m < secondArray.Length; m++)
+                {
+                    valueFromFirstArrayIsInSecond = firstArray[n].UserLogin.Equals(secondArray[m].UserLogin);
+                    if (valueFromFirstArrayIsInSecond)
+                    {
+                        break;
+                    }
+                }
+                if (!valueFromFirstArrayIsInSecond)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+
+        private static string GetSingleValue(TaskMainDTO[] values)
+        {
+            string singleValue = multipleValuesMessage;
+            if (ValuesAreTheSame(values))
+            {
+                singleValue = null;
+                foreach (TaskMainDTO task in values)
+                {
+                    if (task != null)
+                    {
+                        singleValue = task.TaskID;
+                        break;
+                    }
+                }
+            }
+            return singleValue;
         }
 
-        private bool ValuesAreTheSame(TaskMainDTO[] values)
+        private static bool ValuesAreTheSame(TaskMainDTO[] values)
         {
-            TaskMainDTO firstVal = values[0];
-            for (int i = 1; i < values.Length; i++)
+            int indexFirstVal = 0;
+            while (values[indexFirstVal] == null && indexFirstVal < values.Length - 2)
             {
-                if (firstVal.TaskID != values[i].TaskID)
+                indexFirstVal++;
+            }
+            TaskMainDTO firstVal = values[indexFirstVal];
+
+            for (int indexSecondVal = indexFirstVal + 1; indexSecondVal < values.Length; indexSecondVal++)
+            {
+                TaskMainDTO secondVal = values[indexSecondVal];
+                if (firstVal != null && secondVal != null &&
+                    !string.Equals(firstVal.TaskID, secondVal.TaskID, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return false;
                 }

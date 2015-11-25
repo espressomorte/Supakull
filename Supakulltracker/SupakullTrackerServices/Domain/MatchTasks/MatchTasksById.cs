@@ -9,7 +9,7 @@ namespace SupakullTrackerServices
     {
         public bool Match(ITask taskA, ITask taskB)
         {
-            return string.Equals(taskA.TaskID, taskB.TaskID, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(taskA.TaskID, taskB.TaskID, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }
