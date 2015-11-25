@@ -62,13 +62,11 @@ namespace Supakulltracker
             IssueService.GetTrackerServicesSoapClient service = new IssueService.GetTrackerServicesSoapClient();
             ICollection<IssueService.TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.LinkToTracker);
             SuperTask superTask = new SuperTask(matchedTasks);
-            SuperTaskControl newSuperTaskControl = new SuperTaskControl(superTask);
 
             var detail = new DetailPanel();
             detail.Dock = DockStyle.Fill;
-            detail.Fill(task);
-            //newTabPage.Controls.Add(detail);
-            newTabPage.Controls.Add(newSuperTaskControl);
+            detail.Fill(superTask);
+            newTabPage.Controls.Add(detail);
             taskDetailTabControl.TabPages.Add(newTabPage);
             taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
         }

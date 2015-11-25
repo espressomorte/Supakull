@@ -12,7 +12,6 @@ namespace Supakulltracker
     {
         #region Fields
         private static string multipleValuesMessage = "<Multiple Values>";
-
         private string[] subtaskTypes;
         private string[] summaries;
         private string[] descriptions;
@@ -31,6 +30,7 @@ namespace Supakulltracker
         #endregion 
 
         #region Properties
+        public string TaskID { get; private set; }
         public string SubtaskType { get; private set; }
         public string Summary { get; private set; }
         public string Description { get; set; }
@@ -50,6 +50,7 @@ namespace Supakulltracker
 
         public SuperTask(ICollection<TaskMainDTO> matchedTasks)
         {
+            TaskID = matchedTasks.First<TaskMainDTO>().TaskID;
             subtaskTypes = new string[matchedTasks.Count];
             summaries = new string[matchedTasks.Count];
             descriptions = new string[matchedTasks.Count];
@@ -93,6 +94,7 @@ namespace Supakulltracker
 
         private void FillSuperTaskProperties()
         {
+            TaskID = 
             SubtaskType = GetSingleValue(subtaskTypes);
             Summary = GetSingleValue(summaries);
             Description = GetSingleValue(descriptions);
