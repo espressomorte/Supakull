@@ -51,8 +51,7 @@ namespace Supakulltracker
 
         private SuperTask()
         {
-            ResourceManager rm = new ResourceManager("Strings", typeof(SuperTask).Assembly);
-            this.multipleValuesMessage = rm.GetString("multipleValuesMessage");
+            this.multipleValuesMessage = Properties.Resources.multipleValuesMessage;
         }
 
         public SuperTask(ICollection<TaskMainDTO> matchedTasks) : this()
