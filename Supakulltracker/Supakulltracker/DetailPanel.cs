@@ -22,26 +22,8 @@ namespace Supakulltracker
         {
 
         }
-        internal void Fill(TaskMainDTO task)
-        {
-            this.textBoxTaskID.Text = task.TaskID;
-            this.textBoxSubtaskType.Text = task.SubtaskType;
-            this.textBoxSummary.Text = task.Summary;
-            this.textBoxDescription.Text = task.Description;
-            this.textBoxStatus.Text = task.Status;
-            this.textBoxPriority.Text = task.Priority;
-            this.textBoxProduct.Text = task.Product;
-            this.textBoxProject.Text = task.Project;
-            this.textBoxCreatedDate.Text = task.CreatedDate;
-            this.textBoxCreatedBy.Text = task.CreatedBy;
-            this.linkLabelLinkToTracker.Text = task.LinkToTracker.ToString();
-            this.textBoxEstimation.Text = task.Estimation;
-            this.textBoxTargetVersion.Text = task.TargetVersion;
-            this.textBoxComments.Text = task.Comments;
-            this.textBoxAssigned.Text = task.Assigned.ToString();
-        }
 
-        internal void Fill(SuperTask superTask)
+        internal void Bind(SuperTask superTask)
         {
             this.textBoxTaskID.DataBindings.Add("Text", superTask, nameof(superTask.TaskID));
             this.textBoxSubtaskType.DataBindings.Add("Text", superTask, nameof(superTask.SubtaskType));
@@ -58,6 +40,5 @@ namespace Supakulltracker
             this.textBoxComments.DataBindings.Add("Text", superTask, nameof(superTask.Comments));
             this.textBoxAssigned.DataBindings.Add("Text", superTask, nameof(superTask.Assigned));
         }
-
     }
 }

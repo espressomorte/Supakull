@@ -65,7 +65,7 @@ namespace Supakulltracker
 
             var detail = new DetailPanel();
             detail.Dock = DockStyle.Fill;
-            detail.Fill(superTask);
+            detail.Bind(superTask);
             newTabPage.Controls.Add(detail);
             taskDetailTabControl.TabPages.Add(newTabPage);
             taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
@@ -74,7 +74,7 @@ namespace Supakulltracker
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsDialog setingDialog = new SettingsDialog(AuthorizationResult.AuthorizedUser);
-            setingDialog.Show();
+            setingDialog.ShowDialog();
         }
     }
 }
