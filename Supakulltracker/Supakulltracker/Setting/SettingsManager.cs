@@ -135,7 +135,7 @@ namespace Supakulltracker
                 case Sources.Trello:
                     return new TrelloAccountSettings();
                 case Sources.Excel:
-                    return null;
+                    return new ExcelAccountSettings();
                 case Sources.GoogleSheets:
                     return null;
                 default:

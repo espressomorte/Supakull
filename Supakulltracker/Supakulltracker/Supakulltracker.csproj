@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -96,6 +99,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Setting\ExcelAccountSettings.cs" />
+    <Compile Include="Setting\ExcelSettingsDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\ExcelSettingsDialog.designer.cs">
+      <DependentUpon>ExcelSettingsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\IAccountSettings.cs" />
     <Compile Include="Setting\IAccountTemplate.cs" />
     <Compile Include="Setting\IAccountToken.cs" />
@@ -135,6 +145,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Setting\ExcelSettingsDialog.resx">
+      <DependentUpon>ExcelSettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Setting\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>

@@ -74,8 +74,8 @@ namespace SupakullTrackerServices
         {
             ICollection<IAdapter> adapters = new List<IAdapter>();
             adapters.Add(new DatabaseAdapter());
-            adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
-            adapters.Add(new GoogleSheetsAdapter());
+            //adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
+            //adapters.Add(new GoogleSheetsAdapter());
             adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
             return adapters;
         }

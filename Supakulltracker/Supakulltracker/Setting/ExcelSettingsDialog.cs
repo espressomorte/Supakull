@@ -1,0 +1,708 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Supakulltracker.IssueService;
+using Supakulltracker.UserProvider;
+
+using System.IO;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+
+namespace Supakulltracker
+{
+    public partial class ExcelSettingsDialog : UserControl
+    {
+        private UserProvider.UserDTO loggedUser;
+        private List<IAccountSettings> userExcelAccounts;
+        private List<IAccountSettings> sharedUserExcelAccounts;
+
+        private ExcelAccountSettings userExcelFullAccount;
+        private ExcelAccountSettings newAccountSetting;
+        private ExcelAccountToken newToken;
+
+        public ExcelSettingsDialog(UserProvider.UserDTO user, List<IAccountSettings> accounts, List<IAccountSettings> sharedAccounts)
+        {
+            InitializeComponent();
+            this.loggedUser = user;
+            this.userExcelAccounts = SettingsManager.GetAllUserAccountsInSource(accounts, Sources.Excel);
+            this.sharedUserExcelAccounts = SettingsManager.GetAllUserAccountsInSource(sharedAccounts, Sources.Excel);
+            PrepareDialog();
+        }
+
+        private void PrepareDialog()
+        {
+            foreach (var item in userExcelAccounts)
+            {
+                cmbAccounts.Items.Add(item.Name);
+            }
+
+            this.Dock = DockStyle.Fill;
+            this.Show();
+        }
+
+        #region Account
+
+        private void cmbAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbAccounts.SelectedItem != null)
+            {
+                groupBoxTokens.Visible = true;
+                comboBox_shared.SelectedItem = null;
+                btn_delete_account.Enabled = true;
+                btn_share_account.Enabled = true;
+                grpBox_Connect_setting.Hide();
+
+                GetSelectedAccountAndFillTokensToControl();
+                RefreshMapSetting();
+            }
+        }
+
+        private void GetSelectedAccountAndFillTokensToControl()
+        {
+            if (cmbAccounts.SelectedItem != null)
+            {
+                IAccountSettings selectedAccount = userExcelAccounts.FirstOrDefault(x => x.Name == cmbAccounts.SelectedItem.ToString());
+                userExcelFullAccount = (ExcelAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
+                userExcelFullAccount.Owner = true;
+                cmbTokens.Items.Clear();
+                cmbTokens.Text = String.Empty;
+
+                foreach (var item in userExcelFullAccount.Tokens)
+                {
+                    cmbTokens.Items.Add(item.TokenName);
+                }
+            }
+        }
+
+        private void RefreshMapSetting()
+        {
+            label_statusTemplateName.Text = "";
+            dataGrid_mapping.DataSource = null;
+            dataGrid_mapping.SelectAll();
+            dataGrid_mapping.ClearSelection();
+            comboBox_ExcelTemplate.Items.Clear();
+
+            IAccountSettings result = userExcelAccounts.SingleOrDefault(x => x.Name == cmbAccounts.SelectedItem.ToString());
+            if (SettingsManager.GetDetailsForAccount(loggedUser, result.ID) != null)
+            {
+                userExcelFullAccount = (ExcelAccountSettings)SettingsManager.GetDetailsForAccount(loggedUser, result.ID);
+            }
+            foreach (var item in userExcelFullAccount.Template)
+            {
+                comboBox_ExcelTemplate.Items.Add(item.TemplateName);
+            }
+        }
+
+        private void btnNewAccountForExcel_Click(object sender, EventArgs e)
+        {
+            panelNewAccount.Visible = true;
+            textBox_NameNewAccountExcel.Text = String.Empty;
+            newAccountSetting = new ExcelAccountSettings();
+        }
+
+        private void btn_ok_Click(object sender, EventArgs e)
+        {
+            String newNameAccount = textBox_NameNewAccountExcel.Text.Trim();
+            label1.Text = "Please enter new account name";
+            label1.ForeColor = Color.Black;
+            if (newNameAccount != String.Empty)
+            {
+                if (CheckNewAccountNameAlreadyExist(newNameAccount))
+                {
+                    label1.Text = "Name already exist. Please enter new name";
+                    label1.ForeColor = Color.Red;
+                }
+                else
+                {
+                    newAccountSetting.Name = newNameAccount;
+                    newAccountSetting.Template = new List<ExcelAccountTemplate>();
+                    newAccountSetting.Tokens = new List<ExcelAccountToken>();
+                    if (loggedUser.CreateNewAccount(newAccountSetting))
+                    {
+                        RefreshSettingsAccountList();
+                        panelNewAccount.Hide();
+                    }
+                    else
+                    {
+                        label1.Text = "Please try again";
+                        label1.ForeColor = Color.Red;
+                    }
+                }
+            }
+            else
+            {
+                label1.Text = "Name can not be empty string";
+                label1.ForeColor = Color.Red;
+            }
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            panelNewAccount.Visible = false;
+        }
+
+        private void btn_delete_account_Click(object sender, EventArgs e)
+        {
+            String selectedAccountName;
+            if (cmbAccounts.SelectedItem != null && (cmbAccounts.SelectedItem.ToString() == userExcelFullAccount.Name))
+            {
+                selectedAccountName = cmbAccounts.SelectedItem.ToString();
+            }
+            else if (comboBox_shared.SelectedItem != null && (comboBox_shared.SelectedItem.ToString() == userExcelFullAccount.Name))
+            {
+                selectedAccountName = comboBox_shared.SelectedItem.ToString();
+            }
+            else
+            {
+                selectedAccountName = String.Empty;
+            }
+
+            if (selectedAccountName != String.Empty)
+            {
+                Boolean deleteResult;
+
+                if (DialogResult.Yes == MessageBox.Show(
+                    String.Format("Delete this Account: {0}.", selectedAccountName), "Confirm", MessageBoxButtons.YesNo))
+                {
+                    if (userExcelFullAccount.Owner)
+                    {
+                        if (DialogResult.Yes == MessageBox.Show(
+                        String.Format("Delete this account for all users?", selectedAccountName), "Confirm", MessageBoxButtons.YesNo))
+                        {
+                            deleteResult = loggedUser.DeleteAccount(userExcelFullAccount, true);
+                        }
+                        else
+                        {
+                            deleteResult = loggedUser.DeleteAccount(userExcelFullAccount, false);
+                        }
+                    }
+                    else
+                    {
+                        deleteResult = loggedUser.DeleteAccount(userExcelFullAccount, false);
+                    }
+
+                    if (deleteResult)
+                    {
+                        //ClearAllForm();
+                        RefreshSettingsAccountList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Oops! Error. Try later");
+                    }
+                }
+            }
+            //RefreshSettingsAccountList();
+        }
+
+        private void btn_share_account_Click(object sender, EventArgs e)
+        {
+            groupBox_shared.Show();
+        }
+
+        private void comboBox_shared_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_shared.SelectedItem != null)
+            {
+                cmbAccounts.SelectedItem = null;
+                IAccountSettings selectedAccount = sharedUserExcelAccounts.FirstOrDefault(x => x.Name == comboBox_shared.SelectedItem.ToString());
+                userExcelFullAccount = (ExcelAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID);
+                userExcelFullAccount.Owner = false;
+                cmbTokens.Text = String.Empty;
+
+                if (userExcelFullAccount != null)
+                {
+                    cmbTokens.Items.Clear();
+                    foreach (var item in userExcelFullAccount.Tokens)
+                    {
+                        cmbTokens.Items.Add(item.TokenName);
+                    }
+                    btn_delete_account.Enabled = true;
+                }
+                comboBox_shared.Enabled = false;
+            }
+        }
+        #endregion
+
+        #region Shared user
+
+        private void btnSaveSharedAccount_Click(object sender, EventArgs e)
+        {
+            String shareUserName = txtShareUserName.Text.Trim();
+            if (shareUserName != String.Empty && shareUserName != loggedUser.UserLogin)
+            {
+                Boolean result = loggedUser.ShareTheSettingAccount(userExcelFullAccount, shareUserName, chboxMakeUserOwner.Checked);
+                if (result)
+                {
+                    RefreshSettingsAccountList();
+                    groupBox_shared.Hide();
+                }
+                else
+                {
+                    lblSharedAccountError.Text = "Please, try later";
+                    lblSharedAccountError.Show();
+                }
+            }
+            else
+            {
+                lblSharedAccountError.Text = "Invalid user name!";
+                lblSharedAccountError.Show();
+            }
+        }
+
+        private void btnCancelSaveShareAccount_Click(object sender, EventArgs e)
+        {
+            groupBox_shared.Hide();
+        }
+
+        #endregion
+
+        private Boolean CheckNewAccountNameAlreadyExist(String name)
+        {
+            IAccountSettings account = userExcelAccounts.Select(x => x).Where(acc => acc.Name == name).SingleOrDefault();
+            if (account != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void RefreshSettingsAccountList()
+        {
+            List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();
+            sharedUserExcelAccounts = loggedUser.GetAllSharedUserAccounts();
+            userExcelAccounts = SettingsManager.GetAllUserAccountsInSource(userAllAccounts, Sources.Excel);
+            sharedUserExcelAccounts = SettingsManager.GetAllUserAccountsInSource(sharedUserExcelAccounts, Sources.Excel);
+
+            cmbAccounts.Items.Clear();
+            foreach (var item in userExcelAccounts)
+            {
+                cmbAccounts.Items.Add(item.Name);
+            }
+            comboBox_shared.Items.Clear();
+            if (sharedUserExcelAccounts.Count > 0)
+            {
+                comboBox_shared.Show();
+                foreach (var item in sharedUserExcelAccounts)
+                {
+                    comboBox_shared.Items.Add(item.Name);
+                }
+            }
+            else
+            {
+                comboBox_shared.Hide();
+            }
+        }
+
+        #region Tokens
+
+        private void cmbTokens_SelectedValueChanged(object sender, EventArgs e)
+        {
+            grpBox_Connect_setting.Visible = true;
+        }
+
+        // Добавление Excel через OpenFileDialog
+        private void btnAddToken_Click(object sender, EventArgs e)
+        {
+            openFileDialog.DefaultExt = "*.xlsx";
+            openFileDialog.Filter = "File Excel (*.xlsx)|*.xlsx";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Add_NewTokens(openFileDialog.FileName);
+            }
+        }
+
+        // Добавление нового токена
+        private void Add_NewTokens(string path)
+        {
+            if (Check_FreshToken(path))
+            {
+                newToken = new ExcelAccountToken();
+                newToken.TokenName = path;
+                userExcelFullAccount.Tokens.Add(newToken);
+                if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
+                {
+                    MessageBox.Show("Succesfully!!");
+                    GetSelectedAccountAndFillTokensToControl();
+                }
+                else
+                {
+                    MessageBox.Show("Error!!");
+                }
+            }
+            else
+                MessageBox.Show("This file here!!");
+        }
+
+        // Проверка на существование такого же токена в базе
+        private Boolean Check_FreshToken(string path_token)
+        {
+            IAccountSettings result = userExcelAccounts.SingleOrDefault(x => x.Name == cmbAccounts.SelectedItem.ToString());
+            if (SettingsManager.GetDetailsForAccount(loggedUser, result.ID) != null)
+            {
+                userExcelFullAccount = (ExcelAccountSettings)SettingsManager.GetDetailsForAccount(loggedUser, result.ID);
+            }
+
+            if (userExcelFullAccount.Tokens.Count != 0)
+            {
+                for (int i = 0; i < userExcelFullAccount.Tokens.Count; i++)
+                {
+                    if (userExcelFullAccount.Tokens[i].Token == path_token)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private void btnDeleteToken_Click(object sender, EventArgs e)
+        {
+            if (cmbTokens.SelectedItem != null)
+            {
+                if (DialogResult.Yes == MessageBox.Show(
+                    String.Format("Delete this token: {0}", cmbTokens.SelectedItem.ToString()), "Confirm", MessageBoxButtons.YesNo))
+                {
+                    IAccountToken tokenToDelete = userExcelFullAccount.Tokens.SingleOrDefault(x => x.TokenName == cmbTokens.SelectedItem.ToString());
+                    if (tokenToDelete != null)
+                    {
+                        Boolean result = SettingsManager.DeleteToken(tokenToDelete);
+                        if (result)
+                        {
+                            UpdateExcelSettingForm();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void cmbTokens_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void cmbTokens_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false); // путь к файлу
+            //RefreshMapSetting();
+            foreach (string file in files)
+            {
+                FileInfo fileInf = new FileInfo(file);
+                if (fileInf.Extension == ".xls" || fileInf.Extension == ".xlsx")
+                    Add_NewTokens(file);
+                else
+                    MessageBox.Show("Drag'Drop file with extension \".xls \" - \".xlsx\" ");
+
+                GetSelectedAccountAndFillTokensToControl();
+            }
+        }
+
+        #endregion
+
+        #region Connections settings
+
+        private void btn_AddNewExcelTemplate_Click(object sender, EventArgs e)
+        {
+            openFileDialog.DefaultExt = ".xls";
+            openFileDialog.Filter = "File Excel (*.xlsx)|*.xlsx";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string str = openFileDialog.FileName.Substring(openFileDialog.FileName.LastIndexOf('\\') + 1);
+
+                comboBox_ExcelTemplate.Items.Add(str);
+            }
+        }
+
+        private void comboBox_ExcelTemplate_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void comboBox_ExcelTemplate_DragDrop(object sender, DragEventArgs e)
+        {
+            bool pp = false;
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false); // путь к файлу
+
+            foreach (var item in comboBox_ExcelTemplate.Items)
+            {
+                for (int i = 0; i < files.Length; i++)
+                {
+                    if (item.ToString() == files[i])
+                        pp = true;
+                }
+            }
+
+            if (!pp)
+            {
+                foreach (string file in files)
+                {
+                    comboBox_ExcelTemplate.Items.Add(file.Substring(file.LastIndexOf('\\') + 1));
+                }
+            }
+
+
+            if (comboBox_ExcelTemplate.Items != null)
+                comboBox_ExcelTemplate.SelectedValue = files[0];
+        }
+
+
+        #endregion
+
+        #region Template
+
+        private void btn_AddNewExcelTemplate_Click_1(object sender, EventArgs e)
+        {
+            panel_NewTemplate.Visible = true;
+        }
+
+        private void btn_delete_template_Click(object sender, EventArgs e)
+        {
+            if (comboBox_ExcelTemplate.SelectedItem != null)
+            {
+                IAccountSettings result = userExcelAccounts.SingleOrDefault(x => x.Name == cmbAccounts.SelectedItem.ToString());
+                if (SettingsManager.GetDetailsForAccount(loggedUser, result.ID) != null)
+                {
+                    userExcelFullAccount = (ExcelAccountSettings)SettingsManager.GetDetailsForAccount(loggedUser, result.ID);
+                }
+                userExcelFullAccount.Template.RemoveAt(comboBox_ExcelTemplate.SelectedIndex);
+                if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
+                {
+                    RefreshMapSetting();
+                }
+            }
+        }
+
+        private void btn_CancelNewTemplate_Click(object sender, EventArgs e)
+        {
+            panel_NewTemplate.Hide();
+        }
+
+        private void btn_OK_NewNameTemplate_Click(object sender, EventArgs e)
+        {
+            String newTemplateName = textBox_NewTemplateExcel.Text.Trim();
+            if (newTemplateName != String.Empty && dataGrid_mapping.Rows.Count > 0)
+            {
+                ExcelAccountTemplate excelAccountTemplate = new ExcelAccountTemplate();
+
+                //String mapstr = "";
+                //for (int i = 0; i < dataGrid_mapping.Rows.Count - 1; i++)
+                //{
+                //    mapstr += "[" + dataGrid_mapping.Rows[i].Cells[0].Value.ToString() + "-";
+                //    mapstr += dataGrid_mapping.Rows[i].Cells[1].Value.ToString() + "]";
+                //}
+
+                IAccountSettings selectedAccount = userExcelAccounts.FirstOrDefault(x => x.Name == cmbAccounts.SelectedItem.ToString());
+                userExcelFullAccount = (ExcelAccountSettings)SettingsManager.GetDetailsForAccount(loggedUser, selectedAccount.ID);
+
+                //excelAccountTemplate.Mapping = mapstr;
+                excelAccountTemplate.TemplateName = newTemplateName;
+                userExcelFullAccount.Template.Add(excelAccountTemplate);
+                if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
+                {
+                    RefreshMapSetting();
+                }
+                else
+                {
+                    label_statusTemplateName.Text = "Error! Please try again";
+                }
+            }
+            else
+            {
+                label_statusTemplateName.Text = "Name can not be empty string";
+                label_statusTemplateName.ForeColor = Color.Red;
+            }
+
+            textBox_NewTemplateExcel.Text = "";
+            panel_NewTemplate.Visible = false;
+        }
+
+        private void comboBox_ExcelTemplate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTokens.SelectedItem != null && dataGrid_mapping.Rows.Count == 1)  // comboBox_ExcelTemplate.SelectedItem != null 
+            {
+                btn_delete_template.Visible = true;
+                Write_data();
+            }
+        }
+
+        private List<string> Import(string file)
+        {
+            List<string> listFile = new List<string>();
+            try
+            {
+                using (ExcelPackage pck = new ExcelPackage())
+                {
+                    using (var stream = File.OpenRead(file))
+                    {
+                        pck.Load(stream);
+                    }
+
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.First();
+                    listFile = WorksheetToDataTable(ws);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Import failed. Original error: " + ex.Message);
+            }
+            return listFile;
+        }
+
+        private List<string> WorksheetToDataTable(ExcelWorksheet ws)
+        {
+            List<string> listFile = new List<string>();
+            DataTable dt = new DataTable(ws.Name);
+            int totalCols = ws.Dimension.End.Column;
+            int totalRows = ws.Dimension.End.Row;
+
+            foreach (var firstRowCell in ws.Cells[1, 1, 1, totalCols])
+            {
+                listFile.Add(firstRowCell.Text);
+            }
+            return listFile;
+        }
+
+        private void Write_data()
+        {
+            string[] array = { "TaskID", "SubtaskType", "Summary", "Description",
+                "Status","Priority","Project", "CreatedDate", "CreatedBy", "LinkToTracker",
+                "Estimation", "TargetVersion","Comments","Assigned","TaskParent" };
+
+            List<string> listFile = Import(cmbTokens.SelectedItem.ToString());
+
+            for (int i = 0; i < array.Length - 1; i++)  // listFile.Count
+            {
+                dataGrid_mapping.Rows.Add();
+
+                // ---------------------------------------------------------------------
+                DataGridViewComboBoxCell comboCell_ITask =
+           (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[1];  // данные ITask
+
+                comboCell_ITask.DataSource = array;
+                comboCell_ITask.Value = array[i];
+                // ---------------------------------------------------------------------                
+
+                DataGridViewComboBoxCell comboCell_file =
+                    (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[0]; // данные file Excel
+
+                comboCell_file.DataSource = listFile;
+                comboCell_file.Value = ""; //  listFile[0];
+            }
+        }
+
+        private void dataGrid_mapping_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            btn_saveMapping.Enabled = true;
+        }
+
+        private void btn_cancelMapping_Click(object sender, EventArgs e)
+        {
+            comboBox_ExcelTemplate.Text = "";
+            dataGrid_mapping.Rows.Clear();
+            grpBox_Connect_setting.Hide();
+            groupBoxTokens.Hide();
+
+            cmbAccounts.Text = "";
+        }
+
+        private void btn_saveMapping_Click(object sender, EventArgs e)
+        {
+            ExcelTab.SelectTab(Mapping);
+            Write_RichTextBox();
+        }
+
+        private void Write_RichTextBox()
+        {
+            for (int i = 0; i < dataGrid_mapping.Rows.Count - 1; i++)
+            {
+                DataGridViewComboBoxCell comboCell_file =
+                        (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[0]; // столбик file-Excel
+
+                DataGridViewComboBoxCell comboCell_ITask =
+                    (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[1];  // столбик ITask
+               // --------------------------------------------------------------------------------------
+
+                
+                if(comboCell_file.Value.ToString() == "")
+                {
+                    rtxtMapping.Text += "#### - " + comboCell_ITask.Value + "\n";
+                }
+                else
+                    rtxtMapping.Text += comboCell_file.Value + " - " + comboCell_ITask.Value + "\n";
+            }
+
+        }
+
+        #endregion
+
+        private void UpdateExcelSettingForm()
+        {
+            grpBox_Connect_setting.Hide();
+            GetSelectedAccountAndFillTokensToControl();
+        }
+
+        #region Tab-Mapping
+
+        private void btnChekMapping_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            if (txtNewTokenName.Text.Trim() != String.Empty && rtxtMapping.Text.Trim() != String.Empty)
+            {
+                ExcelAccountTemplate accEx_template = new ExcelAccountTemplate();
+
+                newToken.TokenName = txtNewTokenName.Text.Trim();
+                //newToken.Token = rtxtMapping.Text.Trim();
+                accEx_template = Acc_ExcelMapping();
+
+                userExcelFullAccount.Template.Add(accEx_template);
+                userExcelFullAccount.Tokens.Add(newToken);
+
+                if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
+                {
+                    ExcelTab.SelectTab(Settings);
+                }
+            }
+            else
+            {
+                label5.Show();
+                label5.Text = "Please enter token name and mapping!";
+                label5.ForeColor = Color.Red;
+            }
+        }
+
+        private ExcelAccountTemplate Acc_ExcelMapping()
+        {
+            ExcelAccountTemplate accEx_template = new ExcelAccountTemplate();
+
+
+            
+
+            return accEx_template;
+        }
+
+
+
+        private void btnCancelSaveNewToken_Click(object sender, EventArgs e)
+        {
+            ExcelTab.SelectTab(Settings);
+        }
+
+        #endregion
+    }
+
+}

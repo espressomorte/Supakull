@@ -18,6 +18,7 @@ namespace Supakulltracker
 
         DBSettingDialog dbSetingDialog;
         TrelloSettingDialog trelloSettingDialog;
+        ExcelSettingsDialog excelSettingsDialog;
 
 
         public SettingsDialog(UserProvider.UserDTO loggedUser)
@@ -29,7 +30,7 @@ namespace Supakulltracker
 
             dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
             trelloSettingDialog = new TrelloSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
-           
+            excelSettingsDialog = new ExcelSettingsDialog(loggedUser, userAccounts, sharedUserAccounts);
         }
 
         private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,6 +43,12 @@ namespace Supakulltracker
         {
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(trelloSettingDialog);
+        }
+
+        private void excelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(excelSettingsDialog);
         }
     }
 }
