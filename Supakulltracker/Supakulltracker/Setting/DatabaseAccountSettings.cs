@@ -14,6 +14,9 @@ namespace Supakulltracker
         public Sources Source { get; set; }
         public Boolean Owner { get; set; }
         public List<DatabaseAccountToken> Tokens { get; set; }
+        public Int32 MinUpdateTime { get; set; }
+        public Int32 AccountVersion { get; set; }
+
         public DatabaseAccountSettings()
         {
             this.Tokens = new List<DatabaseAccountToken>();
@@ -25,6 +28,8 @@ namespace Supakulltracker
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
+            target.MinUpdateTime = serviceAccount.MinUpdateTime;
+            target.AccountVersion = serviceAccount.AccountVersion;
 
             if (serviceAccount.Tokens.Length > 0)
             {
@@ -46,6 +51,8 @@ namespace Supakulltracker
             target.ServiceAccountId = currentAccount.ID;
             target.ServiceAccountName = currentAccount.Name;
             target.Source = Sources.DataBase;
+            target.MinUpdateTime = serviceAccount.MinUpdateTime;
+            target.AccountVersion = serviceAccount.AccountVersion;
 
             List<TokenDTO> tok = new List<TokenDTO>();
             if (currentAccount.Tokens != null)

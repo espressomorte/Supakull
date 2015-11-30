@@ -47,6 +47,7 @@ namespace SupakullTrackerServices
                     .CreateCriteria(typeof(UserDAO))
                     .Add(Restrictions.Eq("UserId", userId))
                     .UniqueResult<UserDAO>();
+
                 return userDAO;
             }
         }

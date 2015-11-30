@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,6 +88,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,6 +150,8 @@
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
     <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
+    <Compile Include="Domain\AutoUpdater\AutoUpdater.cs" />
+    <Compile Include="Domain\AutoUpdater\LoggedUsers.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountTemplate.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountSettings.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountTest.cs" />
@@ -156,6 +161,7 @@
     <Compile Include="Domain\Settings Objects\Common\Template.cs" />
     <Compile Include="Domain\Settings Objects\Common\Token.cs" />
     <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\TrelloAccountSettings.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\UserKey.cs" />
     <Compile Include="Domain\TaskKey.cs" />

@@ -403,6 +403,7 @@ namespace Supakulltracker
                 else
                 {
                     newAccountSetting.Name = newAccountName;
+                    newAccountSetting.AccountVersion = 1;
                     if (loggedUser.CreateNewAccount(newAccountSetting))
                     {
                         RefreshSettingsAccountList();

@@ -77,6 +77,35 @@ namespace SupakullTrackerServices
             }
         }
 
+
+        public static List<IAccountSettings> GetAllAccounts()
+        {
+            List<IAccountSettings> allUserAccounts = new List<IAccountSettings>();
+
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var allUserLinks = session.QueryOver<UserLinkDAO>().List();
+                if (allUserLinks != null)
+                {
+                    List<ServiceAccountDAO> allUserAccountsDAO = allUserLinks.Select<UserLinkDAO, ServiceAccountDAO>(x => x.Account).ToList();
+                    List<ServiceAccount> allUserAc = SettingsConverter.ServiceAccountDAOCollectionToDomain(allUserAccountsDAO);
+                    foreach (ServiceAccount account in allUserAc)
+                    {
+                        IAccountSettings temp = GetCurrentInstance(account.Source);
+                        
+                        allUserAccounts.Add(temp.Convert(account));
+                    }
+
+                }
+                else
+                {
+                    allUserAccounts = null;
+                }
+
+                return allUserAccounts;
+            }
+        }
+
         public static IAccountSettings GetCurrentInstance(Sources source)
         {
             switch (source)
@@ -84,7 +113,7 @@ namespace SupakullTrackerServices
                 case Sources.DataBase:
                     return new DatabaseAccountSettings();
                 case Sources.Trello:
-                    return null;
+                    return new TrelloAccountSettings();
                 case Sources.Excel:
                     return null;
                 case Sources.GoogleSheets:

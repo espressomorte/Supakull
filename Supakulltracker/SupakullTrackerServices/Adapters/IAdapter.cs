@@ -8,8 +8,8 @@ namespace SupakullTrackerServices
 {
     public interface IAdapter : IAdapterTest
     {
-
         IList<ITask> GetAllTasks();
         ITask GetTask(int index);
+        IAdapter GetAdapter(IAccountSettings account);
     }
 }

@@ -8,47 +8,80 @@ using TrelloNet;
 using TrelloNet.Extensions;
 using TrelloTestApp;
 
-namespace TrelloManagerApp
+namespace SupakullTrackerServices
 {
     public class TrelloManager : IAdapter
     {
         private static Trello _trello = new Trello(Constants.trelloAppToken);
+        private string BoardID { get; set; }
+        private string UserToken { get; set; }
 
-        public TrelloManager(string userToken)
+        public IAdapter GetAdapter(IAccountSettings account)
         {
-            _trello.Authorize(userToken);
+            TrelloAccountSettings accountForTestTrello = (TrelloAccountSettings)account;
+            TrelloAccountToken Token = accountForTestTrello.Tokens.FirstOrDefault();
+            TrelloManager adapter = new TrelloManager();
+            adapter.UserToken = Token.UserToken;
+            adapter.BoardID = Token.BoardID;
+            return adapter;
         }
+
+
+        //public TrelloManager(ServiceAccountDTO account)
+        //{
+        //    _trello.Authorize(account.UserAccountToken);
+        //    foreach (var token in account.Tokens)
+        //    {
+        //        string IdBoard = (from tok in token.Tokens where tok.Key == "IdBoard" select tok.Value).SingleOrDefault();
+        //        boards.Add(_trello.Boards.WithId(IdBoard));
+        //    }
+        //}
 
         public IList<ITask> GetAllTasks()
         {
-            var boards = _trello.Boards.ForMe();
+            _trello.Authorize("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee");
             var tasks = new List<ITask>();
-
-            foreach (var board in boards)
-            {
-                if ((!board.Closed) && !(board.Name == "Welcome Board"))
+            
+            var board = _trello.Boards.WithId("5602aee31ad8c2c5de6fedb9");
+            // var board = _trello.Boards.WithId(boardId);
+            var cards = _trello.Cards.ForBoard(board);
+            foreach (var card in cards)
                 {
-                    var cards = _trello.Cards.ForBoard(board);
-                    foreach (var card in cards)
-                    {
-                        tasks.Add(GetTasksFromCard(card));
-                    }
+                   tasks.Add(GetTasksFromCard(card));
                 }
-            }
-
             return tasks;
 
         }
 
         public IAccountSettings TestAccount(IAccountSettings accountnForTest)
         {
-            throw new NotImplementedException();
-        }
+            TrelloAccountSettings accountForTestTrello = (TrelloAccountSettings)accountnForTest;
+            TrelloAccountToken testToken = accountForTestTrello.Tokens.FirstOrDefault();
+            accountForTestTrello.Tokens.Clear();
+            _trello.Authorize(testToken.UserToken);
+            try
+            {
+                accountForTestTrello.TestResult = true;
+                accountForTestTrello.Source = Sources.Trello;
+                var boards = _trello.Boards.ForMe();
+                foreach (var board in boards)
+                {
+                    TrelloAccountToken newToken = new TrelloAccountToken();
+                    newToken.BoardID = board.Id;
+                    newToken.TokenName = board.Name;
+                    newToken.UserToken = testToken.UserToken;
+                    newToken.DateCreation = DateTime.Now;
+                    accountForTestTrello.Tokens.Add(newToken);
+                }
+            }
+            catch (Exception)
+            {
 
-        //IList<ITask> IAdapter.GetAllItems()
-        //{
-        //    throw new NotImplementedException();
-        //}
+                accountForTestTrello.TestResult = false;
+            }
+            
+            return accountForTestTrello;
+        }
 
         ITask IAdapter.GetTask(int index)
         {
