@@ -21,6 +21,7 @@ namespace SupakullTrackerServices
         {
             sesionFactoryDictionary = new Dictionary<SessionFactoryConfiguration, ISessionFactory>();
             Configuration configuration = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.hibernate.cfg.xml"));
+            configuration.Properties.Add("connection.connection_string", System.Configuration.ConfigurationManager.ConnectionStrings["AppDataBase"].ConnectionString);
             sesionFactoryDictionary.Add(SessionFactoryConfiguration.Application, configuration.BuildSessionFactory());
         }
 
