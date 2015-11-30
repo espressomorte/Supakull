@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Search.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
+    [Indexed]
      public class TaskMainDAO: IEquatable<TaskMainDAO>
     {        
         public TaskMainDAO()
@@ -16,8 +18,10 @@ namespace SupakullTrackerServices
             this.MatchedTasks = new List<TaskMainDAO>();
         }
         public virtual int ID { get; set; }
+        [Field(Index = Index.Tokenized, Store = Store.No)]
         public virtual string TaskID { get; set; }
         public virtual string SubtaskType { get; set; }
+        [Field(Index = Index.Tokenized, Store = Store.No)]
         public virtual string Summary { get; set; }
         public virtual string Description { get; set; }
         public virtual string Status { get; set; }
