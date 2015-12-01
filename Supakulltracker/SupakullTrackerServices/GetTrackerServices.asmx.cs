@@ -38,7 +38,7 @@ namespace SupakullTrackerServices
                 IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDaoCollection);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMainCollection);
-                return taskMainDtoCollection;
+                return taskMainDtoCollection;            
             }
         }
 
@@ -95,7 +95,7 @@ namespace SupakullTrackerServices
                 }
             });
 
-            allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
+          //  allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
             return allTasksFromAdapterCollection;
         }
         #endregion
@@ -150,7 +150,6 @@ namespace SupakullTrackerServices
                     transaction.Commit();
                     succeed = transaction.WasCommitted;
                 }
-
             }
             return succeed;
         }

@@ -94,6 +94,8 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnApplyConSetDiteils = new System.Windows.Forms.Button();
+            this.numUpdateTime = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
@@ -112,6 +114,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpdateTime)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSaveSettings
@@ -270,6 +273,8 @@
             // 
             // MappingSettings
             // 
+            this.MappingSettings.Controls.Add(this.label15);
+            this.MappingSettings.Controls.Add(this.numUpdateTime);
             this.MappingSettings.Controls.Add(this.flpSaveAccount);
             this.MappingSettings.Controls.Add(this.label5);
             this.MappingSettings.Controls.Add(this.panelItemName);
@@ -537,9 +542,9 @@
             // 
             // txtNewNameForAccount
             // 
-            this.txtNewNameForAccount.Location = new System.Drawing.Point(32, 16);
+            this.txtNewNameForAccount.Location = new System.Drawing.Point(37, 16);
             this.txtNewNameForAccount.Name = "txtNewNameForAccount";
-            this.txtNewNameForAccount.Size = new System.Drawing.Size(121, 20);
+            this.txtNewNameForAccount.Size = new System.Drawing.Size(113, 20);
             this.txtNewNameForAccount.TabIndex = 10;
             // 
             // btnSaveNewAccount
@@ -819,6 +824,23 @@
             this.btnApplyConSetDiteils.UseVisualStyleBackColor = true;
             this.btnApplyConSetDiteils.Click += new System.EventHandler(this.btnApplyConSetDiteils_Click);
             // 
+            // numUpdateTime
+            // 
+            this.numUpdateTime.Enabled = false;
+            this.numUpdateTime.Location = new System.Drawing.Point(100, 12);
+            this.numUpdateTime.Name = "numUpdateTime";
+            this.numUpdateTime.Size = new System.Drawing.Size(58, 20);
+            this.numUpdateTime.TabIndex = 15;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(26, 14);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(71, 13);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Update Time:";
+            // 
             // DBSettingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -857,6 +879,7 @@
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpdateTime)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -929,5 +952,7 @@
         private System.Windows.Forms.Button btnChangeToken;
         private System.Windows.Forms.Button btnCancelSaveNewToken;
         private System.Windows.Forms.Button btnCancelSaveOrEditingSettings;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown numUpdateTime;
     }
 }

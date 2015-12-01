@@ -16,6 +16,7 @@ namespace SupakullTrackerServices
         public virtual IList<Template> MappingTemplates { get; set; }
         public virtual IList<Token> Tokens { get; set; }
         public Boolean TestResult { get; set; }
+        public Int32 MinUpdateTime { get; set; }
     }
 }
 

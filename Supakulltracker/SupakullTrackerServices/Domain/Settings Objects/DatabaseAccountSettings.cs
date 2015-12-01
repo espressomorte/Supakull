@@ -13,6 +13,7 @@ namespace SupakullTrackerServices
         public Sources Source { get; set; }
         public List<DatabaseAccountToken> Tokens { get; set; }
         public Boolean TestResult { get; set; }
+        public Int32 MinUpdateTime { get; set; }
 
         public IAccountSettings Convert(ServiceAccount serviceAccount)
         {

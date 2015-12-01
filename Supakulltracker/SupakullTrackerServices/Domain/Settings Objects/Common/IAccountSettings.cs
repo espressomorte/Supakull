@@ -11,6 +11,7 @@ namespace SupakullTrackerServices
         Int32 ID { get; set; }
         String Name { get; set; }
         Sources Source { get; set; }
+        Int32 MinUpdateTime { get; set; }
 
         IAccountSettings Convert(ServiceAccount serviceAccount);
         ServiceAccount Convert(IAccountSettings serviceAccount);

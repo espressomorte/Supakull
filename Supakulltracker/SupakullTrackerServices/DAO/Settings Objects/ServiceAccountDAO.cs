@@ -19,5 +19,6 @@ namespace SupakullTrackerServices
         public virtual Sources Source { get; set; }
         public virtual IList<TemplateDAO> MappingTemplates { get; set; }
         public virtual IList<TokenDAO> Tokens { get; set; }
+        public virtual Int32 MinUpdateTime { get; set; }
     }
 }

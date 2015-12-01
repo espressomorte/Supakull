@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-     public class TaskMainDAO: IEquatable<TaskMainDAO>
-    {        
+    public class TaskMainDAO : IEquatable<TaskMainDAO>
+    {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
@@ -48,33 +50,33 @@ namespace SupakullTrackerServices
             return new TaskKey(this.TaskID, this.LinkToTracker);
         }
 
-        #region SaveOrUpdat
+        #region SaveOrUpdate
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
-            foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
+            if (taskMainDaoCollection.Count() > 0)
             {
-                taskMainDAO.SaveOrUpdateTaskInDB();                
-            }
-        }
 
-        private void SaveOrUpdateTaskInDB()
-        {
-            if (this.TaskID != null)
-            {
-                TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(this);                
-                
                 ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
                 using (var session = applicationFactory.OpenSession())
                 {
-                    using (ITransaction transaction = session.BeginTransaction())
+                    using (var transaction = session.BeginTransaction())
                     {
-                        session.SaveOrUpdate(this);
+                        foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
+                        {
+                            TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
+                            session.SaveOrUpdate(taskMainDAO);
+                        }
                         transaction.Commit();
                     }
+
                 }
             }
+
         }
+
+
 
         private static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
@@ -147,9 +149,9 @@ namespace SupakullTrackerServices
 
         public virtual bool Equals(TaskMainDAO taskMainDaoToCompare)
         {
-            return ( taskMainDaoToCompare != null &&
+            return (taskMainDaoToCompare != null &&
                 this.TaskID.Equals(taskMainDaoToCompare.TaskID) &&
-                this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker) );
+                this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker));
         }
 
         public override int GetHashCode()

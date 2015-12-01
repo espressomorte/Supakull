@@ -32,6 +32,8 @@ namespace SupakullTrackerServices
             target.ServiceAccountId = param.ServiceAccountId;
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
+            target.MinUpdateTime = param.MinUpdateTime;
+
             if (IsDetailsNeed)
             {
                 if (param.Tokens != null)
@@ -100,6 +102,8 @@ namespace SupakullTrackerServices
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
             target.TestResult = param.TestResult;
+            target.MinUpdateTime = param.MinUpdateTime;
+
             if (param.Tokens != null)
             {
                 target.Tokens = param.Tokens.Select<Token, TokenDTO>(x => x.TokenToTokenDTO()).ToList();
@@ -171,6 +175,7 @@ namespace SupakullTrackerServices
             target.ServiceAccountId = param.ServiceAccountId;
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
+            target.MinUpdateTime = param.MinUpdateTime;
 
             if (param.Tokens != null)
             {
@@ -226,6 +231,7 @@ namespace SupakullTrackerServices
             target.ServiceAccountId = param.ServiceAccountId;
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
+            target.MinUpdateTime = param.MinUpdateTime;
 
             if (param.Tokens != null)
             {

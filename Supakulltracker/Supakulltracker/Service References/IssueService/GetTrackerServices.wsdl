@@ -105,6 +105,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="MappingTemplates" type="tns:ArrayOfTemplateDTO" />
           <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenDTO" />
           <s:element minOccurs="1" maxOccurs="1" name="TestResult" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinUpdateTime" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTemplateDTO">
