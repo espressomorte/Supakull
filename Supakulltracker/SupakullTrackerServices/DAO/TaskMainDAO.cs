@@ -10,6 +10,8 @@ namespace SupakullTrackerServices
 {
     public class TaskMainDAO : IEquatable<TaskMainDAO>
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
@@ -48,17 +50,18 @@ namespace SupakullTrackerServices
             return new TaskKey(this.TaskID, this.LinkToTracker);
         }
 
-        #region SaveOrUpdat
+        #region SaveOrUpdate
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
             if (taskMainDaoCollection.Count() > 0)
             {
+
                 ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
                 using (var session = applicationFactory.OpenSession())
                 {
-                    using (ITransaction transaction = session.BeginTransaction())
+                    using (var transaction = session.BeginTransaction())
                     {
                         foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
                         {
@@ -67,6 +70,7 @@ namespace SupakullTrackerServices
                         }
                         transaction.Commit();
                     }
+
                 }
             }
 

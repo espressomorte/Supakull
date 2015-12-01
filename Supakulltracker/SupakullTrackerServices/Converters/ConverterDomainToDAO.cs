@@ -75,7 +75,35 @@ namespace SupakullTrackerServices
                 }
 
                 taskMainDaoCollection.Add(taskKey, taskMainDAO);
-            }           
+            }
+            if (taskMainDAO != null)
+            {
+                taskMainDAO.TaskID = taskMain.TaskID;
+                taskMainDAO.TargetVersion = taskMain.TargetVersion;
+                taskMainDAO.Summary = taskMain.Summary;
+                taskMainDAO.SubtaskType = taskMain.SubtaskType;
+                taskMainDAO.Status = taskMain.Status;
+                taskMainDAO.Project = taskMain.Project;
+                taskMainDAO.Product = taskMain.Product;
+                taskMainDAO.Priority = taskMain.Priority;
+                taskMainDAO.LinkToTracker = taskMain.LinkToTracker;
+                taskMainDAO.Estimation = taskMain.Estimation;
+                taskMainDAO.Description = taskMain.Description;
+                taskMainDAO.CreatedDate = taskMain.CreatedDate;
+                taskMainDAO.CreatedBy = taskMain.CreatedBy;
+                taskMainDAO.Comments = taskMain.Comments;
+                taskMainDAO.TokenID = taskMain.TokenID;
+
+                if (taskMain.TaskParent != null)
+                {
+                    taskMainDAO.TaskParent = TaskMainToTaskMainDAO(taskMain.TaskParent);
+                }
+
+                if (taskMain.Assigned != null && taskMain.Assigned.Count > 0)
+                {
+                    taskMainDAO.Assigned = UserToUserDAO(taskMain.Assigned);
+                }
+            }
             return taskMainDAO;
         }
 

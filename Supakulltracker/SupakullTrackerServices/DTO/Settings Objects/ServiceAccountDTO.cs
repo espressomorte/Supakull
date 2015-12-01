@@ -17,5 +17,6 @@ namespace SupakullTrackerServices
         public List<TemplateDTO> MappingTemplates { get; set; }
         public List<TokenDTO> Tokens { get; set; }
         public Boolean TestResult { get; set; }
+        public Int32 MinUpdateTime { get; set; }
     }
 }

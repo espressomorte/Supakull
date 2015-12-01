@@ -14,12 +14,15 @@ namespace Supakulltracker
         public Sources Source { get; set; }
         public List<TrelloAccountToken> Tokens { get; set; }
         public Boolean Owner { get; set; }
+        public Int32 MinUpdateTime { get; set; }
         public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
         {
             TrelloAccountSettings target = new TrelloAccountSettings();
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
+            target.MinUpdateTime = serviceAccount.MinUpdateTime;
+            
             target.Tokens = new List<TrelloAccountToken>();
 
             if (serviceAccount.Tokens.Length > 0)
@@ -42,6 +45,7 @@ namespace Supakulltracker
             target.ServiceAccountId = currentAccount.ID;
             target.ServiceAccountName = currentAccount.Name;
             target.Source = Sources.Trello;
+            target.MinUpdateTime = currentAccount.MinUpdateTime;
 
             List<TokenDTO> tok = new List<TokenDTO>();
             if (currentAccount.Tokens != null)

@@ -76,5 +76,13 @@ namespace Supakulltracker
             SettingsDialog setingDialog = new SettingsDialog(AuthorizationResult.AuthorizedUser);
             setingDialog.Show();
         }
+
+        private  void btnUdateAllTasks_Click(object sender, EventArgs e)
+        {
+            IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
+            trackerServices.Update();
+            Tasks = trackerServices.GetAllTasks();
+            Board.DataSource = Tasks;
+        }
     }
 }

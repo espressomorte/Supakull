@@ -413,6 +413,8 @@ namespace Supakulltracker.IssueService {
         
         private bool TestResultField;
         
+        private int MinUpdateTimeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -497,6 +499,19 @@ namespace Supakulltracker.IssueService {
                 if ((this.TestResultField.Equals(value) != true)) {
                     this.TestResultField = value;
                     this.RaisePropertyChanged("TestResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        public int MinUpdateTime {
+            get {
+                return this.MinUpdateTimeField;
+            }
+            set {
+                if ((this.MinUpdateTimeField.Equals(value) != true)) {
+                    this.MinUpdateTimeField = value;
+                    this.RaisePropertyChanged("MinUpdateTime");
                 }
             }
         }
