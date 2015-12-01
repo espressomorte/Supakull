@@ -43,6 +43,12 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
+        public List<TaskMainDTO> FindTasks()
+        {
+            return GetAllTasks();
+        }
+
+        [WebMethod]
         public List<TaskMainDTO> GetMatchedTasks(string taskID, Sources linkToTracker)
         {
             TaskMainDAO taskMainDAO = TaskMainDAO.GetTaskFromDB(taskID, linkToTracker);

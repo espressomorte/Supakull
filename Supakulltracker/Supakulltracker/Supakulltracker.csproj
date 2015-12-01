@@ -73,6 +73,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Search\TaskSearchProvider.cs" />
+    <Compile Include="Search\TaskSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Search\TaskSearchControl.Designer.cs">
+      <DependentUpon>TaskSearchControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\DatabaseAccountSettings.cs" />
     <Compile Include="Setting\DBSettingDialog.cs">
       <SubType>UserControl</SubType>
@@ -140,6 +147,9 @@
     <Compile Include="SuperTask\SuperTaskControl.designer.cs">
       <DependentUpon>SuperTaskControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Search\TaskSearchControl.resx">
+      <DependentUpon>TaskSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,6 +199,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.FindTasksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse.datasource">
@@ -272,6 +285,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

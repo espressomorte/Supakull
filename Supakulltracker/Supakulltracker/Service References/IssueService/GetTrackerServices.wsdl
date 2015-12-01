@@ -57,6 +57,16 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="FindTasks">
+        <s:complexType />
+      </s:element>
+      <s:element name="FindTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindTasksResult" type="tns:ArrayOfTaskMainDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetMatchedTasks">
         <s:complexType>
           <s:sequence>
@@ -280,6 +290,12 @@
   <wsdl:message name="GetAllTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
   </wsdl:message>
+  <wsdl:message name="FindTasksSoapIn">
+    <wsdl:part name="parameters" element="tns:FindTasks" />
+  </wsdl:message>
+  <wsdl:message name="FindTasksSoapOut">
+    <wsdl:part name="parameters" element="tns:FindTasksResponse" />
+  </wsdl:message>
   <wsdl:message name="GetMatchedTasksSoapIn">
     <wsdl:part name="parameters" element="tns:GetMatchedTasks" />
   </wsdl:message>
@@ -351,6 +367,10 @@
       <wsdl:input message="tns:GetAllTasksSoapIn" />
       <wsdl:output message="tns:GetAllTasksSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <wsdl:input message="tns:FindTasksSoapIn" />
+      <wsdl:output message="tns:FindTasksSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <wsdl:input message="tns:GetMatchedTasksSoapIn" />
       <wsdl:output message="tns:GetMatchedTasksSoapOut" />
@@ -400,6 +420,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAllTasks">
       <soap:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <soap:operation soapAction="http://tempuri.org/FindTasks" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -511,6 +540,15 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAllTasks">
       <soap12:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <soap12:operation soapAction="http://tempuri.org/FindTasks" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

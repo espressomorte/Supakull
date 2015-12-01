@@ -796,6 +796,13 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
         
+        // CODEGEN: Generating message contract since element name FindTasksResult from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTasks", ReplyAction="*")]
+        Supakulltracker.IssueService.FindTasksResponse FindTasks(Supakulltracker.IssueService.FindTasksRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTasks", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.FindTasksResponse> FindTasksAsync(Supakulltracker.IssueService.FindTasksRequest request);
+        
         // CODEGEN: Generating message contract since element name taskID from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
         Supakulltracker.IssueService.GetMatchedTasksResponse GetMatchedTasks(Supakulltracker.IssueService.GetMatchedTasksRequest request);
@@ -931,6 +938,67 @@ namespace Supakulltracker.IssueService {
         
         public GetAllTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetAllTasksResult) {
             this.GetAllTasksResult = GetAllTasksResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTasksRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTasks", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.FindTasksRequestBody Body;
+        
+        public FindTasksRequest() {
+        }
+        
+        public FindTasksRequest(Supakulltracker.IssueService.FindTasksRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class FindTasksRequestBody {
+        
+        public FindTasksRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTasksResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTasksResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.FindTasksResponseBody Body;
+        
+        public FindTasksResponse() {
+        }
+        
+        public FindTasksResponse(Supakulltracker.IssueService.FindTasksResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class FindTasksResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.TaskMainDTO[] FindTasksResult;
+        
+        public FindTasksResponseBody() {
+        }
+        
+        public FindTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] FindTasksResult) {
+            this.FindTasksResult = FindTasksResult;
         }
     }
     
@@ -1694,6 +1762,29 @@ namespace Supakulltracker.IssueService {
             Supakulltracker.IssueService.GetAllTasksRequest inValue = new Supakulltracker.IssueService.GetAllTasksRequest();
             inValue.Body = new Supakulltracker.IssueService.GetAllTasksRequestBody();
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.FindTasksResponse Supakulltracker.IssueService.GetTrackerServicesSoap.FindTasks(Supakulltracker.IssueService.FindTasksRequest request) {
+            return base.Channel.FindTasks(request);
+        }
+        
+        public Supakulltracker.IssueService.TaskMainDTO[] FindTasks() {
+            Supakulltracker.IssueService.FindTasksRequest inValue = new Supakulltracker.IssueService.FindTasksRequest();
+            inValue.Body = new Supakulltracker.IssueService.FindTasksRequestBody();
+            Supakulltracker.IssueService.FindTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).FindTasks(inValue);
+            return retVal.Body.FindTasksResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.FindTasksResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.FindTasksAsync(Supakulltracker.IssueService.FindTasksRequest request) {
+            return base.Channel.FindTasksAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.FindTasksResponse> FindTasksAsync() {
+            Supakulltracker.IssueService.FindTasksRequest inValue = new Supakulltracker.IssueService.FindTasksRequest();
+            inValue.Body = new Supakulltracker.IssueService.FindTasksRequestBody();
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).FindTasksAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
