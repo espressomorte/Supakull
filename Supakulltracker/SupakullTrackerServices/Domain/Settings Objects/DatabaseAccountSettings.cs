@@ -14,6 +14,7 @@ namespace SupakullTrackerServices
         public List<DatabaseAccountToken> Tokens { get; set; }
         public Boolean TestResult { get; set; }
         public Int32 MinUpdateTime { get; set; }
+        public Int32 AccountVersion { get; set; }
 
         public IAccountSettings Convert(ServiceAccount serviceAccount)
         {
@@ -21,6 +22,8 @@ namespace SupakullTrackerServices
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
+            target.MinUpdateTime = serviceAccount.MinUpdateTime * 60000;
+            target.AccountVersion = serviceAccount.AccountVersion;
             target.Tokens = new List<DatabaseAccountToken>();
 
             if (serviceAccount.Tokens.Count > 0)
@@ -44,6 +47,8 @@ namespace SupakullTrackerServices
             target.ServiceAccountName = serviceAccount.Name;
             target.Source = serviceAccount.Source;
             target.TestResult = serviceAccount.TestResult;
+            target.MinUpdateTime = serviceAccount.MinUpdateTime / 60000;
+            target.AccountVersion = serviceAccount.AccountVersion;
             target.Tokens = new List<Token>();
 
             if (serviceAccount.Tokens.Count > 0)
@@ -56,6 +61,26 @@ namespace SupakullTrackerServices
                 }
             }
             return target;
+        }
+        public bool Equals(IAccountSettings accountToCompare)
+        {
+            DatabaseAccountSettings DBAccountToCompere = (DatabaseAccountSettings)accountToCompare;
+            return (this.ID == DBAccountToCompere.ID && this.AccountVersion == DBAccountToCompere.AccountVersion);
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is DatabaseAccountSettings)
+            {
+                return this.Equals(obj as DatabaseAccountSettings);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return (this.ID.GetHashCode() ^ this.AccountVersion.GetHashCode());
         }
     }
 

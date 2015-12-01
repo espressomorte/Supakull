@@ -406,6 +406,9 @@ namespace Supakulltracker.IssueService {
         private Supakulltracker.IssueService.Sources SourceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserAccountTokenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Supakulltracker.IssueService.TemplateDTO[] MappingTemplatesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -414,6 +417,8 @@ namespace Supakulltracker.IssueService {
         private bool TestResultField;
         
         private int MinUpdateTimeField;
+        
+        private int AccountVersionField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -464,7 +469,20 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string UserAccountToken {
+            get {
+                return this.UserAccountTokenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserAccountTokenField, value) != true)) {
+                    this.UserAccountTokenField = value;
+                    this.RaisePropertyChanged("UserAccountToken");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
         public Supakulltracker.IssueService.TemplateDTO[] MappingTemplates {
             get {
                 return this.MappingTemplatesField;
@@ -477,7 +495,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
         public Supakulltracker.IssueService.TokenDTO[] Tokens {
             get {
                 return this.TokensField;
@@ -490,7 +508,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
         public bool TestResult {
             get {
                 return this.TestResultField;
@@ -503,7 +521,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
         public int MinUpdateTime {
             get {
                 return this.MinUpdateTimeField;
@@ -512,6 +530,19 @@ namespace Supakulltracker.IssueService {
                 if ((this.MinUpdateTimeField.Equals(value) != true)) {
                     this.MinUpdateTimeField = value;
                     this.RaisePropertyChanged("MinUpdateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
+        public int AccountVersion {
+            get {
+                return this.AccountVersionField;
+            }
+            set {
+                if ((this.AccountVersionField.Equals(value) != true)) {
+                    this.AccountVersionField = value;
+                    this.RaisePropertyChanged("AccountVersion");
                 }
             }
         }

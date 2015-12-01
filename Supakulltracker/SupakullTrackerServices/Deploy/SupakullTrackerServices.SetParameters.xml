@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <setParameter name="IIS Web Application Name" value="SupakullTrackerServices" />
-  <setParameter name="AppDataBase-Web.config Connection String" value="User ID=Yura; Password=1991; Data Source=localhost" />
-</parameters>

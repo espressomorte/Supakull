@@ -14,6 +14,8 @@ namespace Supakulltracker
         Sources Source { get; set; }
         Boolean Owner { get; set; }
         Int32 MinUpdateTime { get; set; }
+        Int32 AccountVersion { get; set; }
+
         IAccountSettings ConvertFromDAO(ServiceAccountDTO token);
         ServiceAccountDTO ConvertToDAO(IAccountSettings token);
     }

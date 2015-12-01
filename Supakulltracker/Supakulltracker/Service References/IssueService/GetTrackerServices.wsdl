@@ -102,10 +102,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="ServiceAccountId" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="ServiceAccountName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountToken" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="MappingTemplates" type="tns:ArrayOfTemplateDTO" />
           <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenDTO" />
           <s:element minOccurs="1" maxOccurs="1" name="TestResult" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="MinUpdateTime" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountVersion" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTemplateDTO">

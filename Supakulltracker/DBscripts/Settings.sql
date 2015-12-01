@@ -33,6 +33,8 @@ DROP TABLE "USER_LINK" cascade constraints;
    (	"SERVICE_ID" NUMBER, 
 	"ACCOUNT_NAME" VARCHAR2(50 BYTE), 
 	"SOURCE_ID" NUMBER
+	"ACCOUNT_VERSION" NUMBER,
+	"MIN_UPDATE_TIME" NUMBER
    ) ;
 --------------------------------------------------------
 --  DDL for Table TOKEN

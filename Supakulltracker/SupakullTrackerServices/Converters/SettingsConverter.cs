@@ -14,7 +14,7 @@ namespace SupakullTrackerServices
             List<ServiceAccount> target = new List<ServiceAccount>();
             foreach (ServiceAccountDAO item in param)
             {
-                target.Add(ServiceAccountDAOToDomain(item));
+                target.Add(ServiceAccountDAOToDomain(item, true));
             }
             return target;
         }

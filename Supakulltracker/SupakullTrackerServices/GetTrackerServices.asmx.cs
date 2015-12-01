@@ -7,8 +7,8 @@ using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
 using System.Web.Services.Protocols;
-using TrelloManagerApp;
 using System.Threading.Tasks;
+using System.Threading;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -24,9 +24,17 @@ namespace SupakullTrackerServices
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
+
     public class GetTrackerServices : System.Web.Services.WebService
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+        public GetTrackerServices()
+        {
+            
+            AutoUpdater.AutoUpdate();
+        }
 
         [WebMethod]
         public List<TaskMainDTO> GetAllTasks()
@@ -60,44 +68,88 @@ namespace SupakullTrackerServices
         [WebMethod]
         public void Update()
         {
-            ICollection<IAdapter> adapters = GetAllAdapters();
-            IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
+            //ICollection<IAdapter> adapters = GetAllAdapters();
+            //IList<ITask> allTaskMainFromAdapters = GetAllTasksFromAdapterCollection(adapters);
 
-            IMatchTasks taskMatcher = new MatchTasksById();
-            TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
+            //IMatchTasks taskMatcher = new MatchTasksById();
+            //TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
+            //IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTaskMainFromAdapters);
+            //TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
 
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTaskMainFromAdapters);
-            TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
         }
+        //[WebMethod]
+        //public void UpdateTasksOfLoggedUsers()
+        //{
+        //    {
+        //        List<ITask> allTaskMainFromAdapters=null;
+        //        foreach (var loggedUser in loggedUsers)
+        //        {
+        //            allTaskMainFromAdapters.AddRange( GetAllTasksFromAdapterCollection(loggedUser.userAdapters));
+        //        }
 
-        private ICollection<IAdapter> GetAllAdapters()
-        {
-            ICollection<IAdapter> adapters = new List<IAdapter>();
-            adapters.Add(new DatabaseAdapter());
-            adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
-            adapters.Add(new GoogleSheetsAdapter());
-            adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
-            return adapters;
-        }
+        //        IMatchTasks taskMatcher = new MatchTasksById();
+        //        TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
 
-        private IList<ITask> GetAllTasksFromAdapterCollection(ICollection<IAdapter> adapters)
-        {
-            List<ITask> allTasksFromAdapterCollection = new List<ITask>();
-            Parallel.ForEach(adapters, a =>
-            {
-                if (a is DatabaseAdapter)
-                {
-                    allTasksFromAdapterCollection.AddRange(((DatabaseAdapter)a).GetAllTasks(272));
-                }
-                else
-                {
-                    allTasksFromAdapterCollection.AddRange(a.GetAllTasks());
-                }
-            });
+        //        IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTaskMainFromAdapters);
+        //        TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+        //    }
+        //}
+        //private ICollection<IAdapter> GetAllAdapters()
+        //{
+        //    ICollection<IAdapter> adapters = new List<IAdapter>();
+        //    adapters.Add(new DatabaseAdapter());
+        //    // adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
+        //    // adapters.Add(new GoogleSheetsAdapter());
+        //    adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
+        //    return adapters;
+        //}
 
-          //  allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
-            return allTasksFromAdapterCollection;
-        }
+        //public ICollection<IAdapter> GetAllAdaptersByUserID(Int32 userId)
+        //{
+        //    List<ServiceAccountDTO> allAccountsForUser = GetAllUserAccountsByUserID(userId);
+        //    allAccountsForUser.AddRange(GetAllSharedUserAccountsByUserID(userId));
+        //    ICollection<IAdapter> adapters = new List<IAdapter>();
+        //    foreach (var account in allAccountsForUser)
+        //    {
+        //        switch (account.Source)
+        //        {
+        //            case Sources.DataBase:
+        //                adapters.Add(new DatabaseAdapter());
+        //                break;
+        //            case Sources.Trello:
+        //                //adapters.Add(new TrelloManager().GetAllTasksByToken(account.Tokens));
+        //                break;
+        //            case Sources.Excel:
+        //                adapters.Add(new GoogleSheetsAdapter());
+        //                break;
+        //            case Sources.GoogleSheets:
+
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //    return adapters;
+        //}
+
+        //private IList<ITask> GetAllTasksFromAdapterCollection(ICollection<IAdapter> adapters)
+        //{
+        //    List<ITask> allTasksFromAdapterCollection = new List<ITask>();
+        //    Parallel.ForEach(adapters, a =>
+        //    {
+        //        if (a is DatabaseAdapter)
+        //        {
+        //            allTasksFromAdapterCollection.AddRange(((DatabaseAdapter)a).GetAllTasks(272));
+        //        }
+        //        else
+        //        {
+        //            allTasksFromAdapterCollection.AddRange(a.GetAllTasks());
+        //        }
+        //    });
+
+        //    allTasksFromAdapterCollection.AddRange(new DatabaseAdapter().GetAllTasks(356));
+        //    return allTasksFromAdapterCollection;
+        //}
         #endregion
 
 
@@ -335,6 +387,5 @@ namespace SupakullTrackerServices
         }
 
         #endregion
-
     }
 }

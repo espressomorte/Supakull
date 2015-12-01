@@ -15,14 +15,19 @@ namespace Supakulltracker
         public List<TrelloAccountToken> Tokens { get; set; }
         public Boolean Owner { get; set; }
         public Int32 MinUpdateTime { get; set; }
+        public Boolean TestResult { get; set; }
+        public Int32 AccountVersion { get; set; }
+
         public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
         {
             TrelloAccountSettings target = new TrelloAccountSettings();
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
-            target.MinUpdateTime = serviceAccount.MinUpdateTime;
-            
+            target.MinUpdateTime = serviceAccount.MinUpdateTime; 
+            target.TestResult = serviceAccount.TestResult;
+            target.AccountVersion = serviceAccount.AccountVersion;
+
             target.Tokens = new List<TrelloAccountToken>();
 
             if (serviceAccount.Tokens.Length > 0)
@@ -41,11 +46,14 @@ namespace Supakulltracker
         {
             ServiceAccountDTO target = new ServiceAccountDTO();
             TrelloAccountSettings currentAccount = (TrelloAccountSettings)serviceAccount;
-
+            target.TestResult = currentAccount.TestResult;
             target.ServiceAccountId = currentAccount.ID;
             target.ServiceAccountName = currentAccount.Name;
+            target.AccountVersion = currentAccount.AccountVersion;
+            
             target.Source = Sources.Trello;
             target.MinUpdateTime = currentAccount.MinUpdateTime;
+
 
             List<TokenDTO> tok = new List<TokenDTO>();
             if (currentAccount.Tokens != null)
@@ -67,6 +75,7 @@ namespace Supakulltracker
         public String TokenName { get; set; }
         public String UserToken { get; set; }
         public String DateCreation { get; set; }
+        public String BoardID { get; set; }
 
         public IAccountToken ConvertFromDAO(TokenDTO token)
         {
@@ -75,7 +84,6 @@ namespace Supakulltracker
             targetToken.TokenName = token.TokenName;
             if (token.Tokens.Length > 0)
             {
-
                 targetToken.UserToken = (from tok in token.Tokens
                                          where tok.Key == "UserToken"
                                          select tok.Value).SingleOrDefault();
@@ -83,6 +91,9 @@ namespace Supakulltracker
                 targetToken.DateCreation = (from tok in token.Tokens
                                          where tok.Key == "DateCreation"
                                          select tok.Value).SingleOrDefault();
+                targetToken.BoardID = (from tok in token.Tokens
+                                            where tok.Key == "BoardID"
+                                            select tok.Value).SingleOrDefault();
             }
             return targetToken;
         }
@@ -105,6 +116,11 @@ namespace Supakulltracker
             dateTime.Key = "DateCreation";
             dateTime.Value = currentToken.DateCreation;
             tokenList.Add(dateTime);
+
+            TokenForSerialization BoardID = new TokenForSerialization();
+            BoardID.Key = "BoardID";
+            BoardID.Value = currentToken.BoardID;
+            tokenList.Add(BoardID);
 
             target.Tokens = tokenList.ToArray();
             return target;

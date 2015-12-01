@@ -36,6 +36,7 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.taskDetailTabControl = new System.Windows.Forms.TabControl();
             this.btnUdateAllTasks = new System.Windows.Forms.Button();
+
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -126,13 +127,16 @@
             this.btnUdateAllTasks.Text = "Update";
             this.btnUdateAllTasks.UseVisualStyleBackColor = true;
             this.btnUdateAllTasks.Click += new System.EventHandler(this.btnUdateAllTasks_Click);
+
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 484);
+
             this.Controls.Add(this.btnUdateAllTasks);
+
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -162,7 +166,9 @@
         private System.Windows.Forms.TabControl taskDetailTabControl;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+
         private System.Windows.Forms.Button btnUdateAllTasks;
+
     }
 }
 
