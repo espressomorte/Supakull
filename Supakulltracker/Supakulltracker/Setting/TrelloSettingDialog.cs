@@ -206,6 +206,7 @@ namespace Supakulltracker
             userTrelloFullAccount.Name = accountNameBox.Text;
             userTrelloFullAccount.Owner = true;
             userTrelloFullAccount.MinUpdateTime = (Int32)minimalTimeForUpdate.Value;
+            userTrelloFullAccount.AccountVersion = 1;
             if (loggedUser.CreateNewAccount(userTrelloFullAccount))
             {
                 List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();

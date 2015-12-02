@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<parameters>
+  <parameter
+    name="DatabaseName"
+    description="Name of the database for your application."
+    defaultValue="DOFER">
+    <parameterEntry kind="TextFile" scope="\\DBscripts\\AppBaseDataBaseScript.sql$" match="PlaceHolderForSchemaName" />
+  </parameter>
+</parameters>
