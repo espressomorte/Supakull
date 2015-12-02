@@ -143,6 +143,9 @@
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.DeleteTokenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.FindTasksResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\GetTrackerServices\UnitTestServices.GetTrackerServices.GetAllSharedUserAccountsByUserIDResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -176,10 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.hibernate.cfg.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Client.hibernate.cfg.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -73,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Search\TaskSearchProvider.cs" />
+    <Compile Include="Search\SearchProvider.cs" />
     <Compile Include="Search\TaskSearchControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

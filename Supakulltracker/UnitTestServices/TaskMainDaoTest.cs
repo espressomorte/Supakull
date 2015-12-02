@@ -71,8 +71,8 @@ namespace UnitTestServices
             IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(taskMainCollection);
             TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
 
-            GetTrackerServices.GetTrackerServicesSoapClient services = new GetTrackerServices.GetTrackerServicesSoapClient();
-            GetTrackerServices.TaskMainDTO[] taskMainDTO = services.GetMatchedTasks("Task1", GetTrackerServices.Sources.DataBase);
+            //GetTrackerServices.GetTrackerServicesSoapClient services = new GetTrackerServices.GetTrackerServicesSoapClient();
+            //GetTrackerServices.TaskMainDTO[] taskMainDTO = services.GetMatchedTasks("Task1", GetTrackerServices.Sources.DataBase);
         }
         
         [TestMethod]

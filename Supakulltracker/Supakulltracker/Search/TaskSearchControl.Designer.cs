@@ -36,7 +36,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 26);
+            this.label1.Location = new System.Drawing.Point(13, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 0;
@@ -44,14 +44,14 @@
             // 
             // SearchTextBox
             // 
-            this.SearchTextBox.Location = new System.Drawing.Point(103, 23);
+            this.SearchTextBox.Location = new System.Drawing.Point(88, 13);
             this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.Size = new System.Drawing.Size(211, 20);
+            this.SearchTextBox.Size = new System.Drawing.Size(160, 20);
             this.SearchTextBox.TabIndex = 1;
             // 
             // FindButton
             // 
-            this.FindButton.Location = new System.Drawing.Point(239, 49);
+            this.FindButton.Location = new System.Drawing.Point(173, 39);
             this.FindButton.Name = "FindButton";
             this.FindButton.Size = new System.Drawing.Size(75, 23);
             this.FindButton.TabIndex = 2;
@@ -67,7 +67,7 @@
             this.Controls.Add(this.SearchTextBox);
             this.Controls.Add(this.label1);
             this.Name = "TaskSearchControl";
-            this.Size = new System.Drawing.Size(358, 101);
+            this.Size = new System.Drawing.Size(266, 76);
             this.ResumeLayout(false);
             this.PerformLayout();
 

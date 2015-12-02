@@ -19,8 +19,8 @@ namespace Supakulltracker
 
         private void FindButton_Click(object sender, EventArgs e)
         {
-            TaskSearchProvider taskSearchProvider = new TaskSearchProvider();
-            IssueService.TaskMainDTO[] tasks = taskSearchProvider.Find(this.SearchTextBox.Text);
+            SearchProvider taskSearchProvider = new SearchProvider();
+            IssueService.TaskMainDTO[] tasks = taskSearchProvider.FindTasks(this.SearchTextBox.Text);
         }
     }
 }

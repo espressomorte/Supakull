@@ -155,6 +155,7 @@
     <Compile Include="Converters\ConverterDomainToDTO.cs" />
     <Compile Include="Adapters\IAdapter.cs" />
     <Compile Include="Converters\SettingsConverter.cs" />
+    <Compile Include="DAO\Search\SearchProviderDAO.cs" />
     <Compile Include="DAO\Settings Objects\ServiceAccountDAO.cs" />
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    [Indexed]
+    [Indexed]//(Index = "/indexes/TaskMainDAO")]
      public class TaskMainDAO: IEquatable<TaskMainDAO>
     {        
         public TaskMainDAO()
@@ -17,26 +17,59 @@ namespace SupakullTrackerServices
             this.Assigned = new List<UserDAO>();
             this.MatchedTasks = new List<TaskMainDAO>();
         }
+
+        [DocumentId]
         public virtual int ID { get; set; }
-        [Field(Index = Index.Tokenized, Store = Store.No)]
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string TaskID { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string SubtaskType { get; set; }
-        [Field(Index = Index.Tokenized, Store = Store.No)]
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Summary { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Description { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Status { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Priority { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Product { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Project { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string CreatedDate { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string CreatedBy { get; set; }
+
+        [IndexedEmbedded]
         public virtual Sources LinkToTracker { get; set; }
+
         public virtual Int32 TokenID { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Estimation { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string TargetVersion { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Comments { get; set; }
+
+        [IndexedEmbedded]
         public virtual IList<UserDAO> Assigned { get; set; }
+        
         public virtual TaskMainDAO TaskParent { get; set; }
+        
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
         public virtual int MatchedCount

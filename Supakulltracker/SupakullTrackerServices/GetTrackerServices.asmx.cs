@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Services;
-using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
-using System.Web.Services.Protocols;
 using TrelloManagerApp;
 using System.Threading.Tasks;
 
@@ -43,9 +40,10 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
-        public List<TaskMainDTO> FindTasks()
+        public List<TaskMainDTO> FindTasks(string textQuery)
         {
-            return GetAllTasks();
+            SearchProviderDAO searchProvider = new SearchProviderDAO();
+            return searchProvider.FindTasks(textQuery) as List<TaskMainDTO>;
         }
 
         [WebMethod]

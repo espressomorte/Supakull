@@ -796,7 +796,7 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetAllTasksResponse> GetAllTasksAsync(Supakulltracker.IssueService.GetAllTasksRequest request);
         
-        // CODEGEN: Generating message contract since element name FindTasksResult from namespace http://tempuri.org/ is not marked nillable
+        // CODEGEN: Generating message contract since element name textQuery from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTasks", ReplyAction="*")]
         Supakulltracker.IssueService.FindTasksResponse FindTasks(Supakulltracker.IssueService.FindTasksRequest request);
         
@@ -961,10 +961,17 @@ namespace Supakulltracker.IssueService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
     public partial class FindTasksRequestBody {
         
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string textQuery;
+        
         public FindTasksRequestBody() {
+        }
+        
+        public FindTasksRequestBody(string textQuery) {
+            this.textQuery = textQuery;
         }
     }
     
@@ -1769,9 +1776,10 @@ namespace Supakulltracker.IssueService {
             return base.Channel.FindTasks(request);
         }
         
-        public Supakulltracker.IssueService.TaskMainDTO[] FindTasks() {
+        public Supakulltracker.IssueService.TaskMainDTO[] FindTasks(string textQuery) {
             Supakulltracker.IssueService.FindTasksRequest inValue = new Supakulltracker.IssueService.FindTasksRequest();
             inValue.Body = new Supakulltracker.IssueService.FindTasksRequestBody();
+            inValue.Body.textQuery = textQuery;
             Supakulltracker.IssueService.FindTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).FindTasks(inValue);
             return retVal.Body.FindTasksResult;
         }
@@ -1781,9 +1789,10 @@ namespace Supakulltracker.IssueService {
             return base.Channel.FindTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.FindTasksResponse> FindTasksAsync() {
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.FindTasksResponse> FindTasksAsync(string textQuery) {
             Supakulltracker.IssueService.FindTasksRequest inValue = new Supakulltracker.IssueService.FindTasksRequest();
             inValue.Body = new Supakulltracker.IssueService.FindTasksRequestBody();
+            inValue.Body.textQuery = textQuery;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).FindTasksAsync(inValue);
         }
         

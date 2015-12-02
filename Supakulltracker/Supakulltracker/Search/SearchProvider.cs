@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Supakulltracker
 {
-    class TaskSearchProvider
+    class SearchProvider
     {
-        public IssueService.TaskMainDTO[] Find(string searchLine)
+        public IssueService.TaskMainDTO[] FindTasks(string textQuery)
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            // TODO: GetAllTasks should be replaced to FindTasks service
-            return trackerServices.FindTasks();
+            return trackerServices.FindTasks(textQuery);
         }
     }
 }
