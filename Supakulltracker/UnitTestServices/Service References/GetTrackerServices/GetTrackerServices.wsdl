@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAllTasks">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllTasksResult" type="tns:ArrayOfTaskMainDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTaskMainDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TaskMainDTO" nillable="true" type="tns:TaskMainDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TaskMainDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TaskID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubtaskType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Project" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreatedDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LinkToTracker" type="tns:Sources" />
+          <s:element minOccurs="1" maxOccurs="1" name="TokenID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estimation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargetVersion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Assigned" type="tns:ArrayOfUserDTO" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaskParent" type="tns:TaskMainDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="Sources">
+        <s:restriction base="s:string">
+          <s:enumeration value="DataBase" />
+          <s:enumeration value="Trello" />
+          <s:enumeration value="Excel" />
+          <s:enumeration value="GoogleSheets" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfUserDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserDTO" nillable="true" type="tns:UserDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMatchedTasks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taskID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="linkToTracker" type="tns:Sources" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMatchedTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMatchedTasksResult" type="tns:ArrayOfTaskMainDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Update">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllUserAccountsByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUserAccountsByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServiceAccountDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceAccountDTO" nillable="true" type="tns:ServiceAccountDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceAccountDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ServiceAccountId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceAccountName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
+          <s:element minOccurs="0" maxOccurs="1" name="MappingTemplates" type="tns:ArrayOfTemplateDTO" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenDTO" />
+          <s:element minOccurs="1" maxOccurs="1" name="TestResult" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTemplateDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TemplateDTO" nillable="true" type="tns:TemplateDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mapping" type="tns:ArrayOfMappingForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMappingForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MappingForSerialization" nillable="true" type="tns:MappingForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MappingForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTokenDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TokenDTO" nillable="true" type="tns:TokenDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TokenDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TokenId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TokenName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tokens" type="tns:ArrayOfTokenForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTokenForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TokenForSerialization" nillable="true" type="tns:TokenForSerialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TokenForSerialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserAccountsByUserIDAndAccountId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="seviceAccountId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountsByUserIDAndAccountIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountsByUserIDAndAccountIdResult" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrUdateAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrUdateAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrUdateAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="tns:TokenDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteTokenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newAccount" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateNewAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateNewAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountToDelete" type="tns:ServiceAccountDTO" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteForAllUsers" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSharedUserAccountsByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSharedUserAccountsByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllSharedUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShareTheSettingAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="currentUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountToShare" type="tns:ServiceAccountDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="shareUserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="owner" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShareTheSettingAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ShareTheSettingAccountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="accountForTest" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestAccountResult" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllTasksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllTasks" />
+  </wsdl:message>
+  <wsdl:message name="GetAllTasksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMatchedTasksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMatchedTasks" />
+  </wsdl:message>
+  <wsdl:message name="GetMatchedTasksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMatchedTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUserAccountsByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllUserAccountsByUserID" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUserAccountsByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllUserAccountsByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountsByUserIDAndAccountIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountsByUserIDAndAccountId" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountsByUserIDAndAccountIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountsByUserIDAndAccountIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrUdateAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrUdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrUdateAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrUdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteToken" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateNewAccount" />
+  </wsdl:message>
+  <wsdl:message name="CreateNewAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateNewAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAccount" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSharedUserAccountsByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllSharedUserAccountsByUserID" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSharedUserAccountsByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllSharedUserAccountsByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShareTheSettingAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:ShareTheSettingAccount" />
+  </wsdl:message>
+  <wsdl:message name="ShareTheSettingAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:ShareTheSettingAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:TestAccount" />
+  </wsdl:message>
+  <wsdl:message name="TestAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:TestAccountResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GetTrackerServicesSoap">
+    <wsdl:operation name="GetAllTasks">
+      <wsdl:input message="tns:GetAllTasksSoapIn" />
+      <wsdl:output message="tns:GetAllTasksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMatchedTasks">
+      <wsdl:input message="tns:GetMatchedTasksSoapIn" />
+      <wsdl:output message="tns:GetMatchedTasksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:input message="tns:UpdateSoapIn" />
+      <wsdl:output message="tns:UpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <wsdl:input message="tns:GetAllUserAccountsByUserIDSoapIn" />
+      <wsdl:output message="tns:GetAllUserAccountsByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <wsdl:input message="tns:GetUserAccountsByUserIDAndAccountIdSoapIn" />
+      <wsdl:output message="tns:GetUserAccountsByUserIDAndAccountIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <wsdl:input message="tns:SaveOrUdateAccountSoapIn" />
+      <wsdl:output message="tns:SaveOrUdateAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <wsdl:input message="tns:DeleteTokenSoapIn" />
+      <wsdl:output message="tns:DeleteTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <wsdl:input message="tns:CreateNewAccountSoapIn" />
+      <wsdl:output message="tns:CreateNewAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <wsdl:input message="tns:DeleteAccountSoapIn" />
+      <wsdl:output message="tns:DeleteAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <wsdl:input message="tns:GetAllSharedUserAccountsByUserIDSoapIn" />
+      <wsdl:output message="tns:GetAllSharedUserAccountsByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <wsdl:input message="tns:ShareTheSettingAccountSoapIn" />
+      <wsdl:output message="tns:ShareTheSettingAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <wsdl:input message="tns:TestAccountSoapIn" />
+      <wsdl:output message="tns:TestAccountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetTrackerServicesSoap" type="tns:GetTrackerServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllTasks">
+      <soap:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMatchedTasks">
+      <soap:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://tempuri.org/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <soap:operation soapAction="http://tempuri.org/GetAllUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountsByUserIDAndAccountId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <soap:operation soapAction="http://tempuri.org/SaveOrUdateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <soap:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <soap:operation soapAction="http://tempuri.org/CreateNewAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap:operation soapAction="http://tempuri.org/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <soap:operation soapAction="http://tempuri.org/GetAllSharedUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <soap:operation soapAction="http://tempuri.org/ShareTheSettingAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <soap:operation soapAction="http://tempuri.org/TestAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GetTrackerServicesSoap12" type="tns:GetTrackerServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllTasks">
+      <soap12:operation soapAction="http://tempuri.org/GetAllTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMatchedTasks">
+      <soap12:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap12:operation soapAction="http://tempuri.org/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserAccountsByUserID">
+      <soap12:operation soapAction="http://tempuri.org/GetAllUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountsByUserIDAndAccountId">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountsByUserIDAndAccountId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUdateAccount">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrUdateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteToken">
+      <soap12:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewAccount">
+      <soap12:operation soapAction="http://tempuri.org/CreateNewAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap12:operation soapAction="http://tempuri.org/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSharedUserAccountsByUserID">
+      <soap12:operation soapAction="http://tempuri.org/GetAllSharedUserAccountsByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShareTheSettingAccount">
+      <soap12:operation soapAction="http://tempuri.org/ShareTheSettingAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestAccount">
+      <soap12:operation soapAction="http://tempuri.org/TestAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetTrackerServices">
+    <wsdl:port name="GetTrackerServicesSoap" binding="tns:GetTrackerServicesSoap">
+      <soap:address location="http://localhost:50422/GetTrackerServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GetTrackerServicesSoap12" binding="tns:GetTrackerServicesSoap12">
+      <soap12:address location="http://localhost:50422/GetTrackerServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,17 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="SupakullTrackerServices" namespace="SupakullTrackerServices">
+  <class name="TemplateDAO" table="TEMPLATE">
+    <id name="TemplateId" column="TEMPLATE_ID">
+    <generator class="sequence">
+      <param name="sequence">taskmain_seq</param>
+    </generator>
+    </id>
+    <property name="TemplateName" column="TEMPLATE_NAME" />
+
+    <map name="Mapping" table="MAPPING">
+      <key column="TEMPLATE_ID" />
+      <index column="FIELD_NAME_APP" type="System.String"/>
+      <element column="FIELD_NAME_SOURCE" type="System.String" />
+    </map>
+  </class>
+</hibernate-mapping>
+
