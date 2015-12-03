@@ -36,7 +36,6 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.taskDetailTabControl = new System.Windows.Forms.TabControl();
             this.btnUdateAllTasks = new System.Windows.Forms.Button();
-
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -53,7 +52,7 @@
             this.Board.Name = "Board";
             this.Board.RowHeadersVisible = false;
             this.Board.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Board.Size = new System.Drawing.Size(210, 438);
+            this.Board.Size = new System.Drawing.Size(346, 511);
             this.Board.TabIndex = 0;
             this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
@@ -63,7 +62,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(706, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -84,9 +83,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 462);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 535);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(706, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(941, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -103,8 +102,8 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.taskDetailTabControl);
-            this.splitContainer.Size = new System.Drawing.Size(706, 438);
-            this.splitContainer.SplitterDistance = 210;
+            this.splitContainer.Size = new System.Drawing.Size(941, 511);
+            this.splitContainer.SplitterDistance = 346;
             this.splitContainer.SplitterWidth = 15;
             this.splitContainer.TabIndex = 3;
             // 
@@ -114,29 +113,26 @@
             this.taskDetailTabControl.Location = new System.Drawing.Point(0, 0);
             this.taskDetailTabControl.Name = "taskDetailTabControl";
             this.taskDetailTabControl.SelectedIndex = 0;
-            this.taskDetailTabControl.Size = new System.Drawing.Size(481, 438);
+            this.taskDetailTabControl.Size = new System.Drawing.Size(580, 511);
             this.taskDetailTabControl.TabIndex = 0;
             // 
             // btnUdateAllTasks
             // 
             this.btnUdateAllTasks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUdateAllTasks.Location = new System.Drawing.Point(619, 1);
+            this.btnUdateAllTasks.Location = new System.Drawing.Point(854, 1);
             this.btnUdateAllTasks.Name = "btnUdateAllTasks";
             this.btnUdateAllTasks.Size = new System.Drawing.Size(75, 23);
             this.btnUdateAllTasks.TabIndex = 4;
             this.btnUdateAllTasks.Text = "Update";
             this.btnUdateAllTasks.UseVisualStyleBackColor = true;
             this.btnUdateAllTasks.Click += new System.EventHandler(this.btnUdateAllTasks_Click);
-
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(706, 484);
-
+            this.ClientSize = new System.Drawing.Size(941, 557);
             this.Controls.Add(this.btnUdateAllTasks);
-
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);

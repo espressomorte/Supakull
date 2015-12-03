@@ -59,5 +59,14 @@ namespace Supakulltracker.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Multiple Values&gt;.
+        /// </summary>
+        internal static string multipleValuesMessage {
+            get {
+                return ResourceManager.GetString("multipleValuesMessage", resourceCulture);
+            }
+        }
     }
 }

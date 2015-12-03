@@ -43,7 +43,6 @@ namespace Supakulltracker
         private  void PrepareApplicationAsync()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            //await trackerServices.UpdateAsync();
             Tasks = trackerServices.GetAllTasks();
             Board.DataSource = Tasks;
         }
@@ -58,18 +57,23 @@ namespace Supakulltracker
             IssueService.TaskMainDTO task = Tasks[index];
             string title = (task.TaskID).ToString();
             TabPage newTabPage = new TabPage(title);
+
+            IssueService.GetTrackerServicesSoapClient service = new IssueService.GetTrackerServicesSoapClient();
+            ICollection<IssueService.TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.LinkToTracker);
+            SuperTask superTask = new SuperTask(matchedTasks);
+
             var detail = new DetailPanel();
             detail.Dock = DockStyle.Fill;
-            detail.Fill(task);
+            detail.Bind(superTask);
             newTabPage.Controls.Add(detail);
             taskDetailTabControl.TabPages.Add(newTabPage);
-            taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
+            taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount - 1);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsDialog setingDialog = new SettingsDialog(AuthorizationResult.AuthorizedUser);
-            setingDialog.Show();
+            setingDialog.ShowDialog();
         }
 
 

@@ -147,28 +147,28 @@ DROP SEQUENCE "PlaceHolderForSchemaName"."LINK_ID_SEQ";
 	"OWNER" NUMBER(1,0), 
 	"USER_OWNER_ID" NUMBER
    ) ;
-REM INSERTING into PlaceHolderForSchemaName.DISAGREEMENT
+ INSERTING into PlaceHolderForSchemaName.DISAGREEMENT
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.MAPPING
+ INSERTING into PlaceHolderForSchemaName.MAPPING
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.MATCHEDTASKS
+ INSERTING into PlaceHolderForSchemaName.MATCHEDTASKS
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.SERVICE_ACCOUNT
+ INSERTING into PlaceHolderForSchemaName.SERVICE_ACCOUNT
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.SERVICE_ACCOUNT (SERVICE_ID,ACCOUNT_NAME,SOURCE_ID,MIN_UPDATE_TIME,ACCOUNT_VERSION) values ('271','Real Working Account','0','5',null);
-REM INSERTING into PlaceHolderForSchemaName.SOURCES
+ INSERTING into PlaceHolderForSchemaName.SOURCES
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.SOURCES (SOURCE_ID,SOURCE_NAME) values ('0','DataBase');
 Insert into PlaceHolderForSchemaName.SOURCES (SOURCE_ID,SOURCE_NAME) values ('1','Trello');
 Insert into PlaceHolderForSchemaName.SOURCES (SOURCE_ID,SOURCE_NAME) values ('2','Excel');
 Insert into PlaceHolderForSchemaName.SOURCES (SOURCE_ID,SOURCE_NAME) values ('3','GoogleSheets');
-REM INSERTING into PlaceHolderForSchemaName.TASKMAIN
+ INSERTING into PlaceHolderForSchemaName.TASKMAIN
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.TASKMAIN_TO_USER
+ INSERTING into PlaceHolderForSchemaName.TASKMAIN_TO_USER
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.TEMPLATE
+ INSERTING into PlaceHolderForSchemaName.TEMPLATE
 SET DEFINE OFF;
-REM INSERTING into PlaceHolderForSchemaName.TOKEN
+ INSERTING into PlaceHolderForSchemaName.TOKEN
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('272','UserName','Dofer');
 Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('272','Password','199110204');
@@ -218,15 +218,15 @@ Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('161','D
 Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('161','DatabaseDriver','OracleClientDriver');
 Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('161','DatabaseDialect','Oracle10gDialect');
 Insert into PlaceHolderForSchemaName.TOKEN (TOKEN_ID,KEY,VALUE) values ('161','ConnectionString','User ID = ''Dofer''; Password = 199110204; Data Source = localhost');
-REM INSERTING into PlaceHolderForSchemaName.TOKENS_IN_ACCOUNT
+ INSERTING into PlaceHolderForSchemaName.TOKENS_IN_ACCOUNT
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.TOKENS_IN_ACCOUNT (ACCOUNT_ID,TOKEN_ID,TOKEN_NAME) values ('271','272','Test DataBase');
 Insert into PlaceHolderForSchemaName.TOKENS_IN_ACCOUNT (ACCOUNT_ID,TOKEN_ID,TOKEN_NAME) values ('271','356','SecondTest DB Token');
 Insert into PlaceHolderForSchemaName.TOKENS_IN_ACCOUNT (ACCOUNT_ID,TOKEN_ID,TOKEN_NAME) values ('271','161','Test');
-REM INSERTING into PlaceHolderForSchemaName."USER"
+ INSERTING into PlaceHolderForSchemaName."USER"
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName."USER" (US_ID,US_USERID) values ('1','supakull');
-REM INSERTING into PlaceHolderForSchemaName.USER_LINK
+ INSERTING into PlaceHolderForSchemaName.USER_LINK
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.USER_LINK (LINK_ID,USER_ID,SERVICE_ACCOUNT_ID,OWNER,USER_OWNER_ID) values ('270','1','271','1','0');
 Insert into PlaceHolderForSchemaName.SERVICE_ACCOUNT (SERVICE_ID,ACCOUNT_NAME,SOURCE_ID,MIN_UPDATE_TIME,ACCOUNT_VERSION) values ('271','Real Working Account','0','5',1);
