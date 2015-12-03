@@ -45,16 +45,14 @@
             this.btn_cancelMapping = new System.Windows.Forms.Button();
             this.btn_saveMapping = new System.Windows.Forms.Button();
             this.grpBox_template = new System.Windows.Forms.GroupBox();
-            this.panel_NewTemplate = new System.Windows.Forms.Panel();
-            this.label_statusTemplateName = new System.Windows.Forms.Label();
-            this.btn_CancelNewTemplate = new System.Windows.Forms.Button();
-            this.btn_OK_NewNameTemplate = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox_NewTemplateExcel = new System.Windows.Forms.TextBox();
             this.btn_delete_template = new System.Windows.Forms.Button();
             this.btn_ActivateMappingExcel = new System.Windows.Forms.Button();
             this.comboBox_ExcelTemplate = new System.Windows.Forms.ComboBox();
             this.dataGrid_mapping = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.contextMenu_template = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_shared = new System.Windows.Forms.GroupBox();
             this.lblSharedAccountError = new System.Windows.Forms.Label();
             this.chboxMakeUserOwner = new System.Windows.Forms.CheckBox();
@@ -85,16 +83,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panelItemName = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtNewTokenName = new System.Windows.Forms.TextBox();
+            this.txtNewTemplateName = new System.Windows.Forms.TextBox();
             this.rtxtMapping = new System.Windows.Forms.RichTextBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Settings.SuspendLayout();
             this.groupBoxTokens.SuspendLayout();
             this.grpBox_Connect_setting.SuspendLayout();
             this.grpBox_template.SuspendLayout();
-            this.panel_NewTemplate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_mapping)).BeginInit();
+            this.contextMenu_template.SuspendLayout();
             this.groupBox_shared.SuspendLayout();
             this.groupBoxAccounts.SuspendLayout();
             this.panelNewAccount.SuspendLayout();
@@ -112,7 +108,7 @@
             this.btn_AddNewExcelTemplate.TabIndex = 6;
             this.btn_AddNewExcelTemplate.Text = "Add";
             this.btn_AddNewExcelTemplate.UseVisualStyleBackColor = true;
-            this.btn_AddNewExcelTemplate.Click += new System.EventHandler(this.btn_AddNewExcelTemplate_Click_1);
+            this.btn_AddNewExcelTemplate.Click += new System.EventHandler(this.btn_AddNewExcelTemplate_Click);
             // 
             // Settings
             // 
@@ -200,6 +196,7 @@
             this.grpBox_Connect_setting.TabStop = false;
             this.grpBox_Connect_setting.Text = "Connections settings";
             this.grpBox_Connect_setting.Visible = false;
+            this.grpBox_Connect_setting.VisibleChanged += new System.EventHandler(this.grpBox_Connect_setting_VisibleChanged);
             // 
             // btn_cancelMapping
             // 
@@ -226,78 +223,19 @@
             // 
             this.grpBox_template.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpBox_template.Controls.Add(this.panel_NewTemplate);
             this.grpBox_template.Controls.Add(this.btn_delete_template);
             this.grpBox_template.Controls.Add(this.btn_AddNewExcelTemplate);
             this.grpBox_template.Controls.Add(this.btn_ActivateMappingExcel);
             this.grpBox_template.Controls.Add(this.comboBox_ExcelTemplate);
             this.grpBox_template.Location = new System.Drawing.Point(9, 22);
             this.grpBox_template.Name = "grpBox_template";
-            this.grpBox_template.Size = new System.Drawing.Size(215, 232);
+            this.grpBox_template.Size = new System.Drawing.Size(215, 196);
             this.grpBox_template.TabIndex = 24;
             this.grpBox_template.TabStop = false;
             this.grpBox_template.Text = "Template";
             // 
-            // panel_NewTemplate
-            // 
-            this.panel_NewTemplate.Controls.Add(this.label_statusTemplateName);
-            this.panel_NewTemplate.Controls.Add(this.btn_CancelNewTemplate);
-            this.panel_NewTemplate.Controls.Add(this.btn_OK_NewNameTemplate);
-            this.panel_NewTemplate.Controls.Add(this.label2);
-            this.panel_NewTemplate.Controls.Add(this.textBox_NewTemplateExcel);
-            this.panel_NewTemplate.Location = new System.Drawing.Point(7, 109);
-            this.panel_NewTemplate.Name = "panel_NewTemplate";
-            this.panel_NewTemplate.Size = new System.Drawing.Size(186, 106);
-            this.panel_NewTemplate.TabIndex = 19;
-            this.panel_NewTemplate.Visible = false;
-            // 
-            // label_statusTemplateName
-            // 
-            this.label_statusTemplateName.AutoSize = true;
-            this.label_statusTemplateName.Location = new System.Drawing.Point(17, 82);
-            this.label_statusTemplateName.Name = "label_statusTemplateName";
-            this.label_statusTemplateName.Size = new System.Drawing.Size(0, 13);
-            this.label_statusTemplateName.TabIndex = 14;
-            // 
-            // btn_CancelNewTemplate
-            // 
-            this.btn_CancelNewTemplate.Location = new System.Drawing.Point(88, 53);
-            this.btn_CancelNewTemplate.Name = "btn_CancelNewTemplate";
-            this.btn_CancelNewTemplate.Size = new System.Drawing.Size(86, 26);
-            this.btn_CancelNewTemplate.TabIndex = 13;
-            this.btn_CancelNewTemplate.Text = "Cancel";
-            this.btn_CancelNewTemplate.UseVisualStyleBackColor = true;
-            this.btn_CancelNewTemplate.Click += new System.EventHandler(this.btn_CancelNewTemplate_Click);
-            // 
-            // btn_OK_NewNameTemplate
-            // 
-            this.btn_OK_NewNameTemplate.Location = new System.Drawing.Point(9, 53);
-            this.btn_OK_NewNameTemplate.Name = "btn_OK_NewNameTemplate";
-            this.btn_OK_NewNameTemplate.Size = new System.Drawing.Size(73, 26);
-            this.btn_OK_NewNameTemplate.TabIndex = 12;
-            this.btn_OK_NewNameTemplate.Text = "OK";
-            this.btn_OK_NewNameTemplate.UseVisualStyleBackColor = true;
-            this.btn_OK_NewNameTemplate.Click += new System.EventHandler(this.btn_OK_NewNameTemplate_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(163, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Please enter New template name";
-            // 
-            // textBox_NewTemplateExcel
-            // 
-            this.textBox_NewTemplateExcel.Location = new System.Drawing.Point(11, 27);
-            this.textBox_NewTemplateExcel.Name = "textBox_NewTemplateExcel";
-            this.textBox_NewTemplateExcel.Size = new System.Drawing.Size(168, 20);
-            this.textBox_NewTemplateExcel.TabIndex = 11;
-            // 
             // btn_delete_template
             // 
-            this.btn_delete_template.Enabled = false;
             this.btn_delete_template.Location = new System.Drawing.Point(133, 51);
             this.btn_delete_template.Name = "btn_delete_template";
             this.btn_delete_template.Size = new System.Drawing.Size(75, 23);
@@ -342,6 +280,7 @@
             this.dataGrid_mapping.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
+            this.dataGrid_mapping.ContextMenuStrip = this.contextMenu_template;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -364,6 +303,33 @@
             this.dataGrid_mapping.Size = new System.Drawing.Size(320, 232);
             this.dataGrid_mapping.TabIndex = 23;
             this.dataGrid_mapping.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGrid_mapping_RowsAdded);
+            this.dataGrid_mapping.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGrid_mapping_MouseUp);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "File";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Template";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 150;
+            // 
+            // contextMenu_template
+            // 
+            this.contextMenu_template.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearFieldToolStripMenuItem});
+            this.contextMenu_template.Name = "contextMenu_template";
+            this.contextMenu_template.Size = new System.Drawing.Size(128, 26);
+            // 
+            // clearFieldToolStripMenuItem
+            // 
+            this.clearFieldToolStripMenuItem.Name = "clearFieldToolStripMenuItem";
+            this.clearFieldToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.clearFieldToolStripMenuItem.Text = "Clear field";
+            this.clearFieldToolStripMenuItem.Click += new System.EventHandler(this.clearFieldToolStripMenuItem_Click);
             // 
             // groupBox_shared
             // 
@@ -658,7 +624,7 @@
             // panelItemName
             // 
             this.panelItemName.Controls.Add(this.label3);
-            this.panelItemName.Controls.Add(this.txtNewTokenName);
+            this.panelItemName.Controls.Add(this.txtNewTemplateName);
             this.panelItemName.Location = new System.Drawing.Point(28, 51);
             this.panelItemName.Name = "panelItemName";
             this.panelItemName.Size = new System.Drawing.Size(194, 57);
@@ -669,16 +635,16 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(50, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.Size = new System.Drawing.Size(107, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Connection Name";
+            this.label3.Text = "Name new template: ";
             // 
-            // txtNewTokenName
+            // txtNewTemplateName
             // 
-            this.txtNewTokenName.Location = new System.Drawing.Point(16, 26);
-            this.txtNewTokenName.Name = "txtNewTokenName";
-            this.txtNewTokenName.Size = new System.Drawing.Size(163, 20);
-            this.txtNewTokenName.TabIndex = 3;
+            this.txtNewTemplateName.Location = new System.Drawing.Point(16, 26);
+            this.txtNewTemplateName.Name = "txtNewTemplateName";
+            this.txtNewTemplateName.Size = new System.Drawing.Size(163, 20);
+            this.txtNewTemplateName.TabIndex = 3;
             // 
             // rtxtMapping
             // 
@@ -687,18 +653,6 @@
             this.rtxtMapping.Size = new System.Drawing.Size(523, 428);
             this.rtxtMapping.TabIndex = 9;
             this.rtxtMapping.Text = "";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "File";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Template";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 150;
             // 
             // ExcelSettingsDialog
             // 
@@ -712,9 +666,8 @@
             this.groupBoxTokens.ResumeLayout(false);
             this.grpBox_Connect_setting.ResumeLayout(false);
             this.grpBox_template.ResumeLayout(false);
-            this.panel_NewTemplate.ResumeLayout(false);
-            this.panel_NewTemplate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_mapping)).EndInit();
+            this.contextMenu_template.ResumeLayout(false);
             this.groupBox_shared.ResumeLayout(false);
             this.groupBox_shared.PerformLayout();
             this.groupBoxAccounts.ResumeLayout(false);
@@ -771,12 +724,6 @@
         private System.Windows.Forms.Button btnAddToken;
         private System.Windows.Forms.ComboBox cmbTokens;
         private System.Windows.Forms.Button btnDeleteToken;
-        private System.Windows.Forms.Panel panel_NewTemplate;
-        private System.Windows.Forms.Button btn_CancelNewTemplate;
-        private System.Windows.Forms.Button btn_OK_NewNameTemplate;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox_NewTemplateExcel;
-        private System.Windows.Forms.Label label_statusTemplateName;
         private System.Windows.Forms.TabPage Mapping;
         private System.Windows.Forms.FlowLayoutPanel flpSaveAccount;
         private System.Windows.Forms.Button btnChekMapping;
@@ -785,9 +732,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panelItemName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtNewTokenName;
+        private System.Windows.Forms.TextBox txtNewTemplateName;
         private System.Windows.Forms.RichTextBox rtxtMapping;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
+        private System.Windows.Forms.ContextMenuStrip contextMenu_template;
+        private System.Windows.Forms.ToolStripMenuItem clearFieldToolStripMenuItem;
     }
 }

@@ -136,7 +136,6 @@ namespace Supakulltracker
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Sources LinkToTracker { get; set; }
-        public Int32 TokenID { get; set; }
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
@@ -194,12 +193,12 @@ namespace Supakulltracker
                 Enum.TryParse(result, out sour);
                 targetTemplate.LinkToTracker = sour;
 
-                int token;
-                var result2 = (from templ in template.Mapping
-                               where templ.Key == "TokenID"
-                               select templ.Value).SingleOrDefault();
-                Int32.TryParse(result2, out token);
-                targetTemplate.TokenID = token;
+                //int token;
+                //var result2 = (from templ in template.Mapping
+                //               where templ.Key == "TokenID"
+                //               select templ.Value).SingleOrDefault();
+                //Int32.TryParse(result2, out token);
+                //targetTemplate.TokenID = token;
 
                 targetTemplate.Estimation = (from templ in template.Mapping
                                          where templ.Key == "Estimation"
@@ -225,66 +224,75 @@ namespace Supakulltracker
             target.TemplateId = currentTemplate.TemplateId;
             List<MappingForSerialization> mapList = new List<MappingForSerialization>();
 
-            MappingForSerialization mapping = new MappingForSerialization();
-            mapping.Key = "TaskID";
-            mapping.Value = currentTemplate.TaskID;
-            mapList.Add(mapping);
+            MappingForSerialization task_ID = new MappingForSerialization();
+            task_ID.Key = "TaskID";
+            task_ID.Value = currentTemplate.TaskID;
+            mapList.Add(task_ID);
 
-            mapping.Key = "SubtaskType";
-            mapping.Value = currentTemplate.SubtaskType;
-            mapList.Add(mapping);
+            MappingForSerialization subtaskType = new MappingForSerialization();
+            subtaskType.Key = "SubtaskType";
+            subtaskType.Value = currentTemplate.SubtaskType;
+            mapList.Add(subtaskType);
 
-            mapping.Key = "Summary";
-            mapping.Value = currentTemplate.Summary;
-            mapList.Add(mapping);
+            MappingForSerialization summary = new MappingForSerialization();
+            summary.Key = "Summary";
+            summary.Value = currentTemplate.Summary;
+            mapList.Add(summary);
 
-            mapping.Key = "Description";
-            mapping.Value = currentTemplate.Description;
-            mapList.Add(mapping);
+            MappingForSerialization description = new MappingForSerialization();
+            description.Key = "Description";
+            description.Value = currentTemplate.Description;
+            mapList.Add(description);
 
-            mapping.Key = "Status";
-            mapping.Value = currentTemplate.Status;
-            mapList.Add(mapping);
+            MappingForSerialization status = new MappingForSerialization();
+            status.Key = "Status";
+            status.Value = currentTemplate.Status;
+            mapList.Add(status);
 
-            mapping.Key = "Priority";
-            mapping.Value = currentTemplate.Priority;
-            mapList.Add(mapping);
+            MappingForSerialization priority = new MappingForSerialization();
+            priority.Key = "Priority";
+            priority.Value = currentTemplate.Priority;
+            mapList.Add(priority);
 
-            mapping.Key = "Product";
-            mapping.Value = currentTemplate.Product;
-            mapList.Add(mapping);
+            MappingForSerialization product = new MappingForSerialization();
+            product.Key = "Product";
+            product.Value = currentTemplate.Product;
+            mapList.Add(product);
 
-            mapping.Key = "Project";
-            mapping.Value = currentTemplate.Project;
-            mapList.Add(mapping);
+            MappingForSerialization project = new MappingForSerialization();
+            project.Key = "Project";
+            project.Value = currentTemplate.Project;
+            mapList.Add(project);
 
-            mapping.Key = "CreatedDate";
-            mapping.Value = currentTemplate.CreatedDate;
-            mapList.Add(mapping);
+            MappingForSerialization createdDate = new MappingForSerialization();
+            createdDate.Key = "CreatedDate";
+            createdDate.Value = currentTemplate.CreatedDate;
+            mapList.Add(createdDate);
 
-            mapping.Key = "CreatedBy";
-            mapping.Value = currentTemplate.CreatedBy;
-            mapList.Add(mapping);
+            MappingForSerialization createdBy = new MappingForSerialization();
+            createdBy.Key = "CreatedBy";
+            createdBy.Value = currentTemplate.CreatedBy;
+            mapList.Add(createdBy);
 
-            mapping.Key = "LinkToTracker";
-            mapping.Value = currentTemplate.LinkToTracker.ToString();
-            mapList.Add(mapping);
+            MappingForSerialization linkTotracker = new MappingForSerialization();
+            linkTotracker.Key = "LinkToTracker";
+            linkTotracker.Value = currentTemplate.LinkToTracker.ToString();
+            mapList.Add(linkTotracker);
+            
+            MappingForSerialization estimation = new MappingForSerialization();
+            estimation.Key = "Estimation";
+            estimation.Value = currentTemplate.Estimation;
+            mapList.Add(estimation);
 
-            mapping.Key = "TokenID";
-            mapping.Value = currentTemplate.TokenID.ToString();
-            mapList.Add(mapping);
+            MappingForSerialization targetVersion = new MappingForSerialization();
+            targetVersion.Key = "TargetVersion";
+            targetVersion.Value = currentTemplate.TargetVersion;
+            mapList.Add(targetVersion);
 
-            mapping.Key = "Estimation";
-            mapping.Value = currentTemplate.Estimation;
-            mapList.Add(mapping);
-
-            mapping.Key = "TargetVersion";
-            mapping.Value = currentTemplate.TargetVersion;
-            mapList.Add(mapping);
-
-            mapping.Key = "Comments";
-            mapping.Value = currentTemplate.Comments;
-            mapList.Add(mapping);
+            MappingForSerialization comments = new MappingForSerialization();
+            comments.Key = "Comments";
+            comments.Value = currentTemplate.Comments;
+            mapList.Add(comments);
             
             target.Mapping = mapList.ToArray();
             return target;
