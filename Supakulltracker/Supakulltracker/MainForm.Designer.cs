@@ -28,33 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Board = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.taskDetailTabControl = new System.Windows.Forms.TabControl();
-            this.taskSearchControl1 = new Supakulltracker.TaskSearchControl();
-            ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
+            this.searchControl = new Supakulltracker.SearchControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Board
-            // 
-            this.Board.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Board.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Board.Location = new System.Drawing.Point(0, 0);
-            this.Board.Name = "Board";
-            this.Board.RowHeadersVisible = false;
-            this.Board.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Board.Size = new System.Drawing.Size(292, 515);
-            this.Board.TabIndex = 0;
-            this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // menuStrip1
             // 
@@ -97,14 +83,13 @@
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.taskSearchControl1);
-            this.splitContainer.Panel1.Controls.Add(this.Board);
+            this.splitContainer.Panel1.Controls.Add(this.searchControl);
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.taskDetailTabControl);
             this.splitContainer.Size = new System.Drawing.Size(984, 515);
-            this.splitContainer.SplitterDistance = 292;
+            this.splitContainer.SplitterDistance = 271;
             this.splitContainer.SplitterWidth = 15;
             this.splitContainer.TabIndex = 3;
             // 
@@ -114,17 +99,17 @@
             this.taskDetailTabControl.Location = new System.Drawing.Point(0, 0);
             this.taskDetailTabControl.Name = "taskDetailTabControl";
             this.taskDetailTabControl.SelectedIndex = 0;
-            this.taskDetailTabControl.Size = new System.Drawing.Size(677, 515);
+            this.taskDetailTabControl.Size = new System.Drawing.Size(698, 515);
             this.taskDetailTabControl.TabIndex = 0;
             // 
-            // taskSearchControl1
+            // searchControl
             // 
-            this.taskSearchControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.taskSearchControl1.Location = new System.Drawing.Point(0, 439);
-            this.taskSearchControl1.Name = "taskSearchControl1";
-            this.taskSearchControl1.Size = new System.Drawing.Size(292, 76);
-            this.taskSearchControl1.TabIndex = 1;
+            this.searchControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchControl.Location = new System.Drawing.Point(0, 0);
+            this.searchControl.Name = "searchControl";
+            this.searchControl.Size = new System.Drawing.Size(271, 515);
+            this.searchControl.TabIndex = 0;
+            //this.searchControl.BoardCellContentClick += new System.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // MainForm
             // 
@@ -139,7 +124,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SupaKull";
             this.Load += new System.EventHandler(this.StartApplication_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.Board)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
@@ -152,15 +136,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView Board;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TabControl taskDetailTabControl;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private TaskSearchControl taskSearchControl1;
+        private SearchControl searchControl;
     }
 }
 

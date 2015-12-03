@@ -9,9 +9,6 @@
     <property name="connection.connection_string">User ID=Yura; Password=1991; Data Source=localhost</property>
     <property name="show_sql">true</property>
 
-    <!--<property name="hibernate.search.default.directory_provider">NHibernate.Search.Store.FSDirectoryProvider</property>-->
-    <!--<property name="hibernate.search.default.indexBase">"/var/lucene/indexes"</property>-->
-
     <mapping assembly="SupakullTrackerServices" />
 
     <event type="post-update">

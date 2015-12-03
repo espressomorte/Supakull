@@ -74,11 +74,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Search\SearchProvider.cs" />
-    <Compile Include="Search\TaskSearchControl.cs">
+    <Compile Include="Search\SearchControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Search\TaskSearchControl.Designer.cs">
-      <DependentUpon>TaskSearchControl.cs</DependentUpon>
+    <Compile Include="Search\SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Setting\DatabaseAccountSettings.cs" />
     <Compile Include="Setting\DBSettingDialog.cs">
@@ -141,14 +141,8 @@
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SuperTask\SuperTask.cs" />
-    <Compile Include="SuperTask\SuperTaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SuperTask\SuperTaskControl.designer.cs">
-      <DependentUpon>SuperTaskControl.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Search\TaskSearchControl.resx">
-      <DependentUpon>TaskSearchControl.cs</DependentUpon>
+    <EmbeddedResource Include="Search\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
@@ -177,9 +171,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\TrelloSettingDialog.resx">
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SuperTask\SuperTaskControl.resx">
-      <DependentUpon>SuperTaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

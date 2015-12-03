@@ -29,7 +29,7 @@ namespace Supakulltracker
 
         private void textBoxUseName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)     // ASCII Carriage return = 13
+            if (e.KeyChar == 13)
             {
                 Authorize();
             }

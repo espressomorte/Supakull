@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Search;
+using NHibernate.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,18 @@ namespace SupakullTrackerServices
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             using (ISession session = applicationFactory.OpenSession())
             using (IFullTextSession fullTextSession = Search.CreateFullTextSession(session))
-            //using (ITransaction transaction = session.BeginTransaction())
             {
-                IFullTextQuery fullTextQuery = fullTextSession.CreateFullTextQuery<TaskMainDAO>(textQuery);
-                IList<TaskMainDAO> tasks = fullTextQuery.List<TaskMainDAO>();
-                //transaction.Commit();
-                return tasks;
+                try
+                {
+                    IFullTextQuery fullTextQuery = fullTextSession.CreateFullTextQuery<TaskMainDAO>(textQuery);
+                    IList<TaskMainDAO> tasks = fullTextQuery.List<TaskMainDAO>();
+                    return tasks;
+                }
+                catch(Lucene.Net.QueryParsers.ParseException e)
+                {
+                    //handle parsing failure. Display some indication like "Wrong search criteria"
+                    return new TaskMainDAO[0];
+                }                
             }
         }
     }

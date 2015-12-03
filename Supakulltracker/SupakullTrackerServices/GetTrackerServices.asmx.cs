@@ -43,7 +43,10 @@ namespace SupakullTrackerServices
         public List<TaskMainDTO> FindTasks(string textQuery)
         {
             SearchProviderDAO searchProvider = new SearchProviderDAO();
-            return searchProvider.FindTasks(textQuery) as List<TaskMainDTO>;
+            IList<TaskMainDAO> taskMainDAO = searchProvider.FindTasks(textQuery);
+            IList<ITask> taskMain = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDAO);
+            List<TaskMainDTO> taskMainDTO = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMain);
+            return taskMainDTO;
         }
 
         [WebMethod]

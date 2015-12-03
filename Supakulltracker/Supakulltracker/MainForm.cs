@@ -43,9 +43,9 @@ namespace Supakulltracker
         private async void PrepareApplicationAsync()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            await trackerServices.UpdateAsync();
+            //await trackerServices.UpdateAsync();
             Tasks = trackerServices.GetAllTasks();
-            Board.DataSource = Tasks;
+            searchControl.LoadTasksToBoard(Tasks);
         }
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)

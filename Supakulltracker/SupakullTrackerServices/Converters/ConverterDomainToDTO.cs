@@ -12,6 +12,10 @@ namespace SupakullTrackerServices
 
         public static List<TaskMainDTO> TaskMainToTaskMainDTO(IList<ITask> param)
         {
+            if (param == null)
+            {
+                return null;
+            }
             List<TaskMainDTO> target = new List<TaskMainDTO>();
             foreach (ITask item in param)
             {

@@ -20,6 +20,10 @@ namespace SupakullTrackerServices
 
         public static IList<ITask> TaskMainDaoToTaskMain(IList<TaskMainDAO> TaskMainDaoCollection)
         {
+            if (TaskMainDaoCollection == null)
+            {
+                return null;
+            }
             List<ITask> target = new List<ITask>();
             foreach (TaskMainDAO taskMainDAO in TaskMainDaoCollection)
             {
