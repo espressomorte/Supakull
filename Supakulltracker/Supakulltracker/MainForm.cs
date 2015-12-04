@@ -16,6 +16,7 @@ namespace Supakulltracker
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IssueService.TaskMainDTO[] Tasks;
         public AuthorizationResult AuthorizationResult { get; private set; }
+        private ExcelSynchronizer excelSynchronizer;
 
 
         public MainForm()
@@ -46,6 +47,8 @@ namespace Supakulltracker
             await trackerServices.UpdateAsync();
             Tasks = trackerServices.GetAllTasks();
             Board.DataSource = Tasks;
+            excelSynchronizer = new ExcelSynchronizer(AuthorizationResult);
+
         }
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)

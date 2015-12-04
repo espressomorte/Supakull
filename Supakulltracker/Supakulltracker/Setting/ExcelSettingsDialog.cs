@@ -76,6 +76,7 @@ namespace Supakulltracker
                 userExcelFullAccount.Owner = true;
                 cmbTokens.Items.Clear();
                 cmbTokens.Text = String.Empty;
+                panelSelectFolderForFiles.Show();
 
                 foreach (var item in userExcelFullAccount.Tokens)
                 {
@@ -285,7 +286,7 @@ namespace Supakulltracker
             sharedUserExcelAccounts = loggedUser.GetAllSharedUserAccounts();
             userExcelAccounts = SettingsManager.GetAllUserAccountsInSource(userAllAccounts, Sources.Excel);
             sharedUserExcelAccounts = SettingsManager.GetAllUserAccountsInSource(sharedUserExcelAccounts, Sources.Excel);
-
+            panelSelectFolderForFiles.Hide();
             cmbAccounts.Items.Clear();
             foreach (var item in userExcelAccounts)
             {
@@ -321,7 +322,7 @@ namespace Supakulltracker
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Add_NewTokens(openFileDialog.FileName);
+                Add_NewTokens(openFileDialog.SafeFileName);
             }
         }
 
@@ -360,7 +361,7 @@ namespace Supakulltracker
             {
                 for (int i = 0; i < userExcelFullAccount.Tokens.Count; i++)
                 {
-                    if (userExcelFullAccount.Tokens[i].Token == path_token)
+                    if (userExcelFullAccount.Tokens[i].TokenName == path_token)
                     {
                         return false;
                     }
@@ -777,6 +778,14 @@ namespace Supakulltracker
                 {
                     btn_AddNewExcelTemplate.Enabled = false;
                 }
+            }
+        }
+
+        private void btnSelectFolder_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == folderBrouseForSync.ShowDialog())
+            {
+                ExcelSynchronizer.ChangeFolderForSync(folderBrouseForSync.SelectedPath,new AuthorizationResult(true,loggedUser));
             }
         }
     }

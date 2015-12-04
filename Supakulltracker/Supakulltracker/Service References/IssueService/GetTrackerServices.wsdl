@@ -72,6 +72,18 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTasksFromExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileForParce" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="accountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tokenID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTasksFromExcelResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="Update">
         <s:complexType />
       </s:element>
@@ -286,6 +298,12 @@
   <wsdl:message name="GetMatchedTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetMatchedTasksResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTasksFromExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTasksFromExcel" />
+  </wsdl:message>
+  <wsdl:message name="GetTasksFromExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTasksFromExcelResponse" />
+  </wsdl:message>
   <wsdl:message name="UpdateSoapIn">
     <wsdl:part name="parameters" element="tns:Update" />
   </wsdl:message>
@@ -355,6 +373,10 @@
       <wsdl:input message="tns:GetMatchedTasksSoapIn" />
       <wsdl:output message="tns:GetMatchedTasksSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <wsdl:input message="tns:GetTasksFromExcelSoapIn" />
+      <wsdl:output message="tns:GetTasksFromExcelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Update">
       <wsdl:input message="tns:UpdateSoapIn" />
       <wsdl:output message="tns:UpdateSoapOut" />
@@ -409,6 +431,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <soap:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <soap:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -520,6 +551,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <soap12:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <soap12:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
