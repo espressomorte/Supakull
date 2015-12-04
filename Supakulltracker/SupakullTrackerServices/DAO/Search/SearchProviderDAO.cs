@@ -37,7 +37,7 @@ namespace SupakullTrackerServices
             }
         }
 
-        public void GenerateIndex()
+        public void GenerateIndexes()
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             using (ISession session = applicationFactory.OpenSession())

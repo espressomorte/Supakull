@@ -63,6 +63,13 @@ namespace SupakullTrackerServices
             return taskMainDTO;
         }
 
+        [WebMethod]
+        public void GenerateIndexes()
+        {
+            SearchProviderDAO searchProvider = new SearchProviderDAO();
+            searchProvider.GenerateIndexes();
+        }
+        
         #region Update
         [WebMethod]
         public void Update()

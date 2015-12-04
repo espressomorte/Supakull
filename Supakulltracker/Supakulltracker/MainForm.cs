@@ -68,5 +68,16 @@ namespace Supakulltracker
             SettingsDialog setingDialog = new SettingsDialog(AuthorizationResult.AuthorizedUser);
             setingDialog.ShowDialog();
         }
+
+        private void generateIndexesForSearchingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateIndexesForm generateIndexesForm = new GenerateIndexesForm();
+            DialogResult dialogResult = generateIndexesForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
+                trackerServices.GenerateIndexes();
+            }
+        }
     }
 }

@@ -810,6 +810,12 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(Supakulltracker.IssueService.GetMatchedTasksRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
+        void GenerateIndexes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
+        System.Threading.Tasks.Task GenerateIndexesAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
         
@@ -1821,6 +1827,14 @@ namespace Supakulltracker.IssueService {
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
+        }
+        
+        public void GenerateIndexes() {
+            base.Channel.GenerateIndexes();
+        }
+        
+        public System.Threading.Tasks.Task GenerateIndexesAsync() {
+            return base.Channel.GenerateIndexesAsync();
         }
         
         public void Update() {

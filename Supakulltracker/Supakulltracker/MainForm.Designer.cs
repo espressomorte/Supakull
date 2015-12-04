@@ -33,8 +33,9 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.taskDetailTabControl = new System.Windows.Forms.TabControl();
             this.searchControl = new Supakulltracker.SearchControl();
+            this.taskDetailTabControl = new System.Windows.Forms.TabControl();
+            this.generateIndexesForSearchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -55,7 +56,8 @@
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
+            this.settingsToolStripMenuItem,
+            this.generateIndexesForSearchingToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -63,7 +65,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -93,6 +95,16 @@
             this.splitContainer.SplitterWidth = 15;
             this.splitContainer.TabIndex = 3;
             // 
+            // searchControl
+            // 
+            this.searchControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchControl.Location = new System.Drawing.Point(0, 0);
+            this.searchControl.Name = "searchControl";
+            this.searchControl.Size = new System.Drawing.Size(305, 515);
+            this.searchControl.TabIndex = 0;
+            this.searchControl.Tasks = null;
+            this.searchControl.BoardCellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
+            // 
             // taskDetailTabControl
             // 
             this.taskDetailTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -102,14 +114,12 @@
             this.taskDetailTabControl.Size = new System.Drawing.Size(574, 515);
             this.taskDetailTabControl.TabIndex = 0;
             // 
-            // searchControl
+            // generateIndexesForSearchingToolStripMenuItem
             // 
-            this.searchControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchControl.Location = new System.Drawing.Point(0, 0);
-            this.searchControl.Name = "searchControl";
-            this.searchControl.Size = new System.Drawing.Size(305, 515);
-            this.searchControl.TabIndex = 0;
-            this.searchControl.BoardCellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
+            this.generateIndexesForSearchingToolStripMenuItem.Name = "generateIndexesForSearchingToolStripMenuItem";
+            this.generateIndexesForSearchingToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.generateIndexesForSearchingToolStripMenuItem.Text = "Generate Indexes for searching";
+            this.generateIndexesForSearchingToolStripMenuItem.Click += new System.EventHandler(this.generateIndexesForSearchingToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -144,6 +154,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private SearchControl searchControl;
+        private System.Windows.Forms.ToolStripMenuItem generateIndexesForSearchingToolStripMenuItem;
     }
 }
 

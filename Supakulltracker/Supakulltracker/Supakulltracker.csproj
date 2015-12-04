@@ -73,6 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Search\GenerateIndexesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Search\GenerateIndexesForm.Designer.cs">
+      <DependentUpon>GenerateIndexesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Search\SearchProvider.cs" />
     <Compile Include="Search\SearchControl.cs">
       <SubType>UserControl</SubType>
@@ -141,6 +147,9 @@
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SuperTask\SuperTask.cs" />
+    <EmbeddedResource Include="Search\GenerateIndexesForm.resx">
+      <DependentUpon>GenerateIndexesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
