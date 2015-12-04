@@ -13,37 +13,17 @@ namespace SupakullTrackerServices
     {
         private OAuth2Parameters parameters = new OAuth2Parameters();
         ListFeed listFeed;
+        List<GoogleSheetsAccountToken> allTokensInAccount = new List<GoogleSheetsAccountToken>();
         public GoogleSheetsAdapter()
         {           
+            //SpreadsheetEntry spreadsheet = (SpreadsheetEntry)feed.Entries[0];
+            //WorksheetFeed wsFeed = spreadsheet.Worksheets;
+            //WorksheetEntry worksheet = (WorksheetEntry)wsFeed.Entries[0];
 
+            //AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
 
-
-            parameters.ClientId = Constants.googleSheetsCLIENT_ID;
-            parameters.ClientSecret = Constants.googleSheetsCLIENT_SECRET;
-            parameters.RedirectUri = Constants.googleSheetsREDIRECT_URI;
-            parameters.Scope = Constants.googleSheetsSCOPE;
-            parameters.AccessCode = "4/dEvtIvPoNciqrNs4FfBMcc8wxl70jgedJ8NBKGj1ksg";
-            parameters.AccessToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
-            parameters.RefreshToken = "1/VKkcm_QeQmBzDLmATBZoYXLW2ooEvg7MM6D9MBS8NCg";
-            //OAuthUtil.GetAccessToken(parameters);
-            OAuthUtil.RefreshAccessToken(parameters);
-
-            SpreadsheetsService service = new SpreadsheetsService(Constants.googleSheetsAppName);
-            GOAuth2RequestFactory requestFactory = new GOAuth2RequestFactory(null, Constants.googleSheetsAppName, parameters);
-
-            service.RequestFactory = requestFactory;
-
-            SpreadsheetQuery query = new SpreadsheetQuery();
-            SpreadsheetFeed feed = service.Query(query);
-
-            SpreadsheetEntry spreadsheet = (SpreadsheetEntry)feed.Entries[0];
-            WorksheetFeed wsFeed = spreadsheet.Worksheets;
-            WorksheetEntry worksheet = (WorksheetEntry)wsFeed.Entries[0];
-
-            AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
-
-            ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
-            listFeed = service.Query(listQuery);
+            //ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
+            //listFeed = service.Query(listQuery);
         }
          
         public IList<ITask> GetAllTasks()
@@ -73,17 +53,119 @@ namespace SupakullTrackerServices
 
         public ITask GetTask(int index)
         {
-            throw new NotImplementedException();
+            ITask task = null;
+
+            foreach (ListEntry row in listFeed.Entries)
+            {
+                index--;
+                if (index == 0)
+                    task = GetRowElements(row);
+            }
+
+            return task;
         }
 
         public IAccountSettings TestAccount(IAccountSettings accountnForTest)
         {
-            throw new NotImplementedException();
+            parameters.ClientId = Constants.googleSheetsCLIENT_ID;
+            parameters.ClientSecret = Constants.googleSheetsCLIENT_SECRET;
+            parameters.RedirectUri = Constants.googleSheetsREDIRECT_URI;
+            parameters.Scope = Constants.googleSheetsSCOPE;
+
+            GoogleSheetsAccountSettings accountForTestGS = (GoogleSheetsAccountSettings)accountnForTest;
+            GoogleSheetsAccountToken tokenForTest = accountForTestGS.Tokens.First();
+            Boolean result = false;
+
+            if (tokenForTest != null)
+            {
+                foreach (GoogleSheetsAccountToken gast in accountForTestGS.Tokens)
+                {
+                    if (gast.TokenName == "GetNewToken")
+                    {
+                        string authorizationUrl = OAuthUtil.CreateOAuth2AuthorizationUrl(parameters);
+                        gast.RefreshToken = authorizationUrl;
+                    }
+                    else if (gast.TokenName == "EnterAccessToken")
+                    {
+                        parameters.AccessToken = gast.RefreshToken;
+                        parameters.AccessCode = gast.RefreshToken;
+                        OAuthUtil.GetAccessToken(parameters);
+                        gast.RefreshToken = parameters.RefreshToken;
+                    }
+                    else if (gast.TokenName == "UseSaveToken")
+                    {
+                        parameters.AccessToken = gast.RefreshToken;
+                        parameters.AccessCode = gast.RefreshToken;
+                        parameters.RefreshToken = gast.RefreshToken;
+                        OAuthUtil.RefreshAccessToken(parameters);
+                    }
+                    else if (gast.TokenName == "CheckFileName")
+                    {
+                        parameters.AccessToken = accountForTestGS.Tokens[0].RefreshToken;
+                        parameters.AccessCode = accountForTestGS.Tokens[0].RefreshToken;
+                        parameters.RefreshToken = accountForTestGS.Tokens[0].RefreshToken;
+                        bool result2;
+                        result2 = CheckFileGS(gast.RefreshToken, accountForTestGS);
+                        if (!result2)
+                            gast.RefreshToken = "This file does not exist";
+                        else
+                            gast.RefreshToken = "OK";
+                    }
+                }
+                
+                result = true;
+            }
+
+            accountForTestGS.TestResult = result;
+            return accountForTestGS;
+        }
+
+
+        private bool CheckFileGS(string FileName, GoogleSheetsAccountSettings accountForTestGS)
+        {
+            bool result = false;
+            SpreadsheetsService service = new SpreadsheetsService(Constants.googleSheetsAppName);
+            GOAuth2RequestFactory requestFactory = new GOAuth2RequestFactory(null, Constants.googleSheetsAppName, parameters);
+            service.RequestFactory = requestFactory;
+            SpreadsheetQuery query = new SpreadsheetQuery();
+            SpreadsheetFeed feed = service.Query(query);
+            SpreadsheetEntry spreadsheet;
+            for (int i = 0; i < feed.Entries.Count; i++)
+            {
+                if (feed.Entries[i].Title.Text == FileName)
+                {
+                    spreadsheet = (SpreadsheetEntry)feed.Entries[i];
+                    WorksheetFeed wsFeed = spreadsheet.Worksheets;
+                    WorksheetEntry worksheet = (WorksheetEntry)wsFeed.Entries[0];
+                    AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
+                    ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
+                    listFeed = service.Query(listQuery);
+                    result = true;
+                    break;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            //if (listFeed != null)
+            //{
+            //    //ShowMapping();
+            //}
+
+            return result;
         }
 
         public IAdapter GetAdapter(IAccountSettings account)
         {
-            throw new NotImplementedException();
+            GoogleSheetsAccountSettings gsAccount = (GoogleSheetsAccountSettings)account;
+            allTokensInAccount = gsAccount.Tokens;
+            //foreach (var token in allTokensInAccount)
+            //{
+            //    allFactories.GetSessionFactory(token);
+            //}
+            return this;
         }
     }    
 }

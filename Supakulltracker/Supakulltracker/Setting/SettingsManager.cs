@@ -137,7 +137,7 @@ namespace Supakulltracker
                 case Sources.Excel:
                     return null;
                 case Sources.GoogleSheets:
-                    return null;
+                    return new GoogleSheetsAccountSettings();
                 default:
                     return null;
             }

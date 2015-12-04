@@ -35,7 +35,7 @@ namespace SupakullTrackerServices
                 var accounts = SettingsManager.GetAllAccounts();
                 foreach (var account in accounts)
                 {
-                    if (account.Source == Sources.DataBase || account.Source == Sources.Trello)
+                    if (account.Source == Sources.DataBase)
                     {
                         if (!accountAdapterLastUpdateDic.ContainsKey(account))
                         {

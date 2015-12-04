@@ -18,7 +18,7 @@ namespace Supakulltracker
 
         DBSettingDialog dbSetingDialog;
         TrelloSettingDialog trelloSettingDialog;
-
+        GoogleSheetsSettingDialog gsSettingDialog;
 
         public SettingsDialog(UserProvider.UserDTO loggedUser)
         {
@@ -29,7 +29,7 @@ namespace Supakulltracker
 
             dbSetingDialog = new DBSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
             trelloSettingDialog = new TrelloSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
-           
+            gsSettingDialog = new GoogleSheetsSettingDialog(loggedUser, userAccounts, sharedUserAccounts);
         }
 
         private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,6 +42,12 @@ namespace Supakulltracker
         {
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(trelloSettingDialog);
+        }
+
+        private void googleSheetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(gsSettingDialog);
         }
     }
 }
