@@ -116,7 +116,6 @@
     </Compile>
     <Compile Include="TaskMainDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SupakullTrackerServices\SupakullTrackerServices.csproj">

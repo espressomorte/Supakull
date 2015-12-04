@@ -10,16 +10,6 @@
     <property name="show_sql">true</property>
 
     <mapping assembly="SupakullTrackerServices" />
-
-    <event type="post-update">
-      <listener class="NHibernate.Search.Event.FullTextIndexEventListener, NHibernate.Search"/>
-    </event>
-    <event type="post-insert">
-      <listener class="NHibernate.Search.Event.FullTextIndexEventListener, NHibernate.Search"/>
-    </event>
-    <event type="post-delete">
-      <listener class="NHibernate.Search.Event.FullTextIndexEventListener, NHibernate.Search"/>
-    </event>
     
   </session-factory>
 </hibernate-configuration>

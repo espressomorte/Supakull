@@ -210,3 +210,15 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# Lucene Indexes
+*.fdt
+*.fdx
+*.fnm
+*.frq
+*.nrm
+*.prx
+*.tii
+*.tis
+*.cfs
+segments*

@@ -41,7 +41,7 @@ namespace Supakulltracker
         private async void PrepareApplicationAsync()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            await trackerServices.UpdateAsync();
+            //await trackerServices.UpdateAsync();
             IssueService.TaskMainDTO[] tasks = trackerServices.GetAllTasks();
             searchControl.Tasks = tasks;
         }
