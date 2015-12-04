@@ -12,6 +12,21 @@ namespace Supakulltracker
 {
     public partial class SearchControl : UserControl
     {
+        private IssueService.TaskMainDTO[] tasks;
+
+        public IssueService.TaskMainDTO[] Tasks
+        {
+            get
+            {
+                return tasks;
+            }
+            set
+            {
+                tasks = value;
+                Board.DataSource = value;
+            }
+        }
+
         public SearchControl()
         {
             InitializeComponent();            
@@ -35,19 +50,13 @@ namespace Supakulltracker
         private void Find(string textQuery)
         {
             SearchProvider taskSearchProvider = new SearchProvider();
-            IssueService.TaskMainDTO[] tasks = taskSearchProvider.FindTasks(textQuery);
-            this.LoadTasksToBoard(tasks);
+            Tasks = taskSearchProvider.FindTasks(textQuery);
         }
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewCellEventHandler handler = BoardCellContentClick;
             handler(sender, e);
-        }
-
-        public void LoadTasksToBoard(IssueService.TaskMainDTO[] tasks)
-        {
-            Board.DataSource = tasks;
         }
     }
 }

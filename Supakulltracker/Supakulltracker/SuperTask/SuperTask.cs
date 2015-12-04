@@ -96,11 +96,10 @@ namespace Supakulltracker
             }
 
             FillSuperTaskProperties();
-        }
+        }        
 
         private void FillSuperTaskProperties()
         {
-            TaskID = 
             SubtaskType = GetSingleValue(subtaskTypes);
             Summary = GetSingleValue(summaries);
             Description = GetSingleValue(descriptions);
@@ -291,5 +290,12 @@ namespace Supakulltracker
         }
 
         #endregion
+
+        public static SuperTask GetSuperTask(TaskMainDTO task)
+        {
+            GetTrackerServicesSoapClient service = new GetTrackerServicesSoapClient();
+            ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.LinkToTracker);
+            return new SuperTask(matchedTasks);
+        }
     }
 }

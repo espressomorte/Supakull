@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    [Indexed]//(Index = "/indexes/TaskMainDAO")]
+    [Indexed]
      public class TaskMainDAO: IEquatable<TaskMainDAO>
     {        
         public TaskMainDAO()

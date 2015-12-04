@@ -12,6 +12,10 @@ namespace SupakullTrackerServices
     {
         public IList<TaskMainDAO> FindTasks(string textQuery)
         {
+            if (textQuery == string.Empty)
+            {
+                return null;
+            }
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             using (ISession session = applicationFactory.OpenSession())
             using (IFullTextSession fullTextSession = Search.CreateFullTextSession(session))

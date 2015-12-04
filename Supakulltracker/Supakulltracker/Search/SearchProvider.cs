@@ -11,7 +11,12 @@ namespace Supakulltracker
         public IssueService.TaskMainDTO[] FindTasks(string textQuery)
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            return trackerServices.FindTasks(textQuery);
+            IssueService.TaskMainDTO[] tasks = trackerServices.FindTasks(textQuery);
+            if(tasks == null)
+            {
+                tasks = trackerServices.GetAllTasks();
+            }
+            return tasks;
         }
     }
 }

@@ -48,7 +48,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(894, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -71,7 +71,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 539);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(984, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(894, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -88,8 +88,8 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.taskDetailTabControl);
-            this.splitContainer.Size = new System.Drawing.Size(984, 515);
-            this.splitContainer.SplitterDistance = 271;
+            this.splitContainer.Size = new System.Drawing.Size(894, 515);
+            this.splitContainer.SplitterDistance = 305;
             this.splitContainer.SplitterWidth = 15;
             this.splitContainer.TabIndex = 3;
             // 
@@ -99,7 +99,7 @@
             this.taskDetailTabControl.Location = new System.Drawing.Point(0, 0);
             this.taskDetailTabControl.Name = "taskDetailTabControl";
             this.taskDetailTabControl.SelectedIndex = 0;
-            this.taskDetailTabControl.Size = new System.Drawing.Size(698, 515);
+            this.taskDetailTabControl.Size = new System.Drawing.Size(574, 515);
             this.taskDetailTabControl.TabIndex = 0;
             // 
             // searchControl
@@ -107,19 +107,20 @@
             this.searchControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchControl.Location = new System.Drawing.Point(0, 0);
             this.searchControl.Name = "searchControl";
-            this.searchControl.Size = new System.Drawing.Size(271, 515);
+            this.searchControl.Size = new System.Drawing.Size(305, 515);
             this.searchControl.TabIndex = 0;
-            //this.searchControl.BoardCellContentClick += new System.DataGridViewCellEventHandler(this.Board_CellContentClick);
+            this.searchControl.BoardCellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(894, 561);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(910, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SupaKull";
