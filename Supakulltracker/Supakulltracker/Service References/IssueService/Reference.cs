@@ -810,6 +810,13 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTasksFromExcel", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> GetTasksFromExcelAsync(Supakulltracker.IssueService.GetTasksFromExcelRequest request);
         
+        // CODEGEN: Generating message contract since element name accountForTest from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestExcelAccount", ReplyAction="*")]
+        Supakulltracker.IssueService.TestExcelAccountResponse TestExcelAccount(Supakulltracker.IssueService.TestExcelAccountRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestExcelAccount", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestExcelAccountResponse> TestExcelAccountAsync(Supakulltracker.IssueService.TestExcelAccountRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
         
@@ -1040,18 +1047,18 @@ namespace Supakulltracker.IssueService {
         public byte[] fileForParce;
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-        public int accountID;
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
         public int tokenID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string updateTime;
         
         public GetTasksFromExcelRequestBody() {
         }
         
-        public GetTasksFromExcelRequestBody(byte[] fileForParce, int accountID, int tokenID) {
+        public GetTasksFromExcelRequestBody(byte[] fileForParce, int tokenID, string updateTime) {
             this.fileForParce = fileForParce;
-            this.accountID = accountID;
             this.tokenID = tokenID;
+            this.updateTime = updateTime;
         }
     }
     
@@ -1079,6 +1086,78 @@ namespace Supakulltracker.IssueService {
     public partial class GetTasksFromExcelResponseBody {
         
         public GetTasksFromExcelResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestExcelAccountRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestExcelAccount", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestExcelAccountRequestBody Body;
+        
+        public TestExcelAccountRequest() {
+        }
+        
+        public TestExcelAccountRequest(Supakulltracker.IssueService.TestExcelAccountRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestExcelAccountRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO accountForTest;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public byte[] fileForParce;
+        
+        public TestExcelAccountRequestBody() {
+        }
+        
+        public TestExcelAccountRequestBody(Supakulltracker.IssueService.ServiceAccountDTO accountForTest, byte[] fileForParce) {
+            this.accountForTest = accountForTest;
+            this.fileForParce = fileForParce;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class TestExcelAccountResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestExcelAccountResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.TestExcelAccountResponseBody Body;
+        
+        public TestExcelAccountResponse() {
+        }
+        
+        public TestExcelAccountResponse(Supakulltracker.IssueService.TestExcelAccountResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class TestExcelAccountResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.ServiceAccountDTO TestExcelAccountResult;
+        
+        public TestExcelAccountResponseBody() {
+        }
+        
+        public TestExcelAccountResponseBody(Supakulltracker.IssueService.ServiceAccountDTO TestExcelAccountResult) {
+            this.TestExcelAccountResult = TestExcelAccountResult;
         }
     }
     
@@ -1804,12 +1883,12 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetTasksFromExcel(request);
         }
         
-        public void GetTasksFromExcel(byte[] fileForParce, int accountID, int tokenID) {
+        public void GetTasksFromExcel(byte[] fileForParce, int tokenID, string updateTime) {
             Supakulltracker.IssueService.GetTasksFromExcelRequest inValue = new Supakulltracker.IssueService.GetTasksFromExcelRequest();
             inValue.Body = new Supakulltracker.IssueService.GetTasksFromExcelRequestBody();
             inValue.Body.fileForParce = fileForParce;
-            inValue.Body.accountID = accountID;
             inValue.Body.tokenID = tokenID;
+            inValue.Body.updateTime = updateTime;
             Supakulltracker.IssueService.GetTasksFromExcelResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetTasksFromExcel(inValue);
         }
         
@@ -1818,13 +1897,40 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetTasksFromExcelAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> GetTasksFromExcelAsync(byte[] fileForParce, int accountID, int tokenID) {
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> GetTasksFromExcelAsync(byte[] fileForParce, int tokenID, string updateTime) {
             Supakulltracker.IssueService.GetTasksFromExcelRequest inValue = new Supakulltracker.IssueService.GetTasksFromExcelRequest();
             inValue.Body = new Supakulltracker.IssueService.GetTasksFromExcelRequestBody();
             inValue.Body.fileForParce = fileForParce;
-            inValue.Body.accountID = accountID;
             inValue.Body.tokenID = tokenID;
+            inValue.Body.updateTime = updateTime;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetTasksFromExcelAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.TestExcelAccountResponse Supakulltracker.IssueService.GetTrackerServicesSoap.TestExcelAccount(Supakulltracker.IssueService.TestExcelAccountRequest request) {
+            return base.Channel.TestExcelAccount(request);
+        }
+        
+        public Supakulltracker.IssueService.ServiceAccountDTO TestExcelAccount(Supakulltracker.IssueService.ServiceAccountDTO accountForTest, byte[] fileForParce) {
+            Supakulltracker.IssueService.TestExcelAccountRequest inValue = new Supakulltracker.IssueService.TestExcelAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestExcelAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            inValue.Body.fileForParce = fileForParce;
+            Supakulltracker.IssueService.TestExcelAccountResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestExcelAccount(inValue);
+            return retVal.Body.TestExcelAccountResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.TestExcelAccountResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.TestExcelAccountAsync(Supakulltracker.IssueService.TestExcelAccountRequest request) {
+            return base.Channel.TestExcelAccountAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.TestExcelAccountResponse> TestExcelAccountAsync(Supakulltracker.IssueService.ServiceAccountDTO accountForTest, byte[] fileForParce) {
+            Supakulltracker.IssueService.TestExcelAccountRequest inValue = new Supakulltracker.IssueService.TestExcelAccountRequest();
+            inValue.Body = new Supakulltracker.IssueService.TestExcelAccountRequestBody();
+            inValue.Body.accountForTest = accountForTest;
+            inValue.Body.fileForParce = fileForParce;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestExcelAccountAsync(inValue);
         }
         
         public void Update() {

@@ -59,16 +59,50 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
-        public void GetTasksFromExcel(Byte[] fileForParce, Int32 accountID, Int32 tokenID)
+        public void GetTasksFromExcel(Byte[] fileForParce, Int32 tokenID, String updateTime)
         {
-            ExcelAdapter excelAdapter = new ExcelAdapter(fileForParce);
-            IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
-            if (allTasksFromexcel != null)
+            try
             {
-                IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
-                TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
-            }
+                ExcelAdapter excelAdapter = new ExcelAdapter(fileForParce, tokenID);
+                IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
+                if (allTasksFromexcel != null)
+                {
+                    try
+                    {
+                        IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
+                        TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                        excelAdapter.ID = tokenID;
+                        excelAdapter.UpdateTokenLastUpdateTime(updateTime);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        return;
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                return;
+            }
+        }
+
+
+        [WebMethod]
+        public ServiceAccountDTO TestExcelAccount(ServiceAccountDTO accountForTest, Byte[] fileForParce)
+        {
+            IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
+           
+            currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
+            ExcelAdapter currentAdapter = new ExcelAdapter(currentAccountForTest, fileForParce);
+
+            IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
+            ServiceAccount resultDomain = new ServiceAccount();
+            resultDomain = testResult.Convert(testResult);
+            ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
+            return result;
         }
 
         #region Update
@@ -91,7 +125,7 @@ namespace SupakullTrackerServices
             adapters.Add(new DatabaseAdapter());
             //adapters.Add(new TrelloManager("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee"));
             //adapters.Add(new GoogleSheetsAdapter());
-            adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
+            //adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
             return adapters;
         }
 
@@ -342,17 +376,25 @@ namespace SupakullTrackerServices
         public ServiceAccountDTO TestAccount(ServiceAccountDTO accountForTest)
         {
             IAdapter currentAdapter = AdapterInstanceFactory.GetCurentAdapterInstance(accountForTest.Source);
-            IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
+            if (currentAdapter != null)
+            {
+                IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
 
-            currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
+                currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
 
-            IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
-            ServiceAccount resultDomain = new ServiceAccount();
-            resultDomain = testResult.Convert(testResult);
-            ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
-            return result;
+                IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
+                ServiceAccount resultDomain = new ServiceAccount();
+                resultDomain = testResult.Convert(testResult);
+                ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
+                return result;
+            }
+            else
+            {
+                accountForTest.TestResult = false;
+                return accountForTest;
+            }
+            
         }
-
         #endregion
 
     }

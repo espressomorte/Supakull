@@ -209,6 +209,9 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TestAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.TestExcelAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -261,6 +264,11 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MyConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

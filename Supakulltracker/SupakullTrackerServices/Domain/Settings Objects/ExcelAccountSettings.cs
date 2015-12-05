@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Supakulltracker.IssueService;
 using System.IO;
 using OfficeOpenXml;
 
-namespace Supakulltracker
+namespace SupakullTrackerServices
 {
-    public class ExcelAccountSettings : IAccountSettings
+    public class ExcelAccountSettings : IAccountSettings, IAccountTest
     {
         public Int32 ID { get; set; }
         public String Name { get; set; }
@@ -18,52 +17,55 @@ namespace Supakulltracker
         public List<ExcelAccountToken> Tokens { get; set; }
         public List<ExcelAccountTemplate> Template { get; set; }
 
-        public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
+        public Boolean TestResult { get; set; }
+
+        public IAccountSettings Convert(ServiceAccount serviceAccount)
         {
             ExcelAccountSettings target = new ExcelAccountSettings();
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
+
             target.Tokens = new List<ExcelAccountToken>();
             target.Template = new List<ExcelAccountTemplate>();
 
-            if (serviceAccount.Tokens.Length > 0)
+            if (serviceAccount.Tokens.Count > 0)
             {
-                foreach (TokenDTO token in serviceAccount.Tokens)
+                foreach (Token token in serviceAccount.Tokens)
                 {
                     ExcelAccountToken targetToken = new ExcelAccountToken();
-                    targetToken = (ExcelAccountToken)targetToken.ConvertFromDAO(token);
+                    targetToken = (ExcelAccountToken)targetToken.Convert(token);
                     target.Tokens.Add(targetToken);
                 }
             }
-            if (serviceAccount.MappingTemplates.Length > 0)
+            if (serviceAccount.MappingTemplates.Count > 0)
             {
-                foreach (TemplateDTO template in serviceAccount.MappingTemplates)
+                foreach (Template template in serviceAccount.MappingTemplates)
                 {
                     ExcelAccountTemplate targetTemplate = new ExcelAccountTemplate();
-                    targetTemplate = (ExcelAccountTemplate)targetTemplate.ConvertFromDAO(template);
+                    targetTemplate = (ExcelAccountTemplate)targetTemplate.Convert(template);
                     target.Template.Add(targetTemplate);
                 }
             }
             return target;
         }
 
-        public ServiceAccountDTO ConvertToDAO(IAccountSettings serviceAccount)
+        public ServiceAccount Convert(IAccountSettings serviceAccount)
         {
-            ServiceAccountDTO target = new ServiceAccountDTO();
+            ServiceAccount target = new ServiceAccount();
             ExcelAccountSettings currentAccount = (ExcelAccountSettings)serviceAccount;
 
             target.ServiceAccountId = currentAccount.ID;
             target.ServiceAccountName = currentAccount.Name;
             target.Source = Sources.Excel;
 
-            List<TokenDTO> tok = new List<TokenDTO>();
-            List<TemplateDTO> templ = new List<TemplateDTO>();
+            List<Token> tok = new List<Token>();
+            List<Template> templ = new List<Template>();
             if (currentAccount.Tokens.Count > 0)
             {
                 foreach (ExcelAccountToken token in currentAccount.Tokens)
                 {
-                    TokenDTO localtok = token.ConvertToDAO(token);
+                    Token localtok = token.Convert(token);
                     tok.Add(localtok);
                 }
                 target.Tokens = tok.ToArray();
@@ -72,43 +74,17 @@ namespace Supakulltracker
             {
                 foreach (ExcelAccountTemplate template in currentAccount.Template)
                 {
-                    TemplateDTO localtemp = template.ConvertToDAO(template);
+                    Template localtemp = template.Convert(template);
                     templ.Add(localtemp);
                 }
-                target.MappingTemplates = templ.ToArray();
             }
             return target;
         }
 
-        public static Byte[] OpenExcelFileAndReturnByteArray(String path)
+        public ExcelAccountToken FindTokenInAccountByID(Int32 id)
         {
-            Byte[] fileInBytes;
-            try
-            {
-                using (FileStream stream = File.OpenRead(path))
-                {
-                    using (ExcelPackage packeg = new ExcelPackage(stream))
-                    {
-                        fileInBytes = packeg.GetAsByteArray();
-                    }
-                    if (fileInBytes != null && fileInBytes.Length > 0)
-                    {
-                        return fileInBytes;
-                    }
-                    else
-                    {
-                        throw new Exception("Bytearray is null!");
-                    }
-                }
-            }
-            catch (IOException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            ExcelAccountToken result = this.Tokens.SingleOrDefault(token => token.TokenId == id);
+            return result;
         }
 
     }
@@ -119,27 +95,28 @@ namespace Supakulltracker
         public String TokenName { get; set; }
         public DateTime LastUpdateTime { get; set; }
 
-        public IAccountToken ConvertFromDAO(TokenDTO token)
+
+        public IAccountToken Convert(Token token)
         {
             ExcelAccountToken targetToken = new ExcelAccountToken();
             targetToken.TokenId = token.TokenId;
             targetToken.TokenName = token.TokenName;
 
-            if (token.Tokens.Length > 0)
+            if (token.Tokens.Count > 0)
             {
                 DateTime dt;
                 DateTime.TryParse((from tok in token.Tokens
                                    where tok.Key == "LastUpdateTime"
-                                   select tok.Value).SingleOrDefault(),out dt);
+                                   select tok.Value).SingleOrDefault(), out dt);
                 targetToken.LastUpdateTime = dt;
             }
 
             return targetToken;
         }
 
-        public TokenDTO ConvertToDAO(IAccountToken token)
+        public Token Convert(IAccountToken token)
         {
-            TokenDTO target = new TokenDTO();
+            Token target = new Token();
             ExcelAccountToken currentToken = (ExcelAccountToken)token;
 
             target.TokenName = currentToken.TokenName;
@@ -151,7 +128,7 @@ namespace Supakulltracker
             lastUpdateTime.Value = currentToken.LastUpdateTime.ToString();
             tokenList.Add(lastUpdateTime);
 
-            target.Tokens = tokenList.ToArray();
+
             return target;
         }
 
@@ -166,7 +143,7 @@ namespace Supakulltracker
         public bool Equals(IAccountToken other)
         {
             ExcelAccountToken token = (ExcelAccountToken)other;
-            return ( this.TokenId.Equals(token.TokenId)
+            return (this.TokenId.Equals(token.TokenId)
                     && this.TokenName.Equals(token.TokenName));
         }
 
@@ -197,12 +174,13 @@ namespace Supakulltracker
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
 
-        public IAccountTemplate ConvertFromDAO(TemplateDTO template)
+        public IAccountTemplate Convert(Template template)
         {
             ExcelAccountTemplate targetTemplate = new ExcelAccountTemplate();
             targetTemplate.TemplateId = template.TemplateId;
             targetTemplate.TemplateName = template.TemplateName;
-            if (template.Mapping.Length > 0)
+            
+            if (template.Mapping.Count > 0)
             {
                 targetTemplate.TaskID = (from templ in template.Mapping
                                          where templ.Key == "TaskID"
@@ -213,11 +191,11 @@ namespace Supakulltracker
                                               select templ.Value).SingleOrDefault();
 
                 targetTemplate.Summary = (from templ in template.Mapping
-                                         where templ.Key == "Summary"
+                                          where templ.Key == "Summary"
                                           select templ.Value).SingleOrDefault();
 
                 targetTemplate.Description = (from templ in template.Mapping
-                                         where templ.Key == "Description"
+                                              where templ.Key == "Description"
                                               select templ.Value).SingleOrDefault();
 
                 targetTemplate.Status = (from templ in template.Mapping
@@ -225,23 +203,23 @@ namespace Supakulltracker
                                          select templ.Value).SingleOrDefault();
 
                 targetTemplate.Priority = (from templ in template.Mapping
-                                         where templ.Key == "Priority"
+                                           where templ.Key == "Priority"
                                            select templ.Value).SingleOrDefault();
 
                 targetTemplate.Product = (from templ in template.Mapping
-                                         where templ.Key == "Product"
+                                          where templ.Key == "Product"
                                           select templ.Value).SingleOrDefault();
 
                 targetTemplate.Project = (from templ in template.Mapping
-                                         where templ.Key == "Project"
+                                          where templ.Key == "Project"
                                           select templ.Value).SingleOrDefault();
 
                 targetTemplate.CreatedDate = (from templ in template.Mapping
-                                         where templ.Key == "CreatedDate"
+                                              where templ.Key == "CreatedDate"
                                               select templ.Value).SingleOrDefault();
 
                 targetTemplate.CreatedBy = (from templ in template.Mapping
-                                         where templ.Key == "CreatedBy"
+                                            where templ.Key == "CreatedBy"
                                             select templ.Value).SingleOrDefault();
                 Sources sour;
                 var result = (from templ in template.Mapping
@@ -258,107 +236,50 @@ namespace Supakulltracker
                 //targetTemplate.TokenID = token;
 
                 targetTemplate.Estimation = (from templ in template.Mapping
-                                         where templ.Key == "Estimation"
+                                             where templ.Key == "Estimation"
                                              select templ.Value).SingleOrDefault();
 
                 targetTemplate.TargetVersion = (from templ in template.Mapping
-                                         where templ.Key == "TargetVersion"
+                                                where templ.Key == "TargetVersion"
                                                 select templ.Value).SingleOrDefault();
 
                 targetTemplate.Comments = (from templ in template.Mapping
-                                                where templ.Key == "Comments"
+                                           where templ.Key == "Comments"
                                            select templ.Value).SingleOrDefault();
-
-
-                var resultStrings = from customAtrib in template.Mapping
-                                    where customAtrib.Key.Contains("AllFieldsInFile")
-                                    select customAtrib.Value;
-
-                targetTemplate.AllFieldsInFile.AddRange(resultStrings);
+ 
             }
             return targetTemplate;
         }
 
-        public TemplateDTO ConvertToDAO(IAccountTemplate template)
+        public Template Convert(IAccountTemplate template)
         {
-            TemplateDTO target = new TemplateDTO();
+            Template target = new Template();
             ExcelAccountTemplate currentTemplate = (ExcelAccountTemplate)template;
 
             target.TemplateName = currentTemplate.TemplateName;
             target.TemplateId = currentTemplate.TemplateId;
-            List<MappingForSerialization> mapList = new List<MappingForSerialization>();
 
-            MappingForSerialization task_ID = new MappingForSerialization();
-            task_ID.Key = "TaskID";
-            task_ID.Value = currentTemplate.TaskID;
-            mapList.Add(task_ID);
+            target.Mapping.Add("TaskID", currentTemplate.TaskID);
+            target.Mapping.Add("SubtaskType", currentTemplate.SubtaskType);
+            target.Mapping.Add("Summary", currentTemplate.Summary);
+            target.Mapping.Add("Description", currentTemplate.Description);
+            target.Mapping.Add("Status", currentTemplate.Status);
+            target.Mapping.Add("Priority", currentTemplate.Priority);
+            target.Mapping.Add("Product", currentTemplate.Product);
+            target.Mapping.Add("Project", currentTemplate.Project);
+            target.Mapping.Add("CreatedDate", currentTemplate.CreatedDate);
+            target.Mapping.Add("CreatedBy", currentTemplate.CreatedBy);
+            target.Mapping.Add("LinkToTracker", currentTemplate.LinkToTracker.ToString());
+            target.Mapping.Add("Estimation", currentTemplate.Estimation);
+            target.Mapping.Add("TargetVersion", currentTemplate.TargetVersion);
+            target.Mapping.Add("Comments", currentTemplate.Comments);
 
-            MappingForSerialization subtaskType = new MappingForSerialization();
-            subtaskType.Key = "SubtaskType";
-            subtaskType.Value = currentTemplate.SubtaskType;
-            mapList.Add(subtaskType);
 
-            MappingForSerialization summary = new MappingForSerialization();
-            summary.Key = "Summary";
-            summary.Value = currentTemplate.Summary;
-            mapList.Add(summary);
-
-            MappingForSerialization description = new MappingForSerialization();
-            description.Key = "Description";
-            description.Value = currentTemplate.Description;
-            mapList.Add(description);
-
-            MappingForSerialization status = new MappingForSerialization();
-            status.Key = "Status";
-            status.Value = currentTemplate.Status;
-            mapList.Add(status);
-
-            MappingForSerialization priority = new MappingForSerialization();
-            priority.Key = "Priority";
-            priority.Value = currentTemplate.Priority;
-            mapList.Add(priority);
-
-            MappingForSerialization product = new MappingForSerialization();
-            product.Key = "Product";
-            product.Value = currentTemplate.Product;
-            mapList.Add(product);
-
-            MappingForSerialization project = new MappingForSerialization();
-            project.Key = "Project";
-            project.Value = currentTemplate.Project;
-            mapList.Add(project);
-
-            MappingForSerialization createdDate = new MappingForSerialization();
-            createdDate.Key = "CreatedDate";
-            createdDate.Value = currentTemplate.CreatedDate;
-            mapList.Add(createdDate);
-
-            MappingForSerialization createdBy = new MappingForSerialization();
-            createdBy.Key = "CreatedBy";
-            createdBy.Value = currentTemplate.CreatedBy;
-            mapList.Add(createdBy);
-
-            MappingForSerialization linkTotracker = new MappingForSerialization();
-            linkTotracker.Key = "LinkToTracker";
-            linkTotracker.Value = currentTemplate.LinkToTracker.ToString();
-            mapList.Add(linkTotracker);
-            
-            MappingForSerialization estimation = new MappingForSerialization();
-            estimation.Key = "Estimation";
-            estimation.Value = currentTemplate.Estimation;
-            mapList.Add(estimation);
-
-            MappingForSerialization targetVersion = new MappingForSerialization();
-            targetVersion.Key = "TargetVersion";
-            targetVersion.Value = currentTemplate.TargetVersion;
-            mapList.Add(targetVersion);
-
-            MappingForSerialization comments = new MappingForSerialization();
-            comments.Key = "Comments";
-            comments.Value = currentTemplate.Comments;
-            mapList.Add(comments);
-            
-            target.Mapping = mapList.ToArray();
+            for (int i = 0; i < currentTemplate.AllFieldsInFile.Count; i++)
+            {
+                target.Mapping.Add(String.Format("AllFieldsInFile{0}", i), currentTemplate.AllFieldsInFile[i]);
+            }            
+                
             return target;
         }
     }

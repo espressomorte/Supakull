@@ -156,6 +156,7 @@
     <Compile Include="Domain\Settings Objects\Common\Template.cs" />
     <Compile Include="Domain\Settings Objects\Common\Token.cs" />
     <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\ExcelAccountSettings.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\UserKey.cs" />
     <Compile Include="Domain\TaskKey.cs" />

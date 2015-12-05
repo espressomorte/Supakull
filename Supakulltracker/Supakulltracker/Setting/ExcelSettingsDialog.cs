@@ -508,40 +508,18 @@ namespace Supakulltracker
 
         private List<string> Import(string file)
         {
-            List<string> listFile = new List<string>();
-            try
+            IAccountSettings setingForTest = new ExcelAccountSettings();
+            SettingsManager.AccountSettingsTest(setingForTest, ExcelAccountSettings.OpenExcelFileAndReturnByteArray(file), out setingForTest);
+            if (setingForTest != null)
             {
-                using (ExcelPackage pck = new ExcelPackage())
-                {
-                    using (var stream = File.OpenRead(file))
-                    {
-                        pck.Load(stream);
-                    }
-
-                    ExcelWorksheet ws = pck.Workbook.Worksheets.First();
-                    listFile = WorksheetToDataTable(ws);
-                }
+                ExcelAccountSettings resultFromServices = (ExcelAccountSettings)setingForTest;
+                ExcelAccountTemplate template = resultFromServices.Template.FirstOrDefault();
+                return template.AllFieldsInFile;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Import failed. Original error: " + ex.Message);
-            }
-            return listFile;
+            return null;
         }
 
-        private List<string> WorksheetToDataTable(ExcelWorksheet ws)
-        {
-            List<string> listFile = new List<string>();
-            DataTable dt = new DataTable(ws.Name);
-            int totalCols = ws.Dimension.End.Column;
-            int totalRows = ws.Dimension.End.Row;
-
-            foreach (var firstRowCell in ws.Cells[1, 1, 1, totalCols])
-            {
-                listFile.Add(firstRowCell.Text);
-            }
-            return listFile;
-        }
+        
 
         private void Write_DataInITask()
         {

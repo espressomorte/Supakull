@@ -164,6 +164,28 @@ namespace Supakulltracker
             settingResult = resultIaccount;
             return resultAccount.TestResult;
         }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest, Byte[] fileInBytes)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestExcelAccount(account, fileInBytes);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
+            return resultAccount.TestResult;
+
+        }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest, Byte[] fileInBytes, out IAccountSettings settingResult)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestExcelAccount(account, fileInBytes);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
+            settingResult = resultIaccount;
+            return resultAccount.TestResult;
+        }
     }
 }
 
