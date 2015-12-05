@@ -79,23 +79,25 @@ namespace Supakulltracker
         }
     }
 
-    public class ExcelAccountToken : IAccountToken
+    public class ExcelAccountToken : IAccountToken, IEquatable<IAccountToken>
     {
         public Int32 TokenId { get; set; }
         public String TokenName { get; set; }
-        public String Token { get; set; }
+        public DateTime LastUpdateTime { get; set; }
 
         public IAccountToken ConvertFromDAO(TokenDTO token)
         {
             ExcelAccountToken targetToken = new ExcelAccountToken();
             targetToken.TokenId = token.TokenId;
             targetToken.TokenName = token.TokenName;
+
             if (token.Tokens.Length > 0)
             {
-
-                targetToken.Token = (from tok in token.Tokens
-                                     where tok.Key == "Token"
-                                     select tok.Value).SingleOrDefault();
+                DateTime dt;
+                DateTime.TryParse((from tok in token.Tokens
+                                   where tok.Key == "LastUpdateTime"
+                                   select tok.Value).SingleOrDefault(),out dt);
+                targetToken.LastUpdateTime = dt;
             }
 
             return targetToken;
@@ -110,13 +112,33 @@ namespace Supakulltracker
             target.TokenId = currentToken.TokenId;
             List<TokenForSerialization> tokenList = new List<TokenForSerialization>();
 
-            TokenForSerialization password = new TokenForSerialization();
-            password.Key = "Token";
-            password.Value = currentToken.Token;
-            tokenList.Add(password);
+            TokenForSerialization lastUpdateTime = new TokenForSerialization();
+            lastUpdateTime.Key = "LastUpdateTime";
+            lastUpdateTime.Value = currentToken.LastUpdateTime.ToString();
+            tokenList.Add(lastUpdateTime);
 
             target.Tokens = tokenList.ToArray();
             return target;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            ExcelAccountToken objAsExcelAccountToken = obj as ExcelAccountToken;
+            if (objAsExcelAccountToken == null) return false;
+            else return Equals(objAsExcelAccountToken);
+        }
+
+        public bool Equals(IAccountToken other)
+        {
+            ExcelAccountToken token = (ExcelAccountToken)other;
+            return ( this.TokenId.Equals(token.TokenId)
+                    && this.TokenName.Equals(token.TokenName));
+        }
+
+        public override int GetHashCode()
+        {
+            return TokenId;
         }
     }
 

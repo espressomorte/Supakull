@@ -85,6 +85,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtNewTemplateName = new System.Windows.Forms.TextBox();
             this.rtxtMapping = new System.Windows.Forms.RichTextBox();
+            this.folderBrouseForSync = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnSelectFolder = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panelSelectFolderForFiles = new System.Windows.Forms.Panel();
             this.Settings.SuspendLayout();
             this.groupBoxTokens.SuspendLayout();
             this.grpBox_Connect_setting.SuspendLayout();
@@ -98,6 +102,7 @@
             this.Mapping.SuspendLayout();
             this.flpSaveAccount.SuspendLayout();
             this.panelItemName.SuspendLayout();
+            this.panelSelectFolderForFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_AddNewExcelTemplate
@@ -113,6 +118,7 @@
             // Settings
             // 
             this.Settings.BackColor = System.Drawing.Color.White;
+            this.Settings.Controls.Add(this.panelSelectFolderForFiles);
             this.Settings.Controls.Add(this.groupBoxTokens);
             this.Settings.Controls.Add(this.grpBox_Connect_setting);
             this.Settings.Controls.Add(this.groupBox_shared);
@@ -656,6 +662,35 @@
             this.rtxtMapping.TabIndex = 9;
             this.rtxtMapping.Text = "";
             // 
+            // btnSelectFolder
+            // 
+            this.btnSelectFolder.Location = new System.Drawing.Point(120, 4);
+            this.btnSelectFolder.Name = "btnSelectFolder";
+            this.btnSelectFolder.Size = new System.Drawing.Size(34, 26);
+            this.btnSelectFolder.TabIndex = 18;
+            this.btnSelectFolder.Text = "...";
+            this.btnSelectFolder.UseVisualStyleBackColor = true;
+            this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Select Folder For Files";
+            // 
+            // panelSelectFolderForFiles
+            // 
+            this.panelSelectFolderForFiles.Controls.Add(this.btnSelectFolder);
+            this.panelSelectFolderForFiles.Controls.Add(this.label2);
+            this.panelSelectFolderForFiles.Location = new System.Drawing.Point(409, 223);
+            this.panelSelectFolderForFiles.Name = "panelSelectFolderForFiles";
+            this.panelSelectFolderForFiles.Size = new System.Drawing.Size(157, 33);
+            this.panelSelectFolderForFiles.TabIndex = 20;
+            this.panelSelectFolderForFiles.Visible = false;
+            // 
             // ExcelSettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,6 +717,8 @@
             this.flpSaveAccount.ResumeLayout(false);
             this.panelItemName.ResumeLayout(false);
             this.panelItemName.PerformLayout();
+            this.panelSelectFolderForFiles.ResumeLayout(false);
+            this.panelSelectFolderForFiles.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -740,5 +777,10 @@
         private System.Windows.Forms.ToolStripMenuItem clearFieldToolStripMenuItem;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+
+        private System.Windows.Forms.Panel panelSelectFolderForFiles;
+        private System.Windows.Forms.Button btnSelectFolder;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FolderBrowserDialog folderBrouseForSync;
     }
 }

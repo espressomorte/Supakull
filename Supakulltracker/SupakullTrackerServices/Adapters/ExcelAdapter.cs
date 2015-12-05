@@ -8,6 +8,8 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Data;
 
+
+
 namespace SupakullTrackerServices
 {
     public class ExcelAdapter : IAdapter
@@ -28,7 +30,26 @@ namespace SupakullTrackerServices
                     WorksheetToDataTable(ws);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
+            {
+            }
+        }
+        public ExcelAdapter(Byte[] bytes)
+        {
+            try
+            {
+                
+                using (ExcelPackage pck = new ExcelPackage())
+                {
+                    using (Stream stream = new MemoryStream(bytes))
+                    {
+                        pck.Load(stream);
+                    }                  
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.First();
+                    WorksheetToDataTable(ws);
+                }
+            }
+            catch (Exception ex)
             {
             }
         }

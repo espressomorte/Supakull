@@ -803,6 +803,13 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(Supakulltracker.IssueService.GetMatchedTasksRequest request);
         
+        // CODEGEN: Generating message contract since element name fileForParce from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTasksFromExcel", ReplyAction="*")]
+        Supakulltracker.IssueService.GetTasksFromExcelResponse GetTasksFromExcel(Supakulltracker.IssueService.GetTasksFromExcelRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTasksFromExcel", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> GetTasksFromExcelAsync(Supakulltracker.IssueService.GetTasksFromExcelRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
         
@@ -1003,6 +1010,75 @@ namespace Supakulltracker.IssueService {
         
         public GetMatchedTasksResponseBody(Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasksResult) {
             this.GetMatchedTasksResult = GetMatchedTasksResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTasksFromExcelRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTasksFromExcel", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetTasksFromExcelRequestBody Body;
+        
+        public GetTasksFromExcelRequest() {
+        }
+        
+        public GetTasksFromExcelRequest(Supakulltracker.IssueService.GetTasksFromExcelRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetTasksFromExcelRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public byte[] fileForParce;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int accountID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int tokenID;
+        
+        public GetTasksFromExcelRequestBody() {
+        }
+        
+        public GetTasksFromExcelRequestBody(byte[] fileForParce, int accountID, int tokenID) {
+            this.fileForParce = fileForParce;
+            this.accountID = accountID;
+            this.tokenID = tokenID;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTasksFromExcelResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTasksFromExcelResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.GetTasksFromExcelResponseBody Body;
+        
+        public GetTasksFromExcelResponse() {
+        }
+        
+        public GetTasksFromExcelResponse(Supakulltracker.IssueService.GetTasksFromExcelResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class GetTasksFromExcelResponseBody {
+        
+        public GetTasksFromExcelResponseBody() {
         }
     }
     
@@ -1721,6 +1797,34 @@ namespace Supakulltracker.IssueService {
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.GetTasksFromExcelResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetTasksFromExcel(Supakulltracker.IssueService.GetTasksFromExcelRequest request) {
+            return base.Channel.GetTasksFromExcel(request);
+        }
+        
+        public void GetTasksFromExcel(byte[] fileForParce, int accountID, int tokenID) {
+            Supakulltracker.IssueService.GetTasksFromExcelRequest inValue = new Supakulltracker.IssueService.GetTasksFromExcelRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetTasksFromExcelRequestBody();
+            inValue.Body.fileForParce = fileForParce;
+            inValue.Body.accountID = accountID;
+            inValue.Body.tokenID = tokenID;
+            Supakulltracker.IssueService.GetTasksFromExcelResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetTasksFromExcel(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.GetTasksFromExcelAsync(Supakulltracker.IssueService.GetTasksFromExcelRequest request) {
+            return base.Channel.GetTasksFromExcelAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetTasksFromExcelResponse> GetTasksFromExcelAsync(byte[] fileForParce, int accountID, int tokenID) {
+            Supakulltracker.IssueService.GetTasksFromExcelRequest inValue = new Supakulltracker.IssueService.GetTasksFromExcelRequest();
+            inValue.Body = new Supakulltracker.IssueService.GetTasksFromExcelRequestBody();
+            inValue.Body.fileForParce = fileForParce;
+            inValue.Body.accountID = accountID;
+            inValue.Body.tokenID = tokenID;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetTasksFromExcelAsync(inValue);
         }
         
         public void Update() {

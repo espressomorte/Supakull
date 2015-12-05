@@ -9,6 +9,8 @@ using NHibernate.Linq;
 using System.Web.Services.Protocols;
 using TrelloManagerApp;
 using System.Threading.Tasks;
+using System.IO;
+using System.Configuration;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -56,6 +58,19 @@ namespace SupakullTrackerServices
             return taskMainDTO;
         }
 
+        [WebMethod]
+        public void GetTasksFromExcel(Byte[] fileForParce, Int32 accountID, Int32 tokenID)
+        {
+            ExcelAdapter excelAdapter = new ExcelAdapter(fileForParce);
+            IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
+            if (allTasksFromexcel != null)
+            {
+                IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
+                TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+            }
+
+        }
+
         #region Update
         [WebMethod]
         public void Update()
@@ -79,6 +94,8 @@ namespace SupakullTrackerServices
             adapters.Add(new ExcelAdapter(@"C:\EPPLus.xlsx"));
             return adapters;
         }
+
+
 
         private IList<ITask> GetAllTasksFromAdapterCollection(ICollection<IAdapter> adapters)
         {
@@ -182,6 +199,7 @@ namespace SupakullTrackerServices
 
             UserLinkDAO newUserLink = new UserLinkDAO();
             ServiceAccountDAO target = newAccount.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            newUserLink.UserOwnerID = UserID;
             newUserLink.Account = target;
             newUserLink.Owner = true;
             newUserLink.UserId = UserID;
