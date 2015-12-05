@@ -50,7 +50,7 @@
             this.comboBox_ExcelTemplate = new System.Windows.Forms.ComboBox();
             this.dataGrid_mapping = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu_template = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_shared = new System.Windows.Forms.GroupBox();
@@ -175,7 +175,7 @@
             this.cmbTokens.Name = "cmbTokens";
             this.cmbTokens.Size = new System.Drawing.Size(104, 21);
             this.cmbTokens.TabIndex = 7;
-            this.cmbTokens.SelectedValueChanged += new System.EventHandler(this.cmbTokens_SelectedValueChanged);
+            this.cmbTokens.SelectedIndexChanged += new System.EventHandler(this.cmbTokens_SelectedIndexChanged);
             this.cmbTokens.DragDrop += new System.Windows.Forms.DragEventHandler(this.cmbTokens_DragDrop);
             this.cmbTokens.DragEnter += new System.Windows.Forms.DragEventHandler(this.cmbTokens_DragEnter);
             // 
@@ -309,7 +309,6 @@
             this.dataGrid_mapping.Size = new System.Drawing.Size(320, 232);
             this.dataGrid_mapping.TabIndex = 23;
             this.dataGrid_mapping.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGrid_mapping_RowsAdded);
-            this.dataGrid_mapping.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGrid_mapping_MouseUp);
             // 
             // Column1
             // 
@@ -321,6 +320,9 @@
             // 
             this.Column2.HeaderText = "Template";
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column2.Width = 150;
             // 
             // contextMenu_template
@@ -771,10 +773,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNewTemplateName;
         private System.Windows.Forms.RichTextBox rtxtMapping;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
         private System.Windows.Forms.ContextMenuStrip contextMenu_template;
         private System.Windows.Forms.ToolStripMenuItem clearFieldToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+
         private System.Windows.Forms.Panel panelSelectFolderForFiles;
         private System.Windows.Forms.Button btnSelectFolder;
         private System.Windows.Forms.Label label2;
