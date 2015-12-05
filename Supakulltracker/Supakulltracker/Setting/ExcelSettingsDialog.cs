@@ -84,7 +84,7 @@ namespace Supakulltracker
             }
             else if (cmbAccounts.SelectedItem != null && dataGrid_mapping.Rows.Count > 1)
             {
-                Write_DataInFile();
+                Write_DataInFile(array.Length - 1);
             }
         }
 
@@ -469,7 +469,7 @@ namespace Supakulltracker
             {
                 btn_delete_template.Visible = true;
                 Write_DataInITask();
-                Write_DataInFile();
+                Write_DataInFile(array.Length - 1);
             }
         }
 
@@ -491,6 +491,7 @@ namespace Supakulltracker
                     btn_AddNewExcelTemplate.Enabled = true;
                     btn_delete_template.Enabled = false;
                 }
+
                 dataGrid_mapping.RowCount = 1;
                 dataGrid_mapping.Rows[0].Visible = true;  //не обязательно (если в datagridview не скрывается срока)
                 for (int i = 0; i < dataGrid_mapping.ColumnCount; i++)
@@ -521,6 +522,7 @@ namespace Supakulltracker
                                 (DataGridViewTextBoxCell)dataGrid_mapping.Rows[i].Cells[1];
                         Cell_Template.Value = field[i];
                     }
+                    Write_DataInFile(dataGrid_mapping.Rows.Count);
                 }
                 else
                 {
@@ -531,121 +533,89 @@ namespace Supakulltracker
 
         private List<string> Switch_obj(int index, List<string> field)
         {
-            //DataGridViewTextBoxCell Cell_Template =
-            //        (DataGridViewTextBoxCell)dataGrid_mapping.Rows[index].Cells[1];
-            //Cell_Template.ReadOnly = true;
-
             switch (index)
             {
                 case 0:
                     if (userExcelFullAccount.Template.First().TaskID != null)
                     {
-                        // dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().TaskID;
                         field.Add(userExcelFullAccount.Template.First().TaskID);
                     }
                     break;
                 case 1:
                     if (userExcelFullAccount.Template.First().SubtaskType != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        //Cell_Template.Value = userExcelFullAccount.Template.First().SubtaskType;
                         field.Add(userExcelFullAccount.Template.First().SubtaskType);
                     }
                     break;
                 case 2:
                     if (userExcelFullAccount.Template.First().Summary != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Summary;
                         field.Add(userExcelFullAccount.Template.First().Summary);
                     }
                     break;
                 case 3:
                     if (userExcelFullAccount.Template.First().Description != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        //Cell_Template.Value = userExcelFullAccount.Template.First().Description;
                         field.Add(userExcelFullAccount.Template.First().Description);
                     }
                     break;
                 case 4:
                     if (userExcelFullAccount.Template.First().Status != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Status;
                         field.Add(userExcelFullAccount.Template.First().Status);
                     }
                     break;
                 case 6:
                     if (userExcelFullAccount.Template.First().Priority != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Priority;
                         field.Add(userExcelFullAccount.Template.First().Priority);
                     }
                     break;
                 case 7:
                     if (userExcelFullAccount.Template.First().Product != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Product;
                         field.Add(userExcelFullAccount.Template.First().Product);
                     }
                     break;
                 case 8:
                     if (userExcelFullAccount.Template.First().Project != null)
                     {
-                        // dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Project;
                         field.Add(userExcelFullAccount.Template.First().Project);
                     }
                     break;
                 case 9:
                     if (userExcelFullAccount.Template.First().CreatedDate != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        //Cell_Template.Value = userExcelFullAccount.Template.First().CreatedDate;
                         field.Add(userExcelFullAccount.Template.First().CreatedDate);
                     }
                     break;
                 case 11:
                     if (userExcelFullAccount.Template.First().CreatedBy != null)
                     {
-                        //dataGrid_mapping.Rows.Add();
-                        //Cell_Template.Value = userExcelFullAccount.Template.First().CreatedBy;
                         field.Add(userExcelFullAccount.Template.First().CreatedBy);
                     }
                     break;
                 case 12:
                     if (userExcelFullAccount.Template.First().LinkToTracker.ToString() != null)
                     {
-                        //  dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().LinkToTracker;
                         field.Add(userExcelFullAccount.Template.First().LinkToTracker.ToString());
                     }
                     break;
                 case 13:
                     if (userExcelFullAccount.Template.First().Estimation != null)
                     {
-                        // dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Estimation;
                         field.Add(userExcelFullAccount.Template.First().Estimation);
                     }
                     break;
                 case 14:
                     if (userExcelFullAccount.Template.First().TargetVersion != null)
                     {
-                        // dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().TargetVersion;
                         field.Add(userExcelFullAccount.Template.First().TargetVersion);
                     }
                     break;
                 case 15:
                     if (userExcelFullAccount.Template.First().Comments != null)
                     {
-                        // dataGrid_mapping.Rows.Add();
-                        // Cell_Template.Value = userExcelFullAccount.Template.First().Comments;
                         field.Add(userExcelFullAccount.Template.First().Comments);
                     }
                     break;
@@ -706,19 +676,19 @@ namespace Supakulltracker
             }
         }
 
-        private void Write_DataInFile()
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                List<string> listFile = Import(cmbTokens.SelectedItem.ToString());
+        //private void Write_DataInFile()
+        //{
+        //    for (int i = 0; i < array.Length - 1; i++)
+        //    {
+        //        List<string> listFile = Import(cmbTokens.SelectedItem.ToString());
 
-                DataGridViewComboBoxCell comboCell_file =
-                        (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[0]; // данные file Excel
+        //        DataGridViewComboBoxCell comboCell_file =
+        //                (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[0]; // данные file Excel
 
-                comboCell_file.DataSource = listFile;
-                comboCell_file.Value = ""; //  listFile[0];
-            }
-        }
+        //        comboCell_file.DataSource = listFile;
+        //        comboCell_file.Value = ""; //  listFile[0];
+        //    }
+        //}
 
         private void dataGrid_mapping_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -749,9 +719,9 @@ namespace Supakulltracker
                 DataGridViewComboBoxCell comboCell_file =
                         (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[0]; // столбик file-Excel
 
-                DataGridViewComboBoxCell comboCell_ITask =
-                    (DataGridViewComboBoxCell)dataGrid_mapping.Rows[i].Cells[1];  // столбик ITask
-                                                                                  // --------------------------------------------------------------------------------------
+                DataGridViewTextBoxCell comboCell_ITask =
+                    (DataGridViewTextBoxCell)dataGrid_mapping.Rows[i].Cells[1];  // столбик Template
+               // --------------------------------------------------------------------------------------
 
 
                 if (comboCell_file.Value.ToString() == "")
@@ -897,12 +867,7 @@ namespace Supakulltracker
         }
 
         #endregion
-
-        private void dataGrid_mapping_MouseUp(object sender, MouseEventArgs e)
-        {
-            //MessageBox.Show(dataGrid_mapping.SelectedCells.Count.ToString());
-        }
-
+        
         private void clearFieldToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int index = dataGrid_mapping.CurrentCell.RowIndex;
