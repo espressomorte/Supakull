@@ -80,5 +80,10 @@ namespace SupakullTrackerServices
         {
             throw new NotImplementedException();
         }
+
+        public IAdapter GetAdapter(IAccountSettings account)
+        {
+            throw new NotImplementedException();
+        }
     }    
 }

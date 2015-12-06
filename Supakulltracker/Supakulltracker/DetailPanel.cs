@@ -31,6 +31,7 @@ namespace Supakulltracker
             this.textBoxDescription.DataBindings.Add("Text", superTask, nameof(superTask.Description));
             this.textBoxStatus.DataBindings.Add("Text", superTask, nameof(superTask.Status));
             this.textBoxPriority.DataBindings.Add("Text", superTask, nameof(superTask.Priority));
+            this.textBoxProduct.DataBindings.Add("Text", superTask, nameof(superTask.Product));
             this.textBoxProject.DataBindings.Add("Text", superTask, nameof(superTask.Project));
             this.textBoxCreatedDate.DataBindings.Add("Text", superTask, nameof(superTask.CreatedDate));
             this.textBoxCreatedBy.DataBindings.Add("Text", superTask, nameof(superTask.CreatedBy));

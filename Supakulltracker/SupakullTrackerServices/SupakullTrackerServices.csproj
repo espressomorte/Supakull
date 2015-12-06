@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +36,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>default</LangVersion>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -99,6 +104,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -127,6 +134,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapping\UserLinkDAO.hbm.xml" />
+    <None Include="Properties\PublishProfiles\supakull.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -136,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GetTrackerServices.asmx" />
+    <Content Include="Parameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="UserProvider.asmx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -160,6 +173,8 @@
     <Compile Include="DAO\Settings Objects\TemplateDAO.cs" />
     <Compile Include="DAO\Settings Objects\TokenDAO.cs" />
     <Compile Include="DAO\Settings Objects\UserLinkDAO.cs" />
+    <Compile Include="Domain\AutoUpdater\AutoUpdater.cs" />
+    <Compile Include="Domain\AutoUpdater\LoggedUsers.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountTemplate.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountSettings.cs" />
     <Compile Include="Domain\Settings Objects\Common\IAccountTest.cs" />
@@ -169,6 +184,7 @@
     <Compile Include="Domain\Settings Objects\Common\Template.cs" />
     <Compile Include="Domain\Settings Objects\Common\Token.cs" />
     <Compile Include="Domain\Settings Objects\DatabaseAccountSettings.cs" />
+    <Compile Include="Domain\Settings Objects\TrelloAccountSettings.cs" />
     <Compile Include="Domain\Sources.cs" />
     <Compile Include="Domain\UserKey.cs" />
     <Compile Include="Domain\TaskKey.cs" />
@@ -210,6 +226,21 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <PropertyGroup>
+    <PipelineCopyAllFilesToOneFolderForMsdeployDependsOn>
+      IncludePluginFilesForMsdeploy;
+      $(PipelineCopyAllFilesToOneFolderForMsdeployDependsOn);
+    </PipelineCopyAllFilesToOneFolderForMsdeployDependsOn>
+  </PropertyGroup>
+  <Target Name="IncludePluginFilesForMsdeploy">
+    <ItemGroup>
+      <FileWrites Include="$(MSBuildProjectDirectory)\..\DBscripts\**\*" />
+      <_CustomFiles Include="$(MSBuildProjectDirectory)\..\DBscripts\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>DBscripts\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

@@ -13,7 +13,7 @@ namespace Supakulltracker
 {
     public partial class MainForm : Form
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public AuthorizationResult AuthorizationResult { get; private set; }
 
         public MainForm()
@@ -30,7 +30,7 @@ namespace Supakulltracker
             AuthorizationResult = loginProvider.Login();
             if (AuthorizationResult.Authorized)
             {
-                PrepareApplicationAsync();
+                PrepareApplication();
             }
             else
             {
@@ -38,10 +38,9 @@ namespace Supakulltracker
             }
         }
 
-        private async void PrepareApplicationAsync()
+        private void PrepareApplication()
         {
             IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-            //await trackerServices.UpdateAsync();
             IssueService.TaskMainDTO[] tasks = trackerServices.GetAllTasks();
             searchControl.Tasks = tasks;
         }
@@ -60,7 +59,7 @@ namespace Supakulltracker
             detail.Bind(superTask);
             newTabPage.Controls.Add(detail);
             taskDetailTabControl.TabPages.Add(newTabPage);
-            taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount-1);
+            taskDetailTabControl.SelectTab(taskDetailTabControl.TabCount - 1);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -69,14 +68,23 @@ namespace Supakulltracker
             setingDialog.ShowDialog();
         }
 
-        private void generateIndexesForSearchingToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private async void btnUdateAllTasks_Click(object sender, EventArgs e)
+        {
+            IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
+            await trackerServices.UpdateAsync();
+            IssueService.TaskMainDTO[] tasks = trackerServices.GetAllTasks();
+            searchControl.Tasks = tasks;
+        }
+
+        private async void generateIndexesForSearchingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GenerateIndexesForm generateIndexesForm = new GenerateIndexesForm();
             DialogResult dialogResult = generateIndexesForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 IssueService.GetTrackerServicesSoapClient trackerServices = new IssueService.GetTrackerServicesSoapClient();
-                trackerServices.GenerateIndexes();
+                await trackerServices.GenerateIndexesAsync();
             }
         }
     }

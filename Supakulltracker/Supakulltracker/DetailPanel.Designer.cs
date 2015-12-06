@@ -332,6 +332,7 @@ namespace Supakulltracker
             this.Controls.Add(this.TaskIDlabel);
             this.Name = "DetailsPanel";
             this.Size = new System.Drawing.Size(575, 423);
+            this.Load += new System.EventHandler(this.DetailsPanel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

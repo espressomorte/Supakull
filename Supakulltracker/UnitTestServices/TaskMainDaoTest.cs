@@ -134,7 +134,7 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
             ITask taskMainParent3 = new TaskMain()
             {
                 TaskID = "TaskParent1",
-                SubtaskType = "Defect",
+                SubtaskType = "fhdhfd",
                 Summary = "3MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode
 Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
@@ -151,13 +151,13 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
                 TargetVersion = "563k43276",
                 Comments = "3Pedigree chart - Duplication of patients after press",
                 TaskParent = null,
-                Assigned = null
+                Assigned = assigned2
             };
 
             ITask taskMain1 = new TaskMain()
             {
                 TaskID = "Task1",
-                SubtaskType = null,
+                SubtaskType = "fhdhfd",
                 Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"3MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode
 Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
@@ -174,14 +174,14 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
                 TargetVersion = "563nu43276",
                 Comments = "4Pedi7gree chart - Duplication of patients after press",
                 TaskParent = taskMainParent1,
-                Assigned = null
+                Assigned = assigned1
             };
 
             ITask taskMain2 = new TaskMain()
             {
                 TaskID = "Task1",
-                SubtaskType = " Defect",
-                Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
+                SubtaskType = "fhdhfd",
+                Summary = "5MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"2MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read modePedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
 Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - 
 Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
@@ -196,14 +196,14 @@ Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' i
                 TargetVersion = "5634'3276",
                 Comments = "5Pedigree chart - Duplication of patients after press",
                 TaskParent = taskMainParent2,
-                Assigned = assigned1
+                Assigned = null
             };
 
             ITask taskMain3 = new TaskMain()
             {
                 TaskID = "Task1",
-                SubtaskType = ".defect  ,",
-                Summary = "4MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
+                SubtaskType = "fhdhfd",
+                Summary = "6MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode",
                 Description = @"1MOL - Patient Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode
 Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - Patient 
 Group - Pedigree chart - Duplication of patients after press 'Rebuild' in read mode6MOL - 

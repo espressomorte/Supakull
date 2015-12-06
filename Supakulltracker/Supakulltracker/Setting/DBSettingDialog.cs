@@ -252,6 +252,7 @@ namespace Supakulltracker
             DBTab.SelectTab(1);
             panelItemName.Show();
             flpSaveAccount.Show();
+            numUpdateTime.Enabled = true;
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -261,6 +262,8 @@ namespace Supakulltracker
                 newToken.TokenName = txtNewTokenName.Text.Trim();
                 newToken.Mapping = rtxtMapping.Text.Trim();
                 userDBFullAccount.Tokens.Add(newToken);
+                userDBFullAccount.MinUpdateTime = (Int32)numUpdateTime.Value;
+
                 if (SettingsManager.SaveOrUpdateAccount(userDBFullAccount))
                 {
                     DBTab.SelectTab(0);
@@ -300,6 +303,7 @@ namespace Supakulltracker
 
         private void UdateDataBaseSettingForm()
         {
+            numUpdateTime.Enabled = false;
             groupBoxAccounts.Enabled = true;
             label12.Hide();
             label5.Hide();
@@ -326,7 +330,7 @@ namespace Supakulltracker
                 userDBFullAccount = (DatabaseAccountSettings)loggedUser.GetDetailsForAccount(selectedAccount.ID, selectedAccount.Owner);
                 cmbTokens.Items.Clear();
                 cmbTokens.Text = String.Empty;
-
+                numUpdateTime.Value = userDBFullAccount.MinUpdateTime;
                 foreach (var item in userDBFullAccount.Tokens)
                 {
                     cmbTokens.Items.Add(item.TokenName);
@@ -403,6 +407,7 @@ namespace Supakulltracker
                 else
                 {
                     newAccountSetting.Name = newAccountName;
+                    newAccountSetting.AccountVersion = 1;
                     if (loggedUser.CreateNewAccount(newAccountSetting))
                     {
                         RefreshSettingsAccountList();
@@ -580,6 +585,7 @@ namespace Supakulltracker
 
         private void btnChangeToken_Click(object sender, EventArgs e)
         {
+            numUpdateTime.Enabled = true;
             MakeFieldsEnabled();
             groupBoxAccounts.Enabled = false;
             cmbTokens.Enabled = false;

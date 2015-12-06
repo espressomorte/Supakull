@@ -8,45 +8,57 @@ namespace SupakullTrackerServices
 {
     class DatabaseAdapter : IAdapter
     {
-        public IList<ITask> GetAllTasks()
+        List<DatabaseAccountToken> allTokensInAccount = new List<DatabaseAccountToken>();
+        ClientNHibernateSessionFactory allFactories = new ClientNHibernateSessionFactory();
+        public IAdapter GetAdapter(IAccountSettings account)
         {
-            throw new NotImplementedException();
-
+            DatabaseAccountSettings dbAccount = (DatabaseAccountSettings)account;
+            allTokensInAccount = dbAccount.Tokens;
+            foreach (var token in allTokensInAccount)
+            {
+                allFactories.GetSessionFactory(token);
+            }
+            return this;
         }
 
-        public IList<ITask> GetAllTasks(Int32 tokenID)
+        public IList<ITask> GetAllTasks()
         {
             IList<ITask> issues = new List<ITask>();
-            var clientDBFactory = ClientNHibernateSessionFactory.GetSessionFactory(tokenID);
-
-            using (var session = clientDBFactory.OpenSession())
+            foreach (DatabaseAccountToken token in allTokensInAccount)
             {
-                IList<DBTask> listTask = session.QueryOver<DBTask>().List();
-                foreach (DBTask issue in listTask)
-                {
-                    TaskMain task = new TaskMain();
+                var clientDBFactory = allFactories.GetSessionFactory(token);
 
-                    task.TokenID = tokenID;
-                    task.LinkToTracker = Sources.DataBase;
-                    task.Assigned = issue.Assigned;
-                    task.Comments = issue.Comments;
-                    task.CreatedBy = issue.CreatedBy;
-                    task.CreatedDate = issue.CreatedDate;
-                    task.Description = issue.Description;
-                    task.Estimation = issue.Estimation;
-                    task.Priority = issue.Priority;
-                    task.Product = issue.Product;
-                    task.Project = issue.Project;
-                    task.Status = issue.Status;
-                    task.SubtaskType = issue.SubtaskType;
-                    task.Summary = issue.Summary;
-                    task.TargetVersion = issue.TargetVersion;
-                    task.TaskID = issue.TaskID;
-                    task.TaskParent = issue.TaskParent;
-                    
-                    issues.Add(task);
+                using (var session = clientDBFactory.OpenSession())
+                {
+                    IList<DBTask> listTask = session.QueryOver<DBTask>().List();
+                    foreach (DBTask issue in listTask)
+                    {
+                        TaskMain task = new TaskMain();
+
+                        task.TokenID = token.TokenId;
+                        task.LinkToTracker = Sources.DataBase;
+                        task.Assigned = issue.Assigned;
+                        task.Comments = issue.Comments;
+                        task.CreatedBy = issue.CreatedBy;
+                        task.CreatedDate = issue.CreatedDate;
+                        task.Description = issue.Description;
+                        task.Estimation = issue.Estimation;
+                        task.Priority = issue.Priority;
+                        task.Product = issue.Product;
+                        task.Project = issue.Project;
+                        task.Status = issue.Status;
+                        task.SubtaskType = issue.SubtaskType;
+                        task.Summary = issue.Summary;
+                        task.TargetVersion = issue.TargetVersion;
+                        task.TaskID = issue.TaskID;
+                        task.TaskParent = issue.TaskParent;
+
+                        issues.Add(task);
+                    }
                 }
+                return issues;
             }
+            
             return issues;
 
         }

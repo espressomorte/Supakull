@@ -62,7 +62,7 @@ namespace Supakulltracker
         private void addingTrelloToken_Click(object sender, EventArgs e)
         {
             shearingGroupBox.Visible = false;
-            addingToken.Visible =true;
+            addingAccountGB.Visible =true;
             informationGroupBox.Visible = false;
             addingAccount.Visible = false;
             tokenCheckingBox.Text = String.Empty;
@@ -71,10 +71,28 @@ namespace Supakulltracker
 
         private void checkingAccount_Click(object sender, EventArgs e)
         {
-            //var trello = new Trello("f82892a94916ced8f28b2f6496d4ba53");
-            //string name = trello.Members.ForToken(tokenCheckingBox.Text).FullName;
-            //userFullName.Text =name;
-            ////"https://trello.com/1/connect?key=f82892a94916ced8f28b2f6496d4ba53&name=f82892a94916ced8f28b2f6496d4ba53&response_type=token&scope=read,write&expiration=never"
+            TrelloAccountSettings accForTest = new TrelloAccountSettings();
+            newToken = new TrelloAccountToken();
+            newToken.UserToken = tokenCheckingBox.Text.Trim();
+            accForTest.Source = Sources.Trello;
+            accForTest.Tokens =new List<TrelloAccountToken>();
+            accForTest.Tokens.Add(newToken);
+
+            IAccountSettings accOutput = new TrelloAccountSettings();
+            if (SettingsManager.AccountSettingsTest(accForTest,out accOutput))
+            {
+                accForTest =(TrelloAccountSettings)accOutput;
+                foreach (var token in accForTest.Tokens)
+                {
+                    trelloBoardsCB.Items.Add(token);
+                    trelloBoardsCB.DisplayMember = "TokenName";
+                }
+                
+            }
+            else
+            {
+       
+            }
         }
 
         private void activeTrelloAccounts_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,7 +102,7 @@ namespace Supakulltracker
             trelloToken.SelectedItem = null;
             addingTrelloToken.Enabled = true;
             trelloTokenGroup.Enabled = true;
-            addingToken.Visible = false;
+            addingAccountGB.Visible = false;
             addingAccount.Visible = false;
             informationGroupBox.Visible = false;
             if (activeTrelloAccounts.SelectedItem != null)
@@ -112,12 +130,13 @@ namespace Supakulltracker
                 TrelloAccountToken token = userTrelloFullAccount.Tokens.FirstOrDefault(x => x.TokenName == trelloToken.SelectedItem.ToString());
                 if (token != null)
                 {
-                    addingToken.Hide();
+                    addingAccountGB.Hide();
                     informationGroupBox.Location = new Point(9, 187);
                     informationGroupBox.Visible = true;
                     infTokenName.Text = token.TokenName;
                     infTokenDateCreation.Text = token.DateCreation;
                     infTrelloUserToken.Text = token.UserToken;
+                    infBoardIdTB.Text = token.BoardID;
                 }
             }
             
@@ -125,15 +144,12 @@ namespace Supakulltracker
 
         private void AddAcountTrello_Click(object sender, EventArgs e)
         {
-            addingToken.Visible = false;
+            addingAccountGB.Visible = true;
             addingAccount.Visible =true;
             shearingGroupBox.Visible = false;
             addingAccount.Enabled = true;
             trelloTokenGroup.Enabled = false;
-
-            //newAccountSetting = new TrelloAccountSettings();
-            
-            //SettingsManager.SaveOrUpdateAccount();
+            checkingAccount.Visible = true;
         }
 
         private void urlTrello_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -143,17 +159,11 @@ namespace Supakulltracker
 
         private void addTrelloAccountButton_Click(object sender, EventArgs e)
         {
-
-            newAccountSetting = new TrelloAccountSettings();
-            shearingGroupBox.Visible = false;
-            newAccountSetting.Source =Sources.Trello;
-            newAccountSetting.Name =accountNameBox.Text.ToString();
-            newAccountSetting.Tokens = null;
-            loggedUser.CreateNewAccount(newAccountSetting);
-            RefreshSettingsAccountList();
+            //RefreshSettingsAccountList();
             ClearAllForm();
+            addingAccountGB.Visible = true;
+
         }
-        //ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee
         private void RefreshSettingsAccountList()
         {
             List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();
@@ -169,7 +179,6 @@ namespace Supakulltracker
             sharedTrelloAccountsBox.Items.Clear();
             if (sharedUserTrelloAccounts.Count > 0)
             {
-                //label13.Show();
                 sharedTrelloAccountsBox.Show();
                 foreach (var item in sharedUserTrelloAccounts)
                 {
@@ -178,33 +187,51 @@ namespace Supakulltracker
             }
             else
             {
-                //label13.Hide();
                 sharedTrelloAccountsBox.Visible=false;
             }
         }
         private void ClearAllForm()
         {
-           // panelChoseDBProvider.Hide();
-            //panelConStrDiteils.Hide();
             addingAccount.Hide();
-            addingToken.Hide();
+            addingAccountGB.Hide();
             trelloToken.Items.Clear();
-            //txtNewNameForAccount.Text = String.Empty;
             trelloToken.Text = String.Empty;
-            //txtShareUserName.Text = String.Empty;
+
         }
         private void tokenSave_Click(object sender, EventArgs e)
         {
             newToken = new TrelloAccountToken();
-            newToken.TokenName = tokenNameBox.Text.Trim();
-            newToken.UserToken = tokenCheckingBox.Text;
-            newToken.DateCreation = DateTime.Today.ToString("d");
-            userTrelloFullAccount.Tokens.Add(newToken);
-            if (SettingsManager.SaveOrUpdateAccount(userTrelloFullAccount))
+            userTrelloFullAccount = new TrelloAccountSettings();
+            userTrelloFullAccount.Source = Sources.Trello;
+            userTrelloFullAccount.Name = accountNameBox.Text;
+            userTrelloFullAccount.Owner = true;
+            userTrelloFullAccount.MinUpdateTime = (Int32)minimalTimeForUpdate.Value;
+            userTrelloFullAccount.AccountVersion = 1;
+            if (loggedUser.CreateNewAccount(userTrelloFullAccount))
             {
-                GetSelectedAccountAndFillTokensToControl();
+                List<IAccountSettings> userAllAccounts = loggedUser.GetAllUserAccounts();
+                userTrelloAccounts = SettingsManager.GetAllUserAccountsInSource(userAllAccounts, Sources.Trello);
+                var acc = userTrelloAccounts.Select(a => a).Where(accaunt => accaunt.Name == accountNameBox.Text).SingleOrDefault();
+
+                userTrelloFullAccount = (TrelloAccountSettings)acc;
+                userTrelloFullAccount.Tokens = new List<TrelloAccountToken>();
+
+                newToken.UserToken = tokenCheckingBox.Text;
+                newToken.DateCreation = DateTime.Today.ToString("d");
+                TrelloAccountToken selectedBoard = (TrelloAccountToken)trelloBoardsCB.SelectedItem;
+                newToken.TokenName = selectedBoard.TokenName;
+                newToken.BoardID = selectedBoard.BoardID;
+                userTrelloFullAccount.Tokens.Add(newToken);
+                if (SettingsManager.SaveOrUpdateAccount(userTrelloFullAccount))
+                {
+                    GetSelectedAccountAndFillTokensToControl();
+                }
             }
-            addingToken.Visible = false;
+
+
+
+
+            addingAccountGB.Visible = false;
         }
         private void GetSelectedAccountAndFillTokensToControl()
         {

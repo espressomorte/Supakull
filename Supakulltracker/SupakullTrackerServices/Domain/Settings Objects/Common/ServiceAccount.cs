@@ -13,9 +13,13 @@ namespace SupakullTrackerServices
         public virtual Int32 ServiceAccountId { get; set; }
         public virtual String ServiceAccountName { get; set; }
         public virtual Sources Source { get; set; }
+        public virtual String UserAccountToken { get; set; }
         public virtual IList<Template> MappingTemplates { get; set; }
         public virtual IList<Token> Tokens { get; set; }
         public Boolean TestResult { get; set; }
+        public Int32 MinUpdateTime { get; set; }
+        public Int32 AccountVersion { get; set; }
+
     }
 }
 

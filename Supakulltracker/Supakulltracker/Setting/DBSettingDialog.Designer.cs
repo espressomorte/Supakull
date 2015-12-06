@@ -45,6 +45,8 @@
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.MappingSettings = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numUpdateTime = new System.Windows.Forms.NumericUpDown();
             this.flpSaveAccount = new System.Windows.Forms.FlowLayoutPanel();
             this.btnChekMapping = new System.Windows.Forms.Button();
             this.btnCancelSaveNewToken = new System.Windows.Forms.Button();
@@ -97,6 +99,7 @@
             this.panelChoseDBProvider.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.MappingSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpdateTime)).BeginInit();
             this.flpSaveAccount.SuspendLayout();
             this.panelItemName.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -270,6 +273,8 @@
             // 
             // MappingSettings
             // 
+            this.MappingSettings.Controls.Add(this.label15);
+            this.MappingSettings.Controls.Add(this.numUpdateTime);
             this.MappingSettings.Controls.Add(this.flpSaveAccount);
             this.MappingSettings.Controls.Add(this.label5);
             this.MappingSettings.Controls.Add(this.panelItemName);
@@ -281,6 +286,23 @@
             this.MappingSettings.TabIndex = 1;
             this.MappingSettings.Text = "Mapping";
             this.MappingSettings.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(26, 14);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(71, 13);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Update Time:";
+            // 
+            // numUpdateTime
+            // 
+            this.numUpdateTime.Enabled = false;
+            this.numUpdateTime.Location = new System.Drawing.Point(100, 12);
+            this.numUpdateTime.Name = "numUpdateTime";
+            this.numUpdateTime.Size = new System.Drawing.Size(58, 20);
+            this.numUpdateTime.TabIndex = 15;
             // 
             // flpSaveAccount
             // 
@@ -537,9 +559,9 @@
             // 
             // txtNewNameForAccount
             // 
-            this.txtNewNameForAccount.Location = new System.Drawing.Point(32, 16);
+            this.txtNewNameForAccount.Location = new System.Drawing.Point(37, 16);
             this.txtNewNameForAccount.Name = "txtNewNameForAccount";
-            this.txtNewNameForAccount.Size = new System.Drawing.Size(121, 20);
+            this.txtNewNameForAccount.Size = new System.Drawing.Size(113, 20);
             this.txtNewNameForAccount.TabIndex = 10;
             // 
             // btnSaveNewAccount
@@ -832,6 +854,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.MappingSettings.ResumeLayout(false);
             this.MappingSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpdateTime)).EndInit();
             this.flpSaveAccount.ResumeLayout(false);
             this.panelItemName.ResumeLayout(false);
             this.panelItemName.PerformLayout();
@@ -929,5 +952,7 @@
         private System.Windows.Forms.Button btnChangeToken;
         private System.Windows.Forms.Button btnCancelSaveNewToken;
         private System.Windows.Forms.Button btnCancelSaveOrEditingSettings;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown numUpdateTime;
     }
 }
