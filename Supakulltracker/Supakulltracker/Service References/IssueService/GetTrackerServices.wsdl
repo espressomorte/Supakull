@@ -155,6 +155,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="UpdateTokenNameForExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tokeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newTokenName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTokenNameForExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTokenNameForExcelResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Update">
         <s:complexType />
       </s:element>
@@ -220,6 +235,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="DeleteTokenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteMapping">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="template" type="tns:TemplateDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteMappingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteMappingResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -325,6 +354,12 @@
   <wsdl:message name="TestExcelAccountSoapOut">
     <wsdl:part name="parameters" element="tns:TestExcelAccountResponse" />
   </wsdl:message>
+  <wsdl:message name="UpdateTokenNameForExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTokenNameForExcel" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTokenNameForExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTokenNameForExcelResponse" />
+  </wsdl:message>
   <wsdl:message name="UpdateSoapIn">
     <wsdl:part name="parameters" element="tns:Update" />
   </wsdl:message>
@@ -354,6 +389,12 @@
   </wsdl:message>
   <wsdl:message name="DeleteTokenSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMappingSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteMapping" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMappingSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteMappingResponse" />
   </wsdl:message>
   <wsdl:message name="CreateNewAccountSoapIn">
     <wsdl:part name="parameters" element="tns:CreateNewAccount" />
@@ -402,6 +443,10 @@
       <wsdl:input message="tns:TestExcelAccountSoapIn" />
       <wsdl:output message="tns:TestExcelAccountSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <wsdl:input message="tns:UpdateTokenNameForExcelSoapIn" />
+      <wsdl:output message="tns:UpdateTokenNameForExcelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Update">
       <wsdl:input message="tns:UpdateSoapIn" />
       <wsdl:output message="tns:UpdateSoapOut" />
@@ -421,6 +466,10 @@
     <wsdl:operation name="DeleteToken">
       <wsdl:input message="tns:DeleteTokenSoapIn" />
       <wsdl:output message="tns:DeleteTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <wsdl:input message="tns:DeleteMappingSoapIn" />
+      <wsdl:output message="tns:DeleteMappingSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateNewAccount">
       <wsdl:input message="tns:CreateNewAccountSoapIn" />
@@ -481,6 +530,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <soap:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Update">
       <soap:operation soapAction="http://tempuri.org/Update" style="document" />
       <wsdl:input>
@@ -519,6 +577,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteToken">
       <soap:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <soap:operation soapAction="http://tempuri.org/DeleteMapping" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -610,6 +677,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Update">
       <soap12:operation soapAction="http://tempuri.org/Update" style="document" />
       <wsdl:input>
@@ -648,6 +724,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteToken">
       <soap12:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <soap12:operation soapAction="http://tempuri.org/DeleteMapping" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

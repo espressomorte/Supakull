@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Supakulltracker.IssueService;
 using System.IO;
 using OfficeOpenXml;
+using System.Configuration;
 
 namespace Supakulltracker
 {
@@ -17,6 +18,12 @@ namespace Supakulltracker
         public Boolean Owner { get; set; }
         public List<ExcelAccountToken> Tokens { get; set; }
         public List<ExcelAccountTemplate> Template { get; set; }
+
+        public ExcelAccountSettings()
+        {
+            Tokens = new List<ExcelAccountToken>();
+            Template = new List<ExcelAccountTemplate>();
+        }
 
         public IAccountSettings ConvertFromDAO(ServiceAccountDTO serviceAccount)
         {
@@ -80,12 +87,13 @@ namespace Supakulltracker
             return target;
         }
 
-        public static Byte[] OpenExcelFileAndReturnByteArray(String path)
+        public Byte[] OpenExcelFileAndReturnByteArray(AuthorizationResult currentUser, String path)
         {
+            String fullPath = ValidatePathToFile(path, currentUser);
             Byte[] fileInBytes;
             try
             {
-                using (FileStream stream = File.OpenRead(path))
+                using (FileStream stream = File.OpenRead(fullPath))
                 {
                     using (ExcelPackage packeg = new ExcelPackage(stream))
                     {
@@ -97,18 +105,60 @@ namespace Supakulltracker
                     }
                     else
                     {
-                        throw new Exception("Bytearray is null!");
+                        throw new Exception("File is empty!");
                     }
                 }
             }
             catch (IOException ex)
             {
-                throw ex;
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return null;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private String ValidatePathToFile(String path, AuthorizationResult currentUser)
+        {
+            String directory = Path.GetDirectoryName(path);
+            String name = Path.GetFileName(path);
+            if (String.IsNullOrEmpty(directory))
+            {
+                String folderPathForSynchronization = GetPathToCurrentFolderForUserFromConfigFile(currentUser);
+                folderPathForSynchronization = String.Format(@"{0}\{1}", folderPathForSynchronization, name);
+                if (File.Exists(folderPathForSynchronization))
+                {
+                    return folderPathForSynchronization;
+                }
+                else
+                {
+                    throw new FileNotFoundException("Please check file in you synch folder!");
+                }
+            }
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            else
+            {
+                throw new FileNotFoundException("Please check file in you synch folder!");
+            }
+        }
+
+        public String GetPathToCurrentFolderForUserFromConfigFile(AuthorizationResult currentUser)
+        {
+            String folderPathForSynchronization = (String)ConfigurationManager.AppSettings[String.Format("FolderPathForSynchronizationFor.{0}", currentUser.AuthorizedUser.UserID)];
+            if (String.IsNullOrEmpty(folderPathForSynchronization))
+            {
+                String pathToDefaultFolder = Directory.GetCurrentDirectory();
+                String nameOfDefaultFolder = ConfigurationManager.AppSettings[String.Format("DefaultFolderPathForSynchronization")].ToString();
+                folderPathForSynchronization = String.Format(@"{0}\{1}", pathToDefaultFolder, nameOfDefaultFolder);
+                return folderPathForSynchronization;
+            }
+            return folderPathForSynchronization;
+
         }
 
     }
@@ -124,6 +174,7 @@ namespace Supakulltracker
             ExcelAccountToken targetToken = new ExcelAccountToken();
             targetToken.TokenId = token.TokenId;
             targetToken.TokenName = token.TokenName;
+            LastUpdateTime = DateTime.MinValue;
 
             if (token.Tokens.Length > 0)
             {
@@ -181,6 +232,19 @@ namespace Supakulltracker
         public int TemplateId { get; set; }
         public string TemplateName { get; set; }
         public List<String> AllFieldsInFile { get; set; }
+        public Dictionary<String, String> Mapping { get; set; }
+        public List<String> AllFieldsInTeemplate { get; set; }
+        public ExcelAccountTemplate()
+        {
+            AllFieldsInFile = new List<String>();
+            Mapping = new Dictionary<String, String>();
+            AllFieldsInTeemplate = new List<String>()
+            {
+                "TaskID", "SubtaskType", "Summary", "Description",
+                 "Status","Priority","Project", "CreatedDate", "CreatedBy", "LinkToTracker",
+                "Estimation", "TargetVersion","Comments","Assigned","TaskParent"
+            };
+        }
 
         public string TaskID { get; set; }
         public string SubtaskType { get; set; }
@@ -196,53 +260,114 @@ namespace Supakulltracker
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
+        public String TaskParent { get; set; }
+        public String Assigned { get; set; }
 
         public IAccountTemplate ConvertFromDAO(TemplateDTO template)
         {
             ExcelAccountTemplate targetTemplate = new ExcelAccountTemplate();
             targetTemplate.TemplateId = template.TemplateId;
             targetTemplate.TemplateName = template.TemplateName;
+
             if (template.Mapping.Length > 0)
             {
+                var resultMapping = from customAtrib in template.Mapping
+                                    where !customAtrib.Key.Contains("AllFieldsInFile")
+                                    select customAtrib;
+
+                foreach (MappingForSerialization map in resultMapping)
+                {
+                  targetTemplate.Mapping.Add(map.Key, map.Value);
+                }
+
+                targetTemplate.TaskParent = (from templ in template.Mapping
+                                             where templ.Key == "TaskParent"
+                                             select templ.Value).SingleOrDefault();
+                if (targetTemplate.TaskParent == null)
+                {
+                    targetTemplate.TaskParent = "";
+                }
+
+
                 targetTemplate.TaskID = (from templ in template.Mapping
                                          where templ.Key == "TaskID"
                                          select templ.Value).SingleOrDefault();
+                if (targetTemplate.TaskID == null)
+                {
+                    targetTemplate.TaskID = "";
+                }
 
                 targetTemplate.SubtaskType = (from templ in template.Mapping
                                               where templ.Key == "SubtaskType"
                                               select templ.Value).SingleOrDefault();
+                if (targetTemplate.SubtaskType == null)
+                {
+                    targetTemplate.SubtaskType = "";
+                }
 
                 targetTemplate.Summary = (from templ in template.Mapping
                                          where templ.Key == "Summary"
                                           select templ.Value).SingleOrDefault();
+                if (targetTemplate.Summary == null)
+                {
+                    targetTemplate.Summary = "";
+                }
 
                 targetTemplate.Description = (from templ in template.Mapping
                                          where templ.Key == "Description"
                                               select templ.Value).SingleOrDefault();
+                if (targetTemplate.Description == null)
+                {
+                    targetTemplate.Description = "";
+                }
 
                 targetTemplate.Status = (from templ in template.Mapping
                                          where templ.Key == "Status"
                                          select templ.Value).SingleOrDefault();
+                if (targetTemplate.Status == null)
+                {
+                    targetTemplate.Status = "";
+                }
 
                 targetTemplate.Priority = (from templ in template.Mapping
                                          where templ.Key == "Priority"
                                            select templ.Value).SingleOrDefault();
+                if (targetTemplate.Priority == null)
+                {
+                    targetTemplate.Priority = "";
+                }
 
                 targetTemplate.Product = (from templ in template.Mapping
                                          where templ.Key == "Product"
                                           select templ.Value).SingleOrDefault();
+                if (targetTemplate.Product == null)
+                {
+                    targetTemplate.Product = "";
+                }
 
                 targetTemplate.Project = (from templ in template.Mapping
                                          where templ.Key == "Project"
                                           select templ.Value).SingleOrDefault();
+                if (targetTemplate.Project == null)
+                {
+                    targetTemplate.Project = "";
+                }
 
                 targetTemplate.CreatedDate = (from templ in template.Mapping
                                          where templ.Key == "CreatedDate"
                                               select templ.Value).SingleOrDefault();
+                if (targetTemplate.CreatedDate == null)
+                {
+                    targetTemplate.CreatedDate = "";
+                }
 
                 targetTemplate.CreatedBy = (from templ in template.Mapping
                                          where templ.Key == "CreatedBy"
                                             select templ.Value).SingleOrDefault();
+                if (targetTemplate.CreatedBy == null)
+                {
+                    targetTemplate.CreatedBy = "";
+                }
                 Sources sour;
                 var result = (from templ in template.Mapping
                               where templ.Key == "LinkToTracker"
@@ -250,25 +375,39 @@ namespace Supakulltracker
                 Enum.TryParse(result, out sour);
                 targetTemplate.LinkToTracker = sour;
 
-                //int token;
-                //var result2 = (from templ in template.Mapping
-                //               where templ.Key == "TokenID"
-                //               select templ.Value).SingleOrDefault();
-                //Int32.TryParse(result2, out token);
-                //targetTemplate.TokenID = token;
 
                 targetTemplate.Estimation = (from templ in template.Mapping
                                          where templ.Key == "Estimation"
                                              select templ.Value).SingleOrDefault();
+                if (targetTemplate.Estimation == null)
+                {
+                    targetTemplate.Estimation = "";
+                }
 
                 targetTemplate.TargetVersion = (from templ in template.Mapping
                                          where templ.Key == "TargetVersion"
                                                 select templ.Value).SingleOrDefault();
+                if (targetTemplate.TargetVersion == null)
+                {
+                    targetTemplate.TargetVersion = "";
+                }
 
                 targetTemplate.Comments = (from templ in template.Mapping
                                                 where templ.Key == "Comments"
                                            select templ.Value).SingleOrDefault();
+                if (targetTemplate.Comments == null)
+                {
+                    targetTemplate.Comments = "";
+                }
 
+                targetTemplate.Assigned = (from templ in template.Mapping
+                                           where templ.Key == "Assigned"
+                                           select templ.Value).SingleOrDefault();
+                if (targetTemplate.Assigned == null)
+                {
+                    targetTemplate.Assigned = "";
+                }
+                
 
                 var resultStrings = from customAtrib in template.Mapping
                                     where customAtrib.Key.Contains("AllFieldsInFile")
@@ -357,7 +496,17 @@ namespace Supakulltracker
             comments.Key = "Comments";
             comments.Value = currentTemplate.Comments;
             mapList.Add(comments);
-            
+
+            MappingForSerialization taskParent = new MappingForSerialization();
+            taskParent.Key = "TaskParent";
+            taskParent.Value = currentTemplate.TaskParent;
+            mapList.Add(taskParent);
+
+            MappingForSerialization assigned = new MappingForSerialization();
+            assigned.Key = "Assigned";
+            assigned.Value = currentTemplate.Assigned;
+            mapList.Add(assigned);
+
             target.Mapping = mapList.ToArray();
             return target;
         }

@@ -55,5 +55,18 @@ namespace SupakullTrackerServices
                 return userDAO;
             }
         }
+
+        public static UserDAO FindUserFromDBByName(String name)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                UserDAO userDAO = session.QueryOver<UserDAO>()
+                                        .Where(user => user.UserId == name)
+                                        .SingleOrDefault<UserDAO>();     
+                return userDAO;
+            }
+        }
     }
 }

@@ -14,10 +14,17 @@ namespace SupakullTrackerServices
         public String Name { get; set; }
         public Sources Source { get; set; }
         public Boolean Owner { get; set; }
+        public Boolean TestResult { get; set; }
         public List<ExcelAccountToken> Tokens { get; set; }
         public List<ExcelAccountTemplate> Template { get; set; }
 
-        public Boolean TestResult { get; set; }
+        public ExcelAccountSettings()
+        {
+            Tokens = new List<ExcelAccountToken>();
+            Template = new List<ExcelAccountTemplate>();
+        }
+
+        
 
         public IAccountSettings Convert(ServiceAccount serviceAccount)
         {
@@ -25,6 +32,7 @@ namespace SupakullTrackerServices
             target.ID = serviceAccount.ServiceAccountId;
             target.Name = serviceAccount.ServiceAccountName;
             target.Source = serviceAccount.Source;
+            target.TestResult = serviceAccount.TestResult;
 
             target.Tokens = new List<ExcelAccountToken>();
             target.Template = new List<ExcelAccountTemplate>();
@@ -57,6 +65,7 @@ namespace SupakullTrackerServices
 
             target.ServiceAccountId = currentAccount.ID;
             target.ServiceAccountName = currentAccount.Name;
+            target.TestResult = currentAccount.TestResult;
             target.Source = Sources.Excel;
 
             List<Token> tok = new List<Token>();
@@ -68,7 +77,7 @@ namespace SupakullTrackerServices
                     Token localtok = token.Convert(token);
                     tok.Add(localtok);
                 }
-                target.Tokens = tok.ToArray();
+                target.Tokens = tok;
             }
             if (currentAccount.Template.Count > 0)
             {
@@ -77,6 +86,7 @@ namespace SupakullTrackerServices
                     Template localtemp = template.Convert(template);
                     templ.Add(localtemp);
                 }
+                target.MappingTemplates = templ;
             }
             return target;
         }
@@ -158,6 +168,10 @@ namespace SupakullTrackerServices
         public int TemplateId { get; set; }
         public string TemplateName { get; set; }
         public List<String> AllFieldsInFile { get; set; }
+        public ExcelAccountTemplate()
+        {
+            AllFieldsInFile = new List<string>();
+        }
 
         public string TaskID { get; set; }
         public string SubtaskType { get; set; }
@@ -173,13 +187,15 @@ namespace SupakullTrackerServices
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
+        public String TaskParent { get; set; }
+        public String Assigned { get; set; }
 
         public IAccountTemplate Convert(Template template)
         {
             ExcelAccountTemplate targetTemplate = new ExcelAccountTemplate();
             targetTemplate.TemplateId = template.TemplateId;
             targetTemplate.TemplateName = template.TemplateName;
-            
+
             if (template.Mapping.Count > 0)
             {
                 targetTemplate.TaskID = (from templ in template.Mapping
@@ -228,12 +244,10 @@ namespace SupakullTrackerServices
                 Enum.TryParse(result, out sour);
                 targetTemplate.LinkToTracker = sour;
 
-                //int token;
-                //var result2 = (from templ in template.Mapping
-                //               where templ.Key == "TokenID"
-                //               select templ.Value).SingleOrDefault();
-                //Int32.TryParse(result2, out token);
-                //targetTemplate.TokenID = token;
+
+                targetTemplate.TaskParent = (from templ in template.Mapping
+                                             where templ.Key == "TaskParent"
+                                             select templ.Value).SingleOrDefault();
 
                 targetTemplate.Estimation = (from templ in template.Mapping
                                              where templ.Key == "Estimation"
@@ -246,7 +260,12 @@ namespace SupakullTrackerServices
                 targetTemplate.Comments = (from templ in template.Mapping
                                            where templ.Key == "Comments"
                                            select templ.Value).SingleOrDefault();
- 
+
+                targetTemplate.Assigned = (from templ in template.Mapping
+                                           where templ.Key == "Assigned"
+                                           select templ.Value).SingleOrDefault();
+                
+
             }
             return targetTemplate;
         }
@@ -273,13 +292,16 @@ namespace SupakullTrackerServices
             target.Mapping.Add("Estimation", currentTemplate.Estimation);
             target.Mapping.Add("TargetVersion", currentTemplate.TargetVersion);
             target.Mapping.Add("Comments", currentTemplate.Comments);
+            target.Mapping.Add("TaskParent", currentTemplate.TaskParent); 
+            target.Mapping.Add("Assigned", currentTemplate.Assigned);
+
 
 
             for (int i = 0; i < currentTemplate.AllFieldsInFile.Count; i++)
             {
                 target.Mapping.Add(String.Format("AllFieldsInFile{0}", i), currentTemplate.AllFieldsInFile[i]);
-            }            
-                
+            }
+
             return target;
         }
     }

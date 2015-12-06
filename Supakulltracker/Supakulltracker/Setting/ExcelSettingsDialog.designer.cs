@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btn_AddNewExcelTemplate = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Settings = new System.Windows.Forms.TabPage();
+            this.panelSelectFolderForFiles = new System.Windows.Forms.Panel();
+            this.btnSelectFolder = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBoxTokens = new System.Windows.Forms.GroupBox();
             this.btnChangeToken = new System.Windows.Forms.Button();
             this.btnAddToken = new System.Windows.Forms.Button();
@@ -86,10 +89,10 @@
             this.txtNewTemplateName = new System.Windows.Forms.TextBox();
             this.rtxtMapping = new System.Windows.Forms.RichTextBox();
             this.folderBrouseForSync = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnSelectFolder = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panelSelectFolderForFiles = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtCurrentFolder = new System.Windows.Forms.TextBox();
             this.Settings.SuspendLayout();
+            this.panelSelectFolderForFiles.SuspendLayout();
             this.groupBoxTokens.SuspendLayout();
             this.grpBox_Connect_setting.SuspendLayout();
             this.grpBox_template.SuspendLayout();
@@ -102,7 +105,6 @@
             this.Mapping.SuspendLayout();
             this.flpSaveAccount.SuspendLayout();
             this.panelItemName.SuspendLayout();
-            this.panelSelectFolderForFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_AddNewExcelTemplate
@@ -130,6 +132,37 @@
             this.Settings.Size = new System.Drawing.Size(578, 565);
             this.Settings.TabIndex = 0;
             this.Settings.Text = "General";
+            // 
+            // panelSelectFolderForFiles
+            // 
+            this.panelSelectFolderForFiles.Controls.Add(this.txtCurrentFolder);
+            this.panelSelectFolderForFiles.Controls.Add(this.label4);
+            this.panelSelectFolderForFiles.Controls.Add(this.btnSelectFolder);
+            this.panelSelectFolderForFiles.Controls.Add(this.label2);
+            this.panelSelectFolderForFiles.Location = new System.Drawing.Point(217, 210);
+            this.panelSelectFolderForFiles.Name = "panelSelectFolderForFiles";
+            this.panelSelectFolderForFiles.Size = new System.Drawing.Size(349, 46);
+            this.panelSelectFolderForFiles.TabIndex = 20;
+            this.panelSelectFolderForFiles.Visible = false;
+            // 
+            // btnSelectFolder
+            // 
+            this.btnSelectFolder.Location = new System.Drawing.Point(312, 0);
+            this.btnSelectFolder.Name = "btnSelectFolder";
+            this.btnSelectFolder.Size = new System.Drawing.Size(34, 20);
+            this.btnSelectFolder.TabIndex = 18;
+            this.btnSelectFolder.Text = "...";
+            this.btnSelectFolder.UseVisualStyleBackColor = true;
+            this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(195, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Select Folder For Files";
             // 
             // groupBoxTokens
             // 
@@ -206,7 +239,7 @@
             // 
             // btn_cancelMapping
             // 
-            this.btn_cancelMapping.Location = new System.Drawing.Point(463, 260);
+            this.btn_cancelMapping.Location = new System.Drawing.Point(472, 260);
             this.btn_cancelMapping.Name = "btn_cancelMapping";
             this.btn_cancelMapping.Size = new System.Drawing.Size(75, 23);
             this.btn_cancelMapping.TabIndex = 26;
@@ -217,11 +250,11 @@
             // btn_saveMapping
             // 
             this.btn_saveMapping.Enabled = false;
-            this.btn_saveMapping.Location = new System.Drawing.Point(351, 260);
+            this.btn_saveMapping.Location = new System.Drawing.Point(382, 260);
             this.btn_saveMapping.Name = "btn_saveMapping";
-            this.btn_saveMapping.Size = new System.Drawing.Size(106, 23);
+            this.btn_saveMapping.Size = new System.Drawing.Size(75, 23);
             this.btn_saveMapping.TabIndex = 25;
-            this.btn_saveMapping.Text = "Save mapping";
+            this.btn_saveMapping.Text = "Next";
             this.btn_saveMapping.UseVisualStyleBackColor = true;
             this.btn_saveMapping.Click += new System.EventHandler(this.btn_saveMapping_Click);
             // 
@@ -274,37 +307,37 @@
             // 
             this.dataGrid_mapping.AllowDrop = true;
             this.dataGrid_mapping.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGrid_mapping.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid_mapping.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGrid_mapping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_mapping.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
             this.dataGrid_mapping.ContextMenuStrip = this.contextMenu_template;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGrid_mapping.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGrid_mapping.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGrid_mapping.Location = new System.Drawing.Point(230, 22);
             this.dataGrid_mapping.Name = "dataGrid_mapping";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGrid_mapping.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid_mapping.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGrid_mapping.RowHeadersVisible = false;
             this.dataGrid_mapping.Size = new System.Drawing.Size(320, 232);
             this.dataGrid_mapping.TabIndex = 23;
@@ -662,34 +695,22 @@
             this.rtxtMapping.TabIndex = 9;
             this.rtxtMapping.Text = "";
             // 
-            // btnSelectFolder
+            // label4
             // 
-            this.btnSelectFolder.Location = new System.Drawing.Point(120, 4);
-            this.btnSelectFolder.Name = "btnSelectFolder";
-            this.btnSelectFolder.Size = new System.Drawing.Size(34, 26);
-            this.btnSelectFolder.TabIndex = 18;
-            this.btnSelectFolder.Text = "...";
-            this.btnSelectFolder.UseVisualStyleBackColor = true;
-            this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Current Folder:";
             // 
-            // label2
+            // txtCurrentFolder
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Select Folder For Files";
-            // 
-            // panelSelectFolderForFiles
-            // 
-            this.panelSelectFolderForFiles.Controls.Add(this.btnSelectFolder);
-            this.panelSelectFolderForFiles.Controls.Add(this.label2);
-            this.panelSelectFolderForFiles.Location = new System.Drawing.Point(409, 223);
-            this.panelSelectFolderForFiles.Name = "panelSelectFolderForFiles";
-            this.panelSelectFolderForFiles.Size = new System.Drawing.Size(157, 33);
-            this.panelSelectFolderForFiles.TabIndex = 20;
-            this.panelSelectFolderForFiles.Visible = false;
+            this.txtCurrentFolder.Location = new System.Drawing.Point(77, 23);
+            this.txtCurrentFolder.Name = "txtCurrentFolder";
+            this.txtCurrentFolder.ReadOnly = true;
+            this.txtCurrentFolder.Size = new System.Drawing.Size(269, 20);
+            this.txtCurrentFolder.TabIndex = 21;
             // 
             // ExcelSettingsDialog
             // 
@@ -700,6 +721,8 @@
             this.Size = new System.Drawing.Size(586, 591);
             this.Settings.ResumeLayout(false);
             this.Settings.PerformLayout();
+            this.panelSelectFolderForFiles.ResumeLayout(false);
+            this.panelSelectFolderForFiles.PerformLayout();
             this.groupBoxTokens.ResumeLayout(false);
             this.grpBox_Connect_setting.ResumeLayout(false);
             this.grpBox_template.ResumeLayout(false);
@@ -717,8 +740,6 @@
             this.flpSaveAccount.ResumeLayout(false);
             this.panelItemName.ResumeLayout(false);
             this.panelItemName.PerformLayout();
-            this.panelSelectFolderForFiles.ResumeLayout(false);
-            this.panelSelectFolderForFiles.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -782,5 +803,7 @@
         private System.Windows.Forms.Button btnSelectFolder;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FolderBrowserDialog folderBrouseForSync;
+        private System.Windows.Forms.TextBox txtCurrentFolder;
+        private System.Windows.Forms.Label label4;
     }
 }

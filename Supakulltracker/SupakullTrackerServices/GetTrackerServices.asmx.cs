@@ -64,28 +64,20 @@ namespace SupakullTrackerServices
             try
             {
                 ExcelAdapter excelAdapter = new ExcelAdapter(fileForParce, tokenID);
+                excelAdapter.RunAdapter();
                 IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
                 if (allTasksFromexcel != null)
                 {
-                    try
-                    {
-                        IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
-                        TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
-                        excelAdapter.ID = tokenID;
-                        excelAdapter.UpdateTokenLastUpdateTime(updateTime);
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                        return;
-                    }
-
+                    IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
+                    TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                    excelAdapter.ID = tokenID;
+                    excelAdapter.UpdateTokenLastUpdateTime(updateTime);
                 }
             }
             catch (Exception ex)
             {
                 log.Error(ex);
-                return;
+                throw new SoapException("Fault occurred", SoapException.ClientFaultCode, Context.Request.Url.AbsoluteUri, ex);
             }
         }
 
@@ -94,7 +86,7 @@ namespace SupakullTrackerServices
         public ServiceAccountDTO TestExcelAccount(ServiceAccountDTO accountForTest, Byte[] fileForParce)
         {
             IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
-           
+
             currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
             ExcelAdapter currentAdapter = new ExcelAdapter(currentAccountForTest, fileForParce);
 
@@ -103,6 +95,24 @@ namespace SupakullTrackerServices
             resultDomain = testResult.Convert(testResult);
             ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
             return result;
+        }
+
+        [WebMethod]
+        public Boolean UpdateTokenNameForExcel(Int32 tokeID, String newTokenName)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                ISQLQuery query = session.CreateSQLQuery(String.Format(@"UPDATE TOKENS_IN_ACCOUNT SET TOKEN_NAME = '{0}' WHERE TOKEN_ID = {1}", newTokenName, tokeID));
+                Int32 number = query.ExecuteUpdate();
+                session.Flush();
+                if (number > 0)
+                {
+                    return true;
+                } 
+            }
+            return false;
         }
 
         #region Update
@@ -212,6 +222,25 @@ namespace SupakullTrackerServices
             Boolean succeed = false;
             ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
             TokenDAO target = token.TokenDTOToTokenDomain().TokenToTokenDAO();
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(target);
+                    transaction.Commit();
+                    succeed = transaction.WasCommitted;
+                }
+
+            }
+            return succeed;
+        }
+
+        [WebMethod]
+        public Boolean DeleteMapping(TemplateDTO template)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            TemplateDAO target = template.TemplateDTOToTemplateDomain().TemplateToTemplateDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -393,7 +422,7 @@ namespace SupakullTrackerServices
                 accountForTest.TestResult = false;
                 return accountForTest;
             }
-            
+
         }
         #endregion
 

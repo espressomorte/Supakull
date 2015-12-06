@@ -173,6 +173,9 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteMappingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteTokenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -210,6 +213,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TestExcelAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.UpdateTokenNameForExcelResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">

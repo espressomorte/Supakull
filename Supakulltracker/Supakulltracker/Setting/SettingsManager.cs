@@ -77,6 +77,14 @@ namespace Supakulltracker
             return succeed;
         }
 
+        public static Boolean DeleteTemplate(IAccountTemplate template)
+        {
+            Boolean succeed = false;
+            TemplateDTO targetTemplate = template.ConvertToDAO(template);
+            succeed = services.DeleteMapping(targetTemplate);
+            return succeed;
+        }
+
         public static Boolean CreateNewAccount(this UserProvider.UserDTO currentUser,IAccountSettings newAccount)
         {
             Boolean succeed = false;
@@ -185,6 +193,11 @@ namespace Supakulltracker
             resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
             settingResult = resultIaccount;
             return resultAccount.TestResult;
+        }
+
+        public static Boolean UpdateTokenNameForExcelInDB(Int32 tokeID, String newTokenName)
+        {
+           return services.UpdateTokenNameForExcel(tokeID, newTokenName);
         }
     }
 }

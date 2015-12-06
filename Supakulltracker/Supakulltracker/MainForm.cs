@@ -34,7 +34,7 @@ namespace Supakulltracker
             if (AuthorizationResult.Authorized)
             {
                 PrepareApplicationAsync();
-                excelSynchronizer = new ExcelSynchronizer(AuthorizationResult);
+                
             }
             else
             {
@@ -48,6 +48,7 @@ namespace Supakulltracker
             await trackerServices.UpdateAsync();
             Tasks = trackerServices.GetAllTasks();
             Board.DataSource = Tasks;
+            excelSynchronizer = new ExcelSynchronizer(AuthorizationResult);
         }
 
         private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)

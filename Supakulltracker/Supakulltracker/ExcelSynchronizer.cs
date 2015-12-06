@@ -46,20 +46,24 @@ namespace Supakulltracker
         private void CheckAllTrackFiles()
         {
             String[] allFiles = Directory.GetFiles(folderPathForSynchronization, "*.xlsx");
+
             foreach (String fileNameWithPath in allFiles)
             {
                 String path = Path.GetDirectoryName(fileNameWithPath);
-                String name = Path.GetFileName(fileNameWithPath);            
-                ExcelAccountSettings account;
-                ExcelAccountToken token;
+                String name = Path.GetFileName(fileNameWithPath);
+                List<ExcelAccountSettings> account;
+                List<ExcelAccountToken> tokens;
 
-                account = FindAcountAndToken(name, out token);
-                if (account != null && token != null)
+                account = FindAcountAndToken(name, out tokens);
+                if (account.Count > 0 && tokens.Count > 0)
                 {
-                    DateTime fileUpdateTime = File.GetLastWriteTime(String.Format(@"{0}\{1}", folderPathForSynchronization, name));
-                    if (fileUpdateTime > token.LastUpdateTime)
+                    foreach (ExcelAccountToken token in tokens)
                     {
-                        FileWatcher_Changed(this, new FileSystemEventArgs(WatcherChangeTypes.Changed, folderPathForSynchronization, name));
+                        DateTime fileUpdateTime = File.GetLastWriteTime(String.Format(@"{0}\{1}", folderPathForSynchronization, name));
+                        if (fileUpdateTime > token.LastUpdateTime)
+                        {
+                            FileWatcher_Changed(this, new FileSystemEventArgs(WatcherChangeTypes.Changed, folderPathForSynchronization, name));
+                        }
                     }
                 }
             }
@@ -98,23 +102,29 @@ namespace Supakulltracker
 
         private void FileWatcher_Renamed(object sender, RenamedEventArgs e)
         {
-            if (e.FullPath.EndsWith(".xlsx") && e.OldName != e.Name)
+            FileAttributes atributes = File.GetAttributes(e.FullPath);
+            if (atributes.HasFlag(FileAttributes.Directory))
             {
-                FileAttributes atributes = File.GetAttributes(e.FullPath);
-                if (atributes.HasFlag(FileAttributes.Directory))
+                ChangeFolderForSync(e.FullPath, currentUser);
+                fileWatcher.Path = e.FullPath;
+            }
+            else
+            {
+                if (e.FullPath.EndsWith(".xlsx") && e.OldName != e.Name)
                 {
-                    ChangeFolderForSync(e.FullPath, currentUser);
-                    fileWatcher.Path = e.FullPath;
-                }
-                else
-                {
-                    ExcelAccountSettings accountForChange;
-                    ExcelAccountToken tokenForChange;
-                    accountForChange = FindAcountAndToken(e.OldName, out tokenForChange);
-                    if (accountForChange != null && tokenForChange != null && e.Name != tokenForChange.TokenName)
+                    List<ExcelAccountSettings> accountForChange;
+                    List<ExcelAccountToken> tokensForChange;
+                    accountForChange = FindAcountAndToken(e.OldName, out tokensForChange);
+                    if (accountForChange.Count > 0 && tokensForChange.Count > 0)
                     {
-                        tokenForChange.TokenName = e.Name;
-                        SettingsManager.SaveOrUpdateAccount(accountForChange);
+                        foreach (ExcelAccountToken tokenForChange in tokensForChange)
+                        {
+                            if (e.Name != tokenForChange.TokenName)
+                            {
+                                tokenForChange.TokenName = e.Name;
+                                SettingsManager.UpdateTokenNameForExcelInDB(tokenForChange.TokenId, e.Name);
+                            }
+                        }
                     }
                 }
             }
@@ -128,28 +138,30 @@ namespace Supakulltracker
                 {
                     return;
                 }
-                ExcelAccountSettings account;
-                ExcelAccountToken token;
-                account = FindAcountAndToken(e.Name, out token);
-                if (account != null && token != null)
+                List<ExcelAccountSettings> accounts;
+                List<ExcelAccountToken> tokens;
+                accounts = FindAcountAndToken(e.Name, out tokens);
+                if (accounts.Count > 0 && tokens.Count > 0)
                 {
-                    LockFileForUpdating(e.Name);
-                    try
+                    foreach (ExcelAccountToken token in tokens)
                     {
-                        Byte[] fileInBytes = OpenExcelFileAndReturnByteArray(e.FullPath);
-                        services.GetTasksFromExcel(fileInBytes, token.TokenId, DateTime.Now.ToString());
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Info(ex.Message, ex);
-                        return;
-                    }
-                    finally
-                    {
-                        UnlockFileForUpdating(e.Name);
+                        LockFileForUpdating(e.Name);
+                        try
+                        {
+                            Byte[] fileInBytes = OpenExcelFileAndReturnByteArray(e.FullPath);
+                            services.GetTasksFromExcel(fileInBytes, token.TokenId, DateTime.Now.ToString());
+                            token.LastUpdateTime = DateTime.Now;
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Info(ex.Message, ex);
+                        }
+                        finally
+                        {
+                            UnlockFileForUpdating(e.Name);
+                        }
                     }
                 }
-                token.LastUpdateTime = DateTime.Now;
             }
         }
 
@@ -177,7 +189,7 @@ namespace Supakulltracker
             catch (IOException ex)
             {
                 throw ex;
-            }  
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -216,42 +228,30 @@ namespace Supakulltracker
             }
         }
 
-        private ExcelAccountSettings FindAcountAndToken(String tokentName, out ExcelAccountToken tokenForChange)
+        private List<ExcelAccountSettings> FindAcountAndToken(String tokentName, out List<ExcelAccountToken> tokenForChange)
         {
             if (NeedUpdateAcountList)
             {
                 UpdateExcelAccountsList();
             }
+            tokenForChange = new List<ExcelAccountToken>();
+            List<ExcelAccountSettings> accountsList = new List<ExcelAccountSettings>();
             foreach (ExcelAccountSettings account in excelAccounts)
             {
                 String name = tokentName.Trim(new Char[] { '~', '$' });
                 ExcelAccountToken result = account.Tokens.SingleOrDefault(token => token.TokenName == name);
                 if (result != null)
                 {
-                    tokenForChange = result;
-                    return account;
-                }
-                else
-                {
-                    tokenForChange = null;
-                    return null;
+                    tokenForChange.Add(result);
+                    accountsList.Add(account);
                 }
             }
-            tokenForChange = null;
-            return null;
-
+            return accountsList;
         }
 
         private String TryOpenOrCreateFolderForUser()
         {
-            String folderPathForSynchronization = (String)ConfigurationManager.AppSettings[String.Format("FolderPathForSynchronizationFor.{0}", currentUser.AuthorizedUser.UserID.GetHashCode())];
-            if (String.IsNullOrEmpty(folderPathForSynchronization))
-            {
-                String pathToDefaultFolder = Directory.GetCurrentDirectory();
-                String nameOfDefaultFolder = ConfigurationManager.AppSettings[String.Format("DefaultFolderPathForSynchronization")].ToString();
-                folderPathForSynchronization = String.Format(@"{0}\{1}", pathToDefaultFolder, nameOfDefaultFolder);
-
-            }
+            UpdatePathToFolderFromConfigFile();
             if (Directory.Exists(folderPathForSynchronization))
             {
                 return folderPathForSynchronization;
@@ -272,6 +272,16 @@ namespace Supakulltracker
             }
         }
 
+        private void UpdatePathToFolderFromConfigFile()
+        {
+            folderPathForSynchronization = (String)ConfigurationManager.AppSettings[String.Format("FolderPathForSynchronizationFor.{0}", currentUser.AuthorizedUser.UserID.GetHashCode())];
+            if (String.IsNullOrEmpty(folderPathForSynchronization))
+            {
+                String pathToDefaultFolder = Directory.GetCurrentDirectory();
+                String nameOfDefaultFolder = ConfigurationManager.AppSettings[String.Format("DefaultFolderPathForSynchronization")].ToString();
+                folderPathForSynchronization = String.Format(@"{0}\{1}", pathToDefaultFolder, nameOfDefaultFolder);
+            }
+        }
         public static void ChangeFolderForSync(String newPath, AuthorizationResult currentUser)
         {
             String userID = String.Format("FolderPathForSynchronizationFor.{0}", currentUser.AuthorizedUser.UserID);

@@ -817,6 +817,13 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestExcelAccount", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.TestExcelAccountResponse> TestExcelAccountAsync(Supakulltracker.IssueService.TestExcelAccountRequest request);
         
+        // CODEGEN: Generating message contract since element name newTokenName from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateTokenNameForExcel", ReplyAction="*")]
+        Supakulltracker.IssueService.UpdateTokenNameForExcelResponse UpdateTokenNameForExcel(Supakulltracker.IssueService.UpdateTokenNameForExcelRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateTokenNameForExcel", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.UpdateTokenNameForExcelResponse> UpdateTokenNameForExcelAsync(Supakulltracker.IssueService.UpdateTokenNameForExcelRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
         
@@ -850,6 +857,13 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteToken", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteTokenResponse> DeleteTokenAsync(Supakulltracker.IssueService.DeleteTokenRequest request);
+        
+        // CODEGEN: Generating message contract since element name template from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteMapping", ReplyAction="*")]
+        Supakulltracker.IssueService.DeleteMappingResponse DeleteMapping(Supakulltracker.IssueService.DeleteMappingRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteMapping", ReplyAction="*")]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteMappingResponse> DeleteMappingAsync(Supakulltracker.IssueService.DeleteMappingRequest request);
         
         // CODEGEN: Generating message contract since element name newAccount from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateNewAccount", ReplyAction="*")]
@@ -1165,6 +1179,78 @@ namespace Supakulltracker.IssueService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class UpdateTokenNameForExcelRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="UpdateTokenNameForExcel", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.UpdateTokenNameForExcelRequestBody Body;
+        
+        public UpdateTokenNameForExcelRequest() {
+        }
+        
+        public UpdateTokenNameForExcelRequest(Supakulltracker.IssueService.UpdateTokenNameForExcelRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class UpdateTokenNameForExcelRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int tokeID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string newTokenName;
+        
+        public UpdateTokenNameForExcelRequestBody() {
+        }
+        
+        public UpdateTokenNameForExcelRequestBody(int tokeID, string newTokenName) {
+            this.tokeID = tokeID;
+            this.newTokenName = newTokenName;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class UpdateTokenNameForExcelResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="UpdateTokenNameForExcelResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.UpdateTokenNameForExcelResponseBody Body;
+        
+        public UpdateTokenNameForExcelResponse() {
+        }
+        
+        public UpdateTokenNameForExcelResponse(Supakulltracker.IssueService.UpdateTokenNameForExcelResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class UpdateTokenNameForExcelResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool UpdateTokenNameForExcelResult;
+        
+        public UpdateTokenNameForExcelResponseBody() {
+        }
+        
+        public UpdateTokenNameForExcelResponseBody(bool UpdateTokenNameForExcelResult) {
+            this.UpdateTokenNameForExcelResult = UpdateTokenNameForExcelResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class GetAllUserAccountsByUserIDRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAllUserAccountsByUserID", Namespace="http://tempuri.org/", Order=0)]
@@ -1434,6 +1520,74 @@ namespace Supakulltracker.IssueService {
         
         public DeleteTokenResponseBody(bool DeleteTokenResult) {
             this.DeleteTokenResult = DeleteTokenResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteMappingRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteMapping", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteMappingRequestBody Body;
+        
+        public DeleteMappingRequest() {
+        }
+        
+        public DeleteMappingRequest(Supakulltracker.IssueService.DeleteMappingRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteMappingRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Supakulltracker.IssueService.TemplateDTO template;
+        
+        public DeleteMappingRequestBody() {
+        }
+        
+        public DeleteMappingRequestBody(Supakulltracker.IssueService.TemplateDTO template) {
+            this.template = template;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteMappingResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteMappingResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Supakulltracker.IssueService.DeleteMappingResponseBody Body;
+        
+        public DeleteMappingResponse() {
+        }
+        
+        public DeleteMappingResponse(Supakulltracker.IssueService.DeleteMappingResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class DeleteMappingResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteMappingResult;
+        
+        public DeleteMappingResponseBody() {
+        }
+        
+        public DeleteMappingResponseBody(bool DeleteMappingResult) {
+            this.DeleteMappingResult = DeleteMappingResult;
         }
     }
     
@@ -1933,6 +2087,33 @@ namespace Supakulltracker.IssueService {
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).TestExcelAccountAsync(inValue);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.UpdateTokenNameForExcelResponse Supakulltracker.IssueService.GetTrackerServicesSoap.UpdateTokenNameForExcel(Supakulltracker.IssueService.UpdateTokenNameForExcelRequest request) {
+            return base.Channel.UpdateTokenNameForExcel(request);
+        }
+        
+        public bool UpdateTokenNameForExcel(int tokeID, string newTokenName) {
+            Supakulltracker.IssueService.UpdateTokenNameForExcelRequest inValue = new Supakulltracker.IssueService.UpdateTokenNameForExcelRequest();
+            inValue.Body = new Supakulltracker.IssueService.UpdateTokenNameForExcelRequestBody();
+            inValue.Body.tokeID = tokeID;
+            inValue.Body.newTokenName = newTokenName;
+            Supakulltracker.IssueService.UpdateTokenNameForExcelResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).UpdateTokenNameForExcel(inValue);
+            return retVal.Body.UpdateTokenNameForExcelResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.UpdateTokenNameForExcelResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.UpdateTokenNameForExcelAsync(Supakulltracker.IssueService.UpdateTokenNameForExcelRequest request) {
+            return base.Channel.UpdateTokenNameForExcelAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.UpdateTokenNameForExcelResponse> UpdateTokenNameForExcelAsync(int tokeID, string newTokenName) {
+            Supakulltracker.IssueService.UpdateTokenNameForExcelRequest inValue = new Supakulltracker.IssueService.UpdateTokenNameForExcelRequest();
+            inValue.Body = new Supakulltracker.IssueService.UpdateTokenNameForExcelRequestBody();
+            inValue.Body.tokeID = tokeID;
+            inValue.Body.newTokenName = newTokenName;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).UpdateTokenNameForExcelAsync(inValue);
+        }
+        
         public void Update() {
             base.Channel.Update();
         }
@@ -2041,6 +2222,31 @@ namespace Supakulltracker.IssueService {
             inValue.Body = new Supakulltracker.IssueService.DeleteTokenRequestBody();
             inValue.Body.token = token;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteTokenAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Supakulltracker.IssueService.DeleteMappingResponse Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteMapping(Supakulltracker.IssueService.DeleteMappingRequest request) {
+            return base.Channel.DeleteMapping(request);
+        }
+        
+        public bool DeleteMapping(Supakulltracker.IssueService.TemplateDTO template) {
+            Supakulltracker.IssueService.DeleteMappingRequest inValue = new Supakulltracker.IssueService.DeleteMappingRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteMappingRequestBody();
+            inValue.Body.template = template;
+            Supakulltracker.IssueService.DeleteMappingResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteMapping(inValue);
+            return retVal.Body.DeleteMappingResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteMappingResponse> Supakulltracker.IssueService.GetTrackerServicesSoap.DeleteMappingAsync(Supakulltracker.IssueService.DeleteMappingRequest request) {
+            return base.Channel.DeleteMappingAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.DeleteMappingResponse> DeleteMappingAsync(Supakulltracker.IssueService.TemplateDTO template) {
+            Supakulltracker.IssueService.DeleteMappingRequest inValue = new Supakulltracker.IssueService.DeleteMappingRequest();
+            inValue.Body = new Supakulltracker.IssueService.DeleteMappingRequestBody();
+            inValue.Body.template = template;
+            return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).DeleteMappingAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
