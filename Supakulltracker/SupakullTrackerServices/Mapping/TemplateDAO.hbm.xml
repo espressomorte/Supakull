@@ -2,7 +2,7 @@
   <class name="TemplateDAO" table="TEMPLATE">
     <id name="TemplateId" column="TEMPLATE_ID">
     <generator class="sequence">
-      <param name="sequence">taskmain_seq</param>
+      <param name="sequence">TEMPLATE_ID_SEQ</param>
     </generator>
     </id>
     <property name="TemplateName" column="TEMPLATE_NAME" />

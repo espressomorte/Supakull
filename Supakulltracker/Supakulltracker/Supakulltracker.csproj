@@ -34,15 +34,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.5.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate.Search, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e05025044aa97d32, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.Search.MB.4.0.3.4000\lib\net40\NHibernate.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -57,18 +80,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Details\DetailPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Details\DetailPanel.designer.cs">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Details\LabeledTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Details\LabeledTextBox.designer.cs">
+      <DependentUpon>LabeledTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Details\PopUpMultipleEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Details\PopUpMultipleEditor.designer.cs">
+      <DependentUpon>PopUpMultipleEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Search\GenerateIndexesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Search\GenerateIndexesForm.Designer.cs">
+      <DependentUpon>GenerateIndexesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Search\SearchProvider.cs" />
+    <Compile Include="Search\SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Search\SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelSynchronizer.cs" />
     <Compile Include="Setting\DatabaseAccountSettings.cs" />
     <Compile Include="Setting\DBSettingDialog.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Setting\DBSettingDialog.Designer.cs">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DetailPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DetailPanel.Designer.cs">
-      <DependentUpon>DetailPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\AuthorizationResult.cs" />
     <Compile Include="Login\Authorizer.cs" />
@@ -107,6 +156,13 @@
     <Compile Include="Setting\GoogleSheetsSettingDialog.designer.cs">
       <DependentUpon>GoogleSheetsSettingDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting\ExcelAccountSettings.cs" />
+    <Compile Include="Setting\ExcelSettingsDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\ExcelSettingsDialog.designer.cs">
+      <DependentUpon>ExcelSettingsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\IAccountSettings.cs" />
     <Compile Include="Setting\IAccountTemplate.cs" />
     <Compile Include="Setting\IAccountToken.cs" />
@@ -124,12 +180,24 @@
     <Compile Include="Setting\TrelloSettingDialog.designer.cs">
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SuperTask\SuperTask.cs" />
+    <EmbeddedResource Include="Details\DetailPanel.resx">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Details\LabeledTextBox.resx">
+      <DependentUpon>LabeledTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Details\PopUpMultipleEditor.resx">
+      <DependentUpon>PopUpMultipleEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\GenerateIndexesForm.resx">
+      <DependentUpon>GenerateIndexesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DetailPanel.resx">
-      <DependentUpon>DetailPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -151,6 +219,9 @@
     </Compile>
     <EmbeddedResource Include="Setting\GoogleSheetsSettingDialog.resx">
       <DependentUpon>GoogleSheetsSettingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\ExcelSettingsDialog.resx">
+      <DependentUpon>ExcelSettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
@@ -175,7 +246,13 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteMappingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.DeleteTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.FindTasksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetAllSharedUserAccountsByUserIDResponse.datasource">
@@ -188,6 +265,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetMatchedTasksResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.GetTasksFromExcelResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\IssueService\Supakulltracker.IssueService.GetUserAccountsByUserIDAndAccountIdResponse.datasource">
@@ -208,6 +288,12 @@
     <None Include="Service References\IssueService\Supakulltracker.IssueService.TestAccountResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.TestExcelAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IssueService\Supakulltracker.IssueService.UpdateTokenNameForExcelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\UserProvider\Supakulltracker.UserProvider.ExistResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -220,7 +306,9 @@
     <None Include="Service References\UserProvider\UserProvider.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -258,6 +346,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="MyConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

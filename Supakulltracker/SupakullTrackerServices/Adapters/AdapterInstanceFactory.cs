@@ -17,7 +17,7 @@ namespace SupakullTrackerServices
                 case Sources.Trello:
                     return new TrelloManager();
                 case Sources.Excel:
-                    return new ExcelAdapter("");
+                    return null;
                 case Sources.GoogleSheets:
                     return new GoogleSheetsAdapter();
                 default:

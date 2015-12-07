@@ -20,6 +20,10 @@ namespace SupakullTrackerServices
 
         public static IList<ITask> TaskMainDaoToTaskMain(IList<TaskMainDAO> TaskMainDaoCollection)
         {
+            if (TaskMainDaoCollection == null)
+            {
+                return null;
+            }
             List<ITask> target = new List<ITask>();
             foreach (TaskMainDAO taskMainDAO in TaskMainDaoCollection)
             {
@@ -62,6 +66,7 @@ namespace SupakullTrackerServices
                 taskMain.CreatedBy = taskMainDAO.CreatedBy;
                 taskMain.Comments = taskMainDAO.Comments;
                 taskMain.TokenID = taskMainDAO.TokenID;
+                taskMain.Source = taskMainDAO.Source;
 
                 if (taskMainDAO.TaskParent != null)
                 {
@@ -92,6 +97,7 @@ namespace SupakullTrackerServices
                 taskMain.CreatedBy = taskMainDAO.CreatedBy;
                 taskMain.Comments = taskMainDAO.Comments;
                 taskMain.TokenID = taskMainDAO.TokenID;
+                taskMain.Source = taskMainDAO.Source;
 
                 if (taskMainDAO.TaskParent != null)
                 {

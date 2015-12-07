@@ -24,7 +24,8 @@ namespace SupakullTrackerServices
         public string Project { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Sources LinkToTracker { get; set; }
+        public string LinkToTracker { get; set; }
+        public Sources Source { get; set; }
         public Int32 TokenID { get; set; }
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
@@ -80,7 +81,7 @@ namespace SupakullTrackerServices
 
         public TaskKey GetTaskKey()
         {
-            return new TaskKey(this.TaskID, this.LinkToTracker);
+            return new TaskKey(this.TaskID, this.Source);
         }
     }   
 }

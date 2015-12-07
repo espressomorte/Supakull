@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Services;
-using SupakullTrackerServices;
 using NHibernate;
 using NHibernate.Linq;
 using System.Web.Services.Protocols;
 using System.Threading.Tasks;
-using System.Threading;
+using System.IO;
+using System.Configuration;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -29,10 +28,8 @@ namespace SupakullTrackerServices
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public GetTrackerServices()
-        {
-            
+        {            
             AutoUpdater.AutoUpdate();
         }
 
@@ -46,8 +43,18 @@ namespace SupakullTrackerServices
                 IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDaoCollection);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMainCollection);
-                return taskMainDtoCollection;            
+                return taskMainDtoCollection;
             }
+        }
+
+        [WebMethod]
+        public List<TaskMainDTO> FindTasks(string textQuery)
+        {
+            SearchProviderDAO searchProvider = new SearchProviderDAO();
+            IList<TaskMainDAO> taskMainDAO = searchProvider.Find(textQuery);
+            IList<ITask> taskMain = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDAO);
+            List<TaskMainDTO> taskMainDTO = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMain);
+            return taskMainDTO;
         }
 
         [WebMethod]
@@ -64,7 +71,71 @@ namespace SupakullTrackerServices
             return taskMainDTO;
         }
 
+        [WebMethod]
+        public void GetTasksFromExcel(Byte[] fileForParce, Int32 tokenID, String updateTime)
+        {
+            try
+            {
+                ExcelAdapter excelAdapter = new ExcelAdapter(fileForParce, tokenID);
+                excelAdapter.RunAdapter();
+                IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
+                if (allTasksFromexcel != null)
+                {
+                    IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
+                    TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                    excelAdapter.ID = tokenID;
+                    excelAdapter.UpdateTokenLastUpdateTime(updateTime);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw new SoapException("Fault occurred", SoapException.ClientFaultCode, Context.Request.Url.AbsoluteUri, ex);
+            }
+        }
+
+
+        [WebMethod]
+        public ServiceAccountDTO TestExcelAccount(ServiceAccountDTO accountForTest, Byte[] fileForParce)
+        {
+            IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
+
+            currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
+            ExcelAdapter currentAdapter = new ExcelAdapter(currentAccountForTest, fileForParce);
+
+            IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
+            ServiceAccount resultDomain = new ServiceAccount();
+            resultDomain = testResult.Convert(testResult);
+            ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
+            return result;
+        }
+
+        [WebMethod]
+        public Boolean UpdateTokenNameForExcel(Int32 tokeID, String newTokenName)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                ISQLQuery query = session.CreateSQLQuery(String.Format(@"UPDATE TOKENS_IN_ACCOUNT SET TOKEN_NAME = '{0}' WHERE TOKEN_ID = {1}", newTokenName, tokeID));
+                Int32 number = query.ExecuteUpdate();
+                session.Flush();
+                if (number > 0)
+                {
+                    return true;
+                } 
+            }
+            return false;
+        }
+
         #region Update
+        [WebMethod]
+        public void GenerateIndexes()
+        {
+            SearchProviderDAO searchProvider = new SearchProviderDAO();
+            searchProvider.GenerateIndexes();
+        }
+        
         [WebMethod]
         public void Update()
         {
@@ -75,7 +146,6 @@ namespace SupakullTrackerServices
             //TaskMain.MatchTasks(allTaskMainFromAdapters, taskMatcher);
             //IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTaskMainFromAdapters);
             //TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
-
         }
         //[WebMethod]
         //public void UpdateTasksOfLoggedUsers()
@@ -196,6 +266,7 @@ namespace SupakullTrackerServices
             ServiceAccountDAO target = account.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
+                target.AccountVersion += 1;
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(target);
@@ -214,15 +285,61 @@ namespace SupakullTrackerServices
             TokenDAO target = token.TokenDTOToTokenDomain().TokenToTokenDAO();
             using (ISession session = sessionFactory.OpenSession())
             {
+                ServiceAccountDAO account = session.Query<ServiceAccountDAO>().Where(acount => acount.Tokens.Contains(target)).SingleOrDefault();
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Delete(target);
                     transaction.Commit();
                     succeed = transaction.WasCommitted;
                 }
+                if (succeed)
+                {
+                    UpdateAccountVersion(account.ServiceAccountId, account.AccountVersion + 1);
+                }
 
             }
             return succeed;
+        }
+
+        [WebMethod]
+        public Boolean DeleteMapping(TemplateDTO template)
+        {
+            Boolean succeed = false;
+            ISessionFactory sessionFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+            TemplateDAO target = template.TemplateDTOToTemplateDomain().TemplateToTemplateDAO();
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                ServiceAccountDAO account = session.Query<ServiceAccountDAO>().Where(acount => acount.MappingTemplates.Contains(target)).SingleOrDefault();
+                using (ITransaction transaction = session.BeginTransaction())
+                {             
+                    session.Delete(target);
+                    transaction.Commit();
+                    succeed = transaction.WasCommitted;
+                    if (succeed)
+                    {
+                        UpdateAccountVersion(account.ServiceAccountId, account.AccountVersion + 1);
+                    }
+                }
+
+            }
+            return succeed;
+        }
+
+        private Boolean UpdateAccountVersion(Int32 acID, Int32 newVersion)
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                ISQLQuery query = session.CreateSQLQuery(String.Format(@"UPDATE SERVICE_ACCOUNT SET ACCOUNT_VERSION = '{0}' WHERE SERVICE_ID = {1}", newVersion, acID));
+                Int32 number = query.ExecuteUpdate();
+                session.Flush();
+                if (number > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         [WebMethod]
@@ -233,6 +350,8 @@ namespace SupakullTrackerServices
 
             UserLinkDAO newUserLink = new UserLinkDAO();
             ServiceAccountDAO target = newAccount.ServiceAccountDTOToDomain().ServiceAccountDomainToDAO();
+            target.AccountVersion = 0;
+            newUserLink.UserOwnerID = UserID;
             newUserLink.Account = target;
             newUserLink.Owner = true;
             newUserLink.UserId = UserID;
@@ -375,17 +494,25 @@ namespace SupakullTrackerServices
         public ServiceAccountDTO TestAccount(ServiceAccountDTO accountForTest)
         {
             IAdapter currentAdapter = AdapterInstanceFactory.GetCurentAdapterInstance(accountForTest.Source);
-            IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
+            if (currentAdapter != null)
+            {
+                IAccountSettings currentAccountForTest = SettingsManager.GetCurrentInstance(accountForTest.Source);
 
-            currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
+                currentAccountForTest = currentAccountForTest.Convert(accountForTest.ServiceAccountDTOToDomain());
 
-            IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
-            ServiceAccount resultDomain = new ServiceAccount();
-            resultDomain = testResult.Convert(testResult);
-            ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
-            return result;
+                IAccountSettings testResult = currentAdapter.TestAccount(currentAccountForTest);
+                ServiceAccount resultDomain = new ServiceAccount();
+                resultDomain = testResult.Convert(testResult);
+                ServiceAccountDTO result = resultDomain.ServiceAccountDomainToDTO();
+                return result;
+            }
+            else
+            {
+                accountForTest.TestResult = false;
+                return accountForTest;
+            }
+
         }
-
         #endregion
     }
 }

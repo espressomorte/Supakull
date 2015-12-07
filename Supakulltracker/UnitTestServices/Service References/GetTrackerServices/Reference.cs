@@ -796,6 +796,13 @@ namespace UnitTestServices.GetTrackerServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.GetAllTasksResponse> GetAllTasksAsync(UnitTestServices.GetTrackerServices.GetAllTasksRequest request);
         
+        // CODEGEN: Generating message contract since element name textQuery from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTasks", ReplyAction="*")]
+        UnitTestServices.GetTrackerServices.FindTasksResponse FindTasks(UnitTestServices.GetTrackerServices.FindTasksRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTasks", ReplyAction="*")]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.FindTasksResponse> FindTasksAsync(UnitTestServices.GetTrackerServices.FindTasksRequest request);
+        
         // CODEGEN: Generating message contract since element name taskID from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
         UnitTestServices.GetTrackerServices.GetMatchedTasksResponse GetMatchedTasks(UnitTestServices.GetTrackerServices.GetMatchedTasksRequest request);
@@ -931,6 +938,74 @@ namespace UnitTestServices.GetTrackerServices {
         
         public GetAllTasksResponseBody(UnitTestServices.GetTrackerServices.TaskMainDTO[] GetAllTasksResult) {
             this.GetAllTasksResult = GetAllTasksResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTasksRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTasks", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.FindTasksRequestBody Body;
+        
+        public FindTasksRequest() {
+        }
+        
+        public FindTasksRequest(UnitTestServices.GetTrackerServices.FindTasksRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class FindTasksRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string textQuery;
+        
+        public FindTasksRequestBody() {
+        }
+        
+        public FindTasksRequestBody(string textQuery) {
+            this.textQuery = textQuery;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTasksResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTasksResponse", Namespace="http://tempuri.org/", Order=0)]
+        public UnitTestServices.GetTrackerServices.FindTasksResponseBody Body;
+        
+        public FindTasksResponse() {
+        }
+        
+        public FindTasksResponse(UnitTestServices.GetTrackerServices.FindTasksResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class FindTasksResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] FindTasksResult;
+        
+        public FindTasksResponseBody() {
+        }
+        
+        public FindTasksResponseBody(UnitTestServices.GetTrackerServices.TaskMainDTO[] FindTasksResult) {
+            this.FindTasksResult = FindTasksResult;
         }
     }
     
@@ -1694,6 +1769,31 @@ namespace UnitTestServices.GetTrackerServices {
             UnitTestServices.GetTrackerServices.GetAllTasksRequest inValue = new UnitTestServices.GetTrackerServices.GetAllTasksRequest();
             inValue.Body = new UnitTestServices.GetTrackerServices.GetAllTasksRequestBody();
             return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).GetAllTasksAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        UnitTestServices.GetTrackerServices.FindTasksResponse UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.FindTasks(UnitTestServices.GetTrackerServices.FindTasksRequest request) {
+            return base.Channel.FindTasks(request);
+        }
+        
+        public UnitTestServices.GetTrackerServices.TaskMainDTO[] FindTasks(string textQuery) {
+            UnitTestServices.GetTrackerServices.FindTasksRequest inValue = new UnitTestServices.GetTrackerServices.FindTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.FindTasksRequestBody();
+            inValue.Body.textQuery = textQuery;
+            UnitTestServices.GetTrackerServices.FindTasksResponse retVal = ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).FindTasks(inValue);
+            return retVal.Body.FindTasksResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.FindTasksResponse> UnitTestServices.GetTrackerServices.GetTrackerServicesSoap.FindTasksAsync(UnitTestServices.GetTrackerServices.FindTasksRequest request) {
+            return base.Channel.FindTasksAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<UnitTestServices.GetTrackerServices.FindTasksResponse> FindTasksAsync(string textQuery) {
+            UnitTestServices.GetTrackerServices.FindTasksRequest inValue = new UnitTestServices.GetTrackerServices.FindTasksRequest();
+            inValue.Body = new UnitTestServices.GetTrackerServices.FindTasksRequestBody();
+            inValue.Body.textQuery = textQuery;
+            return ((UnitTestServices.GetTrackerServices.GetTrackerServicesSoap)(this)).FindTasksAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

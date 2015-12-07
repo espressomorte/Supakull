@@ -33,6 +33,7 @@
             this.dataBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trelloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.googleSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -60,7 +61,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dataBaseToolStripMenuItem,
             this.trelloToolStripMenuItem,
-            this.googleSheetsToolStripMenuItem});
+            this.googleSheetsToolStripMenuItem,
+            this.excelToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -88,6 +90,12 @@
             this.googleSheetsToolStripMenuItem.Size = new System.Drawing.Size(171, 19);
             this.googleSheetsToolStripMenuItem.Text = "Google Sheets";
             this.googleSheetsToolStripMenuItem.Click += new System.EventHandler(this.googleSheetsToolStripMenuItem_Click);
+            // excelToolStripMenuItem
+            // 
+            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(171, 19);
+            this.excelToolStripMenuItem.Text = "Excel";
+            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
             // 
             // SettingsDialog
             // 
@@ -117,5 +125,6 @@
         private System.Windows.Forms.ToolStripMenuItem dataBaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trelloToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem googleSheetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
     }
 }

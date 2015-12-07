@@ -8,8 +8,11 @@ namespace SupakullTrackerServices
 {
     class DatabaseAdapter : IAdapter
     {
+        public DateTime adapterLastUpdate { get; set; }
+        public Int32 MinUpdateTime { get; set; }
         List<DatabaseAccountToken> allTokensInAccount = new List<DatabaseAccountToken>();
         ClientNHibernateSessionFactory allFactories = new ClientNHibernateSessionFactory();
+
         public IAdapter GetAdapter(IAccountSettings account)
         {
             DatabaseAccountSettings dbAccount = (DatabaseAccountSettings)account;
@@ -18,6 +21,8 @@ namespace SupakullTrackerServices
             {
                 allFactories.GetSessionFactory(token);
             }
+            adapterLastUpdate = DateTime.MinValue;
+            MinUpdateTime = account.MinUpdateTime;
             return this;
         }
 
@@ -36,7 +41,7 @@ namespace SupakullTrackerServices
                         TaskMain task = new TaskMain();
 
                         task.TokenID = token.TokenId;
-                        task.LinkToTracker = Sources.DataBase;
+                        task.Source = Sources.DataBase;
                         task.Assigned = issue.Assigned;
                         task.Comments = issue.Comments;
                         task.CreatedBy = issue.CreatedBy;
@@ -58,7 +63,7 @@ namespace SupakullTrackerServices
                 }
                 return issues;
             }
-            
+
             return issues;
 
         }
@@ -86,6 +91,23 @@ namespace SupakullTrackerServices
             accountForTestDB.TestResult = result;
             return accountForTestDB;
         }
+
+        public string GetLinkToTracker(String LinkToTrackerInfo)
+        {
+            return null;
+        }
+
+        public Boolean CanRunUpdate()
+        {
+            if ((DateTime.Now - this.adapterLastUpdate).TotalMilliseconds > this.MinUpdateTime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
 
@@ -109,6 +131,6 @@ namespace SupakullTrackerServices
         public virtual IList<User> Assigned { get; set; }
         public virtual ITask TaskParent { get; set; }
 
-       
+
     }
 }

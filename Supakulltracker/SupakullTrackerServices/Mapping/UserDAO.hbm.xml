@@ -4,7 +4,7 @@
     
     <id name="ID" type="Int32" column="US_ID" >
       <generator class="sequence">
-        <param name="sequence">taskmain_seq</param>
+        <param name="sequence">US_ID_SEQ</param>
       </generator>
     </id>
     

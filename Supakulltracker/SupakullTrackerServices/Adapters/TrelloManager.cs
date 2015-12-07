@@ -15,6 +15,8 @@ namespace SupakullTrackerServices
         private static Trello _trello = new Trello(Constants.trelloAppToken);
         private string BoardID { get; set; }
         private string UserToken { get; set; }
+        public DateTime adapterLastUpdate { get; set; }
+        public Int32 MinUpdateTime { get; set; }
 
         public IAdapter GetAdapter(IAccountSettings account)
         {
@@ -23,34 +25,29 @@ namespace SupakullTrackerServices
             TrelloManager adapter = new TrelloManager();
             adapter.UserToken = Token.UserToken;
             adapter.BoardID = Token.BoardID;
+            adapter.MinUpdateTime = account.MinUpdateTime;
+            adapter.adapterLastUpdate = DateTime.MinValue;
             return adapter;
         }
 
 
-        //public TrelloManager(ServiceAccountDTO account)
-        //{
-        //    _trello.Authorize(account.UserAccountToken);
-        //    foreach (var token in account.Tokens)
-        //    {
-        //        string IdBoard = (from tok in token.Tokens where tok.Key == "IdBoard" select tok.Value).SingleOrDefault();
-        //        boards.Add(_trello.Boards.WithId(IdBoard));
-        //    }
-        //}
-
         public IList<ITask> GetAllTasks()
         {
-            _trello.Authorize("ded104e76f80e7dbe0c3f9ecc8f3591ee32af8fdfa90d32441380ccb1fcd35ee");
+            _trello.Authorize(UserToken);
             var tasks = new List<ITask>();
-            
-            var board = _trello.Boards.WithId("5602aee31ad8c2c5de6fedb9");
-            // var board = _trello.Boards.WithId(boardId);
+            var board = _trello.Boards.WithId(BoardID);
             var cards = _trello.Cards.ForBoard(board);
             foreach (var card in cards)
-                {
-                   tasks.Add(GetTasksFromCard(card));
-                }
+            {
+                tasks.Add(GetTasksFromCard(card));
+            }
             return tasks;
 
+        }
+
+        public string GetLinkToTracker(string LinkToTrackerInfo)
+        {
+            return _trello.Cards.WithId(LinkToTrackerInfo).ShortUrl;
         }
 
         public IAccountSettings TestAccount(IAccountSettings accountnForTest)
@@ -79,7 +76,7 @@ namespace SupakullTrackerServices
 
                 accountForTestTrello.TestResult = false;
             }
-            
+
             return accountForTestTrello;
         }
 
@@ -102,10 +99,6 @@ namespace SupakullTrackerServices
                 task.Summary = card.Name;
             }
             task.Assigned = null;
-            //foreach (var member in _trello.Members.ForCard(card))
-            //{
-            //    task.Assigned.Add(member.FullName);
-            //}
             task.Description = card.Desc;
             task.Status = _trello.Lists.ForCard(card).Name;
             task.Project = _trello.Boards.ForCard(card).Name;
@@ -117,10 +110,22 @@ namespace SupakullTrackerServices
                  .OfType<CommentCardAction>();
             foreach (var comment in comments)
             {
-                task.Comments = task.Comments + comment.Data.Text + " :By "+ comment.MemberCreator.FullName+" At: "+comment.Date.ToString()+"; ";
+                task.Comments = task.Comments + comment.Data.Text + " :By " + comment.MemberCreator.FullName + " At: " + comment.Date.ToString() + "; ";
             }
-            task.LinkToTracker = Sources.Trello;
+            task.Source = Sources.Trello;
+            task.LinkToTracker = card.GetCardId();
             return task;
+        }
+        public Boolean CanRunUpdate()
+        {
+            if ((DateTime.Now - this.adapterLastUpdate).TotalMilliseconds > this.MinUpdateTime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

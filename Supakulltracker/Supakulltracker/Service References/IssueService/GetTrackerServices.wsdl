@@ -29,7 +29,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="Project" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="LinkToTracker" type="tns:Sources" />
+          <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
+          <s:element minOccurs="0" maxOccurs="1" name="LinkToTracker" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="TokenID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estimation" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TargetVersion" type="s:string" />
@@ -57,6 +58,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="FindTasks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="textQuery" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindTasksResult" type="tns:ArrayOfTaskMainDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetMatchedTasks">
         <s:complexType>
           <s:sequence>
@@ -72,31 +87,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Update">
-        <s:complexType />
-      </s:element>
-      <s:element name="UpdateResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetAllUserAccountsByUserID">
+      <s:element name="GetTasksFromExcel">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileForParce" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="tokenID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="updateTime" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetAllUserAccountsByUserIDResponse">
+      <s:element name="GetTasksFromExcelResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestExcelAccount">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAllUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountForTest" type="tns:ServiceAccountDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileForParce" type="s:base64Binary" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfServiceAccountDTO">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceAccountDTO" nillable="true" type="tns:ServiceAccountDTO" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="ServiceAccountDTO">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="ServiceAccountId" type="s:int" />
@@ -156,6 +166,59 @@
           <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="TestExcelAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestExcelAccountResult" type="tns:ServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTokenNameForExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tokeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newTokenName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTokenNameForExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTokenNameForExcelResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateIndexes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GenerateIndexesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Update">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllUserAccountsByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUserAccountsByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUserAccountsByUserIDResult" type="tns:ArrayOfServiceAccountDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServiceAccountDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceAccountDTO" nillable="true" type="tns:ServiceAccountDTO" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetUserAccountsByUserIDAndAccountId">
         <s:complexType>
           <s:sequence>
@@ -196,6 +259,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="DeleteTokenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteMapping">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="template" type="tns:TemplateDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteMappingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteMappingResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -283,11 +360,41 @@
   <wsdl:message name="GetAllTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetAllTasksResponse" />
   </wsdl:message>
+  <wsdl:message name="FindTasksSoapIn">
+    <wsdl:part name="parameters" element="tns:FindTasks" />
+  </wsdl:message>
+  <wsdl:message name="FindTasksSoapOut">
+    <wsdl:part name="parameters" element="tns:FindTasksResponse" />
+  </wsdl:message>
   <wsdl:message name="GetMatchedTasksSoapIn">
     <wsdl:part name="parameters" element="tns:GetMatchedTasks" />
   </wsdl:message>
   <wsdl:message name="GetMatchedTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetMatchedTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTasksFromExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTasksFromExcel" />
+  </wsdl:message>
+  <wsdl:message name="GetTasksFromExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTasksFromExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestExcelAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:TestExcelAccount" />
+  </wsdl:message>
+  <wsdl:message name="TestExcelAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:TestExcelAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTokenNameForExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTokenNameForExcel" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTokenNameForExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTokenNameForExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIndexesSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateIndexes" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIndexesSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateIndexesResponse" />
   </wsdl:message>
   <wsdl:message name="UpdateSoapIn">
     <wsdl:part name="parameters" element="tns:Update" />
@@ -318,6 +425,12 @@
   </wsdl:message>
   <wsdl:message name="DeleteTokenSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMappingSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteMapping" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMappingSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteMappingResponse" />
   </wsdl:message>
   <wsdl:message name="CreateNewAccountSoapIn">
     <wsdl:part name="parameters" element="tns:CreateNewAccount" />
@@ -354,9 +467,29 @@
       <wsdl:input message="tns:GetAllTasksSoapIn" />
       <wsdl:output message="tns:GetAllTasksSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <wsdl:input message="tns:FindTasksSoapIn" />
+      <wsdl:output message="tns:FindTasksSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <wsdl:input message="tns:GetMatchedTasksSoapIn" />
       <wsdl:output message="tns:GetMatchedTasksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <wsdl:input message="tns:GetTasksFromExcelSoapIn" />
+      <wsdl:output message="tns:GetTasksFromExcelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestExcelAccount">
+      <wsdl:input message="tns:TestExcelAccountSoapIn" />
+      <wsdl:output message="tns:TestExcelAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <wsdl:input message="tns:UpdateTokenNameForExcelSoapIn" />
+      <wsdl:output message="tns:UpdateTokenNameForExcelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <wsdl:input message="tns:GenerateIndexesSoapIn" />
+      <wsdl:output message="tns:GenerateIndexesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Update">
       <wsdl:input message="tns:UpdateSoapIn" />
@@ -377,6 +510,10 @@
     <wsdl:operation name="DeleteToken">
       <wsdl:input message="tns:DeleteTokenSoapIn" />
       <wsdl:output message="tns:DeleteTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <wsdl:input message="tns:DeleteMappingSoapIn" />
+      <wsdl:output message="tns:DeleteMappingSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateNewAccount">
       <wsdl:input message="tns:CreateNewAccountSoapIn" />
@@ -410,8 +547,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <soap:operation soapAction="http://tempuri.org/FindTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <soap:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <soap:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestExcelAccount">
+      <soap:operation soapAction="http://tempuri.org/TestExcelAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <soap:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <soap:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -457,6 +639,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteToken">
       <soap:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <soap:operation soapAction="http://tempuri.org/DeleteMapping" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -521,8 +712,53 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FindTasks">
+      <soap12:operation soapAction="http://tempuri.org/FindTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMatchedTasks">
       <soap12:operation soapAction="http://tempuri.org/GetMatchedTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksFromExcel">
+      <soap12:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestExcelAccount">
+      <soap12:operation soapAction="http://tempuri.org/TestExcelAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTokenNameForExcel">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <soap12:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -568,6 +804,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteToken">
       <soap12:operation soapAction="http://tempuri.org/DeleteToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMapping">
+      <soap12:operation soapAction="http://tempuri.org/DeleteMapping" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Search.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,33 +9,68 @@ using System.Threading.Tasks;
 
 namespace SupakullTrackerServices
 {
-    public class TaskMainDAO : IEquatable<TaskMainDAO>
-    {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+    [Indexed]
+     public class TaskMainDAO: IEquatable<TaskMainDAO>
+    {        
         public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
             this.MatchedTasks = new List<TaskMainDAO>();
         }
+
+        [DocumentId]
         public virtual int ID { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string TaskID { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string SubtaskType { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Summary { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Description { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Status { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Priority { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Product { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Project { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string CreatedDate { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string CreatedBy { get; set; }
-        public virtual Sources LinkToTracker { get; set; }
+
+        [IndexedEmbedded]
+        public virtual Sources Source { get; set; }
+        public virtual string LinkToTracker { get; set; }
+
         public virtual Int32 TokenID { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Estimation { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string TargetVersion { get; set; }
+
+        [Field(Index.Tokenized, Store = Store.No)]
         public virtual string Comments { get; set; }
+
+        [IndexedEmbedded]
         public virtual IList<UserDAO> Assigned { get; set; }
+        
         public virtual TaskMainDAO TaskParent { get; set; }
+        
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
         public virtual int MatchedCount
@@ -47,12 +83,40 @@ namespace SupakullTrackerServices
 
         public virtual TaskKey GetTaskKey()
         {
-            return new TaskKey(this.TaskID, this.LinkToTracker);
+            return new TaskKey(this.TaskID, this.Source);
         }
 
         #region SaveOrUpdate
 
         public static void SaveOrUpdateCollectionInDB(IEnumerable<TaskMainDAO> taskMainDaoCollection)
+        {
+            if (taskMainDaoCollection.Count() > 0)
+            {
+
+                ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+                
+                using (var session = applicationFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
+                    {
+                            TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
+                            session.SaveOrUpdate(taskMainDAO);
+                        }
+                        transaction.Commit();
+                    }
+
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Test save. Checking are the task can be save. Without actual save in data base.
+        /// </summary>
+        /// <param name="taskMainDaoCollection">Tasks collection</param>
+        public static void SaveOrUpdateCollectionInDBWhithRollback(IEnumerable<TaskMainDAO> taskMainDaoCollection)
         {
             if (taskMainDaoCollection.Count() > 0)
             {
@@ -68,15 +132,13 @@ namespace SupakullTrackerServices
                             TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
                             session.SaveOrUpdate(taskMainDAO);
                         }
-                        transaction.Commit();
+                        transaction.Rollback();
                     }
 
                 }
             }
 
         }
-
-
 
         private static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
@@ -113,7 +175,7 @@ namespace SupakullTrackerServices
 
         private int GetTaskIDFormDB()
         {
-            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.LinkToTracker);
+            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.Source);
             if (taskFromDB != null)
             {
                 return taskFromDB.ID;
@@ -121,7 +183,7 @@ namespace SupakullTrackerServices
             return -1;
         }
 
-        public static TaskMainDAO GetTaskFromDB(string taskID, Sources linkToTracker)
+        public static TaskMainDAO GetTaskFromDB(string taskID, Sources source)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
@@ -130,7 +192,7 @@ namespace SupakullTrackerServices
                 TaskMainDAO taskMainDAO = session
                     .CreateCriteria(typeof(TaskMainDAO))
                     .Add(Restrictions.Eq("TaskID", taskID))
-                    .Add(Restrictions.Eq("LinkToTracker", linkToTracker))
+                    .Add(Restrictions.Eq("Source", source))
                     .UniqueResult<TaskMainDAO>();
                 return taskMainDAO;
             }
@@ -151,12 +213,12 @@ namespace SupakullTrackerServices
         {
             return (taskMainDaoToCompare != null &&
                 this.TaskID.Equals(taskMainDaoToCompare.TaskID) &&
-                this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker));
+                this.Source.Equals(taskMainDaoToCompare.Source));
         }
 
         public override int GetHashCode()
         {
-            return (this.TaskID.GetHashCode()) ^ (int)this.LinkToTracker;
+            return (this.TaskID.GetHashCode()) ^ (int)this.Source;
         }
 
         #endregion

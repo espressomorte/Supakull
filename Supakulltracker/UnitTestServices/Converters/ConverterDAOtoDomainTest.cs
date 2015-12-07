@@ -77,7 +77,7 @@ namespace UnitTestServices.Converters
             taskMainDAO.Project = string.Format("Project{0}", postfix);
             taskMainDAO.Product = string.Format("Product{0}", postfix);
             taskMainDAO.Priority = string.Format("Priority{0}", postfix);
-            taskMainDAO.LinkToTracker = Sources.DataBase;
+            taskMainDAO.Source = Sources.DataBase;
             taskMainDAO.Estimation = string.Format("Estimation{0}", postfix);
             taskMainDAO.Description = string.Format("Description{0}", postfix);
             taskMainDAO.CreatedDate = string.Format("CreatedDate{0}", postfix);
