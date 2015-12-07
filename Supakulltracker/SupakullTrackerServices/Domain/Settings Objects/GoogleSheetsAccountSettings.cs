@@ -78,15 +78,36 @@ namespace SupakullTrackerServices
                 {
                     GoogleSheetsAccountTemplate targetTemplate = new GoogleSheetsAccountTemplate();
                     targetTemplate = (GoogleSheetsAccountTemplate)targetTemplate.Convert(template);
-                    target.Templates.Add(targetTemplate);
+                    if (target.Templates != null)
+                        target.Templates.Add(targetTemplate);
                 }
             }
             return target;
         }
 
-        public bool Equals(IAccountSettings other)
+        public bool Equals(IAccountSettings accountToCompare)
         {
-            throw new NotImplementedException();
+            if (accountToCompare is GoogleSheetsAccountSettings)
+            {
+                GoogleSheetsAccountSettings GSAccountToCompere = (GoogleSheetsAccountSettings)accountToCompare;
+                return (this.ID == GSAccountToCompere.ID && this.AccountVersion == GSAccountToCompere.AccountVersion);
+            }
+            return false;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is GoogleSheetsAccountSettings)
+            {
+                return this.Equals(obj as GoogleSheetsAccountSettings);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return (this.ID.GetHashCode() ^ this.AccountVersion.GetHashCode());
         }
     }
 

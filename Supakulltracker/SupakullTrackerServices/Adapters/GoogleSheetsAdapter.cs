@@ -16,14 +16,7 @@ namespace SupakullTrackerServices
         List<GoogleSheetsAccountToken> allTokensInAccount = new List<GoogleSheetsAccountToken>();
         public GoogleSheetsAdapter()
         {           
-            //SpreadsheetEntry spreadsheet = (SpreadsheetEntry)feed.Entries[0];
-            //WorksheetFeed wsFeed = spreadsheet.Worksheets;
-            //WorksheetEntry worksheet = (WorksheetEntry)wsFeed.Entries[0];
-
-            //AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
-
-            //ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
-            //listFeed = service.Query(listQuery);
+            
         }
          
         public IList<ITask> GetAllTasks()
@@ -161,11 +154,40 @@ namespace SupakullTrackerServices
         {
             GoogleSheetsAccountSettings gsAccount = (GoogleSheetsAccountSettings)account;
             allTokensInAccount = gsAccount.Tokens;
-            //foreach (var token in allTokensInAccount)
-            //{
-            //    allFactories.GetSessionFactory(token);
-            //}
+
+            parameters.ClientId = Constants.googleSheetsCLIENT_ID;
+            parameters.ClientSecret = Constants.googleSheetsCLIENT_SECRET;
+            parameters.RedirectUri = Constants.googleSheetsREDIRECT_URI;
+            parameters.Scope = Constants.googleSheetsSCOPE;
+
+            parameters.AccessToken = allTokensInAccount[0].RefreshToken;
+            parameters.AccessCode = allTokensInAccount[0].RefreshToken;
+            parameters.RefreshToken = allTokensInAccount[0].RefreshToken;
+            OAuthUtil.RefreshAccessToken(parameters);
+
+            ReadGSFile();
+
             return this;
+        }
+
+        private void ReadGSFile()
+        {
+            SpreadsheetsService service = new SpreadsheetsService(Constants.googleSheetsAppName);
+            GOAuth2RequestFactory requestFactory = new GOAuth2RequestFactory(null, Constants.googleSheetsAppName, parameters);
+
+            service.RequestFactory = requestFactory;
+
+            SpreadsheetQuery query = new SpreadsheetQuery();
+            SpreadsheetFeed feed = service.Query(query);
+
+            SpreadsheetEntry spreadsheet = (SpreadsheetEntry)feed.Entries[0];
+            WorksheetFeed wsFeed = spreadsheet.Worksheets;
+            WorksheetEntry worksheet = (WorksheetEntry)wsFeed.Entries[0];
+
+            AtomLink listFeedLink = worksheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
+
+            ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
+            listFeed = service.Query(listQuery);
         }
     }    
 }

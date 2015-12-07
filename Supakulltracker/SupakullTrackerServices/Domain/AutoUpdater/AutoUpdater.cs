@@ -35,7 +35,7 @@ namespace SupakullTrackerServices
                 var accounts = SettingsManager.GetAllAccounts();
                 foreach (var account in accounts)
                 {
-                    if (account.Source == Sources.DataBase)
+                    if (account.Source != Sources.Excel)
                     {
                         if (!accountAdapterLastUpdateDic.ContainsKey(account))
                         {
