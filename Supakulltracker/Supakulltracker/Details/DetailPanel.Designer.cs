@@ -75,6 +75,7 @@ namespace Supakulltracker
             // 
             this.textBoxTaskID.Location = new System.Drawing.Point(14, 24);
             this.textBoxTaskID.Name = "textBoxTaskID";
+            this.textBoxTaskID.ReadOnly = true;
             this.textBoxTaskID.Size = new System.Drawing.Size(113, 20);
             this.textBoxTaskID.TabIndex = 1;
             // 
@@ -82,9 +83,10 @@ namespace Supakulltracker
             // 
             this.textBoxSubtaskType.Location = new System.Drawing.Point(148, 24);
             this.textBoxSubtaskType.Name = "textBoxSubtaskType";
+            this.textBoxSubtaskType.ReadOnly = true;
             this.textBoxSubtaskType.Size = new System.Drawing.Size(113, 20);
             this.textBoxSubtaskType.TabIndex = 3;
-            this.textBoxSubtaskType.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxSubtaskType_MouseDoubleClick);
+            this.textBoxSubtaskType.DoubleClick += new System.EventHandler(this.textBoxSubtaskType_DoubleClick);
             // 
             // labelSubtaskType
             // 
@@ -133,9 +135,10 @@ namespace Supakulltracker
             // 
             this.textBoxStatus.Location = new System.Drawing.Point(288, 24);
             this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.Size = new System.Drawing.Size(113, 20);
             this.textBoxStatus.TabIndex = 9;
-            this.textBoxStatus.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxStatus_MouseDoubleClick);
+            this.textBoxStatus.DoubleClick += new System.EventHandler(this.textBoxStatus_DoubleClick);
             // 
             // labelStatus
             // 
@@ -150,9 +153,10 @@ namespace Supakulltracker
             // 
             this.textBoxPriority.Location = new System.Drawing.Point(425, 24);
             this.textBoxPriority.Name = "textBoxPriority";
+            this.textBoxPriority.ReadOnly = true;
             this.textBoxPriority.Size = new System.Drawing.Size(113, 20);
             this.textBoxPriority.TabIndex = 11;
-            this.textBoxPriority.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxPriority_MouseDoubleClick);
+            this.textBoxPriority.DoubleClick += new System.EventHandler(this.textBoxPriority_DoubleClick);
             // 
             // labelPriority
             // 
@@ -167,9 +171,10 @@ namespace Supakulltracker
             // 
             this.textBoxTargetVersion.Location = new System.Drawing.Point(425, 73);
             this.textBoxTargetVersion.Name = "textBoxTargetVersion";
+            this.textBoxTargetVersion.ReadOnly = true;
             this.textBoxTargetVersion.Size = new System.Drawing.Size(113, 20);
             this.textBoxTargetVersion.TabIndex = 19;
-            this.textBoxTargetVersion.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxTargetVersion_MouseDoubleClick);
+            this.textBoxTargetVersion.DoubleClick += new System.EventHandler(this.textBoxTargetVersion_DoubleClick);
             // 
             // labelTargetVersion
             // 
@@ -184,9 +189,10 @@ namespace Supakulltracker
             // 
             this.textBoxEstimation.Location = new System.Drawing.Point(288, 73);
             this.textBoxEstimation.Name = "textBoxEstimation";
+            this.textBoxEstimation.ReadOnly = true;
             this.textBoxEstimation.Size = new System.Drawing.Size(113, 20);
             this.textBoxEstimation.TabIndex = 17;
-            this.textBoxEstimation.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxEstimation_MouseDoubleClick);
+            this.textBoxEstimation.DoubleClick += new System.EventHandler(this.textBoxEstimation_DoubleClick);
             // 
             // labelEstimation
             // 
@@ -201,9 +207,10 @@ namespace Supakulltracker
             // 
             this.textBoxProject.Location = new System.Drawing.Point(148, 73);
             this.textBoxProject.Name = "textBoxProject";
+            this.textBoxProject.ReadOnly = true;
             this.textBoxProject.Size = new System.Drawing.Size(113, 20);
             this.textBoxProject.TabIndex = 15;
-            this.textBoxProject.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxProject_MouseDoubleClick);
+            this.textBoxProject.DoubleClick += new System.EventHandler(this.textBoxProject_DoubleClick);
             // 
             // labelProject
             // 
@@ -218,9 +225,10 @@ namespace Supakulltracker
             // 
             this.textBoxProduct.Location = new System.Drawing.Point(14, 73);
             this.textBoxProduct.Name = "textBoxProduct";
+            this.textBoxProduct.ReadOnly = true;
             this.textBoxProduct.Size = new System.Drawing.Size(113, 20);
             this.textBoxProduct.TabIndex = 13;
-            this.textBoxProduct.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxProduct_MouseDoubleClick);
+            this.textBoxProduct.DoubleClick += new System.EventHandler(this.textBoxProduct_DoubleClick);
             // 
             // labelProduct
             // 

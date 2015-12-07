@@ -12,21 +12,21 @@ namespace Supakulltracker
     public class SuperTask: INotifyPropertyChanged
     {
         #region Fields
-        private readonly string multipleValuesMessage;
-        private string[] subtaskTypes;
-        private string[] summaries;
-        private string[] descriptions;
-        private string[] statuses;
-        private string[] priorities;
-        private string[] products;
-        private string[] projects;
-        private string[] createdDates;
-        private string[] createdBy;
-        private string[] linkToTrackers;
-        private Sources[] source;
-        private string[] estimations;
-        private string[] targetVersions;
-        private string[] comments;
+        public readonly string multipleValuesMessage;
+        public string[] subtaskTypes;
+        public string[] summaries;
+        public string[] descriptions;
+        public string[] statuses;
+        public string[] priorities;
+        public string[] products;
+        public string[] projects;
+        public string[] createdDates;
+        public string[] createdBy;
+        public string[] linkToTrackers;
+        public Sources[] source;
+        public string[] estimations;
+        public string[] targetVersions;
+        public string[] comments;
         private UserDTO[][] assigneds;
         private TaskMainDTO[] taskParents;
         #endregion 
