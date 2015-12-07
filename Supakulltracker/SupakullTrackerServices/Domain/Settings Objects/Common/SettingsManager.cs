@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace SupakullTrackerServices
 {
@@ -17,13 +18,13 @@ namespace SupakullTrackerServices
             using (ISession session = sessionFactory.OpenSession())
             {
                 TokenDAO token = session.Get<TokenDAO>(id);
-                ServiceAccountDAO accountFromDB = session.QueryOver<ServiceAccountDAO>().Where(x => x.Tokens.Contains(token)).SingleOrDefault();
+                ServiceAccountDAO accountFromDB = session.Query<ServiceAccountDAO>().Where(x => x.Tokens.Contains(token)).SingleOrDefault();
                 if (accountFromDB != null)
                 {
                     targetAccount = GetCurrentInstance(accountFromDB.Source);
                     if (targetAccount != null)
                     {
-                        ServiceAccount accountDomain = accountFromDB.ServiceAccountDAOToDomain();
+                        ServiceAccount accountDomain = accountFromDB.ServiceAccountDAOToDomain(true);
                         targetAccount = targetAccount.Convert(accountDomain);
                     }
                 }
@@ -115,7 +116,7 @@ namespace SupakullTrackerServices
                 case Sources.Trello:
                     return new TrelloAccountSettings();
                 case Sources.Excel:
-                    return null;
+                    return new ExcelAccountSettings(); ;
                 case Sources.GoogleSheets:
                     return null;
                 default:
@@ -132,7 +133,7 @@ namespace SupakullTrackerServices
                 case Sources.Trello:
                     return null;
                 case Sources.Excel:
-                    return null;
+                    return new ExcelAccountToken();
                 case Sources.GoogleSheets:
                     return null;
                 default:

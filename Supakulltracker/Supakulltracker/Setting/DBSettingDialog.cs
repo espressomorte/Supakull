@@ -275,7 +275,7 @@ namespace Supakulltracker
             else
             {
                 label5.Show();
-                label5.Text = "Plese enter token name and mapping!";
+                label5.Text = "Please enter token name and mapping!";
                 label5.ForeColor = Color.Red;
             }
         }
@@ -671,7 +671,6 @@ namespace Supakulltracker
             btnAddToken.Enabled = true;
             UdateDataBaseSettingForm();
             btnCancelSaveOrEditingSettings.Hide();
-
         }
 
         private void btnChekMapping_Click(object sender, EventArgs e)

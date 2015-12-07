@@ -111,6 +111,34 @@ namespace SupakullTrackerServices
 
         }
 
+        /// <summary>
+        /// Test save. Checking are the task can be save. Without actual save in data base.
+        /// </summary>
+        /// <param name="taskMainDaoCollection">Tasks collection</param>
+        public static void SaveOrUpdateCollectionInDBWhithRollback(IEnumerable<TaskMainDAO> taskMainDaoCollection)
+        {
+            if (taskMainDaoCollection.Count() > 0)
+            {
+
+                ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+                using (var session = applicationFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
+                        {
+                            TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
+                            session.SaveOrUpdate(taskMainDAO);
+                        }
+                        transaction.Rollback();
+                    }
+
+                }
+            }
+
+        }
+
         private static void PutIDsInCurrentAndMatchedAndParentTaskFromDB(TaskMainDAO taskMainDAO)
         {
             TaskMainDAO.PutIDsInCurrentAndParentTaskFromDB(taskMainDAO);

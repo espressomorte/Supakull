@@ -15,6 +15,7 @@ namespace Supakulltracker
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public AuthorizationResult AuthorizationResult { get; private set; }
+        private ExcelSynchronizer excelSynchronizer;
 
         public MainForm()
         {
@@ -31,6 +32,7 @@ namespace Supakulltracker
             if (AuthorizationResult.Authorized)
             {
                 PrepareApplication();
+                excelSynchronizer = new ExcelSynchronizer(AuthorizationResult);
             }
             else
             {

@@ -33,6 +33,7 @@ namespace SupakullTrackerServices
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
             target.MinUpdateTime = param.MinUpdateTime;
+            target.AccountVersion = param.AccountVersion;
 
             if (IsDetailsNeed)
             {
@@ -103,6 +104,7 @@ namespace SupakullTrackerServices
             target.Source = param.Source;
             target.TestResult = param.TestResult;
             target.MinUpdateTime = param.MinUpdateTime;
+            target.AccountVersion = param.AccountVersion;
 
             if (param.Tokens != null)
             {
@@ -176,6 +178,7 @@ namespace SupakullTrackerServices
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
             target.MinUpdateTime = param.MinUpdateTime;
+            target.AccountVersion = param.AccountVersion;
 
             if (param.Tokens != null)
             {
@@ -232,6 +235,7 @@ namespace SupakullTrackerServices
             target.ServiceAccountName = param.ServiceAccountName;
             target.Source = param.Source;
             target.MinUpdateTime = param.MinUpdateTime;
+            target.AccountVersion = param.AccountVersion;
 
             if (param.Tokens != null)
             {

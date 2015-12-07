@@ -77,6 +77,14 @@ namespace Supakulltracker
             return succeed;
         }
 
+        public static Boolean DeleteTemplate(IAccountTemplate template)
+        {
+            Boolean succeed = false;
+            TemplateDTO targetTemplate = template.ConvertToDAO(template);
+            succeed = services.DeleteMapping(targetTemplate);
+            return succeed;
+        }
+
         public static Boolean CreateNewAccount(this UserProvider.UserDTO currentUser,IAccountSettings newAccount)
         {
             Boolean succeed = false;
@@ -135,7 +143,7 @@ namespace Supakulltracker
                 case Sources.Trello:
                     return new TrelloAccountSettings();
                 case Sources.Excel:
-                    return null;
+                    return new ExcelAccountSettings();
                 case Sources.GoogleSheets:
                     return null;
                 default:
@@ -163,6 +171,33 @@ namespace Supakulltracker
             resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
             settingResult = resultIaccount;
             return resultAccount.TestResult;
+        }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest, Byte[] fileInBytes)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestExcelAccount(account, fileInBytes);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
+            return resultAccount.TestResult;
+
+        }
+
+        public static Boolean AccountSettingsTest(IAccountSettings accountForTest, Byte[] fileInBytes, out IAccountSettings settingResult)
+        {
+            ServiceAccountDTO account = accountForTest.ConvertToDAO(accountForTest);
+            ServiceAccountDTO resultAccount = services.TestExcelAccount(account, fileInBytes);
+
+            IAccountSettings resultIaccount = GetCurrentInstance(resultAccount);
+            resultIaccount = resultIaccount.ConvertFromDAO(resultAccount);
+            settingResult = resultIaccount;
+            return resultAccount.TestResult;
+        }
+
+        public static Boolean UpdateTokenNameForExcelInDB(Int32 tokeID, String newTokenName)
+        {
+           return services.UpdateTokenNameForExcel(tokeID, newTokenName);
         }
     }
 }
