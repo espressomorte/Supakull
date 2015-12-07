@@ -18,7 +18,9 @@ namespace Supakulltracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());                    
+            MainForm mainForm = new MainForm();
+            PresenterMain presenterMain = new PresenterMain(mainForm);
+            Application.Run(mainForm);                    
         }
     }
 }

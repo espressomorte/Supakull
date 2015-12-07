@@ -54,7 +54,7 @@
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(175, 20);
             this.SearchTextBox.TabIndex = 1;
-            this.SearchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchTextBox_KeyPress);
+            //this.SearchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchTextBox_KeyPress);
             // 
             // FindButton
             // 
@@ -79,7 +79,7 @@
             this.Board.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Board.Size = new System.Drawing.Size(247, 439);
             this.Board.TabIndex = 3;
-            this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
+            //this.Board.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // SearchControl
             // 

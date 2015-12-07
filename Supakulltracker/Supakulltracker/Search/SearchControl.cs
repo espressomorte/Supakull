@@ -12,18 +12,22 @@ namespace Supakulltracker
 {
     public partial class SearchControl : UserControl
     {
-        private IssueService.TaskMainDTO[] tasks;
+        //private IssueService.TaskMainDTO[] tasks;
+        public event EventHandler<EventArgs> FindButtonPressed; 
 
         public IssueService.TaskMainDTO[] Tasks
+        {            
+            set
+            {
+                Board.DataSource = value;
+            }
+        }
+
+        public string SearchQuery
         {
             get
             {
-                return tasks;
-            }
-            set
-            {
-                tasks = value;
-                Board.DataSource = value;
+                return this.SearchTextBox.Text;
             }
         }
 
@@ -32,31 +36,35 @@ namespace Supakulltracker
             InitializeComponent();            
         }
 
-        public event DataGridViewCellEventHandler BoardCellContentClick;
-
         private void FindButton_Click(object sender, EventArgs e)
         {
-            Find(this.SearchTextBox.Text);
-        }        
-
-        private void SearchTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
+            if(FindButtonPressed != null)
             {
-                Find(this.SearchTextBox.Text);
+                FindButtonPressed(this, EventArgs.Empty);
             }
         }
 
-        private void Find(string textQuery)
-        {
-            SearchProvider taskSearchProvider = new SearchProvider();
-            Tasks = taskSearchProvider.FindTasks(textQuery);
-        }
+        //public event DataGridViewCellEventHandler BoardCellContentClick;
 
-        private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewCellEventHandler handler = BoardCellContentClick;
-            handler(sender, e);
-        }
+
+        //private void SearchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if (e.KeyChar == 13)
+        //    {
+        //        Find(this.SearchTextBox.Text);
+        //    }
+        //}
+
+        //private void Find(string textQuery)
+        //{
+        //    SearchProvider taskSearchProvider = new SearchProvider();
+        //    Tasks = taskSearchProvider.FindTasks(textQuery);
+        //}
+
+        //private void Board_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    DataGridViewCellEventHandler handler = BoardCellContentClick;
+        //    handler(sender, e);
+        //}
     }
 }

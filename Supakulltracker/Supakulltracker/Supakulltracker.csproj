@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenter\IMainForm.cs" />
+    <Compile Include="Presenter\PresenterMain.cs" />
     <Compile Include="Search\GenerateIndexesForm.cs">
       <SubType>Form</SubType>
     </Compile>

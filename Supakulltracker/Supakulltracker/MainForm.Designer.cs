@@ -68,14 +68,14 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            //this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // generateIndexesForSearchingToolStripMenuItem
             // 
             this.generateIndexesForSearchingToolStripMenuItem.Name = "generateIndexesForSearchingToolStripMenuItem";
             this.generateIndexesForSearchingToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.generateIndexesForSearchingToolStripMenuItem.Text = "Generate Indexes for searching";
-            this.generateIndexesForSearchingToolStripMenuItem.Click += new System.EventHandler(this.generateIndexesForSearchingToolStripMenuItem_Click);
+            //this.generateIndexesForSearchingToolStripMenuItem.Click += new System.EventHandler(this.generateIndexesForSearchingToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -111,7 +111,7 @@
             this.searchControl.Size = new System.Drawing.Size(305, 516);
             this.searchControl.TabIndex = 0;
             this.searchControl.Tasks = null;
-            this.searchControl.BoardCellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
+            //this.searchControl.BoardCellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Board_CellContentClick);
             // 
             // taskDetailTabControl
             // 
@@ -131,7 +131,7 @@
             this.btnUdateAllTasks.TabIndex = 4;
             this.btnUdateAllTasks.Text = "Update";
             this.btnUdateAllTasks.UseVisualStyleBackColor = true;
-            this.btnUdateAllTasks.Click += new System.EventHandler(this.btnUdateAllTasks_Click);
+            //this.btnUdateAllTasks.Click += new System.EventHandler(this.btnUdateAllTasks_Click);
             // 
             // MainForm
             // 
@@ -147,7 +147,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SupaKull";
-            this.Load += new System.EventHandler(this.StartApplication_Load);
+            //this.Load += new System.EventHandler(this.StartApplication_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
