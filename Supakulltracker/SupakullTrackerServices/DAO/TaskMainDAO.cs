@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace SupakullTrackerServices
 {
     [Indexed]
-     public class TaskMainDAO: IEquatable<TaskMainDAO>
-    {        
+    public class TaskMainDAO : IEquatable<TaskMainDAO>
+    {
         public TaskMainDAO()
         {
             this.Assigned = new List<UserDAO>();
@@ -68,9 +68,9 @@ namespace SupakullTrackerServices
 
         [IndexedEmbedded]
         public virtual IList<UserDAO> Assigned { get; set; }
-        
+
         public virtual TaskMainDAO TaskParent { get; set; }
-        
+
         public virtual IList<TaskMainDAO> MatchedTasks { get; set; }
 
         public virtual int MatchedCount
@@ -94,17 +94,18 @@ namespace SupakullTrackerServices
             {
 
                 ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-                
+
                 using (var session = applicationFactory.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
                     {
                         foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
-                    {
+                        {
                             TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
                             session.SaveOrUpdate(taskMainDAO);
                         }
                         transaction.Commit();
+
                     }
 
                 }

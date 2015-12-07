@@ -28,7 +28,7 @@ namespace SupakullTrackerServices
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public GetTrackerServices()
+        static GetTrackerServices()
         {            
             AutoUpdater.AutoUpdate();
         }

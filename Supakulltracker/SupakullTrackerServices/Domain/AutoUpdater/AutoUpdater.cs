@@ -11,11 +11,16 @@ namespace SupakullTrackerServices
 {
     public class AutoUpdater
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         private static Dictionary<IAccountSettings, IAdapter> accountAdapterLastUpdateDic;
         private static DateTime dateOfLastUpdateAllAccounts;
         private static Int32 StartTimeForAutoUpdater;
         private static Int32 RepeatTimeForAutoUpdater;
         private static Int32 MinTimeForUpdateAllAccounts;
+        private static Boolean ReadyForChekingAllAccounts = true;
+        private static Boolean ReadyForRuningAllAdapters = true;
 
         static AutoUpdater()
         {
@@ -29,46 +34,70 @@ namespace SupakullTrackerServices
         }
         public static void AutoUpdate()
         {
-            var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
-            if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
+            if (ReadyForChekingAllAccounts)
             {
-                var accounts = SettingsManager.GetAllAccounts();
-                foreach (var account in accounts)
+                ReadyForChekingAllAccounts = false;
+                var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
+                if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
                 {
-                    if (account.Source != Sources.Excel)
+                    var accounts = SettingsManager.GetAllAccounts();
+                    foreach (var account in accounts)
                     {
-                        if (!accountAdapterLastUpdateDic.ContainsKey(account))
+                        if (account.Source != Sources.Excel)
                         {
-                            GetAdapterForAccount(account);
-                            accountAdapterLastUpdateDic.Add(account, GetAdapterForAccount(account));
-
+                            if (!accountAdapterLastUpdateDic.ContainsKey(account))
+                            {
+                                IAdapter adapter = GetAdapterForAccount(account);
+                                accountAdapterLastUpdateDic.Add(account, adapter);
+                            }
                         }
                     }
-                }
-                List<IAccountSettings> accForRemove = new List<IAccountSettings>();
-                foreach (var account in accountAdapterLastUpdateDic.Keys)
-                {
-                    if (!accounts.Contains<IAccountSettings>(account))
+                    List<IAccountSettings> accForRemove = new List<IAccountSettings>();
+                    foreach (var account in accountAdapterLastUpdateDic.Keys)
                     {
-                        accForRemove.Add(account);
+                        if (!accounts.Contains<IAccountSettings>(account))
+                        {
+                            accForRemove.Add(account);
+                        }
                     }
+                    foreach (var acc in accForRemove)
+                    {
+                        accountAdapterLastUpdateDic.Remove(acc);
+                    }
+                    dateOfLastUpdateAllAccounts = DateTime.Now;
                 }
-                foreach (var acc in accForRemove)
-                {
-                    accountAdapterLastUpdateDic.Remove(acc);
-                }
-                dateOfLastUpdateAllAccounts = DateTime.Now;
+                ReadyForChekingAllAccounts = true;
             }
 
-            List<ITask> allTasks = new List<ITask>(500);
-            IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate());
-            Parallel.ForEach(canRunAdapters, a =>
+            if (ReadyForRuningAllAdapters)
             {
-                allTasks.AddRange(RunAdapter(a));
-                a.adapterLastUpdate = DateTime.Now;
-            });
-            IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
-            TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                ReadyForRuningAllAdapters = false;
+                List<ITask> allTasks = new List<ITask>(500);
+                IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate()).ToList();
+                Parallel.ForEach(canRunAdapters, a =>
+                {
+                    try
+                    {    
+                        allTasks.AddRange(RunAdapter(a));
+                        a.adapterLastUpdate = DateTime.Now;
+                    }
+                    catch (TrelloNet.TrelloException treloEX)
+                    {
+                        log.Error(treloEX.Message, treloEX);
+                        a.MinUpdateTime += 60000; 
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex.Message, ex);
+                        throw;
+                    }
+
+                });
+                IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
+                TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                ReadyForRuningAllAdapters = true;
+            }
+            
         }
 
         private static IAdapter GetAdapterForAccount(IAccountSettings account)
