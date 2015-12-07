@@ -29,7 +29,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="Project" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="LinkToTracker" type="tns:Sources" />
+          <s:element minOccurs="1" maxOccurs="1" name="Source" type="tns:Sources" />
+          <s:element minOccurs="0" maxOccurs="1" name="LinkToTracker" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="TokenID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estimation" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TargetVersion" type="s:string" />
@@ -86,19 +87,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GenerateIndexes">
-        <s:complexType />
-      </s:element>
-      <s:element name="GenerateIndexesResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="Update">
-        <s:complexType />
-      </s:element>
-      <s:element name="UpdateResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetAllUserAccountsByUserID">
       <s:element name="GetTasksFromExcel">
         <s:complexType>
           <s:sequence>
@@ -199,6 +187,12 @@
             <s:element minOccurs="1" maxOccurs="1" name="UpdateTokenNameForExcelResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
+      </s:element>
+      <s:element name="GenerateIndexes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GenerateIndexesResponse">
+        <s:complexType />
       </s:element>
       <s:element name="Update">
         <s:complexType />
@@ -378,11 +372,6 @@
   <wsdl:message name="GetMatchedTasksSoapOut">
     <wsdl:part name="parameters" element="tns:GetMatchedTasksResponse" />
   </wsdl:message>
-  <wsdl:message name="GenerateIndexesSoapIn">
-    <wsdl:part name="parameters" element="tns:GenerateIndexes" />
-  </wsdl:message>
-  <wsdl:message name="GenerateIndexesSoapOut">
-    <wsdl:part name="parameters" element="tns:GenerateIndexesResponse" />
   <wsdl:message name="GetTasksFromExcelSoapIn">
     <wsdl:part name="parameters" element="tns:GetTasksFromExcel" />
   </wsdl:message>
@@ -400,6 +389,12 @@
   </wsdl:message>
   <wsdl:message name="UpdateTokenNameForExcelSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateTokenNameForExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIndexesSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateIndexes" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIndexesSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateIndexesResponse" />
   </wsdl:message>
   <wsdl:message name="UpdateSoapIn">
     <wsdl:part name="parameters" element="tns:Update" />
@@ -480,9 +475,6 @@
       <wsdl:input message="tns:GetMatchedTasksSoapIn" />
       <wsdl:output message="tns:GetMatchedTasksSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GenerateIndexes">
-      <wsdl:input message="tns:GenerateIndexesSoapIn" />
-      <wsdl:output message="tns:GenerateIndexesSoapOut" />
     <wsdl:operation name="GetTasksFromExcel">
       <wsdl:input message="tns:GetTasksFromExcelSoapIn" />
       <wsdl:output message="tns:GetTasksFromExcelSoapOut" />
@@ -494,6 +486,10 @@
     <wsdl:operation name="UpdateTokenNameForExcel">
       <wsdl:input message="tns:UpdateTokenNameForExcelSoapIn" />
       <wsdl:output message="tns:UpdateTokenNameForExcelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <wsdl:input message="tns:GenerateIndexesSoapIn" />
+      <wsdl:output message="tns:GenerateIndexesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Update">
       <wsdl:input message="tns:UpdateSoapIn" />
@@ -569,8 +565,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GenerateIndexes">
-      <soap:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
     <wsdl:operation name="GetTasksFromExcel">
       <soap:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
       <wsdl:input>
@@ -591,6 +585,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateTokenNameForExcel">
       <soap:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <soap:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -727,8 +730,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GenerateIndexes">
-      <soap12:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
     <wsdl:operation name="GetTasksFromExcel">
       <soap12:operation soapAction="http://tempuri.org/GetTasksFromExcel" style="document" />
       <wsdl:input>
@@ -749,6 +750,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateTokenNameForExcel">
       <soap12:operation soapAction="http://tempuri.org/UpdateTokenNameForExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIndexes">
+      <soap12:operation soapAction="http://tempuri.org/GenerateIndexes" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -23,7 +23,8 @@ namespace SupakullTrackerServices
         public string Project { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Sources LinkToTracker { get; set; }
+        public Sources Source { get; set; }
+        public string LinkToTracker { get; set; }
         public Int32 TokenID { get; set; }
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }

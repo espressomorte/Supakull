@@ -84,6 +84,7 @@ namespace Supakulltracker
             this.textBoxSubtaskType.Name = "textBoxSubtaskType";
             this.textBoxSubtaskType.Size = new System.Drawing.Size(113, 20);
             this.textBoxSubtaskType.TabIndex = 3;
+            this.textBoxSubtaskType.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxSubtaskType_MouseDoubleClick);
             // 
             // labelSubtaskType
             // 
@@ -134,6 +135,7 @@ namespace Supakulltracker
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.Size = new System.Drawing.Size(113, 20);
             this.textBoxStatus.TabIndex = 9;
+            this.textBoxStatus.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxStatus_MouseDoubleClick);
             // 
             // labelStatus
             // 
@@ -150,6 +152,7 @@ namespace Supakulltracker
             this.textBoxPriority.Name = "textBoxPriority";
             this.textBoxPriority.Size = new System.Drawing.Size(113, 20);
             this.textBoxPriority.TabIndex = 11;
+            this.textBoxPriority.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxPriority_MouseDoubleClick);
             // 
             // labelPriority
             // 
@@ -166,6 +169,7 @@ namespace Supakulltracker
             this.textBoxTargetVersion.Name = "textBoxTargetVersion";
             this.textBoxTargetVersion.Size = new System.Drawing.Size(113, 20);
             this.textBoxTargetVersion.TabIndex = 19;
+            this.textBoxTargetVersion.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxTargetVersion_MouseDoubleClick);
             // 
             // labelTargetVersion
             // 
@@ -182,6 +186,7 @@ namespace Supakulltracker
             this.textBoxEstimation.Name = "textBoxEstimation";
             this.textBoxEstimation.Size = new System.Drawing.Size(113, 20);
             this.textBoxEstimation.TabIndex = 17;
+            this.textBoxEstimation.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxEstimation_MouseDoubleClick);
             // 
             // labelEstimation
             // 
@@ -198,6 +203,7 @@ namespace Supakulltracker
             this.textBoxProject.Name = "textBoxProject";
             this.textBoxProject.Size = new System.Drawing.Size(113, 20);
             this.textBoxProject.TabIndex = 15;
+            this.textBoxProject.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxProject_MouseDoubleClick);
             // 
             // labelProject
             // 
@@ -214,6 +220,7 @@ namespace Supakulltracker
             this.textBoxProduct.Name = "textBoxProduct";
             this.textBoxProduct.Size = new System.Drawing.Size(113, 20);
             this.textBoxProduct.TabIndex = 13;
+            this.textBoxProduct.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxProduct_MouseDoubleClick);
             // 
             // labelProduct
             // 
@@ -263,6 +270,7 @@ namespace Supakulltracker
             this.linkLabelLinkToTracker.Name = "linkLabelLinkToTracker";
             this.linkLabelLinkToTracker.Size = new System.Drawing.Size(0, 13);
             this.linkLabelLinkToTracker.TabIndex = 24;
+            this.linkLabelLinkToTracker.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLinkToTracker_LinkClicked);
             // 
             // textBoxComments
             // 
@@ -297,7 +305,7 @@ namespace Supakulltracker
             this.labelAssigned.TabIndex = 27;
             this.labelAssigned.Text = "Assigned";
             // 
-            // DetailsPanel
+            // DetailPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -330,7 +338,7 @@ namespace Supakulltracker
             this.Controls.Add(this.labelSubtaskType);
             this.Controls.Add(this.textBoxTaskID);
             this.Controls.Add(this.TaskIDlabel);
-            this.Name = "DetailsPanel";
+            this.Name = "DetailPanel";
             this.Size = new System.Drawing.Size(575, 423);
             this.Load += new System.EventHandler(this.DetailsPanel_Load);
             this.ResumeLayout(false);

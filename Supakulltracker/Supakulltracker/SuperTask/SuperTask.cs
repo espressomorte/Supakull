@@ -22,7 +22,8 @@ namespace Supakulltracker
         private string[] projects;
         private string[] createdDates;
         private string[] createdBy;
-        private Sources[] linkToTrackers;
+        private string[] linkToTrackers;
+        private Sources[] source;
         private string[] estimations;
         private string[] targetVersions;
         private string[] comments;
@@ -66,12 +67,13 @@ namespace Supakulltracker
             projects = new string[matchedTasks.Count];
             createdDates = new string[matchedTasks.Count];
             createdBy = new string[matchedTasks.Count];
-            linkToTrackers = new Sources[matchedTasks.Count];
+            source = new Sources[matchedTasks.Count];
             estimations = new string[matchedTasks.Count];
             targetVersions = new string[matchedTasks.Count];
             comments = new string[matchedTasks.Count];
             assigneds = new UserDTO[matchedTasks.Count][];
             taskParents = new TaskMainDTO[matchedTasks.Count];
+            linkToTrackers = new string[matchedTasks.Count];
 
             int arrayCount = 0;
             foreach (TaskMainDTO task in matchedTasks)
@@ -86,6 +88,7 @@ namespace Supakulltracker
                 createdDates[arrayCount] = task.CreatedDate;
                 createdBy[arrayCount] = task.CreatedBy;
                 linkToTrackers[arrayCount] = task.LinkToTracker;
+                source[arrayCount] = task.Source;
                 estimations[arrayCount] = task.Estimation;
                 targetVersions[arrayCount] = task.TargetVersion;
                 comments[arrayCount] = task.Comments;
@@ -110,6 +113,7 @@ namespace Supakulltracker
             CreatedDate = GetSingleValue(createdDates);
             CreatedBy = GetSingleValue(createdBy);
             LinkToTracker = GetSingleValue(linkToTrackers);
+            LinkToTracker = GetSingleValue(source);
             Estimation = GetSingleValue(estimations);
             TargetVersion = GetSingleValue(targetVersions);
             Comments = GetSingleValue(comments);
@@ -294,7 +298,7 @@ namespace Supakulltracker
         public static SuperTask GetSuperTask(TaskMainDTO task)
         {
             GetTrackerServicesSoapClient service = new GetTrackerServicesSoapClient();
-            ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.LinkToTracker);
+            ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.Source);
             return new SuperTask(matchedTasks);
         }
     }

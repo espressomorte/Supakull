@@ -52,7 +52,10 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CreatedByField;
         
-        private Supakulltracker.IssueService.Sources LinkToTrackerField;
+        private Supakulltracker.IssueService.Sources SourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LinkToTrackerField;
         
         private int TokenIDField;
         
@@ -212,19 +215,32 @@ namespace Supakulltracker.IssueService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
-        public Supakulltracker.IssueService.Sources LinkToTracker {
+        public Supakulltracker.IssueService.Sources Source {
+            get {
+                return this.SourceField;
+            }
+            set {
+                if ((this.SourceField.Equals(value) != true)) {
+                    this.SourceField = value;
+                    this.RaisePropertyChanged("Source");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        public string LinkToTracker {
             get {
                 return this.LinkToTrackerField;
             }
             set {
-                if ((this.LinkToTrackerField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.LinkToTrackerField, value) != true)) {
                     this.LinkToTrackerField = value;
                     this.RaisePropertyChanged("LinkToTracker");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
         public int TokenID {
             get {
                 return this.TokenIDField;
@@ -237,7 +253,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
         public string Estimation {
             get {
                 return this.EstimationField;
@@ -250,7 +266,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
         public string TargetVersion {
             get {
                 return this.TargetVersionField;
@@ -263,7 +279,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
         public string Comments {
             get {
                 return this.CommentsField;
@@ -276,7 +292,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
         public Supakulltracker.IssueService.UserDTO[] Assigned {
             get {
                 return this.AssignedField;
@@ -289,7 +305,7 @@ namespace Supakulltracker.IssueService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=17)]
         public Supakulltracker.IssueService.TaskMainDTO TaskParent {
             get {
                 return this.TaskParentField;
@@ -856,13 +872,6 @@ namespace Supakulltracker.IssueService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMatchedTasks", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(Supakulltracker.IssueService.GetMatchedTasksRequest request);
         
-
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
-        void GenerateIndexes();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
-        System.Threading.Tasks.Task GenerateIndexesAsync();
-
         // CODEGEN: Generating message contract since element name fileForParce from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTasksFromExcel", ReplyAction="*")]
         Supakulltracker.IssueService.GetTasksFromExcelResponse GetTasksFromExcel(Supakulltracker.IssueService.GetTasksFromExcelRequest request);
@@ -883,7 +892,12 @@ namespace Supakulltracker.IssueService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateTokenNameForExcel", ReplyAction="*")]
         System.Threading.Tasks.Task<Supakulltracker.IssueService.UpdateTokenNameForExcelResponse> UpdateTokenNameForExcelAsync(Supakulltracker.IssueService.UpdateTokenNameForExcelRequest request);
-
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
+        void GenerateIndexes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GenerateIndexes", ReplyAction="*")]
+        System.Threading.Tasks.Task GenerateIndexesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
         void Update();
@@ -2186,16 +2200,6 @@ namespace Supakulltracker.IssueService {
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
         }
         
-
-        public void GenerateIndexes() {
-            base.Channel.GenerateIndexes();
-        }
-
-        public System.Threading.Tasks.Task GenerateIndexesAsync()
-        {
-            return base.Channel.GenerateIndexesAsync();
-        }
-
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         Supakulltracker.IssueService.GetTasksFromExcelResponse Supakulltracker.IssueService.GetTrackerServicesSoap.GetTasksFromExcel(Supakulltracker.IssueService.GetTasksFromExcelRequest request) {
             return base.Channel.GetTasksFromExcel(request);
@@ -2276,7 +2280,14 @@ namespace Supakulltracker.IssueService {
             inValue.Body.tokeID = tokeID;
             inValue.Body.newTokenName = newTokenName;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).UpdateTokenNameForExcelAsync(inValue);
-
+        }
+        
+        public void GenerateIndexes() {
+            base.Channel.GenerateIndexes();
+        }
+        
+        public System.Threading.Tasks.Task GenerateIndexesAsync() {
+            return base.Channel.GenerateIndexesAsync();
         }
         
         public void Update() {

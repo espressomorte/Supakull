@@ -64,8 +64,12 @@ namespace SupakullTrackerServices
         }
         public bool Equals(IAccountSettings accountToCompare)
         {
-            DatabaseAccountSettings DBAccountToCompere = (DatabaseAccountSettings)accountToCompare;
-            return (this.ID == DBAccountToCompere.ID && this.AccountVersion == DBAccountToCompere.AccountVersion);
+            if (accountToCompare is DatabaseAccountSettings)
+            {
+                DatabaseAccountSettings DBAccountToCompere = (DatabaseAccountSettings)accountToCompare;
+                return (this.ID == DBAccountToCompere.ID && this.AccountVersion == DBAccountToCompere.AccountVersion);
+            }
+            return false;
         }
         public override bool Equals(object obj)
         {

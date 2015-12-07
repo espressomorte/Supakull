@@ -66,6 +66,7 @@ namespace SupakullTrackerServices
                 taskMain.CreatedBy = taskMainDAO.CreatedBy;
                 taskMain.Comments = taskMainDAO.Comments;
                 taskMain.TokenID = taskMainDAO.TokenID;
+                taskMain.Source = taskMainDAO.Source;
 
                 if (taskMainDAO.TaskParent != null)
                 {
@@ -96,6 +97,7 @@ namespace SupakullTrackerServices
                 taskMain.CreatedBy = taskMainDAO.CreatedBy;
                 taskMain.Comments = taskMainDAO.Comments;
                 taskMain.TokenID = taskMainDAO.TokenID;
+                taskMain.Source = taskMainDAO.Source;
 
                 if (taskMainDAO.TaskParent != null)
                 {

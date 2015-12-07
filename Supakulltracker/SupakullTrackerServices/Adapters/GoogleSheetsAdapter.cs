@@ -13,6 +13,23 @@ namespace SupakullTrackerServices
     {
         private OAuth2Parameters parameters = new OAuth2Parameters();
         ListFeed listFeed;
+        public DateTime adapterLastUpdate { get; set; }
+        public Int32 MinUpdateTime { get; set; }
+        public Boolean CanRunUpdate()
+        {
+            if ((DateTime.Now - this.adapterLastUpdate).TotalMilliseconds > this.MinUpdateTime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public string GetLinkToTracker(String LinkToTrackerInfo)
+        {
+            throw new NotImplementedException();
+        }
         public GoogleSheetsAdapter()
         {           
 
@@ -66,7 +83,7 @@ namespace SupakullTrackerServices
             tm.Description = row.Elements[3].Value;
             tm.Status = row.Elements[5].Value;
             tm.Comments = row.Elements[6].Value;
-            tm.LinkToTracker = Sources.GoogleSheets;
+            tm.Source = Sources.GoogleSheets;
 
             return tm;
         }

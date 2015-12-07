@@ -52,7 +52,8 @@ namespace SupakullTrackerServices
         public virtual string CreatedBy { get; set; }
 
         [IndexedEmbedded]
-        public virtual Sources LinkToTracker { get; set; }
+        public virtual Sources Source { get; set; }
+        public virtual string LinkToTracker { get; set; }
 
         public virtual Int32 TokenID { get; set; }
 
@@ -82,7 +83,7 @@ namespace SupakullTrackerServices
 
         public virtual TaskKey GetTaskKey()
         {
-            return new TaskKey(this.TaskID, this.LinkToTracker);
+            return new TaskKey(this.TaskID, this.Source);
         }
 
         #region SaveOrUpdate
@@ -174,7 +175,7 @@ namespace SupakullTrackerServices
 
         private int GetTaskIDFormDB()
         {
-            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.LinkToTracker);
+            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.Source);
             if (taskFromDB != null)
             {
                 return taskFromDB.ID;
@@ -182,7 +183,7 @@ namespace SupakullTrackerServices
             return -1;
         }
 
-        public static TaskMainDAO GetTaskFromDB(string taskID, Sources linkToTracker)
+        public static TaskMainDAO GetTaskFromDB(string taskID, Sources source)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
@@ -191,7 +192,7 @@ namespace SupakullTrackerServices
                 TaskMainDAO taskMainDAO = session
                     .CreateCriteria(typeof(TaskMainDAO))
                     .Add(Restrictions.Eq("TaskID", taskID))
-                    .Add(Restrictions.Eq("LinkToTracker", linkToTracker))
+                    .Add(Restrictions.Eq("Source", source))
                     .UniqueResult<TaskMainDAO>();
                 return taskMainDAO;
             }
@@ -212,12 +213,12 @@ namespace SupakullTrackerServices
         {
             return (taskMainDaoToCompare != null &&
                 this.TaskID.Equals(taskMainDaoToCompare.TaskID) &&
-                this.LinkToTracker.Equals(taskMainDaoToCompare.LinkToTracker));
+                this.Source.Equals(taskMainDaoToCompare.Source));
         }
 
         public override int GetHashCode()
         {
-            return (this.TaskID.GetHashCode()) ^ (int)this.LinkToTracker;
+            return (this.TaskID.GetHashCode()) ^ (int)this.Source;
         }
 
         #endregion

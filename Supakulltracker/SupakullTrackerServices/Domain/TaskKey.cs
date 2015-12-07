@@ -8,7 +8,7 @@ namespace SupakullTrackerServices
     public class TaskKey: IEquatable<TaskKey>
     {
         public string TaskID { get; set; }
-        public Sources LinkToTracker { get; set; }
+        public Sources Source { get; set; }
 
         public int HashCode
         {
@@ -18,10 +18,10 @@ namespace SupakullTrackerServices
             }
         }
 
-        public TaskKey(string taskID, Sources linkToTracker)
+        public TaskKey(string taskID, Sources Source)
         {
             this.TaskID = taskID;
-            this.LinkToTracker = linkToTracker;
+            this.Source = Source;
         }
 
         public override bool Equals(object obj)
@@ -34,12 +34,12 @@ namespace SupakullTrackerServices
         {
             return (taskKeyToCompare != null &&
                 this.TaskID.Equals(taskKeyToCompare.TaskID) &&
-                this.LinkToTracker.Equals(taskKeyToCompare.LinkToTracker));
+                this.Source.Equals(taskKeyToCompare.Source));
         }
 
         public override int GetHashCode()
         {
-            return (this.TaskID.GetHashCode()) ^ (int)this.LinkToTracker;
+            return (this.TaskID.GetHashCode()) ^ (int)this.Source;
         }
     }
 }

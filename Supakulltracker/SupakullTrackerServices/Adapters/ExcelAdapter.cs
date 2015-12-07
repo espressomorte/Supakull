@@ -164,7 +164,7 @@ namespace SupakullTrackerServices
             }
 
 
-            task.LinkToTracker = Sources.Excel;
+            task.Source = Sources.Excel;
 
             task.TokenID = tokenID;
 
@@ -185,6 +185,32 @@ namespace SupakullTrackerServices
         }
 
         IList<User> Assigned { get; set; }
+
+        public DateTime adapterLastUpdate
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int MinUpdateTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public IList<ITask> GetAllTasks()
         {
@@ -296,6 +322,16 @@ namespace SupakullTrackerServices
             }
             packeg.Dispose();
             return listFile;
+        }
+
+        public string GetLinkToTracker(string LinkToTrackerInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanRunUpdate()
+        {
+            throw new NotImplementedException();
         }
     }
 }

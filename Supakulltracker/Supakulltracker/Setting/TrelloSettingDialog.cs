@@ -42,7 +42,7 @@ namespace Supakulltracker
                     activeTrelloAccounts.Items.Add(trelloAccount.Name);
                 }
             }
-            urlTrello.Links.Add(0, 40, "https://trello.com/1/connect?key=f82892a94916ced8f28b2f6496d4ba53&name=f82892a94916ced8f28b2f6496d4ba53&response_type=token&scope=read,write&expiration=never");
+            urlTrello.Links.Add(0, 40, "https://trello.com/1/connect?key=f82892a94916ced8f28b2f6496d4ba53&name=Supakull&response_type=token&scope=read,write&expiration=never");
             if (sharedUserTrelloAccounts.Count > 0)
             {
                 sharedLabel.Show();

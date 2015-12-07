@@ -77,6 +77,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Details\DetailPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Details\DetailPanel.designer.cs">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Details\LabeledTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Details\LabeledTextBox.designer.cs">
+      <DependentUpon>LabeledTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Details\PopUpMultipleEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Details\PopUpMultipleEditor.designer.cs">
+      <DependentUpon>PopUpMultipleEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Search\GenerateIndexesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,12 +115,6 @@
     </Compile>
     <Compile Include="Setting\DBSettingDialog.Designer.cs">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DetailPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DetailPanel.Designer.cs">
-      <DependentUpon>DetailPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\AuthorizationResult.cs" />
     <Compile Include="Login\Authorizer.cs" />
@@ -159,6 +171,15 @@
       <DependentUpon>TrelloSettingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SuperTask\SuperTask.cs" />
+    <EmbeddedResource Include="Details\DetailPanel.resx">
+      <DependentUpon>DetailPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Details\LabeledTextBox.resx">
+      <DependentUpon>LabeledTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Details\PopUpMultipleEditor.resx">
+      <DependentUpon>PopUpMultipleEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search\GenerateIndexesForm.resx">
       <DependentUpon>GenerateIndexesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,10 +188,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\DBSettingDialog.resx">
       <DependentUpon>DBSettingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DetailPanel.resx">
-      <DependentUpon>DetailPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

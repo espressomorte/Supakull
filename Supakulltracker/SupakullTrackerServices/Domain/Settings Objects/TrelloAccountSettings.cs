@@ -64,8 +64,12 @@ namespace SupakullTrackerServices
 
         public bool Equals(IAccountSettings accountToCompare)
         {
-            TrelloAccountSettings trelloAccountToCompere = (TrelloAccountSettings)accountToCompare;
-            return (this.ID == trelloAccountToCompere.ID && this.AccountVersion == trelloAccountToCompere.AccountVersion);
+            if (accountToCompare is TrelloAccountSettings)
+            {
+                TrelloAccountSettings trelloAccountToCompere = (TrelloAccountSettings)accountToCompare;
+                return (this.ID == trelloAccountToCompere.ID && this.AccountVersion == trelloAccountToCompere.AccountVersion);
+            }
+            return false;
         }
         public override bool Equals(object obj)
         {

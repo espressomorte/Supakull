@@ -11,5 +11,9 @@ namespace SupakullTrackerServices
         IList<ITask> GetAllTasks();
         ITask GetTask(int index);
         IAdapter GetAdapter(IAccountSettings account);
+        String GetLinkToTracker(String LinkToTrackerInfo);
+        Boolean CanRunUpdate();
+        DateTime adapterLastUpdate { get; set; }
+        Int32 MinUpdateTime { get; set; }
     }
 }
