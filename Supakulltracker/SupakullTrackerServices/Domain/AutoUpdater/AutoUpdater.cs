@@ -15,6 +15,7 @@ namespace SupakullTrackerServices
 
 
         private static Dictionary<IAccountSettings, IAdapter> accountAdapterLastUpdateDic;
+        private static Timer autoUpdateTimer;
         private static DateTime dateOfLastUpdateAllAccounts;
         private static Int32 StartTimeForAutoUpdater;
         private static Int32 RepeatTimeForAutoUpdater;
@@ -30,47 +31,58 @@ namespace SupakullTrackerServices
 
             dateOfLastUpdateAllAccounts = DateTime.MinValue;
             accountAdapterLastUpdateDic = new Dictionary<IAccountSettings, IAdapter>();
-            Timer autoUpdateTimer = new Timer(_ => AutoUpdate(), new AutoResetEvent(false), StartTimeForAutoUpdater, RepeatTimeForAutoUpdater);
+            autoUpdateTimer = new Timer(new TimerCallback(AutoUpdate), null, StartTimeForAutoUpdater, RepeatTimeForAutoUpdater);
         }
-        public static void AutoUpdate()
+        public static void AutoUpdate(Object obj)
         {
             if (ReadyForChekingAllAccounts)
             {
-                ReadyForChekingAllAccounts = false;
-                var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
-                if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
+                try
                 {
-                    var accounts = SettingsManager.GetAllAccounts();
-                    foreach (var account in accounts)
+                    ReadyForChekingAllAccounts = false;
+                    var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
+                    if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
                     {
-                        if (account.Source != Sources.Excel)
+                        var accounts = SettingsManager.GetAllAccounts();
+                        foreach (var account in accounts)
                         {
-                            if (!accountAdapterLastUpdateDic.ContainsKey(account))
+                            if (account.Source != Sources.Excel)
                             {
-                                IAdapter adapter = GetAdapterForAccount(account);
-                                accountAdapterLastUpdateDic.Add(account, adapter);
+                                if (!accountAdapterLastUpdateDic.ContainsKey(account))
+                                {
+                                    IAdapter adapter = GetAdapterForAccount(account);
+                                    accountAdapterLastUpdateDic.Add(account, adapter);
+                                }
                             }
                         }
-                    }
-                    List<IAccountSettings> accForRemove = new List<IAccountSettings>();
-                    foreach (var account in accountAdapterLastUpdateDic.Keys)
-                    {
-                        if (!accounts.Contains<IAccountSettings>(account))
+                        List<IAccountSettings> accForRemove = new List<IAccountSettings>();
+                        foreach (var account in accountAdapterLastUpdateDic.Keys)
                         {
-                            accForRemove.Add(account);
+                            if (!accounts.Contains<IAccountSettings>(account))
+                            {
+                                accForRemove.Add(account);
+                            }
                         }
+                        foreach (var acc in accForRemove)
+                        {
+                            accountAdapterLastUpdateDic.Remove(acc);
+                        }
+                        dateOfLastUpdateAllAccounts = DateTime.Now;
                     }
-                    foreach (var acc in accForRemove)
-                    {
-                        accountAdapterLastUpdateDic.Remove(acc);
-                    }
-                    dateOfLastUpdateAllAccounts = DateTime.Now;
                 }
-                ReadyForChekingAllAccounts = true;
+                catch (Exception ex)
+                {
+                    log.Error(ex.Message, ex);
+                }
+                finally
+                {
+                    ReadyForChekingAllAccounts = true;
+                }
+
             }
 
             if (ReadyForRuningAllAdapters)
-            {
+            {             
                 ReadyForRuningAllAdapters = false;
                 List<ITask> allTasks = new List<ITask>(500);
                 IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate()).ToList();
@@ -93,11 +105,20 @@ namespace SupakullTrackerServices
                     }
 
                 });
-                IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
-                TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
-                ReadyForRuningAllAdapters = true;
+                try
+                {
+                    IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
+                    TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex.Message, ex);
+                }
+                finally
+                {
+                    ReadyForRuningAllAdapters = true;
+                }
             }
-            
         }
 
         private static IAdapter GetAdapterForAccount(IAccountSettings account)

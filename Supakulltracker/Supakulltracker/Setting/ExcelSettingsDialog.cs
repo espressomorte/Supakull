@@ -394,6 +394,7 @@ namespace Supakulltracker
                 if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
                 {
                     MessageBox.Show("Succesfully!!");
+                    ExcelSynchronizer.UpdateWatchibleFiles();
                     ReloadAllSettingFromDB();
                 }
                 else
@@ -446,6 +447,7 @@ namespace Supakulltracker
                         Boolean result = SettingsManager.DeleteToken(tokenToDelete);
                         if (result)
                         {
+                            ExcelSynchronizer.UpdateWatchibleFiles();
                             UpdateExcelSettingForm();
                             ReloadAllSettingFromDB();
                         }
@@ -525,6 +527,7 @@ namespace Supakulltracker
                 {
                     if (SettingsManager.DeleteTemplate(templateToDelete))
                     {
+                        ExcelSynchronizer.UpdateWatchibleFiles();
                         RefreshMapSetting();
                         comboBox_ExcelTemplate.Text = "";
 
@@ -745,6 +748,7 @@ namespace Supakulltracker
                 userExcelFullAccount.Template.Add(accEx_template);
                 if (SettingsManager.SaveOrUpdateAccount(userExcelFullAccount))
                 {
+                    ExcelSynchronizer.UpdateWatchibleFiles();
                     ExcelTab.SelectTab(Settings);
                     RefreshMapSetting();
                     btn_AddNewExcelTemplate.Enabled = false;
@@ -835,7 +839,12 @@ namespace Supakulltracker
                 }
                 if (fieldValue == "LinkToTracker")
                 {
-                    accEx_template.LinkToTracker = Sources.Excel;
+                    accEx_template.LinkToTracker = cellValue;
+                    continue;
+                }
+                if (fieldValue == "Source")
+                {
+                    accEx_template.Source = Sources.Excel;
                     continue;
                 }
                 if (fieldValue == "Estimation")

@@ -14,8 +14,28 @@ namespace SupakullTrackerServices
 
         static ConverterDomainToDAO()
         {
+            FillTaskMainDaoCollectionFromDB();
+            FilluserDaoCollectionFromDB();
+        }
+
+        private static void FillTaskMainDaoCollectionFromDB()
+        {
             taskMainDaoCollection = new Dictionary<TaskKey, TaskMainDAO>();
+            IList<TaskMainDAO> allTasks = TaskMainDAO.GetAllTasksFromDB();
+            foreach (TaskMainDAO task in allTasks)
+            {
+                taskMainDaoCollection.Add(task.GetTaskKey(), task);
+            }
+        }
+
+        private static void FilluserDaoCollectionFromDB()
+        {
             userDaoCollection = new Dictionary<UserKey, UserDAO>();
+            IList<UserDAO> allTasks = UserDAO.GetAllUsersFromDB();
+            foreach (UserDAO user in allTasks)
+            {
+                userDaoCollection.Add(user.GetUserKey(), user);
+            }
         }
 
         public static IList<TaskMainDAO> TaskMainToTaskMainDAO(IList<ITask> TaskMainCollection)
@@ -34,12 +54,17 @@ namespace SupakullTrackerServices
         }
 
         private static TaskMainDAO TaskMainToTaskMainDAO(ITask taskMain)
-        {            
-            TaskMainDAO taskMainDAO = TaskMainToTaskMainDAOWithoutMatchedTasks(taskMain);
+        {
+            List<TaskMainDAO> matchedTasksInDB = CheckMatchTasksInDataBase(taskMain);           
+            TaskMainDAO taskMainDAO = TaskMainToTaskMainDAOWithoutMatchedTasks(taskMain);      
             if (taskMain.MatchedCount > 0)
             {
                 IList<TaskMainDAO> matchedTasksDAO = GetMatchedTasksDAO(taskMain.MatchedTasks, taskMainDAO);
                 taskMainDAO.MatchedTasks = matchedTasksDAO;
+            }
+            if (matchedTasksInDB != null)
+            {
+                taskMainDAO.MatchedTasks = matchedTasksInDB;
             }
             return taskMainDAO;
         }
@@ -113,7 +138,15 @@ namespace SupakullTrackerServices
             return taskMainDAO;
         }
 
-
+        private static List<TaskMainDAO> CheckMatchTasksInDataBase(ITask taskMainDAO)
+        {
+            List<TaskMainDAO> matchedTasks = null;
+            matchedTasks = (from KeyValue in taskMainDaoCollection
+                                      where KeyValue.Key.TaskID == taskMainDAO.TaskID
+                                      select KeyValue.Value).ToList<TaskMainDAO>();
+                     
+            return matchedTasks;            
+        }
         private static TaskMainDAO GetExistingTaskDAO(TaskKey taskKey)
         {
             TaskMainDAO existedTaskMainDAO = null;

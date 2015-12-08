@@ -61,7 +61,6 @@ namespace SupakullTrackerServices
                         issues.Add(task);
                     }
                 }
-                return issues;
             }
 
             return issues;

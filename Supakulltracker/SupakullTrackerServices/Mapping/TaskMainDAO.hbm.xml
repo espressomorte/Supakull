@@ -8,7 +8,7 @@
       </generator>
     </id>
 
-    <property name="TaskID" column="TK_TASKID" />
+    <property name="TaskID" column="TK_TASKID"  />
     <property name="SubtaskType" column="TK_SUB_TYPE" />
     <property name="Summary" column="TK_SUMMARY"  />
     <property name="Description" column="TK_DESCRIPTION" />
@@ -32,7 +32,7 @@
 
     <many-to-one lazy="false" cascade="all-delete-orphan" name ="TaskParent" class="TaskMainDAO" column="TK_PARENT" />
 
-    <bag lazy="false" cascade="all-delete-orphan" inverse="false" name="MatchedTasks" table="MATCHEDTASKS">
+    <bag lazy="false" cascade="all-delete-orphan" inverse="false" name="MatchedTasks" table="MATCHEDTASKS">    
       <key column="MTK_TASKMAINID" />
       <many-to-many class="TaskMainDAO" column="MTK_MATCHEDTASKID"/>
     </bag>

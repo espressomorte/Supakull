@@ -9,6 +9,7 @@ namespace SupakullTrackerServices
     {
         public string TaskID { get; set; }
         public Sources Source { get; set; }
+        public Int32 TokenID { get; set; }
 
         public int HashCode
         {
@@ -18,28 +19,34 @@ namespace SupakullTrackerServices
             }
         }
 
-        public TaskKey(string taskID, Sources Source)
+        public TaskKey(string taskID, Sources Source, Int32 tokenID)
         {
             this.TaskID = taskID;
             this.Source = Source;
+            this.TokenID = tokenID;
         }
 
         public override bool Equals(object obj)
         {
-            TaskKey taskKeyToCompare = obj as TaskKey;
-            return Equals(taskKeyToCompare);
+            if (obj is TaskKey)
+            {
+                TaskKey taskKeyToCompare = obj as TaskKey;
+                return Equals(taskKeyToCompare);
+            }
+            return false;            
         }
 
         public virtual bool Equals(TaskKey taskKeyToCompare)
         {
             return (taskKeyToCompare != null &&
                 this.TaskID.Equals(taskKeyToCompare.TaskID) &&
-                this.Source.Equals(taskKeyToCompare.Source));
+                this.Source.Equals(taskKeyToCompare.Source) &&
+                this.TokenID.Equals(taskKeyToCompare.TokenID));
         }
 
         public override int GetHashCode()
         {
-            return (this.TaskID.GetHashCode()) ^ (int)this.Source;
+            return (this.TaskID.GetHashCode()) ^ (int)this.Source ^ this.TokenID;
         }
     }
 }

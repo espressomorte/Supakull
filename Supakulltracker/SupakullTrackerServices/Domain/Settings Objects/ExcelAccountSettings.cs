@@ -209,7 +209,8 @@ namespace SupakullTrackerServices
         public string Project { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Sources LinkToTracker { get; set; }
+        public String LinkToTracker { get; set; }
+        public Sources Source { get; set; }
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
@@ -265,10 +266,14 @@ namespace SupakullTrackerServices
                                             select templ.Value).SingleOrDefault();
                 Sources sour;
                 var result = (from templ in template.Mapping
-                              where templ.Key == "LinkToTracker"
+                              where templ.Key == "Source"
                               select templ.Value).SingleOrDefault();
                 Enum.TryParse(result, out sour);
-                targetTemplate.LinkToTracker = sour;
+                targetTemplate.Source = sour;
+
+                targetTemplate.LinkToTracker = (from templ in template.Mapping
+                                             where templ.Key == "LinkToTracker"
+                                             select templ.Value).SingleOrDefault();
 
 
                 targetTemplate.TaskParent = (from templ in template.Mapping
@@ -314,12 +319,14 @@ namespace SupakullTrackerServices
             target.Mapping.Add("Project", currentTemplate.Project);
             target.Mapping.Add("CreatedDate", currentTemplate.CreatedDate);
             target.Mapping.Add("CreatedBy", currentTemplate.CreatedBy);
-            target.Mapping.Add("LinkToTracker", currentTemplate.LinkToTracker.ToString());
+            target.Mapping.Add("Source", currentTemplate.Source.ToString());
             target.Mapping.Add("Estimation", currentTemplate.Estimation);
             target.Mapping.Add("TargetVersion", currentTemplate.TargetVersion);
             target.Mapping.Add("Comments", currentTemplate.Comments);
             target.Mapping.Add("TaskParent", currentTemplate.TaskParent); 
             target.Mapping.Add("Assigned", currentTemplate.Assigned);
+            target.Mapping.Add("LinkToTracker", currentTemplate.LinkToTracker);
+
 
 
 

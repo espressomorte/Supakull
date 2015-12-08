@@ -1134,12 +1134,16 @@ namespace Supakulltracker.IssueService {
         [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
         public Supakulltracker.IssueService.Sources linkToTracker;
         
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int tokenID;
+        
         public GetMatchedTasksRequestBody() {
         }
         
-        public GetMatchedTasksRequestBody(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
+        public GetMatchedTasksRequestBody(string taskID, Supakulltracker.IssueService.Sources linkToTracker, int tokenID) {
             this.taskID = taskID;
             this.linkToTracker = linkToTracker;
+            this.tokenID = tokenID;
         }
     }
     
@@ -2178,11 +2182,12 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetMatchedTasks(request);
         }
         
-        public Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasks(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
+        public Supakulltracker.IssueService.TaskMainDTO[] GetMatchedTasks(string taskID, Supakulltracker.IssueService.Sources linkToTracker, int tokenID) {
             Supakulltracker.IssueService.GetMatchedTasksRequest inValue = new Supakulltracker.IssueService.GetMatchedTasksRequest();
             inValue.Body = new Supakulltracker.IssueService.GetMatchedTasksRequestBody();
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
+            inValue.Body.tokenID = tokenID;
             Supakulltracker.IssueService.GetMatchedTasksResponse retVal = ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasks(inValue);
             return retVal.Body.GetMatchedTasksResult;
         }
@@ -2192,11 +2197,12 @@ namespace Supakulltracker.IssueService {
             return base.Channel.GetMatchedTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(string taskID, Supakulltracker.IssueService.Sources linkToTracker) {
+        public System.Threading.Tasks.Task<Supakulltracker.IssueService.GetMatchedTasksResponse> GetMatchedTasksAsync(string taskID, Supakulltracker.IssueService.Sources linkToTracker, int tokenID) {
             Supakulltracker.IssueService.GetMatchedTasksRequest inValue = new Supakulltracker.IssueService.GetMatchedTasksRequest();
             inValue.Body = new Supakulltracker.IssueService.GetMatchedTasksRequestBody();
             inValue.Body.taskID = taskID;
             inValue.Body.linkToTracker = linkToTracker;
+            inValue.Body.tokenID = tokenID;
             return ((Supakulltracker.IssueService.GetTrackerServicesSoap)(this)).GetMatchedTasksAsync(inValue);
         }
         

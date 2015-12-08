@@ -230,7 +230,6 @@ Insert into PlaceHolderForSchemaName."USER" (US_ID,US_USERID) values ('1','supak
  INSERTING into PlaceHolderForSchemaName.USER_LINK
 SET DEFINE OFF;
 Insert into PlaceHolderForSchemaName.USER_LINK (LINK_ID,USER_ID,SERVICE_ACCOUNT_ID,OWNER,USER_OWNER_ID) values ('270','1','271','1','0');
-Insert into PlaceHolderForSchemaName.SERVICE_ACCOUNT (SERVICE_ID,ACCOUNT_NAME,SOURCE_ID,MIN_UPDATE_TIME,ACCOUNT_VERSION) values ('271','Real Working Account','0','5',1);
 --------------------------------------------------------
 --  DDL for Index US_PK
 --------------------------------------------------------
@@ -241,7 +240,7 @@ Insert into PlaceHolderForSchemaName.SERVICE_ACCOUNT (SERVICE_ID,ACCOUNT_NAME,SO
 --  DDL for Index TASKMAIN_INDEX_ID_TRACKER
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PlaceHolderForSchemaName"."TASKMAIN_INDEX_ID_TRACKER" ON "PlaceHolderForSchemaName"."TASKMAIN" ("TK_TASKID", "TK_SOURCE") 
+  CREATE UNIQUE INDEX "PlaceHolderForSchemaName"."TASKMAIN_INDEX_ID_TRACKER" ON "PlaceHolderForSchemaName"."TASKMAIN" ("TK_TASKID", "TK_TOKEN_ID") 
   ;
 --------------------------------------------------------
 --  DDL for Index USER_LINK_PK

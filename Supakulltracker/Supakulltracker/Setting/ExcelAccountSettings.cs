@@ -250,8 +250,8 @@ namespace Supakulltracker
             AllFieldsInTeemplate = new List<String>()
             {
                 "TaskID", "SubtaskType", "Summary", "Description",
-                 "Status","Priority","Project", "CreatedDate", "CreatedBy", "LinkToTracker",
-                "Estimation", "TargetVersion","Comments","Assigned","TaskParent"
+                 "Status","Priority","Project", "CreatedDate", "CreatedBy", "Source",
+                "Estimation", "TargetVersion","Comments","Assigned","TaskParent", "LinkToTracker"
             };
         }
 
@@ -265,7 +265,8 @@ namespace Supakulltracker
         public string Project { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Sources LinkToTracker { get; set; }
+        public String LinkToTracker { get; set; }
+        public Sources Source { get; set; }
         public string Estimation { get; set; }
         public string TargetVersion { get; set; }
         public string Comments { get; set; }
@@ -377,16 +378,25 @@ namespace Supakulltracker
                 {
                     targetTemplate.CreatedBy = "";
                 }
+
                 Sources sour;
                 var result = (from templ in template.Mapping
-                              where templ.Key == "LinkToTracker"
+                              where templ.Key == "Source"
                               select templ.Value).SingleOrDefault();
                 Enum.TryParse(result, out sour);
-                targetTemplate.LinkToTracker = sour;
+                targetTemplate.Source = sour;
 
+
+                targetTemplate.LinkToTracker = (from templ in template.Mapping
+                                         where templ.Key == "LinkToTracker"
+                                             select templ.Value).SingleOrDefault();
+                if (targetTemplate.LinkToTracker == null)
+                {
+                    targetTemplate.LinkToTracker = "";
+                }
 
                 targetTemplate.Estimation = (from templ in template.Mapping
-                                         where templ.Key == "Estimation"
+                                             where templ.Key == "Estimation"
                                              select templ.Value).SingleOrDefault();
                 if (targetTemplate.Estimation == null)
                 {
@@ -488,7 +498,7 @@ namespace Supakulltracker
 
             MappingForSerialization linkTotracker = new MappingForSerialization();
             linkTotracker.Key = "LinkToTracker";
-            linkTotracker.Value = currentTemplate.LinkToTracker.ToString();
+            linkTotracker.Value = currentTemplate.LinkToTracker;
             mapList.Add(linkTotracker);
             
             MappingForSerialization estimation = new MappingForSerialization();
@@ -515,6 +525,11 @@ namespace Supakulltracker
             assigned.Key = "Assigned";
             assigned.Value = currentTemplate.Assigned;
             mapList.Add(assigned);
+
+            MappingForSerialization source = new MappingForSerialization();
+            source.Key = "Source";
+            source.Value = currentTemplate.Source.ToString();
+            mapList.Add(source);
 
             target.Mapping = mapList.ToArray();
             return target;

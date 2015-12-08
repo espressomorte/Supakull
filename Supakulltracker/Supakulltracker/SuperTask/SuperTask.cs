@@ -298,7 +298,7 @@ namespace Supakulltracker
         public static SuperTask GetSuperTask(TaskMainDTO task)
         {
             GetTrackerServicesSoapClient service = new GetTrackerServicesSoapClient();
-            ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.Source);
+            ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.Source, task.TokenID);
             return new SuperTask(matchedTasks);
         }
     }

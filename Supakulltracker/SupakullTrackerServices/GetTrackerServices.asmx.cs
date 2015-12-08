@@ -27,24 +27,20 @@ namespace SupakullTrackerServices
     public class GetTrackerServices : System.Web.Services.WebService
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static AutoUpdater updater;
         static GetTrackerServices()
-        {            
-            AutoUpdater.AutoUpdate();
+        {
+            updater = new AutoUpdater();
         }
 
         [WebMethod]
         public List<TaskMainDTO> GetAllTasks()
-        {
-            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
-
-            using (var session = applicationFactory.OpenSession())
-            {
-                IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
+        {        
+                IList<TaskMainDAO> taskMainDaoCollection = TaskMainDAO.GetAllTasksFromDB();
                 IList<ITask> taskMainCollection = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDaoCollection);
                 List<TaskMainDTO> taskMainDtoCollection = ConverterDomainToDTO.TaskMainToTaskMainDTO(taskMainCollection);
                 return taskMainDtoCollection;
-            }
+            
         }
 
         [WebMethod]
@@ -58,9 +54,9 @@ namespace SupakullTrackerServices
         }
 
         [WebMethod]
-        public List<TaskMainDTO> GetMatchedTasks(string taskID, Sources linkToTracker)
+        public List<TaskMainDTO> GetMatchedTasks(string taskID, Sources linkToTracker, Int32 tokenID)
         {
-            TaskMainDAO taskMainDAO = TaskMainDAO.GetTaskFromDB(taskID, linkToTracker);
+            TaskMainDAO taskMainDAO = TaskMainDAO.GetTaskFromDB(taskID, linkToTracker, tokenID);
             ITask taskMain = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskMainDAO);
 
             List<ITask> matchedTasks = new List<ITask>();

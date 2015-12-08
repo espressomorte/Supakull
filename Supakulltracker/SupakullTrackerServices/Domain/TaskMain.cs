@@ -81,7 +81,7 @@ namespace SupakullTrackerServices
 
         public TaskKey GetTaskKey()
         {
-            return new TaskKey(this.TaskID, this.Source);
+            return new TaskKey(this.TaskID, this.Source, this.TokenID);
         }
     }   
 }

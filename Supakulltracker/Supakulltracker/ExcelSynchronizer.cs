@@ -282,6 +282,7 @@ namespace Supakulltracker
                 folderPathForSynchronization = String.Format(@"{0}\{1}", pathToDefaultFolder, nameOfDefaultFolder);
             }
         }
+
         public static void ChangeFolderForSync(String newPath, AuthorizationResult currentUser)
         {
             String userID = String.Format("FolderPathForSynchronizationFor.{0}", currentUser.AuthorizedUser.UserID);
@@ -314,5 +315,10 @@ namespace Supakulltracker
             }
         }
 
+
+        public static void UpdateWatchibleFiles()
+        {
+            NeedUpdateAcountList = true;
+        }
     }
 }

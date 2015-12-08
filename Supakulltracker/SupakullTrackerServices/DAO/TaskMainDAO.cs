@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using NHibernate.Search.Attributes;
 using System;
 using System.Collections.Generic;
@@ -83,7 +84,7 @@ namespace SupakullTrackerServices
 
         public virtual TaskKey GetTaskKey()
         {
-            return new TaskKey(this.TaskID, this.Source);
+            return new TaskKey(this.TaskID, this.Source, this.TokenID);
         }
 
         #region SaveOrUpdate
@@ -130,7 +131,6 @@ namespace SupakullTrackerServices
                     {
                         foreach (TaskMainDAO taskMainDAO in taskMainDaoCollection)
                         {
-                            TaskMainDAO.PutIDsInCurrentAndMatchedAndParentTaskFromDB(taskMainDAO);
                             session.SaveOrUpdate(taskMainDAO);
                         }
                         transaction.Rollback();
@@ -176,7 +176,7 @@ namespace SupakullTrackerServices
 
         private int GetTaskIDFormDB()
         {
-            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.Source);
+            TaskMainDAO taskFromDB = TaskMainDAO.GetTaskFromDB(this.TaskID, this.Source, this.TokenID);
             if (taskFromDB != null)
             {
                 return taskFromDB.ID;
@@ -184,7 +184,8 @@ namespace SupakullTrackerServices
             return -1;
         }
 
-        public static TaskMainDAO GetTaskFromDB(string taskID, Sources source)
+
+        public static TaskMainDAO GetTaskFromDB(string taskID, Sources source, Int32 tokenId)
         {
             ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
 
@@ -194,11 +195,22 @@ namespace SupakullTrackerServices
                     .CreateCriteria(typeof(TaskMainDAO))
                     .Add(Restrictions.Eq("TaskID", taskID))
                     .Add(Restrictions.Eq("Source", source))
+                    .Add(Restrictions.Eq("TokenID", tokenId))
                     .UniqueResult<TaskMainDAO>();
                 return taskMainDAO;
             }
         }
 
+        public static IList<TaskMainDAO> GetAllTasksFromDB()
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                IList<TaskMainDAO> taskMainDaoCollection = session.Query<TaskMainDAO>().ToList();
+                return taskMainDaoCollection;
+            }
+        }
         #endregion
 
 

@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,17 @@ namespace SupakullTrackerServices
                 UserDAO userDAO = session.QueryOver<UserDAO>()
                                         .Where(user => user.UserId == name)
                                         .SingleOrDefault<UserDAO>();     
+                return userDAO;
+            }
+        }
+
+        public static IList<UserDAO> GetAllUsersFromDB()
+        {
+            ISessionFactory applicationFactory = NhibernateSessionFactory.GetSessionFactory(NhibernateSessionFactory.SessionFactoryConfiguration.Application);
+
+            using (var session = applicationFactory.OpenSession())
+            {
+                IList<UserDAO> userDAO = session.QueryOver<UserDAO>().List();                       
                 return userDAO;
             }
         }
