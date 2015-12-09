@@ -57,6 +57,7 @@ namespace SupakullTrackerServices
                         task.TargetVersion = issue.TargetVersion;
                         task.TaskID = issue.TaskID;
                         task.TaskParent = issue.TaskParent;
+                        task.LinkToTracker = token.ConnectionString;
 
                         issues.Add(task);
                     }

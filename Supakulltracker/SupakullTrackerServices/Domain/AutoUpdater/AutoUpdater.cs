@@ -20,6 +20,7 @@ namespace SupakullTrackerServices
         private static Int32 StartTimeForAutoUpdater;
         private static Int32 RepeatTimeForAutoUpdater;
         private static Int32 MinTimeForUpdateAllAccounts;
+        private static Int32 TimeForIncreaseMinUpdateTime;
         private static Boolean ReadyForChekingAllAccounts = true;
         private static Boolean ReadyForRuningAllAdapters = true;
 
@@ -37,54 +38,14 @@ namespace SupakullTrackerServices
         {
             if (ReadyForChekingAllAccounts)
             {
-                try
-                {
-                    ReadyForChekingAllAccounts = false;
-                    var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
-                    if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
-                    {
-                        var accounts = SettingsManager.GetAllAccounts();
-                        foreach (var account in accounts)
-                        {
-                            if (account.Source != Sources.Excel)
-                            {
-                                if (!accountAdapterLastUpdateDic.ContainsKey(account))
-                                {
-                                    IAdapter adapter = GetAdapterForAccount(account);
-                                    accountAdapterLastUpdateDic.Add(account, adapter);
-                                }
-                            }
-                        }
-                        List<IAccountSettings> accForRemove = new List<IAccountSettings>();
-                        foreach (var account in accountAdapterLastUpdateDic.Keys)
-                        {
-                            if (!accounts.Contains<IAccountSettings>(account))
-                            {
-                                accForRemove.Add(account);
-                            }
-                        }
-                        foreach (var acc in accForRemove)
-                        {
-                            accountAdapterLastUpdateDic.Remove(acc);
-                        }
-                        dateOfLastUpdateAllAccounts = DateTime.Now;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex.Message, ex);
-                }
-                finally
-                {
-                    ReadyForChekingAllAccounts = true;
-                }
-
+                ReadyForUpdateAllAccounts();
             }
 
             if (ReadyForRuningAllAdapters)
             {             
                 ReadyForRuningAllAdapters = false;
                 List<ITask> allTasks = new List<ITask>(500);
+                var result = Int32.TryParse(ConfigurationManager.AppSettings["TimeForIncreaseMinUpdateTime"].ToString(), out TimeForIncreaseMinUpdateTime);
                 IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate()).ToList();
                 Parallel.ForEach(canRunAdapters, a =>
                 {
@@ -96,7 +57,7 @@ namespace SupakullTrackerServices
                     catch (TrelloNet.TrelloException treloEX)
                     {
                         log.Error(treloEX.Message, treloEX);
-                        a.MinUpdateTime += 60000; 
+                        a.MinUpdateTime += TimeForIncreaseMinUpdateTime; 
                     }
                     catch (Exception ex)
                     {
@@ -133,6 +94,52 @@ namespace SupakullTrackerServices
         {
             return adapter.GetAllTasks();
         }
+        private static void ReadyForUpdateAllAccounts()
+        {
+            try
+            {
+                ReadyForChekingAllAccounts = false;
+                var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
+                if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
+                {
+                    var accounts = SettingsManager.GetAllAccounts();
+                    foreach (var account in accounts)
+                    {
+                        if (account.Source != Sources.Excel)
+                        {
+                            if (!accountAdapterLastUpdateDic.ContainsKey(account))
+                            {
+                                IAdapter adapter = GetAdapterForAccount(account);
+                                accountAdapterLastUpdateDic.Add(account, adapter);
+                            }
+                        }
+                    }
+                    List<IAccountSettings> accForRemove = new List<IAccountSettings>();
+                    foreach (var account in accountAdapterLastUpdateDic.Keys)
+                    {
+                        if (!accounts.Contains<IAccountSettings>(account))
+                        {
+                            accForRemove.Add(account);
+                        }
+                    }
+                    foreach (var acc in accForRemove)
+                    {
+                        accountAdapterLastUpdateDic.Remove(acc);
+                    }
+                    dateOfLastUpdateAllAccounts = DateTime.Now;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+            }
+            finally
+            {
+                ReadyForChekingAllAccounts = true;
+            }
+
+        }
+
     }
 
 }

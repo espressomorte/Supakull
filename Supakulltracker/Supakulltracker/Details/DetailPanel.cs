@@ -39,21 +39,24 @@ namespace Supakulltracker
             this.textBoxProject.DataBindings.Add("Text", superTask, nameof(superTask.Project));
             this.textBoxCreatedDate.DataBindings.Add("Text", superTask, nameof(superTask.CreatedDate));
             this.textBoxCreatedBy.DataBindings.Add("Text", superTask, nameof(superTask.CreatedBy));
-            this.linkLabelLinkToTracker.DataBindings.Add("Text", superTask, nameof(superTask.LinkToTracker));
             this.textBoxEstimation.DataBindings.Add("Text", superTask, nameof(superTask.Estimation));
             this.textBoxTargetVersion.DataBindings.Add("Text", superTask, nameof(superTask.TargetVersion));
             this.textBoxComments.DataBindings.Add("Text", superTask, nameof(superTask.Comments));
             this.textBoxAssigned.DataBindings.Add("Text", superTask, nameof(superTask.Assigned));
         }
 
-        private Dictionary<string, string> SuperMethod(object sender, string[] field)
+        private List<SuperTaskValue> SuperMethod(object sender, string[] field)
         {
             TextBox textBox = sender as TextBox;
-            Dictionary<string, string> Values = new Dictionary<string, string>();
+            List<SuperTaskValue> Values = new List<SuperTaskValue>();
 
-            for (int i = 0; i < superTask.source.Count<Sources>(); i++)
+            for (int i = 0; i < superTask.linkToTrackers.Count<string>(); i++)
             {
-                Values.Add(superTask.source[i].ToString(), field[i]);
+                SuperTaskValue newValue = new SuperTaskValue();
+                newValue.linkToTracker = superTask.linkToTrackers[i].ToString();
+                newValue.textBoxValue = field[i];
+                newValue.source = superTask.source[i];
+                Values.Add(newValue);
             }
             return Values;
         }
@@ -112,9 +115,15 @@ namespace Supakulltracker
 
         private void linkLabelLinkToTracker_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+            string[] field = superTask.linkToTrackers;
+            PopUpMultipleEditor PopUp = new PopUpMultipleEditor(SuperMethod(sender, field));
         }
-
+        public struct SuperTaskValue
+        {
+            public string linkToTracker { get; set; }
+            public string textBoxValue { get; set; }
+            public Sources source { get; set; }
+        } 
 
     }
 }

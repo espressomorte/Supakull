@@ -55,7 +55,6 @@ namespace Supakulltracker
             this.labelCreatedBy = new System.Windows.Forms.Label();
             this.textBoxCreatedDate = new System.Windows.Forms.TextBox();
             this.labelCreatedDate = new System.Windows.Forms.Label();
-            this.linkLabelLinkToTracker = new System.Windows.Forms.LinkLabel();
             this.textBoxComments = new System.Windows.Forms.TextBox();
             this.labelComments = new System.Windows.Forms.Label();
             this.textBoxAssigned = new System.Windows.Forms.TextBox();
@@ -271,15 +270,6 @@ namespace Supakulltracker
             this.labelCreatedDate.TabIndex = 20;
             this.labelCreatedDate.Text = "CreatedDate";
             // 
-            // linkLabelLinkToTracker
-            // 
-            this.linkLabelLinkToTracker.AutoSize = true;
-            this.linkLabelLinkToTracker.Location = new System.Drawing.Point(16, 332);
-            this.linkLabelLinkToTracker.Name = "linkLabelLinkToTracker";
-            this.linkLabelLinkToTracker.Size = new System.Drawing.Size(0, 13);
-            this.linkLabelLinkToTracker.TabIndex = 24;
-            this.linkLabelLinkToTracker.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLinkToTracker_LinkClicked);
-            // 
             // textBoxComments
             // 
             this.textBoxComments.Location = new System.Drawing.Point(288, 293);
@@ -321,7 +311,6 @@ namespace Supakulltracker
             this.Controls.Add(this.labelAssigned);
             this.Controls.Add(this.textBoxComments);
             this.Controls.Add(this.labelComments);
-            this.Controls.Add(this.linkLabelLinkToTracker);
             this.Controls.Add(this.textBoxCreatedBy);
             this.Controls.Add(this.labelCreatedBy);
             this.Controls.Add(this.textBoxCreatedDate);
@@ -382,7 +371,6 @@ namespace Supakulltracker
         private System.Windows.Forms.Label labelCreatedBy;
         private System.Windows.Forms.TextBox textBoxCreatedDate;
         private System.Windows.Forms.Label labelCreatedDate;
-        private System.Windows.Forms.LinkLabel linkLabelLinkToTracker;
         private System.Windows.Forms.TextBox textBoxComments;
         private System.Windows.Forms.Label labelComments;
         private System.Windows.Forms.TextBox textBoxAssigned;

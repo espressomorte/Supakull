@@ -43,21 +43,7 @@ namespace SupakullTrackerServices
             target.CreatedBy = param.CreatedBy;
             target.Comments = param.Comments;
             target.TokenID = param.TokenID;
-            switch (target.Source)
-            {
-                case Sources.DataBase:
-
-                    break;
-                case Sources.Trello:
-                    target.LinkToTracker = new TrelloManager().GetLinkToTracker(param.LinkToTracker);
-                    break;
-                case Sources.Excel:
-                    break;
-                case Sources.GoogleSheets:
-                    break;
-                default:
-                    break;
-            }
+            target.LinkToTracker = param.LinkToTracker;
 
             if (param.TaskParent != null)
             {

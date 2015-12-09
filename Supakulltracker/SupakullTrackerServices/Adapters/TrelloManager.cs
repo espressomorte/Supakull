@@ -17,6 +17,7 @@ namespace SupakullTrackerServices
         private string UserToken { get; set; }
         public DateTime adapterLastUpdate { get; set; }
         public Int32 MinUpdateTime { get; set; }
+        public Int32 TokenID { get; set; }
 
         public IAdapter GetAdapter(IAccountSettings account)
         {
@@ -27,6 +28,7 @@ namespace SupakullTrackerServices
             adapter.BoardID = Token.BoardID;
             adapter.MinUpdateTime = account.MinUpdateTime;
             adapter.adapterLastUpdate = DateTime.MinValue;
+            adapter.TokenID = Token.TokenId;
             return adapter;
         }
 
@@ -92,29 +94,49 @@ namespace SupakullTrackerServices
             {
                 task.TaskID = card.Name.Substring(card.Name.IndexOf("<") + 1, card.Name.IndexOf(">") - card.Name.IndexOf("<") - 1);
                 task.Summary = card.Name.Remove(card.Name.IndexOf("<"), card.Name.IndexOf(">") - card.Name.IndexOf("<") + 1);
+                task.Assigned = null;
+                task.Description = card.Desc;
+                task.Status = _trello.Lists.ForCard(card).Name;
+                task.Project = _trello.Boards.ForCard(card).Name;
+                task.Priority = card.Badges.Votes.ToString();
+                task.TokenID = TokenID;
+                task.TargetVersion = card.Due.ToString();
+                var comments = _trello.Actions
+                     .AutoPaged(Paging.MaxLimit)
+                     .ForCard(card, new[] { ActionType.CommentCard })
+                     .OfType<CommentCardAction>();
+                foreach (var comment in comments)
+                {
+                    task.Comments = task.Comments + comment.Data.Text + " :By " + comment.MemberCreator.FullName + " At: " + comment.Date.ToString() + "; ";
+                }
+                task.Source = Sources.Trello;
+                task.LinkToTracker = card.Url;
+                return task;
             }
             catch (System.ArgumentOutOfRangeException)
             {
-                task.TaskID = "Please enter TaskId in brackets(<>)";
-                task.Summary = card.Name;
+                task.TaskID = card.Name;
+                task.Assigned = null;
+                task.Description = card.Desc;
+                task.Status = _trello.Lists.ForCard(card).Name;
+                task.Project = _trello.Boards.ForCard(card).Name;
+                task.Priority = card.Badges.Votes.ToString();
+                task.TargetVersion = card.Due.ToString();
+                task.TokenID = TokenID;
+                var comments = _trello.Actions
+                     .AutoPaged(Paging.MaxLimit)
+                     .ForCard(card, new[] { ActionType.CommentCard })
+                     .OfType<CommentCardAction>();
+                foreach (var comment in comments)
+                {
+                    task.Comments = task.Comments + comment.Data.Text + " :By " + comment.MemberCreator.FullName + " At: " + comment.Date.ToString() + "; ";
+                }
+                task.Source = Sources.Trello;
+                task.LinkToTracker = card.GetCardId();
+                return task;
             }
-            task.Assigned = null;
-            task.Description = card.Desc;
-            task.Status = _trello.Lists.ForCard(card).Name;
-            task.Project = _trello.Boards.ForCard(card).Name;
-            task.Priority = card.Badges.Votes.ToString();
-            task.TargetVersion = card.Due.ToString();
-            var comments = _trello.Actions
-                 .AutoPaged(Paging.MaxLimit)
-                 .ForCard(card, new[] { ActionType.CommentCard })
-                 .OfType<CommentCardAction>();
-            foreach (var comment in comments)
-            {
-                task.Comments = task.Comments + comment.Data.Text + " :By " + comment.MemberCreator.FullName + " At: " + comment.Date.ToString() + "; ";
-            }
-            task.Source = Sources.Trello;
-            task.LinkToTracker = card.GetCardId();
-            return task;
+
+
         }
         public Boolean CanRunUpdate()
         {

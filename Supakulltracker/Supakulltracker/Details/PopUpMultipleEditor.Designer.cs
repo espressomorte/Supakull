@@ -38,14 +38,14 @@
             this.popUpFLP.Location = new System.Drawing.Point(0, 0);
             this.popUpFLP.MinimumSize = new System.Drawing.Size(315, 30);
             this.popUpFLP.Name = "popUpFLP";
-            this.popUpFLP.Size = new System.Drawing.Size(325, 298);
+            this.popUpFLP.Size = new System.Drawing.Size(578, 298);
             this.popUpFLP.TabIndex = 0;
             // 
             // PopUpMultipleEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 298);
+            this.ClientSize = new System.Drawing.Size(578, 298);
             this.Controls.Add(this.popUpFLP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PopUpMultipleEditor";

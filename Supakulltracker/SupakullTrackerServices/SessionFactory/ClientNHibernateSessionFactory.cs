@@ -29,11 +29,10 @@ namespace SupakullTrackerServices
 
                     sesionFactoryDictionary.Add(configFile.TokenId, configuration.BuildSessionFactory());
                 }
-
             }
             catch (Exception ex)
             {
-                throw new Exception("Can't create sessionFactory", ex);
+                log.Error("Can't create sessionFactory", ex);
             }
         }
 

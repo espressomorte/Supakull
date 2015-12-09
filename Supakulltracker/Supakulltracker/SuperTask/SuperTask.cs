@@ -48,6 +48,7 @@ namespace Supakulltracker
         public string Comments { get; private set; }
         public string Assigned { get; private set; }
         public string TaskParent { get; private set; }
+        public string Source { get; private set; }
         #endregion
 
         private SuperTask()
@@ -113,7 +114,7 @@ namespace Supakulltracker
             CreatedDate = GetSingleValue(createdDates);
             CreatedBy = GetSingleValue(createdBy);
             LinkToTracker = GetSingleValue(linkToTrackers);
-            LinkToTracker = GetSingleValue(source);
+            Source = GetSingleValue(source);
             Estimation = GetSingleValue(estimations);
             TargetVersion = GetSingleValue(targetVersions);
             Comments = GetSingleValue(comments);
@@ -299,6 +300,7 @@ namespace Supakulltracker
         {
             GetTrackerServicesSoapClient service = new GetTrackerServicesSoapClient();
             ICollection<TaskMainDTO> matchedTasks = service.GetMatchedTasks(task.TaskID, task.Source, task.TokenID);
+
             return new SuperTask(matchedTasks);
         }
     }

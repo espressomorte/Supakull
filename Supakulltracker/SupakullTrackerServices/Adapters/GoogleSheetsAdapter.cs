@@ -52,7 +52,8 @@ namespace SupakullTrackerServices
         private TaskMain GetRowElements(ListEntry row)
         {
             TaskMain tm = new TaskMain();
-
+            tm.LinkToTracker = row.SelfUri.ToString();
+            var str = row.Links;
             tm.TaskID = row.Elements[0].Value;
             if (tm.TaskID == "")
                 tm.TaskID = row.Elements[1].Value;
@@ -71,6 +72,7 @@ namespace SupakullTrackerServices
             {
                 foreach (ListEntry row in listFeed.Entries)
                 {
+                   
                     index--;
                     if (index == 0)
                         task = GetRowElements(row);

@@ -13,13 +13,12 @@ namespace Supakulltracker
 {
     public partial class PopUpMultipleEditor : Form
     {
-        public PopUpMultipleEditor(Dictionary<String, String> values)
+        public PopUpMultipleEditor(List<DetailPanel.SuperTaskValue> values)
         {
             InitializeComponent();
             foreach (var value in values)
             {
-                LabeledTextBox labeledTextBox = new LabeledTextBox(value.Key,value.Value);
-                
+                LabeledTextBox labeledTextBox = new LabeledTextBox(value.source,value.textBoxValue,value.linkToTracker);              
                 this.popUpFLP.Controls.Add(labeledTextBox);
             }
         }
