@@ -221,4 +221,5 @@ ModelManifest.xml
 *.tii
 *.tis
 *.cfs
+*.del
 segments*

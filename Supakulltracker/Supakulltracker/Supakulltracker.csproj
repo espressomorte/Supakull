@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ConverterDtoToDomain.cs" />
     <Compile Include="Details\DetailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -98,6 +99,9 @@
     <Compile Include="Details\PopUpMultipleEditor.designer.cs">
       <DependentUpon>PopUpMultipleEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ITask.cs" />
+    <Compile Include="Domain\TaskMain.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Search\GenerateIndexesForm.cs">
       <SubType>Form</SubType>
     </Compile>
