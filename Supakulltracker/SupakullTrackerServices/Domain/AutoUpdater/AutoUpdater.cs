@@ -44,14 +44,14 @@ namespace SupakullTrackerServices
             if (ReadyForRuningAllAdapters)
             {             
                 ReadyForRuningAllAdapters = false;
-                List<ITask> allTasks = new List<ITask>(500);
+                List<ITask> allTasksFromAdapter = new List<ITask>(500);
                 var result = Int32.TryParse(ConfigurationManager.AppSettings["TimeForIncreaseMinUpdateTime"].ToString(), out TimeForIncreaseMinUpdateTime);
                 IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate()).ToList();
                 Parallel.ForEach(canRunAdapters, a =>
                 {
                     try
                     {    
-                        allTasks.AddRange(RunAdapter(a));
+                        allTasksFromAdapter.AddRange(RunAdapter(a));
                         a.adapterLastUpdate = DateTime.Now;
                     }
                     catch (TrelloNet.TrelloException treloEX)
@@ -68,10 +68,18 @@ namespace SupakullTrackerServices
                 });
                 try
                 {
-                    IMatchTasks taskMatcher = new MatchTasksById();
-                    TaskMain.MatchTasks(allTasks, taskMatcher);
-                    IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
-                    TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                    if(allTasksFromAdapter.Count > 0)
+                    {
+                        IList<TaskMainDAO> taskDaoFromDB = TaskMainDAO.GetAllTasksFromDB();
+                        IList<ITask> taskFromDB = ConverterDAOtoDomain.TaskMainDaoToTaskMain(taskDaoFromDB);
+                        List<ITask> tasksToMatchAndSave = new List<ITask>(allTasksFromAdapter);
+                        tasksToMatchAndSave.AddRange(taskFromDB);
+
+                        IMatchTasks taskMatcher = new MatchTasksById();
+                        TaskMain.MatchTasks(tasksToMatchAndSave, taskMatcher);
+                        IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(tasksToMatchAndSave);
+                        TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                    }                    
                 }
                 catch (Exception ex)
                 {
