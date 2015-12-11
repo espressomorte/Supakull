@@ -15,14 +15,16 @@ namespace SupakullTrackerServices
 
 
         private static Dictionary<IAccountSettings, IAdapter> accountAdapterLastUpdateDic;
+        private static List<ITask> allTasksForAdding;
         private static Timer autoUpdateTimer;
         private static DateTime dateOfLastUpdateAllAccounts;
         private static Int32 StartTimeForAutoUpdater;
         private static Int32 RepeatTimeForAutoUpdater;
         private static Int32 MinTimeForUpdateAllAccounts;
         private static Int32 TimeForIncreaseMinUpdateTime;
-        private static Boolean ReadyForChekingAllAccounts = true;
-        private static Boolean ReadyForRuningAllAdapters = true;
+        private static Boolean readyForChekingAllAccounts = true;
+        private static Boolean readyForRuningAllAdapters = true;
+        private static Boolean isTaskListInUse = false;
 
         static AutoUpdater()
         {
@@ -32,32 +34,33 @@ namespace SupakullTrackerServices
 
             dateOfLastUpdateAllAccounts = DateTime.MinValue;
             accountAdapterLastUpdateDic = new Dictionary<IAccountSettings, IAdapter>();
+            allTasksForAdding = new List<ITask>();
             autoUpdateTimer = new Timer(new TimerCallback(AutoUpdate), null, StartTimeForAutoUpdater, RepeatTimeForAutoUpdater);
         }
         public static void AutoUpdate(Object obj)
         {
-            if (ReadyForChekingAllAccounts)
+            if (readyForChekingAllAccounts)
             {
                 ReadyForUpdateAllAccounts();
             }
 
-            if (ReadyForRuningAllAdapters)
-            {             
-                ReadyForRuningAllAdapters = false;
+            if (readyForRuningAllAdapters)
+            {
+                readyForRuningAllAdapters = false;
                 List<ITask> allTasks = new List<ITask>(500);
                 var result = Int32.TryParse(ConfigurationManager.AppSettings["TimeForIncreaseMinUpdateTime"].ToString(), out TimeForIncreaseMinUpdateTime);
                 IEnumerable<IAdapter> canRunAdapters = accountAdapterLastUpdateDic.Values.Where(ad => ad.CanRunUpdate()).ToList();
                 Parallel.ForEach(canRunAdapters, a =>
                 {
                     try
-                    {    
+                    {
                         allTasks.AddRange(RunAdapter(a));
                         a.adapterLastUpdate = DateTime.Now;
                     }
                     catch (TrelloNet.TrelloException treloEX)
                     {
                         log.Error(treloEX.Message, treloEX);
-                        a.MinUpdateTime += TimeForIncreaseMinUpdateTime; 
+                        a.MinUpdateTime += TimeForIncreaseMinUpdateTime;
                     }
                     catch (Exception ex)
                     {
@@ -68,7 +71,15 @@ namespace SupakullTrackerServices
                 });
                 try
                 {
+                    if (allTasksForAdding.Count > 0)
+                    {
+                        isTaskListInUse = true;
+                        allTasks.AddRange(allTasksForAdding);
+                        allTasksForAdding.Clear();
+                        isTaskListInUse = false;
+                    }
                     IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasks);
+
                     TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
                 }
                 catch (Exception ex)
@@ -77,7 +88,7 @@ namespace SupakullTrackerServices
                 }
                 finally
                 {
-                    ReadyForRuningAllAdapters = true;
+                    readyForRuningAllAdapters = true;
                 }
             }
         }
@@ -98,7 +109,7 @@ namespace SupakullTrackerServices
         {
             try
             {
-                ReadyForChekingAllAccounts = false;
+                readyForChekingAllAccounts = false;
                 var result = Int32.TryParse(ConfigurationManager.AppSettings["MinTimeForUpdateAllAccounts"].ToString(), out MinTimeForUpdateAllAccounts);
                 if ((DateTime.Now - dateOfLastUpdateAllAccounts).TotalMilliseconds > MinTimeForUpdateAllAccounts)
                 {
@@ -135,9 +146,23 @@ namespace SupakullTrackerServices
             }
             finally
             {
-                ReadyForChekingAllAccounts = true;
+                readyForChekingAllAccounts = true;
             }
 
+        }
+
+        public static void AddTaskForSaveving(IList<ITask> tasksForSaving)
+        {
+            if (isTaskListInUse)
+            {
+                do
+                {
+                    Thread.Sleep(250); 
+                } while (isTaskListInUse);
+            }
+                isTaskListInUse = true;
+                allTasksForAdding.AddRange(tasksForSaving);
+                isTaskListInUse = false;   
         }
 
     }

@@ -18,7 +18,7 @@ namespace Supakulltracker
             InitializeComponent();
             valueTextBox.Text = value;
             linkToTrackerTextBox.Hide();
-            if (source == Sources.DataBase)
+            if (source == Sources.DataBase || source == Sources.Excel)
             {
                 SourceLabel.Text = source.ToString() + ": "+ linkToTracker;
                 linkToTrackerTextBox.Hide();

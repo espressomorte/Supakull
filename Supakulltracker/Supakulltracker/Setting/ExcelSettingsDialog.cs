@@ -609,7 +609,17 @@ namespace Supakulltracker
         {
             Dictionary<String, String> templateMapping = new Dictionary<String, String>();
             ExcelAccountSettings settingAccount;
-            List<String> field = Import(cmbTokens.SelectedItem.ToString(), out settingAccount);
+            List<String> field = new List<string>();
+            try
+            {
+                field = Import(cmbTokens.SelectedItem.ToString(), out settingAccount);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+           
             if (settingAccount == null)
             {
                 MessageBox.Show("Please select at least one file!");

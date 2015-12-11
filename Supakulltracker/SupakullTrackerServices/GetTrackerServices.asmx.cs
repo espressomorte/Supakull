@@ -77,8 +77,7 @@ namespace SupakullTrackerServices
                 IList<ITask> allTasksFromexcel = excelAdapter.GetAllTasks();
                 if (allTasksFromexcel != null)
                 {
-                    IList<TaskMainDAO> taskMainDaoCollection = ConverterDomainToDAO.TaskMainToTaskMainDAO(allTasksFromexcel);
-                    TaskMainDAO.SaveOrUpdateCollectionInDB(taskMainDaoCollection);
+                    AutoUpdater.AddTaskForSaveving(allTasksFromexcel);
                     excelAdapter.ID = tokenID;
                     excelAdapter.UpdateTokenLastUpdateTime(updateTime);
                 }

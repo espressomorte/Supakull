@@ -52,7 +52,8 @@ namespace SupakullTrackerServices
         private TaskMain GetRowElements(ListEntry row)
         {
             TaskMain tm = new TaskMain();
-            tm.LinkToTracker = row.SelfUri.ToString();
+            
+            tm.LinkToTracker= row.Feed.Entries.FirstOrDefault().Feed.Links.First().AbsoluteUri.ToString();
             var str = row.Links;
             tm.TaskID = row.Elements[0].Value;
             if (tm.TaskID == "")

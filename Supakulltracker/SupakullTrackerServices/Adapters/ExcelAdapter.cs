@@ -28,6 +28,7 @@ namespace SupakullTrackerServices
         {
             currentAccount = (ExcelAccountSettings)account;
             excelPackegInBytes = bytes;
+            
         }
 
         public ExcelAdapter(Byte[] bytes, Int32 tokID)
@@ -87,7 +88,7 @@ namespace SupakullTrackerServices
             ExcelAccountTemplate template = currentAccount.Template.FirstOrDefault();
             if (template == null)
             {
-                throw new Exception("No Template!");
+                return;
             }
             TaskMain task = new TaskMain();
 
@@ -162,6 +163,10 @@ namespace SupakullTrackerServices
                     task.Assigned.Add(ConverterDAOtoDomain.UserDaoToUser(user));
                 }
             }
+
+            task.LinkToTracker = (from token in currentAccount.Tokens
+                                  where token.TokenId == tokenID
+                                  select token.TokenName).SingleOrDefault();
 
 
             task.Source = Sources.Excel;
